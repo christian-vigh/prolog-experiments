@@ -1,0 +1,77 @@
+.......................................................................
+
+
+                       COMPUTER ALGEBRA IN PROLOG
+                       --------------------------
+
+                         Copyright 1987  S.Vaghi
+
+
+
+   COMPUTER ALGEBRA IN PROLOG consists of four files:
+
+   (READ.ME)           is the present file.
+
+   ALGEBRA.TXT         is a short paper on computer algebra in Prolog.
+                       The paper is self-contained and includes the
+                       listings of the sample programs discussed, with
+                       several examples of applications.
+                       You can print it out on your Epson-compatible
+                       printer (it is formatted by a word processor,
+                       so if you browse through it on the screen you
+                       will see some "funny" characters appear).
+
+   DIFFSV.PRO          is a program in Prolog for the symbolic
+                       differentiation of algebraic functions.
+
+   SIMPSV.PRO          is a program in Prolog for the symbolic
+                       simplification of algebraic functions.
+
+   The two programs are described in the paper, which should be
+   read before using them.
+
+   The programs run under PD Prolog (ver.1.9), a public domain Prolog
+   developed by Bob Morein of Automata Design Associates, 1570 Arran Way,
+   Dresher, PA 19025, who may be contacted to obtain a copy of the program.
+
+   To run the programs you must have the file PDPROLOG.EXE
+   You then proceed as follows
+      enter
+                 pdprolog
+      and at the prolog prompt '?-' first enter
+                                                  consult(diffsv).
+      and, at the following prompt,
+                                                  consult(simpsv).
+
+   At this point you are ready to run the examples discussed in the
+   paper (or any other case involving algebraic functions).
+   To get out of the PDPROLOG environment and come back to DOS,
+   enter
+          exitsys.
+   after the prompt.
+
+
+   The programs should also run with little or no modification under
+   other Prolog interpreters or compilers following the Edimburgh
+   syntax.
+
+
+   COMPUTER ALGEBRA IN PROLOG is placed in the public domain, but
+   the author retains the copyright of the paper and programs.
+
+   You may copy and distribute COMPUTER ALGEBRA IN PROLOG provided
+   that it is done free of charge, that all four files are copied
+   without modifications and, in particular, the copyright notices
+   are not removed or changed.
+
+   I hope you will enjoy these programs.
+   You can send comments and suggestions to
+
+                                             S. Vaghi,
+                                             ESTEC,
+                                             P.O. Box 299,
+                                             2200 AG Noordwijk (ZH),
+                                             The Netherlands.
+
+.....................................................................
+

@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN Loop BENCHMARK
+!**  Average cputime for 200 loops is 1927.777344 msecs.
+!**  Average cputime for 400 loops is 3905.554688 msecs.
+!**  Average cputime for 600 loops is 5933.332031 msecs.
+!**  Average cputime for 800 loops is 7888.882813 msecs.
+!**  Average cputime for 1000 loops is 9633.328125 msecs.
+!**  END Loop BENCHMARK

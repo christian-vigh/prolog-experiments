@@ -1,0 +1,14 @@
+/* winst
+
+Consulting all focussing files
+Alan Bundy 8.7.82 */
+
+?- [
+	conn,		/* operator declarations */
+	focus,		/* top level stuff */
+	makerc,		/* make records from specimens */
+	classi,		/* classify as exs, non-exs or grey */
+	learn		/* and apply focussing */
+	].
+
+

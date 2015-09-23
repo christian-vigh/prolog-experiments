@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="com.amzi.prolog.ui.launch.prologFileListener">
+<stringAttribute key="lsxList" value=""/>
+<stringAttribute key="consultList" value=" '../../Modules/Utilities.pro','Expert.pro'"/>
+<stringAttribute key="cfgPathname" value=""/>
+<stringAttribute key="projectPathname" value="D:\Development\Prolog\Working\Expert System"/>
+<stringAttribute key="loadList" value=""/>
+<stringAttribute key="projectName" value="Working"/>
+</launchConfiguration>

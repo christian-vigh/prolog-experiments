@@ -1,0 +1,10 @@
+% Meta predicates
+
+% Succeeds if there is a direct or indirect belongs link between X and Y
+link(X, Y) :-
+	belongs(X, Y).
+link(X, Y) :-
+	belongs(X, Temp),
+	link(Temp, Y).
+
+

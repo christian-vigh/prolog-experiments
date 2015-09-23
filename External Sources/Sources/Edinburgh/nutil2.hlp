@@ -1,0 +1,283 @@
+%   File   : UTIL2.HLP
+%   Author : L. Hardman
+%   Updated: 7 March 1984
+%   Purpose: Maintain an up-to-date list of predicates in [140,143,UTIL].
+%   Needs  : No other files.
+
+
+
+\=(Item1, Item2)						%IMISCE.PL
+
+add(Rational1, Rational2, Rational1+Rational2)			%LONG.PL
+add_element(Element, Set, Set+Element)				%SETUTL.PL
+add_to_heap(Heap, Key, Item, NewHeap)				%HEAPS.PL
+advise(Predicate, Port, Action)					%ADVICE.PL
+advised(Predicate)						%ADVICE.PL
+append(List1, List2, List1List2)				%LISTUT.PL
+apply(Predicate, Arguments)					%APPLIC.PL
+array_length(Array+Updates, Length)				%ARRAYS.PL
+array_to_list(Array+Updates, List)				%ARRAYS.PL
+ask(Question, Answer)						%ASK.PL
+ask(Question, Default, Answer)					%ASK.PL
+ask_default_character(Specification, Character)			%ASK.PL
+assoc_to_list(Association, List)				%ASSOC.PL
+
+backup(Filename)						%BACKUP.PL
+backup(Filename, BackUpExtension)				%BACKUP.PL
+bag_inter(Bag1, Bag2, Intersection)				%BAGUTL.PL
+bag_of(Template, Generator, Bag)				%SETOF.PL
+bag_to_list(Bag, List)						%BAGUTL.PL
+bag_to_set(Bag, Set_List)					%BAGUTL.PL
+bag_union(Bag1, Bag2, Union)					%BAGUTL.PL
+bagmax(Bag, Most_Frequent_Element)				%BAGUTL.PL
+bagmin(Bag, Least_Frequent_Element)				%BAGUTL.PL
+
+ca								%PP.PL
+ca(AtomPattern)							%PP.PL
+ca(AtomPattern, AnswerList)					%PP.PL
+case_shift(MixedCases, LowerCase)				%RDSENT.PL
+casserta(Clause)						%IMISCE.PL
+cassertz(Clause)						%IMISCE.PL
+cf								%PP.PL
+cf(TermPattern)							%PP.PL
+cf(TermPattern, AnswerList)					%PP.PL
+cgensym(Prefix, NewAtom)					%GENSYM.PL
+chars_to_words(Characters, Words)				%RDSENT.PL
+checkand(Predicate, Conjunction)				%APPLIC.PL
+checkbag(Predicate, Bag)					%BAGUTL.PL
+checklist(Predicate, List)					%APPLIC.PL
+clean								%IMISCE.PL
+close(File, OldFile)						%FILES.PL
+co								%PP.PL
+co(OperatorPattern)						%PP.PL
+co(OperatorPattern, AnswerList)					%PP.PL
+co(Priority, Type, Atom)					%PP.PL
+compound(Term)							%METUTL.PL
+concat(Const1, Const2, Const1Const2)				%GENSYM.PL
+contains(Term, Expression)					%OCCUR.PL
+convlist(Rewrite, List, NewList)				%APPLIC.PL
+copy(Old, New)							%METUTL.PL
+copy_ground(Term, Copy, Substitution)				%STRUCT.PL
+correspond(Element1, List1, List2, Element2)			%LISTUT.PL
+count								%COUNT.PL
+cp								%PP.PL
+cp(TermPattern)							%PP.PL
+cp(TermPattern, AnswerList)					%PP.PL
+
+del_element(Element, Set, Set_-_Element)			%SETUTL.PL
+delete(List, Element, List_-_Element)				%LISTUT.PL
+delete(OpenFile)						%FILES.PL
+disjoint(Set)							%SETUTL.PL
+disjoint(Set1, Set2)						%SETUTL.PL
+
+edit(File)							%EDIT.PL
+empty_queue(Queue)						%QUEUES.PL
+error(Format, List, Action)					%TRACE.PL
+eval(Expression)						%LONG.PL
+eval(Expression, Answer)					%LONG.PL
+exclude(Predicate, List, SubList)				%APPLIC.PL
+expand(File, NewFile)						%EXPAND.PL
+
+fetch(Index, Array, History)					%ARRAYS.PL
+file_exists(File)						%FILES.PL
+findall(Template, Generator, List)				%SETOF.PL
+findall(Template, Generator, SoFar, List)			%SETOF.PL
+flag(Flag, InitialValue)					%FLAGRO.PL
+flag(Flag, Value, NewValue)					%FLAGRO.PL
+forall(Generator, Test)						%INVOCA.PL
+freeof(Term, Expression)					%OCCUR.PL
+fwritef(File, Format)						%WRITEF.PL
+fwritef(File, Format, List)					%WRITEF.PL
+
+gcc(Item)							%IMISCE.PL
+gen_assoc(Association, Key, Value)				%ASSOC.PL
+gensym(Prefix, Symbol)						%GENSYM.PL
+get_assoc(Key, Association , Value)				%ASSOC.PL
+get_from_heap(Heap, Key, Item, NewHeap)				%HEAPS.PL
+get_label(Index, Tree, Label)					%TREES.PL
+give_help							%HELPER.PL
+give_help(Area)							%HELPER.PL
+give_help(Area, Topic)						%HELPER.PL
+ground(Term)							%METUTL.PL
+
+head_queue(Queue, Head)						%QUEUES.PL
+heap_size(Heap, Number_of_Elements_in_Heap)			%HEAPS.PL
+heap_to_list(Heap, List)					%HEAPS.PL
+
+intersect(Set1, Set2)						%SETUTL.PL
+intersect(Set1, Set2, Intersection)				%SETUTL.PL
+is_bag(Bag)							%BAGUTL.PL
+is_digit(Char_Digit)						%RDSENT.PL
+is_endfile(Char_^Z)						%RDSENT.PL
+is_layout(Char_Tab_NewLine_^S_etc)				%RDSENT.PL
+is_letter(Char_LowerCase+UpperCase)				%RDSENT.PL
+is_lower(Char_LowerCase)					%RDSENT.PL
+is_newline(Char_NewLine)					%RDSENT.PL
+is_paren(Left_'([{<', Right_'>}]) ')				%RDSENT.PL
+is_period(Char_'.?!')						%RDSENT.PL
+is_punct(Char_',;:')						%RDSENT.PL
+is_upper(Char_UpperCase)					%RDSENT.PL
+ixref(Files)							%IXREF.PL
+
+join_queue(Element, Queue, NewQueue)				%QUEUES.PL
+jump_queue(Element, Queue, NewQueue)				%QUEUES.PL
+
+last(LastElement, List)						%LISTUT.PL
+length(Bag, Total_Number_of_Elts, Number_of_Distinct_Elts)	%BAGUTL.PL
+length_queue(Queue, Number_of_Elements_in_Queue)		%QUEUES.PL
+lib(File)							%LIB2.PL
+lib(File, Found)						%LIB2.PL
+list_join_queue(List, Queue, NewQueue)				%QUEUES.PL
+list_jump_queue(List, Queue, NewQueue)				%QUEUES.PL
+list_to_array(List, Array)					%ARRAYS.PL
+list_to_assoc(List, Association)				%ASSOC.PL
+list_to_bag(List, Bag)						%BAGUTL.PL
+list_to_heap(List, Heap)					%HEAPS.PL
+list_to_ord_set(List, OrderedSet)				%ORDSET.PL
+list_to_queue(List, Queue)					%QUEUES.PL
+list_to_tree(List, Tree)					%TREES.PL
+listtoset(List, Set)						%SETUTL.PL
+load(Files)							%TYPECH.PL
+
+make_queue(Queue)						%QUEUES.PL
+make_sub_bag(Bag, SubBag)					%BAGUTL.PL
+map_assoc(Predicate, Association, Association)			%ASSOC.PL
+map_tree(Predicate, Tree, NewTree)				%TREES.PL
+mapand(Rewrite, Conjunction, NewConjunction)			%APPLIC.PL
+mapbag(Predicate, Bag, NewBag)					%BAGUTL.PL
+maplist(Predicate, List, NewList)				%APPLIC.PL
+medic(File)							%MEDIC.PL
+member(Element, Multiplicity, Bag)				%BAGUTL.PL
+member(Element, Set)						%SETUTL.PL
+memberchk(Element, Set)						%SETUTL.PL
+merge(List1, List2, MergedList)					%ORDSET.PL
+min_of_heap(Heap, SmallestKey, Item)				%HEAPS.PL
+min_of_heap(Heap, SmallestKey1, Item1, NextSmallestKey2, Item2)	%HEAPS.PL
+multiply(Rational1, Rational2, Rational1*Rational2)		%LONG.PL
+
+nextto(Element_K, Element_K+1, List)				%LISTUT.PL
+nmember(Element_K, List, K)					%LISTUT.PL
+not(Goal)							%INVOCA.PL
+not(Goal)							%NOT.PL
+note_lib(File)							%LIB2.PL
+note_lib(File, Reconsult_or_Compile)				%LIB2.PL
+number(Rational_Number)						%LONG.PL
+numlist(LowInteger, HighInteger, List_of_Integers)		%LISTUT.PL
+
+occ(Subterm, Term, Number_of_Occurrences)			%STRUCT.PL
+occurs_check(Term, Variable)					%METUTL.PL
+occurs_in(Variable, Term)					%METUTL.PL
+on(Command, File)						%PP.PL
+once(Goal)							%INVOCA.PL
+open(File)							%FILES.PL
+open(OldFile, File)						%FILES.PL
+ord_disjoint(Set1, Set2)					%ORDSET.PL
+ord_intersect(Set1, Set2)					%ORDSET.PL
+ord_intersect(Set1, Set2, Intersection)				%ORDSET.PL
+ord_seteq(Set1, Set2)						%ORDSET.PL
+ord_subset(SubSet, Set)						%ORDSET.PL
+ord_subtract(Set1, Set2, Set1-Set2)				%ORDSET.PL
+ord_symdiff(Set1, Set2, Set1-Set2_+_Set2-Set1)			%ORDSET.PL
+ord_union(Set1, Set2, Union)					%ORDSET.PL
+
+p_to_s_graph(P_Graph, S_Graph)					%GRAPHS.PL
+pairfrom(Set, Element1, Element2, Residue)			%SETUTL.PL
+patharg(Path, Expression, Term)					%OCCUR.PL
+perm(List, PermutedList)					%LISTUT.PL
+perm2(Item1, Item2, Item1_or_2, Item2_or_1)			%LISTUT.PL
+plus(Integer1, Integer2, Integer1+Integer2)			%SUCC.PL
+portray_bag(Bag)						%BAGUTL.PL
+portray_number(Rational_Number)					%LONG.PL
+position(Term, Expression, Path)				%OCCUR.PL
+power(Rational1, Rational2, Rational1^Rational2)		%LONG.PL
+pp								%PP.PL
+pp(TermPattern_or_help)						%PP.PL
+prconj(Conjunction)						%WRITEF.PL
+prexpr(Expression)						%WRITEF.PL
+prlist(List)							%WRITEF.PL
+project(Structures, K, List_of_Kth_Arguments)			%PROJEC.PL
+put_assoc(Key, Association, New)				%ASSOC.PL
+put_label(Index, Tree, Label, NewTree)				%TREES.PL
+
+queue_to_list(Queue, List)					%QUEUES.PL
+
+read(Answer, Variables)						%READ.PL
+read_in(Words)							%READIN.PL
+read_line(Characters)						%RDSENT.PL
+read_sent(Words)						%RDSENT.PL
+read_tokens(TokenList, VariableList)				%RDTOK.PL
+read_until(Delimiters, Answer)					%RDSENT.PL
+redo(File)							%EDIT.PL
+remove_dups(List, PrunedList)					%LISTUT.PL
+replace(Path, Expression, SubTerm, NewExpression)		%OCCUR.PL
+reverse(List, ReversedList)					%LISTUT.PL
+
+s_to_p_graph(S_Graph, P_Graph)					%GRAPHS.PL
+s_to_p_trans(S_Graph, Transposed_P_Graph)			%GRAPHS.PL
+select(Element, Set, Residue)					%SETUTL.PL
+serve_queue(Queue, Head, NewQueue)				%QUEUES.PL
+set_of(Template, Generator, Set)				%SETOF.PL
+seteq(Set1, Set2)						%SETUTL.PL
+sf								%IXREF.PL
+sf(Pattern)							%IXREF.PL
+sf(Pattern, Files)						%IXREF.PL
+sick(Functor, Arity)						%MEDIC.PL
+simple(Term)							%METUTL.PL
+simple(Term)							%STRUCT.PL
+some(Predicate, List)						%APPLIC.PL
+sp(Limits)							%IXREF.PL
+sp(Limits, Paths)						%IXREF.PL
+store(Index, Array+Updates, Element, NewArray+NewUpdates)	%ARRAYS.PL
+sublist(Predicate, List, SubList)				%APPLIC.PL
+subseq0(Sequence, SubSequence)					%LISTUT.PL
+subseq1(Sequence, ProperSubSequence)				%LISTUT.PL
+subset(Subset, Set)						%SETUTL.PL
+subst(Substitution, Term, Result)				%STRUCT.PL
+subsumes(General, Specific)					%METUTL.PL
+subsumes_chk(General, Specific)					%METUTL.PL
+subterm(SubTerm, Term)						%METUTL.PL
+subtract(Set1, Set2, Set1-Set2)					%SETUTL.PL
+succ(Predecessors, Successor)					%SUCC.PL
+sumlist(List_of_Integers, Sum_of_Integers)			%LISTUT.PL
+symdiff(Set1, Set2, Set1-Set2_+_Set2-Set1)			%SETUTL.PL
+
+talk_to_user_while(Goal)					%ASK.PL
+test_sub_bag(SubBag, Bag)					%BAGUTL.PL
+tidy(MessyExpression, TidyExpression)				%TIDY.PL
+tidy_withvars(MessyExpression, TidyExpression)			%TIDY.PL
+tlim(TracingLevel)						%TRACE.PL
+toff								%TRACE.PL
+toff(Name)							%TRACE.PL
+ton(Name)							%TRACE.PL
+trace(Format, List, Name)					%TRACE.PL
+trace(Format, TracingLevel)					%TRACE.PL
+transpose(S_Graph, Transposed_S_Graph)				%GRAPHS.PL
+tree_size(Tree, Number_Elements_in_Tree)			%TREES.PL
+tree_to_list(Tree, List)					%TREES.PL
+trim_blanks(RawInput, Cleaned)					%RDSENT.PL
+try_hard_to_see(Title, DeviceDflts, ExtensionDflts)		%TRYSEE.PL
+try_hard_to_see(Title, DeviceDflts, ExtensionDflts, FileFound)	%TRYSEE.PL
+ttyprint(Term)							%WRITEF.PL
+ty(FileList)							%TYPE.PL
+type(FileList)							%TYPE.PL
+type_check(Given, Pruned)					%TYPECH.PL
+
+unadvise(Predicate, Port)					%ADVICE.PL
+unify(Var1, Var2)						%METUTL.PL
+union(Set1, Set2, Union)					%SETUTL.PL
+update(Template, Generator)					%UPDATE.PL
+
+var_member_chk(Variable, List)					%METUTL.PL
+variables(Term, VariableList)					%STRUCT.PL
+variables_of(Term, Variables)					%METUTL.PL
+variant(Term1, Term2)						%METUTL.PL
+vcheck								%VCHECK.PL
+vcheck(File)							%VCHECK.PL
+
+warshall(S_Graph, TransitiveClosure)				%GRAPHS.PL
+well(Functor, Arity)						%MEDIC.PL
+writef(Format)							%WRITEF.PL
+writef(Format, Item)						%WRITEF.PL
+
+yesno(Question)							%ASK.PL
+yesno(Question, Default)					%ASK.PL

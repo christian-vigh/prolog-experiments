@@ -1,0 +1,39 @@
+                   PROLOG SETS-AS-INTERVAL PREDICATES
+                              Jocelyn Paine
+                  Shelved on the 21st of December 1987
+
+
+This entry comes as three files. INTERVALS.PRE is this file;
+INTERVALS.PL contains the predicates; INTERVALS.TST contains tests of
+the predicates, and can be run with the AutoTest program, also in this
+library.
+
+
+To use the predicates, consult INTERVALS.PL, and call what you want. The
+documentation is at the head of INTERVALS.PL. The predicates in
+INTERVALS.PL which are meant to be exported (not private) are commented
+as "PUBLIC".
+
+INTERVALS contains some utility predicates at its head; you may have
+these elsewhere.
+
+
+If you update INTERVALS.PL and want to re-test it, then consult
+AUTOTEST.PL, and then do
+    ?- '$run_test'( 'INTERVALS.TST' ).
+or some equivalent - see the AutoTest documentation.
+
+
+
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : yes.
+
+
+PORTABILITY :
+
+    Easy, no known problems.
+
+
+INTERNAL DOCUMENTATION :
+
+   Comments for each main predicate; the properties of the
+   representation; summary of proofs of correctness.

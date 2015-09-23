@@ -1,0 +1,108 @@
+%%%% Typing utilities for pds
+
+:- public
+	 term_to_vars/2,
+	 typed_term/2,
+	 atom_vartype/3,
+	 vartype/4,
+	 type_check/1.
+
+
+:-mode type(?,?,-,-).
+% type(Type,Name,Terms,TermsType).
+
+type(x,object,[],[]).
+type(0,integer,[0,s(_)],[s(0)]).
+type(1,integer,[0],[]).
+type(10,boolean,
+     [0,1,not(_),and(_,_),or(_,_)],
+     [not(01),and(01,01),or(01,01)]).
+type(io,binary,[nil,o(_),i(_)],[o(io),i(io)]).
+type([],list,[[],[_|_]],[[a|[]]]).
+type([X],'list of',[[],[_|_]],[[X|[X]]]).
+type(bt(L),'binary tree',
+     [leaf(_),t(_,_)],[leaf(L),t(bt(L),bt(L))]).
+type(lbt(X),'labeled binary tree',
+     [nil,t(_,_,_)],[t(lbt(X),X,lbt(X))]).
+type(ttt(L),'two-three tree',
+     [leaf(_),t(_,_,_)],[leaf(L),t(L,L,[ttt(L)])]).
+type(terminal,terminal,[X],[]) :-
+	terminal(X).
+
+% input a variable and its type, instantiate it to a term and
+% return a list of the variables in the term + their types.
+term_to_vars((Term,TermType),Vars) :-
+	term_of(TermType,Term),
+	setof_vartype((Term,TermType),Vars).
+
+term_of(Type,Term) :-
+	type(Type,_,TermList,_),
+	member(Term,TermList).
+
+typed_term(Type,Term) :-
+	type(Type,_,_,TypedTerms),
+	member(Term,TypedTerms).
+
+% atom_vartype(P,Vi,Vo) :- get type of vars in P.
+atom_vartype(P,Vi,Vo) :-
+	input_vars(P,Pi),
+	output_vars(P,Po),
+	terms_to_vartype(Pi,Vi),
+	terms_to_vartype(Po,Vo).
+
+% terms_to_vartype(T,V) :- take a list of (Term,Type) and return a list
+%   of (Var,Type) for all vars in the terms
+terms_to_vartype([],[]).
+terms_to_vartype([(Term,Type)|T],Vs) :-
+	setof_vartype((Term,Type),Vs1),
+	terms_to_vartype(T,Vs2),
+	append(Vs1,Vs2,Vs).
+
+setof_vartype((Term,TermType),Vars) :-
+	setof((Var,Type),vartype(Term,TermType,Var,Type),Vars), !.
+setof_vartype((Term,TermType),[]).
+
+
+% vartype(Term,TermType,Var,VarType) :-
+%       The type of variable Var that occurs in
+%       term Term of type TermType is VarType
+% reports on type violation?
+vartype(Var,Type,Var1,Type1) :-
+	var(Var), !,
+	Var=Var1,
+	Type=Type1.
+vartype(Term,TermType,Var,VarType) :-
+	Term=..[Functor|Args],
+	typed_term(TermType,Term1), Term1=..[Functor|ArgsType],
+	vartype1(Args,ArgsType,Var,VarType).
+
+:-mode vartype1(+,+,-,?).
+vartype1([Term|_],[TermType|_],Var,VarType) :-
+	vartype(Term,TermType,Var,VarType).
+vartype1([_|Args],[_|ArgsType],Var,VarType) :-
+	vartype1(Args,ArgsType,Var,VarType).
+
+
+:-mode type_check(+).
+type_check(:-(P,Q)) :- !,
+	type_check(P), type_check(Q).
+type_check((P,Q)) :- !,
+	type_check(P), type_check(Q).
+type_check(Atom) :-
+	type(Atom,_,_,[AtomType]),
+	type_check(Atom,AtomType).
+
+:-mode type_check(+,+).
+type_check(Term,TermType) :-
+	term_of(TermType,Term),
+	( atomic(Term) ;
+	  Term=..[Functor|Args],
+	    typed_term(TermType,Term1),
+	    Term1=..[Functor|ArgsType],
+	    type_check1(Args,ArgsType) ).
+
+:-mode type_check1(+,+).
+type_check1([],[]).
+type_check1([Term|Args],[TermType|ArgsType]) :-
+	type_check(Term,TermType),
+	type_check1(Args,ArgsType).

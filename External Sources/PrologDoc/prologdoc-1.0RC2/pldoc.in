@@ -1,0 +1,171 @@
+#!@PERL@
+
+use strict;
+use warnings;
+use Getopt::Long;
+use File::Spec;
+
+sub usage;
+sub expand(\$);
+
+my %expand;
+$expand{prefix}      = q(@prefix@);
+$expand{exec_prefix} = q(@exec_prefix@);
+
+my $swipl   = q(@SWIPL@);
+expand $swipl;
+my $pldir   = q(@PLDIR@);
+expand $pldir;
+my $cssdir  = q(@CSSDIR@);
+expand $cssdir;
+
+my $to='.';
+my $cssprefix="$cssdir/";
+my $load='';
+my $sideeffects=0;
+my $verbose=0;
+my $help=0;
+my $tracer=0;
+my $guitracer=0;
+my $footer='';
+
+GetOptions("to|t=s" => \$to,
+	   "prefix|p=s" => \$cssprefix,
+	   "load|l=s" => \$load,
+	   "side-effects|s" => \$sideeffects,
+	   "footer|f=s" => \$footer,
+	   "verbose|v" => \$verbose,
+	   "tracer|z" => \$tracer,
+	   "gui-tracer|Z" => \$guitracer,
+	   "help|?" => \$help)
+  or usage(1);
+
+usage(0) if $help;
+$to='.' if $to eq '';
+$to.='/';
+-d $to or die "destination dir '$to' does not exist or is not a directory\n";
+
+my $main = 'main';
+$main = "trace,main" if $tracer;
+$main = "guitracer,trace,main" if $guitracer;
+
+my @cmd = ($swipl,
+	   -s => $pldir.'/pldoc.pl',
+	   -g => $main,
+	   -t => 'halt',
+	   ($verbose ? () : '-q'),
+	   -p => 'prolog_doc='.$pldir,
+	   '--', $cssprefix,
+	   ($sideeffects ? 'true':'false'),
+	   $footer, $load,
+	   $to,
+	   @ARGV);
+
+print "running @cmd\n" if $verbose;
+exec @cmd;
+
+
+sub expand(\$) { 1 while ${$_[0]}=~s/\$\{(.*?)\}/$expand{$1}/ge }
+
+sub usage {
+  print STDERR <<EOU;
+Usage:
+  $0 \\
+       [-v|--verbose] [-l|--load preload_file] \\
+       [-p|--prefix prefix_for_html_elements] \\
+       [-s|--side-effects] [-f|--footer <footer>] \\
+       [-t|--to dest_dir] \\
+       file1.pl file2.pl ...
+
+EOU
+  exit(shift);
+}
+
+__END__
+
+=head1 NAME
+
+pldoc - generate documentation from prolog source files
+
+=head1 USAGE
+
+  $ pldoc [-v|--verbose] [-l|--load preload_file] \
+          [-p|--prefix prefix_for_html_elements] \
+          [-s|--side-effects] [-f|--footer <footer>] \
+          [-t|--to dest_dir] \
+          file1.pl file2.pl ...
+
+=head2 Options
+
+The options accepted by pldoc are:
+
+=over 4
+
+=item --verbose
+
+=item -v
+
+verbose mode
+
+=item --prefix <prefix_for_html_elements>
+
+=item -p <prefix_for_html_elements>
+
+prefix references to external HTML elements as CSS style sheets and
+images with the passed argument. This is useful if you want to publish
+the generated documentation on a web server, i.e.:
+
+  pldoc --prefix http://foo-prolog.com/docs/style_sheets/ foo.pl
+
+The default prefix is the absolute path of the PrologDoc
+library, i.e. C</usr/local/lib/prologdoc/css/>.
+
+=item --load <prolog_file>
+
+=item -l <prolog_file>
+
+prolog file containing operator definitions to preload before parsing the
+files to document.
+
+=item --side-effects
+
+=item -s
+
+document side effects.
+
+=item --footer <footer>
+
+=item -f <footer>
+
+footer to include on HTML generated pages, i.e.:
+
+  pldoc -f "Copyright (c) 2004 Homer Simpson. All rights reserved." peanuts.pl
+
+=item --to <destination_dir>
+
+=item -t <destination_dir>
+
+destination directory to place the generated documents
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 1999 by Elisheva Bonchek (le7bonch AT cs.huji.ac.il)
+and Sara Cohen (sarac AT ie.technion.ac.il, http://iew3.technion.ac.il/~sarac).
+Copyright (C) 2004 by Bram Adams (bram.adams AT ugent.be).
+Copyright (C) 2004 by Salvador Fandino (sfandino@yahoo.com).
+
+PrologDoc is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2 of the License, or (at your
+option) any later version.
+
+PrologDoc is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with PrologDoc; if not, write to the Free Software Foundation,
+Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA

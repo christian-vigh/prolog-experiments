@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipboardContents>
+	<clipboardContent>
+		<transfer>org.eclipse.swt.dnd.TextTransfer</transfer>
+		<label></label>
+		<content></content>
+	</clipboardContent>
+	<clipboardContent>
+		<transfer>org.eclipse.swt.dnd.TextTransfer</transfer>
+		<label></label>
+		<content></content>
+	</clipboardContent>
+	<clipboardContent>
+		<transfer>org.eclipse.swt.dnd.TextTransfer</transfer>
+		<label>/****f* module/function ------------------------------------------------------------------------------- * * PREDICATE * * SYNTAX * * PURPOSE * * ARGUMENTS * * NOTES * ------------------------------------------------------------------------------- * SOURCE */</label>
+		<content>/****f* module/function
+ -------------------------------------------------------------------------------
+ *
+ * PREDICATE
+ *
+ * SYNTAX
+ *
+ * PURPOSE
+ *
+ * ARGUMENTS
+ *
+ * NOTES
+ *
+ -------------------------------------------------------------------------------
+ * SOURCE
+ */
+</content>
+	</clipboardContent>
+	<clipboardContent>
+		<transfer>org.eclipse.swt.dnd.TextTransfer</transfer>
+		<label>/****h* module/name =============================================================================== * * NAME * Array - Array-manipulation predicates. * * FILE * Modules/Array.pro * * CONTENTS * Implements array as property bags. * * USES * Properties.Pro, list.Pro * * AUTHOR * Christian Vigh, July 2005. * =============================================================================== ******/</label>
+		<content>/****h* module/name
+ ===============================================================================
+ *
+ * NAME
+ *	Array - Array-manipulation predicates.
+ *
+ * FILE
+ *	Modules/Array.pro
+ *
+ * CONTENTS
+ *	Implements array as property bags.
+ *
+ * USES
+ *	Properties.Pro, list.Pro
+ *
+ * AUTHOR
+ *	Christian Vigh, July 2005.
+ *
+ ===============================================================================
+ ******/
+</content>
+	</clipboardContent>
+</clipboardContents>

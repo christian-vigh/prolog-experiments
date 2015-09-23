@@ -1,0 +1,174 @@
+%%---------------------------------------------------------------------------
+%% KINYARWANDA test sentences
+%%----------------------------------------------------------------------------
+
+% Regular clauses
+
+#1 umw-aana a-ra-lir-a.
+	% the child is crying
+
+
+#2 umu-kobwa y-a-haa-ye umw-aana ikaramu.
+	% the girl gave the child a pen
+
+#3 umu-gabo y-a-heer-eye aba-gore ab-aana ibitabo.
+	% the man gave the books to the children for the women
+
+#4 umu-gore y-a-heesh-eje umw-aana amata inkoongooro.
+	% the woman gave milk to the child in a bowl
+
+#5 umu-gabo a-ra-andik-a ibaruwa n-ikaramu.
+	% the man is writing a letter with a pen
+
+% Multiple objects
+
+#6 Yohani y-ooherer-eje Maria ibaruwa.          
+	% John sent a letter to Maria
+
+#7 Yohani y-ooherer-eje ibaruwa Maria.
+	% ditto
+
+#8 Yohani y-a-yi-mw-ooherer-eje.                 
+	% John sent it to her
+
+#9 umu-gabo a-ra-andikeesh-a ibaruwa ikaramu.
+	% the man is writing a letter with a pen
+
+#10 Yohani y-a-anditse ku meza n-ikaramu.
+	% John wrote on the table with a pen
+
+#11 Yohani y-a-anditseho meza n-ikaramu.
+	% idem.
+
+#12 umu-gore y-ooher-eje umu-booyi kw-isoko.       
+	% the woman sent the cook to the marketplace
+
+#13 umu-gore y-ooherejeho isoko umu-booyi.
+    % idem.
+
+#14 umu-gabo y-a-tem-eje igiti n-umu-paanga. 
+    % the man cut the tree down with a saw
+
+#15 umu-gabo y-a-temejeesha umu-paanga igiti.
+    % idem
+
+#16 Maria y-a-tets-e inkoko n-agahiinda.   
+    % Maria cooked the chicken with pain
+
+#17 Maria y-a-tekan-ye agahiinda inkoko.
+    % idem
+
+#18 umu-huungu y-a-riimb-jye uru-riimbi na-umu-gore. 
+    % the boy sang a song with the woman
+
+#19 umu-huungu y-a-riimban-ye umu-gore uru-riimbi.
+    % idem
+
+#20 umu-gore a-ra-korer-a umu-gabo.     
+	% the woman works for the man
+
+% Existential and presentative clauses
+
+#21 hari umw-aana u-rir-a.         
+	% There is a child who is crying
+
+#22 kyeera hariho umu-gabo.       
+	% hace tiempo hab°a un hombre
+
+#23 buceeye ha-a-z-a umu-gabo.     
+	% al dia siguiente lleg¢ un hombre
+
+#24 haafi yumu-gezi ha-a-rgyam-ye umu-gabo.
+	% cerca del rio yac°a un hombre
+
+% Passives
+
+#25 umw-aalimu y-ooher-eje igitabo kw-iishuñri. 
+	% the teacher sent the book to the schhol
+
+#26 umw-aalimu y-ooherejeho iishuñri igitabo.
+    % idem
+
+#27 ishuñri ry-ooherejeweho igitabo n-uumw-aalimu.
+    % idem (passive of 10)
+
+#28 umu-booyi y-ooher-ej-we kw-isoko.                
+	% the cook was sent to the marketplace
+
+#29 isoko ry-ooherejweho umu-booyi.
+    % idem (passive over the LOC)
+
+#30 umu-paanga wa-temeesh-ej-we igiti.        
+	% the tree has been cut down with a saw (passive over the INSTR)
+
+% Subordinate clauses
+
+#31 y-a-tekere-je ko amazi yari maremare.  
+	% he thought that the water was profound
+
+#32 y-a-tekere-je ngo amazi yari maremare.        
+	% the thought (err¢neamente) que el agua era profunda
+
+#33 y-a-bgi-ye ko wa-kora-ga cyaane.  
+	% He said that you have worked a lot
+
+#34 y-a-bgi-ye ngo wa-kora-ga cyaane.
+	% dijo que has trabajado mucho
+
+#35 ab-aana ba-taangi-ye gu-soma ibitabo.     
+	% the children began to read the books
+
+#36 gu-soma ibitabo bi-taangi-w-e n-aab-aana.
+	% the books began to be read by the children
+
+#37 abaantu bi-iigir-a ku-menya ubweenge.    
+	% people studies to learn
+
+% Relative clauses
+
+#38 (SN) ibaruwa Maria y-oherer-ej-w-e.
+	% la carta que enviaron a Maria (Blake 52)
+
+#39 ngiiyi ibaruwa umu-gabo y-andik-iish-a ikaramu.
+	% esta es la carta que el hombre est· escribiendo con una pluma
+
+#40 n-a-bonye umu-gabo w-a-kubise aba-gore.
+	% vi al hombre que golpeÛ a la mujer
+
+#41 n-a-bonye aba-gore Yohani y-a-kubise.
+	% vi a la mujer que Juan golpeÛ
+
+#42 Yohani y-andik-ishi-je ikaramu ibaruwa.
+	% Juan escribiÛ la carta con la pluma
+
+#43 n-a-bonye ikaramu Yohani y-andik-ishi-je ibaruwa.
+	% he visto la pluma con la que Juan escribiÛ la carta
+
+#44 umu-gabo y-a-haa-ye umu-gore igitabo.
+    % el hombre dio un libro a la mujer
+
+#45 (SN) igitabo umu-gabo y-a-haa-ye umu-gore.
+    % el libro que el hombre dio a la mujer
+
+#46 (SN) umu-gore umu-gabo y-a-haa-ye igitabo.
+    % la mujer a la que el hombre dio un libro
+
+%% Other types of clauses
+
+#47 umu-gore y-a-vun-ye ukuboko k-uumw-aana.
+	% la mujer rompiÛ el brazo del ni§o
+
+#48 umu-gore y-a-vun-ye umw-aana ukuboko.
+	% la mujer le rompiÛ el brazo al ni§o
+
+#49 umu-gore a-ra-bi-yi-mu-heer-a.
+	% la mujer se lo da para Èl
+
+#50 y-a-bon-ye umu-gabo.
+	% êl vio un hombre (MB 159)
+
+#51 umu-gabo y-a-mu-bon-ye.
+    % Al hombre lo vio (MB 160)
+
+
+

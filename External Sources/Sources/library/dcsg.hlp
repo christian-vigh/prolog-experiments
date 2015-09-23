@@ -1,0 +1,8 @@
+Definite Clause Slash Grammars are a variation of DCGs which allow
+Gazdar-style slash catgories and a limited form of rule schemas.
+
+DCSG.PL		is a Prolog source file which defines a predicate
+		dcsg(Files) for loading files containing dcsgs.
+DCSG.EX		is a collection of small examples of dcsgs.
+
+

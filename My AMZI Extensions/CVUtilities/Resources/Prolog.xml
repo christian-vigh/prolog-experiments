@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE prolog [
+
+<!ELEMENT prolog (type | predicate )*>
+
+<!ELEMENT value EMPTY>
+<!ATTLIST value
+	content CDATA #IMPLIED
+	content-type CDATA #IMPLIED
+	returned-type CDATA #IMPLIED
+	returned-value CDATA #IMPLIED
+	type CDATA #IMPLIED>
+
+<!ELEMENT atom (value*)>
+<!ATTLIST  atom
+	name CDATA #REQUIRED
+	type CDATA #IMPLIED
+	description CDATA #IMPLIED
+	access (read | write | readwrite) 'read'>
+	
+<!ELEMENT list (value | atom | list | predicate | variant)*>
+<!ATTLIST list 
+	name CDATA #REQUIRED
+	type CDATA #IMPLIED
+	description CDATA #IMPLIED
+	access (read | write | readwrite) 'read'>
+	
+<!ELEMENT arglist EMPTY>
+<!ATTLIST arglist
+	type CDATA #REQUIRED
+	description CDATA #IMPLIED
+	access (read | write | readwrite) 'read'>
+	
+<!ELEMENT variant ((value | atom | list | predicate| variant)*, arglist?)> 
+<!ATTLIST variant 
+	description CDATA #IMPLIED
+	access (read | write | readwrite) 'read'>
+
+<!ELEMENT type ((value | atom | list | predicate | variant)*, arglist?)> 
+ <!ATTLIST type
+	name CDATA #REQUIRED
+	type CDATA 'atom'
+	description CDATA #IMPLIED
+	access (read | write | readwrite) 'read'>
+
+<!ELEMENT predicate ((value | atom | list | predicate| type | variant)*, arglist?)> 
+<!ATTLIST predicate 
+	name CDATA #REQUIRED
+	description CDATA #IMPLIED
+	access (read | write | readwrite) 'read'>
+
+ ]>
+
+<prolog>
+
+<type name="window-style">
+	<value content="ws_clipsiblings" returned-type="integer" returned-value="0x0000"/>
+</type>
+
+<type name="coordinate">
+	<variant>
+		<value content="default" returned-type="integer" returned-value="-1"/>
+	</variant>
+	<variant>
+		<value type="integer"/>
+	</variant>
+</type>
+
+<predicate name="alias">
+	<atom  name="Alias"/>
+</predicate>
+
+<predicate name="windowproc">
+	<atom  name="Proc"/>
+</predicate>
+
+<predicate name="title">
+	<atom  name="Title"/>
+</predicate>
+
+<predicate name="attributes">
+	<arglist type="window-style"/>
+</predicate>
+
+<predicate name="size">
+	<variant>
+		<atom name="Max">
+			<value content="maximized" returned-type="integer, integer, integer, integer" returned-value="-1, -1, -1, -1"/>
+		</atom>
+	</variant>
+	<variant>
+		<atom  name="X" type="coordinate"/>
+		<atom  name="Y" type="coordinate"/>
+		<atom  name="CX" type="coordinate"/>
+		<atom  name="CY" type="coordinate"/>
+	</variant>
+</predicate>
+
+<predicate name="menu">
+	<arglist type="menu-item"/>
+</predicate>
+
+
+<type name="menu-item">
+	<variant>
+		<predicate name="popup"/>
+	</variant>
+	<variant>
+		<predicate name="item"/>
+	</variant>
+	<variant>
+		<value content="separator"/>
+	</variant>
+</type>
+
+<predicate name="popup">
+	<atom  name="PopupTitle"/>
+	<arglist  type="menu-items"/>
+</predicate>
+
+<predicate name="item">
+	<atom name="ItemTitle"/>
+	<predicate name="item-command"/>
+	<atom name="Accelerator"/>
+	<atom name="Description"/>
+</predicate>
+
+
+<type name="mainwindow-attributes" type="list">
+	<predicate name="alias"/>
+	<predicate name="title"/>
+	<predicate name="size"/>
+	<predicate name="attributes"/>
+	<predicate name="windowproc"/>
+	<predicate name="menu"/>
+</type> 
+
+<predicate name="mainwindow">
+	<atom name="ID" access="readwrite"/>
+	<list name="Params" type="mainwindow-attributes"/>
+</predicate>
+
+</prolog>

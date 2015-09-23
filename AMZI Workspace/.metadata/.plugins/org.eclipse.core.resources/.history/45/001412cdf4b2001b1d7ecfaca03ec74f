@@ -1,0 +1,69 @@
+
+
+:- op( 500, xfx, covers ).
+:- op( 700, xfx, ..).
+:- op( 700, xfx, within).
+
+
+
+% Assignment operator
+X covers interval(Left, Low .. High, Right) :-		% X covers interval(<,1-100,>)
+	interval( X, Left, Low, High, Right ).
+
+X covers interval(Low .. High) :-			% X covers interval(1-100) :
+	interval(X, <, Low, High, >).			% Inclusive interval
+
+X covers Low .. High :-					% X covers 1-100 : inclusive interval
+	interval(X, <, Low, High, >).
+
+X covers <>(Low .. High) :-				% X covers <>(1-100) left- and right-inclusive
+	interval( X, <, Low, High, > ).
+X covers <<(Low .. High) :-				% X covers <<(1-100) left-inclusive, right-exclusive
+	interval( X, <, Low, High, < ).
+X covers >>(Low .. High) :-				% X covers >>(1-100) left-exclusive, right-inclusive
+	interval( X, >, Low, High, > ).
+X covers ><(Low .. High) :-				% X covers ><(1-100) left-exclusive, right-exclusive
+	interval( X, >, Low, High, < ).
+
+
+X covers [L..H|T] :-					% Multiple disjoint intervals
+	XH covers L..H,					% using the interval() functor
+	XT covers T,
+	X = [XH, XT].
+	
+X covers [H|T] :-					% Multiple disjoint intervals
+	XH covers H,					% using the interval() functor
+	XT covers T,
+	X = [XH | XT].
+[] covers [].
+
+
+% Build an interval
+interval(X, Left, Low, High, Right) :-
+	interval_left(  Left,  Low, Value1),
+	interval_right(Right, High, Value2),
+	X = [Left, Value1, Value2, Right].
+	
+
+% Aliases for infinity
+infinity('inf').
+infinity('infinite').
+infinity('infinity').
+
+
+% Check exclusion/inclusion of low value
+% (allow inclusive range for infinity)
+interval_left(_, Keyword, -inf) :-
+	infinity(Keyword).
+interval_left(>, inf, -inf).
+interval_left(>, Value, Value).
+interval_left(<, Value, Value).	
+
+
+interval_right(_, Keyword, +inf) :-
+	infinity(Keyword).
+interval_right(>, inf, +inf).
+interval_right(>, Value, Value).
+interval_right(<, Value, Value).	
+
+

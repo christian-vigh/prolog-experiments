@@ -1,0 +1,53 @@
+                     PROLOG GRAPH-HANDLING ROUTINES
+                          Author: Paul Freedman
+                     Received on 15th December 1990
+                   Shelved on the 12th of January 1991
+
+
+This entry is two programs:  one for decomposing a non-weighted directed
+graph  into strongly  connected components;  and the  other for  finding
+simple and elementary cycles in a strongly connected component.
+
+
+The entry comes as six files:
+    GRAPH.PRE   - This file.
+    DFS.PL      - The  first  program,  for decomposing  a  non-weighted
+                  directed graph into strongly connected components.
+    CYCLES.PL   - The second program,  for finding cycles  in a strongly
+                  connected component.
+    UTILITIES.PL- Utility routines used by both DFS and CYCLES.
+    EG.PL       - an example graph (as Prolog terms) which can be
+                  given as input to DFS.PL.
+    GRAPH.DOC   - Documentation and references.
+
+
+The program is  written for SICStus Prolog, which  is Quintus compatible
+and hence  uses `standard' Edinburgh syntax.  The only non-portabilities
+are the I/O, which calls some non-standard Phigs stuff. I [JNP] have not
+changed these to make them portable.
+
+
+Although  the programs  are commented,  it would  probably help  to know
+something  about  graph  theory.  GRAPH.DOC  gives  the  most  important
+references  for the  algorithms  behind the  programs.  (of course,  the
+algorithms as they appear in the programs don't correspond 100% with the
+references).
+
+GRAPH.DOC also contains a Unix script describing how the program is used
+(in SICStus prolog version 0.6 running on a Sun-4 Sparcstation).
+
+The first program,  "dfs_scc", accepts as input a  directed graph called
+"eg" and creates an output file called "eg_scc".
+
+The second program, "cycles", accepts  as input the file called "eg_scc"
+(you just  type the  "eg" part,  and it  adds the  rest) and  creates an
+output file called "eg_cy".
+
+
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : no.
+
+PORTABILITY : OK, except that you'll need to change some of the I/O
+calls.
+
+INTERNAL DOCUMENTATION  : comments in the program source, plus
+literature references.

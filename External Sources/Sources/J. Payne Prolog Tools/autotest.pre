@@ -1,0 +1,31 @@
+                      PROLOG PREDICATE AUTO-TESTER
+                              Jocelyn Paine
+                  Shelved on the 21st of December 1987
+
+
+This entry comes as four files:
+
+    This one          : AUTOTEST.PRE
+    The source        : AUTOTEST.PL
+    The documentation : AUTOTEST.TXT
+    A test file       : AUTOTEST.TST
+
+
+AUTOTEST.TXT describes  how to  test predicates, and  the format  of the
+files needed.
+
+To use AutoTest, consult AUTOTEST.PL,  and call '$run' or '$run_test' on
+your steering file or test file.                    
+
+
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : yes.
+
+
+PORTABILITY :
+
+    Easy, except possibly for trapping errors during testing.
+
+
+INTERNAL DOCUMENTATION :
+
+    Comments for each predicate, sample output.

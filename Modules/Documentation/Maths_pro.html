@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/Maths_pro.html</title>
+<!-- Source: ./Maths.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo5">Modules/Maths</a></li>
+<li>2. <a href="#robo84">Modules.Maths/average</a></li>
+<li>3. <a href="#robo85">Modules.Maths/c</a></li>
+<li>4. <a href="#robo86">Modules.Maths/fact</a></li>
+<li>5. <a href="#robo87">Modules.Maths/p</a></li>
+<li>6. <a href="#robo88">Modules.Maths/pgcd</a></li>
+<li>7. <a href="#robo89">Modules.Maths/sigma</a></li>
+<li>8. <a href="#robo90">Modules.Maths/sum</a></li>
+<li>9. <a href="#robo91">Modules.Maths/sumtoN</a></li>
+</ul>
+<hr />
+<a name="Modules2fMaths">
+</a><a name="robo5"></a><h2>Modules/Maths [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      Math - Mathematical predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">Maths.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Implements a few mathematical/algebraic functions.
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, July 2005.
+
+</pre>
+
+<hr />
+<a name="Modules2eMaths2faverage">
+</a><a name="robo84"></a><h2>Modules.Maths/average [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>average</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>average</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Sets [Result] to the <strong>average</strong> value of elements in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose <strong>average</strong> value is to be computed.
+      [Result] (o) -
+              Average value of all the elements in [List].
+
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>average</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+<strong>average</strong><span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        doaverage<span class="sign">(</span>List<span class="sign">,</span> 0<span class="sign">,</span> 0<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+doaverage<span class="sign">(</span><span class="sign">[</span>X<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Counter<span class="sign">,</span> Sum<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewSum <span class="keyword">is</span> Sum <span class="sign">+</span> X<span class="sign">,</span>
+        NewCounter <span class="keyword">is</span> Counter <span class="sign">+</span> 1<span class="sign">,</span>
+        doaverage<span class="sign">(</span>Tail<span class="sign">,</span> NewCounter<span class="sign">,</span> NewSum<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+doaverage<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> Counter<span class="sign">,</span> Sum<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Result <span class="keyword">is</span> Sum <span class="sign">/</span> Counter<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMaths2fc">
+</a><a name="robo85"></a><h2>Modules.Maths/c [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>c</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>c</strong>(N, P, Result).
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Computes the number of combinations :
+                          n!
+              C(n,<a href="#robo87">p</a>) = ---------
+                       <a href="#robo87">p</a>! (n-<a href="#robo87">p</a>)!
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [N] (i) -
+              Number of elements in the <a href="./List_pro.html#robo70">set</a> to be considered.
+      [P] (i) -
+              Number of elements from the <a href="./List_pro.html#robo70">set</a> to compute combinations of.
+      [Result] (o) -
+              Result of P(n,<a href="#robo87">p</a>).
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>c</strong><span class="sign">(</span>N<span class="sign">,</span> P<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        N <span class="sign">&lt;</span> 1<span class="sign">;</span> P <span class="sign">&lt;</span> 1<span class="sign">;</span> N <span class="sign">&lt;</span> P<span class="sign">,</span> 
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>
+<strong>c</strong><span class="sign">(</span>N<span class="sign">,</span> P<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo86">fact</a><span class="sign">(</span>P<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo87">p</a><span class="sign">(</span>N<span class="sign">,</span> P<span class="sign">,</span> R<span class="sign">)</span><span class="sign">,</span>
+        Result <span class="keyword">is</span> R <span class="sign">/</span> X<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMaths2ffact">
+</a><a name="robo86"></a><h2>Modules.Maths/fact [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>fact</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>fact</strong>(Number, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the factorial of [Number].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Number] (i) -
+              Number whose factorial is to be computed/
+      [Result] (o) -
+              Factorial of [Number].
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>fact</strong><span class="sign">(</span>Number<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Number <span class="sign">&lt;</span> 0<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>
+<strong>fact</strong><span class="sign">(</span>0<span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>fact</strong><span class="sign">(</span>1<span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>fact</strong><span class="sign">(</span>Number<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewNumber <span class="keyword">is</span> Number <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>fact</strong><span class="sign">(</span>NewNumber<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        Result <span class="keyword">is</span> X <span class="sign">*</span> Number<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMaths2fp">
+</a><a name="robo87"></a><h2>Modules.Maths/p [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>p</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>p</strong>(N, P, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Computes the number of permutations :
+                         n!
+              P(n,<strong>p</strong>) = ------
+                       (n-<strong>p</strong>)!
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [N] (i) -
+              Number of elements in the <a href="./List_pro.html#robo70">set</a> to be considered.
+      [P] (i) -
+              Number of elements from the <a href="./List_pro.html#robo70">set</a> to compute permutations of.
+      [Result] (o) -
+              Result of P(n,<strong>p</strong>).
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>p</strong><span class="sign">(</span>N<span class="sign">,</span> P<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        N <span class="sign">&lt;</span> 1<span class="sign">;</span> P <span class="sign">&lt;</span> 1<span class="sign">;</span> N <span class="sign">&lt;</span> P<span class="sign">,</span> 
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>
+<strong>p</strong><span class="sign">(</span>N<span class="sign">,</span> P<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo86">fact</a><span class="sign">(</span>N<span class="sign">,</span> NFact<span class="sign">)</span><span class="sign">,</span>
+        NP <span class="keyword">is</span> N <span class="sign">-</span> P<span class="sign">,</span>
+        <a href="#robo86">fact</a><span class="sign">(</span>NP<span class="sign">,</span> NPFact<span class="sign">)</span><span class="sign">,</span>
+        Result <span class="keyword">is</span> NFact <span class="sign">/</span> NPFact<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMaths2fpgcd">
+</a><a name="robo88"></a><h2>Modules.Maths/pgcd [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>pgcd</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>pgcd</strong>(X,Y,Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Computes the <strong>pgcd</strong> of [X] and [Y].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [X], [Y] (i) -
+              Values for which to compute the <strong>pgcd</strong>.
+      [Result] (o) -
+              Greatest common divisor of [X] and [Y].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>pgcd</strong><span class="sign">(</span>X<span class="sign">,</span> X<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>pgcd</strong><span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        A <span class="sign">&gt;</span> B<span class="sign">,</span>
+        NewA <span class="keyword">is</span> A <span class="sign">-</span> B<span class="sign">,</span>
+        <strong>pgcd</strong><span class="sign">(</span>NewA<span class="sign">,</span> B<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>pgcd</strong><span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        A <span class="sign">&lt;</span> B<span class="sign">,</span>
+        NewB <span class="keyword">is</span> B <span class="sign">-</span> A<span class="sign">,</span>
+        <strong>pgcd</strong><span class="sign">(</span>A<span class="sign">,</span> NewB<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMaths2fsigma">
+</a><a name="robo89"></a><h2>Modules.Maths/sigma [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>sigma</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>sigma</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] to the multiplication of every element in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose elements are to be multiplied.
+      [Result] (o) -
+              Result of the multiplication.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>sigma</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+<strong>sigma</strong><span class="sign">(</span>X<span class="sign">,</span> 0<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>          <span class="comment">% If one element is zero, then the result of the multiplication is zero</span>
+        <a href="./List_pro.html#robo42">belongs</a><span class="sign">(</span>0<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>  
+<strong>sigma</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>sigma</strong><span class="sign">(</span>Tail<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        Result <span class="keyword">is</span> TempResult <span class="sign">*</span> X<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMaths2fsum">
+</a><a name="robo90"></a><h2>Modules.Maths/sum [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>sum</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>sum</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <strong>sum</strong> of all elements in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose elements are to be summed.
+      [Result] (o) -
+              Sum of all the elements in [List].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>sum</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>             <span class="comment">% Allow for empty lists</span>
+<strong>sum</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>sum</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>sum</strong><span class="sign">(</span>T<span class="sign">,</span> XBis<span class="sign">)</span><span class="sign">,</span> X <span class="keyword">is</span> XBis <span class="sign">+</span> H<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMaths2fsumtoN">
+</a><a name="robo91"></a><h2>Modules.Maths/sumtoN [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>sumtoN</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>sumtoN</strong>(N, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <a href="#robo90">sum</a> of integers from 1 to [N].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [N] (i) -
+              Last integer to <a href="#robo90">sum</a>.
+      [Result] (o) -
+              Sum of all the elements from 1 to N.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>sumtoN</strong><span class="sign">(</span>0<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+<strong>sumtoN</strong><span class="sign">(</span>N<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewN <span class="keyword">is</span> N <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>sumtoN</strong><span class="sign">(</span>NewN<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        Result <span class="keyword">is</span> X <span class="sign">+</span> N<span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Maths.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:10
+</p>
+</div> <!-- footer -->
+</body>
+</html>

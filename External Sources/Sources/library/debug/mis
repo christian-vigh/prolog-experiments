@@ -1,0 +1,37 @@
+/* The model inference system */
+
+:- initialized -> true ;
+   ['xref.def'], compile([misrg,dsutil,pdsref,type]),
+   [pdsini,pdsdc,pdsdb,missrc],
+   assert(initialized).
+
+mis :-  nl, ask_for('Next fact',Fact),
+	( Fact=check -> check_fact(_) ;
+	  Fact=(P,V), (V=true ; V=false)  -> assert_fact(P,V), check_fact(P) ;
+	  write('!Illegal input'), nl ),
+	!, mis.
+
+check_fact(P) :-
+	write('Checking fact(s)...'), ttyflush,
+	( fact(P,true), \+solve(P) ->
+	    nl, missing_solution(P), check_fact(_) ;
+	  fact(P,false), solve(P) ->
+	    nl, false_solution(P), check_fact(_) ;
+	  write('no error found.'), nl ).
+
+solve(P) :-
+	solve(P,X),
+	( X=(overflow,S) -> nl, stack_overflow(P,S), solve(P) ; true ).
+
+handle_error('false clause',X) :-
+	writelv(['Error diagnosed: ',X,' is false.']), nl,
+	retract(X), plisting(X).
+handle_error('uncovered atom',X) :-
+	writelv(['Error diagnosed: ',X,' is uncovered.']), nl,
+	search_for_cover(X,C),
+	assert(C),  plisting(X).
+handle_error('diverging clause',X) :-
+	writelv(['Error diagnosed: ',X,' is diverging.']), nl,
+	retract(X), plisting(X).
+
+:- assert(value(search_strategy,adaptive)).

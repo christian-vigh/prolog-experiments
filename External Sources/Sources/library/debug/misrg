@@ -1,0 +1,48 @@
+:- public search_for_cover/2,
+	check_refinements/6,
+	good_clause/3,
+	looping/1,
+	refuted/1.
+
+search_for_cover(P,Clause) :-
+	nl, writelv(['Searching for a cover to ',P,'...']), nl,
+	mgt(P,P1), create_io((P1:-true),Vs),
+	search_for_cover([((P1:-true),Vs)|Xs],Xs,P,Clause,1).
+
+% search_for_cover(Head,Tail,Goal,Clause,Length) :-
+	%  The list between Head and Tail is the current queue of clauses.
+	%  search in it for a true Clause that covers Goal
+	%  Whenever you take a clause from the Head of the queue, add
+	%  all its refinements that cover  Goal to Tail, setting it to
+	%  the new Tail of the queue. Length is the number of clauses
+	%  searched so far.
+
+search_for_cover(Qhead,Qtail,P,C,Qlength) :-
+	Qhead==Qtail,
+	writelv(['Failed to find a cover for ',P,'. queue is empty']), nl,
+	!, fail.
+search_for_cover([X|Qhead],Qtail,P,Clause,Qlength) :-
+	X=(Xclause,_), writelv(['Refining: ',Xclause]), nl,
+	bagof0(Y,X^( refinement(X,Y), covers(Y,P) ),Qnew),
+	length(Qnew,Qnewlength),
+	Qlength1 is Qlength + Qnewlength,
+	% writel(['New refinements:'|Qnew],v,nl), nl,
+	check_refinements(Qnew,Qhead,Qtail,P,Clause,Qlength1).
+
+check_refinements(Qnew,Qhead,Qtail,P,Clause,Qlength) :-
+	member((Clause,Cv),Qnew), good_clause((Clause,Cv),Qlength).
+check_refinements(Qnew,Qhead,Qtail,P,Clause,Qlength) :-
+	append(Qnew,Qnewtail,Qtail),
+	search_for_cover(Qhead,Qnewtail,P,Clause,Qlength).
+
+good_clause((X,(Xi,[],[])),L) :-
+	writelv(['Checking: ',X]), nl,
+	( refuted(X), !,  writelv(['Refuted: ',X]), nl, fail ;
+	  looping(X), !,  writelv(['Looping: ',X]), nl, fail ;
+	  writelv(['Found clause: ',X]), nl,
+	  writelv(['    after searching ',L,' clauses.']), nl ).
+
+looping((P:-Q)) :-
+	\+legal_calls(P,Q).
+refuted((P:-Q)) :-
+	fact(P,false), fact_satisfiable(Q).

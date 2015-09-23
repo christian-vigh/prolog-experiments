@@ -1,0 +1,103 @@
+%%---------------------------------------------------------------------------
+%%
+%%                      Kinyarwanda Grammar
+%%                      ===================
+%%
+%%  Bibliography
+%%  ============
+
+%%  A. Kimenyi (1980) A Relational Grammar of Kinyarwanda.  University of
+%%        California Press (University of California Publications in
+%%         Linguistics, 91)
+%%---------------------------------------------------------------------------
+
+ LANGUAGE = KinyaRwanda.
+
+ FG = head subj obj obj2 comp ch_obj.
+
+ %-------------------------------------------%
+ %    Feature 'onto' (semantic ontology)     %
+ %-------------------------------------------%
+   
+ top     < abstr concr.
+ abstr   < event temp.
+ event   < activ stat.                          % activity, state
+ activ   < mov trans.                           % movement, transfer
+ concr   < animate thing.
+ animate < beast hum.
+ hum     < person instit.
+ thing   < plant bodypart place semiot physobj artifact force.
+ temp    < tseq tmeasure tmploc.
+
+ %%%%%%%%%%%%%%%%%%%%%%%%
+ %      Templates       %
+ %%%%%%%%%%%%%%%%%%%%%%%%
+
+ % ARGSJ assigns the subject an argument role: the subejct of active clauses
+ % is ARG1; the subject of passive clauses is assigned either to ARG2, to ARG3, 
+ % or to the constituent holding the semantic role encoded by the feature 'obj' 
+ % (which is marked by the verb morpheme CC).
+
+ @Argsj =  ( U/voice=active U/sem/arg1 = U/subj/sem |
+             U/voice=passive ( U/sem/(arg2|arg3)=U/subj/sem |
+                            U/sem/{U/obj}=U/subj/sem 
+                          ) 
+           ).
+
+ %% PP adjunct attachment
+
+ @Adjunct = 
+        D in U/adjunct 
+        U/sem/{D/theta} = D/sem.
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%   Default features     %%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ % Default voice is active
+
+ VB ==> U/voice=active.
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%
+ %%       Sentence      %%
+ %%%%%%%%%%%%%%%%%%%%%%%%%
+
+ S --> &SN : D/det=def             % the subejct is always definite
+             U/subj=D
+        SV : U=D
+             @Argsj.
+
+% SV --> V1 SUB.
+ 
+ SV --> V1.
+ 
+ V1 --> V1
+        SN : U/(ch_obj | obj2 | obj)=D.
+
+ V1 --> V1
+        SP : @Adjunct.
+        
+ V1 --> VB
+       &AVM.
+
+ %% Rule VB defines the morphological structure of the verb. In order to ease
+ %% the processing and simplify the lexicon, verb morphemes are hyphen-separated 
+ %% in the test sentences.
+              
+ VB -->  CONC 
+        &TMP 
+        *PRO
+         V 
+        &ASP.
+
+ %% Noun Phrase
+ %% It consists of a number prefix and the noun lexeme: umu-gabo (man)
+
+ SN --> &PN 
+         N.      
+
+ SN --> NP.
+
+ SP --> P 
+        SN : U/comp=D.
+ 

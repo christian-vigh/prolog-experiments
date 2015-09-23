@@ -1,0 +1,15 @@
+/* buggy QSORT program on page 68 */
+
+qsort([X|L],L0) :-
+  partition(L,X,L1,L2),
+  qsort(L1,L3),qsort(L2,L4),
+  append([X|L3],L4,L0).
+
+partition([X|L],Y,L1,[X|L2]) :- partition(L,Y,L1,L2).
+partition([X|L],Y,[X|L1],L2) :- X =< Y,partition(L,Y,L1,L2).
+partition([],X,[X],[]).
+
+append([X|L1],L2,[X|L3]) :- append(L1,L2,L3).
+append([],L,L).
+
+:- end.

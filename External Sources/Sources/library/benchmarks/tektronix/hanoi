@@ -1,0 +1,8 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+*/
+
+hanoi(N) :- move(N,left,center,right).
+move(0,_,_,_) :- !.
+move(N,A,B,C) :- M is N-1, move(M,A,C,B), move(M,C,B,A).
+

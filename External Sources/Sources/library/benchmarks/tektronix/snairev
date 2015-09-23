@@ -1,0 +1,15 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+*/
+
+mk_list(0,nil).
+mk_list(N,cons(N,L)) :-
+N1 is N-1, mk_list(N1,L).
+
+rev(nil,nil).
+rev(cons(X,L),Rlx) :-
+rev(L,Rl), app(Rl,cons(X,nil),Rlx).
+
+app(nil,L,L).
+app(cons(X,L1),L2,cons(X,L3)) :-
+app(L1,L2,L3).

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/ctype_pro.html</title>
+<!-- Source: ./ctype.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo2">Modules/ctype</a></li>
+<ul>
+<li>1.1. <a href="#robo10">ctype/isalnum</a></li>
+<li>1.2. <a href="#robo11">ctype/isalpha</a></li>
+<li>1.3. <a href="#robo12">ctype/isascii</a></li>
+<li>1.4. <a href="#robo13">ctype/isbdigit</a></li>
+<li>1.5. <a href="#robo14">ctype/iscntrl</a></li>
+<li>1.6. <a href="#robo15">ctype/isdigit</a></li>
+<li>1.7. <a href="#robo16">ctype/islower</a></li>
+<li>1.8. <a href="#robo17">ctype/isodigit</a></li>
+<li>1.9. <a href="#robo18">ctype/isprint</a></li>
+<li>1.10. <a href="#robo19">ctype/isspace</a></li>
+<li>1.11. <a href="#robo20">ctype/isxdigit</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Modules2fctype">
+</a><a name="robo2"></a><h2>Modules/ctype [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>ctype</strong> - Character-classification routines.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">ctype.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Character-classification routines, such as the C library <strong>ctype</strong>.
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, August 2005.
+
+</pre>
+
+<hr />
+<a name="ctype2fisalnum">
+</a><a name="robo10"></a><h2>ctype/isalnum [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isalnum</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is alphanumeric (letter or digit).
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isalnum</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="sign">(</span> <a href="#robo11">isalpha</a><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">;</span> <a href="#robo15">isdigit</a><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisalpha">
+</a><a name="robo11"></a><h2>ctype/isalpha [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isalpha</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is alphabetic.
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isalpha</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="sign">(</span> 
+                <span class="sign">(</span> C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;a&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;z&#39;</span> <span class="sign">)</span> <span class="sign">;</span>
+                <span class="sign">(</span> C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;A&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;Z&#39;</span> <span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisascii">
+</a><a name="robo12"></a><h2>ctype/isascii [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isascii</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is an ascii value (&lt; 128).
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isascii</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_codes</span><span class="sign">(</span>C<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        X <span class="sign">&gt;</span><span class="sign">=</span> 0<span class="sign">,</span> X <span class="sign">&lt;</span> 128<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisbdigit">
+</a><a name="robo13"></a><h2>ctype/isbdigit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isbdigit</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is a binary digit.
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isbdigit</strong><span class="sign">(</span><span class="squote">&#39;1&#39;</span><span class="sign">)</span><span class="sign">.</span>
+<strong>isbdigit</strong><span class="sign">(</span><span class="squote">&#39;0&#39;</span><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fiscntrl">
+</a><a name="robo14"></a><h2>ctype/iscntrl [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>iscntrl</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is a control character (0 &lt;= C &lt;= 1F, or C = 7F).
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>iscntrl</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_codes</span><span class="sign">(</span>C<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span><span class="sign">(</span> X <span class="sign">&gt;</span><span class="sign">=</span> 0<span class="sign">,</span> X <span class="sign">=</span><span class="sign">&lt;</span> 31 <span class="sign">)</span> <span class="sign">;</span> X <span class="sign">=</span><span class="sign">=</span> 127<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisdigit">
+</a><a name="robo15"></a><h2>ctype/isdigit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isdigit</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is a decimal digit.
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isdigit</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;0&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;9&#39;</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fislower">
+</a><a name="robo16"></a><h2>ctype/islower, isupper [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>islower</strong>/1, <strong>isupper</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is a lowercase/uppercase character.
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>islower</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;a&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;z&#39;</span><span class="sign">.</span>
+<strong>isupper</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;A&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;Z&#39;</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisodigit">
+</a><a name="robo17"></a><h2>ctype/isodigit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isodigit</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is an octal digit.
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isodigit</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;0&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;7&#39;</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisprint">
+</a><a name="robo18"></a><h2>ctype/isprint [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isprint</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is a printable value (&gt;32 and &lt;128).
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isprint</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_codes</span><span class="sign">(</span>C<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        X <span class="sign">&gt;</span><span class="sign">=</span> 32<span class="sign">,</span> X <span class="sign">&lt;</span> 128<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisspace">
+</a><a name="robo19"></a><h2>ctype/isspace [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isspace</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is a space (&gt; 0x09 and &lt; 0x0D, or 0x20).
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isspace</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_codes</span><span class="sign">(</span>C<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>X <span class="sign">&gt;</span><span class="sign">=</span> 9<span class="sign">,</span> X <span class="sign">=</span><span class="sign">&lt;</span> 13<span class="sign">)</span> <span class="sign">;</span> X <span class="sign">=</span><span class="sign">=</span> 32<span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="ctype2fisxdigit">
+</a><a name="robo20"></a><h2>ctype/isxdigit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">ctype</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>isxdigit</strong>/1
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<pre>      Succeeds if the specified character is an hexadecimal digit.
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>isxdigit</strong><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="sign">(</span> <a href="#robo15">isdigit</a><span class="sign">(</span>C<span class="sign">)</span> <span class="sign">;</span> 
+                <span class="sign">(</span> C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;A&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;F&#39;</span> <span class="sign">)</span> <span class="sign">;</span>
+                <span class="sign">(</span> C <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> <span class="squote">&#39;a&#39;</span><span class="sign">,</span> C <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> <span class="squote">&#39;f&#39;</span> <span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./ctype.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:11
+</p>
+</div> <!-- footer -->
+</body>
+</html>

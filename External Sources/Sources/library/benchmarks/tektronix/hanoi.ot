@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN Hanoi BENCHMARK
+!**  Average cputime for 2 hanoi is 0 msecs.
+!**  Average cputime for 4 hanoi is 44.444702 msecs.
+!**  Average cputime for 6 hanoi is 161.111084 msecs.
+!**  Average cputime for 8 hanoi is 583.332520 msecs.
+!**  Average cputime for 10 hanoi is 2344.441406 msecs.
+!**  END Hanoi BENCHMARK

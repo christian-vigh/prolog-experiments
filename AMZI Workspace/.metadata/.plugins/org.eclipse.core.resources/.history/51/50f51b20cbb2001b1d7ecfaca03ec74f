@@ -1,0 +1,28 @@
+
+
+:- op( 500, xfx, covers ).
+
+:- op(1200,  fx, #<).
+:- op(1200,  fx, #>).
+:- op(1200,  xf, <#).
+:- op(1200,  xf, >#).
+:- op( 700, xfx, --).
+
+
+X covers #< A -- B ># :-
+	X = [ [A, B, >=, <=] ].
+	
+X covers #> A -- B ># :-
+	X = [ [A, B, >, <=] ].
+	
+X covers #< A -- B <# :-
+	X = [ [A, B, >=, <] ].
+
+X covers #> A -- B <# :-
+	X = [ [A, B, >, <] ].
+	
+X covers [H | T],
+	XH covers H,
+	XT covers T,
+	X = [XH | XT].
+X covers [].

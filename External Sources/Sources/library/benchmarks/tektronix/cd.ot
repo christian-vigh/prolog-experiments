@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN CountDown BENCHMARK
+!**  Average cputime for 100 cd is 183.333252 msecs.
+!**  Average cputime for 200 cd is 355.555420 msecs.
+!**  Average cputime for 300 cd is 499.999756 msecs.
+!**  Average cputime for 400 cd is 744.444336 msecs.
+!**  Average cputime for 500 cd is 844.443848 msecs.
+!**  END CountDown BENCHMARK

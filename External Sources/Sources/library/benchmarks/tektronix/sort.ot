@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN QuickSort BENCHMARK
+!**  Average cputime for 5 quicksorts is 111.110962 msecs.
+!**  Average cputime for 10 quicksorts is 233.332886 msecs.
+!**  Average cputime for 15 quicksorts is 372.221436 msecs.
+!**  Average cputime for 20 quicksorts is 505.554688 msecs.
+!**  Average cputime for 25 quicksorts is 644.444336 msecs.
+!**  END QuickSort BENCHMARK

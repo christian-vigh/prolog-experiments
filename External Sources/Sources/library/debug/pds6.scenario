@@ -1,0 +1,305 @@
+Prolog-10  version 3.3
+Copyright (C) 1981 by D. Warren, F. Pereira and L. Byrd
+
+| ?- [pds6].
+?
+
+xref.def consulted   96 words      0.09 sec.
+
+dsutil compiled: 4295 words,     4.00 sec.
+
+type compiled: 1391 words,     1.49 sec.
+
+misrg compiled: 808 words,     0.78 sec.
+
+pdsref compiled: 1330 words,     1.59 sec.
+
+pdsdc consulted   1792 words      0.80 sec.
+
+pdsdb consulted   1940 words      0.89 sec.
+
+pdsini consulted   618 words      0.37 sec.
+
+missrc consulted   498 words      0.30 sec.
+
+pdsrg consulted   336 words      0.22 sec.
+
+pdsref consulted   1046 words      0.67 sec.
+
+pds6 consulted   17611 words     14.27 sec.
+
+yes
+| ?- [qsort2].
+?
+
+qsort2 consulted   240 words      0.28 sec.
+
+yes
+| ?- pds.
+
+@qsort([2,1,3],X).
+Solving qsort([2,1,3],X)...
+Error trapped: no solution to partition([3],2,X,Y)
+Error: missing solution partition([3],2,X,Y). diagnosing...
+
+Query: partition([3],2,X,Y)? y.
+Which (X,Y)? [],[3].
+
+Query: partition([],2,[],[])? y.
+Error diagnosed: partition([3],2,[],[3]) is uncovered.
+add (y) or (m)odify a clause? m.
+which? partition([X|L],Y,L1,[X|L2]) :- partition(L,Y,L1,L2),X<Y.
+Derefining (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),X<Z)...
+Checking: (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W))
+Found clause: (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W))
+    after searching 1 clauses.
+ok? n.
+Refining: (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W))
+Checking: (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X)
+Found clause: (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X)
+    after searching 5 clauses.
+ok? y.
+Listing of partition(X,Y,Z,U):
+    (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z).
+    (partition([],X,[],[]):-true).
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X).
+
+Solving qsort([2,1,3],X)...
+Error trapped: no solution to qsort([],X)
+Error: missing solution qsort([],X). diagnosing...
+
+Query: qsort([],X)? y.
+Which X? [].
+Error diagnosed: qsort([],[]) is uncovered.
+add (y) or (m)odify a clause? y.
+which? qsort([],[]).
+Listing of qsort(X,Y):
+    (qsort([X|Y],Z):-partition(Y,X,W,X1),qsort(W,Z1),qsort(X1,V1),app(Z1,[X|V1],Z)).
+    (qsort([],[]):-true).
+
+Solving qsort([2,1,3],X)...
+Error: stack overflow on qsort([2,1,3],X). diagnosing...
+app([1],[2,3],X) is looping.
+Error diagnosed: (app([1],[2,3],X):-app([1],[2,3],[1|X])) is diverging.
+retract (y), (m)odify, or (r)eplace it? m.
+What is a reason for (app([X|Y],Z,U):-app([X|Y],Z,[X|U]))? app([1,2],[3,4],[1,2,3,4]).
+Derefining (app([X|Y],Z,U):-app([X|Y],Z,[X|U]))...
+Refining: (app([X|Y],Z,U):-true)
+Refining: (app([X,Y|Z],U,V):-true)
+Refining: (app([X|Y],[Z|U],V):-true)
+Refining: (app([X|Y],Z,[U|V]):-true)
+Refining: (app([X|Y],Z,U):-app(Y,Z,X1))
+
+Query: app([2],[3,4],[1,2,3,4])? n.
+Refining: (app([X|Y],Z,U):-app(Z,Y,X1))
+
+Query: app([3,4],[2],[1,2,3,4])? n.
+Refining: (app([X,Y|Z],U,V):-true)
+Refining: (app([X|Y],[Z|U],V):-true)
+Refining: (app([X|Y],Z,[U|V]):-true)
+Refining: (app([X|Y],Z,U):-app(Y,Z,X1))
+Refining: (app([X|Y],Z,U):-app(Z,Y,X1))
+Refining: (app([X,Y|Z],[U|V],W):-true)
+Refining: (app([X,Y],Z,U):-true)
+Refining: (app([X,Y|Z],U,[V|W]):-true)
+Refining: (app([X,Y|Z],U,V):-app(U,Z,Y1))
+
+Query: app([3,4],[],[1,2,3,4])? n.
+Refining: (app([X,Y|Z],U,V):-app(Z,U,Y1))
+
+Query: app([],[3,4],[1,2,3,4])? n.
+Refining: (app([X,Y|Z],[U|V],W):-true)
+Refining: (app([X,Y],Z,U):-true)
+Refining: (app([X,Y|Z],U,[V|W]):-true)
+Refining: (app([X,Y|Z],U,V):-app(U,Z,Y1))
+Refining: (app([X,Y|Z],U,V):-app(Z,U,Y1))
+Refining: (app([X,Y|Z],[U|V],W):-true)
+Refining: (app([X|Y],[Z,U|V],W):-true)
+Refining: (app([X|Y],[Z|U],[V|W]):-true)
+Refining: (app([X|Y],[Z|U],V):-app(Y,U,Y1))
+
+Query: app([2],[4],[1,2,3,4])? n.
+Refining: (app([X|Y],[Z|U],V):-app(U,Y,Y1))
+
+Query: app([4],[2],[1,2,3,4])? n.
+Refining: (app([X,Y|Z],[U|V],W):-true)
+Refining: (app([X|Y],[Z,U|V],W):-true)
+Refining: (app([X|Y],[Z|U],[V|W]):-true)
+Refining: (app([X|Y],[Z|U],V):-app(Y,U,Y1))
+Refining: (app([X|Y],[Z|U],V):-app(U,Y,Y1))
+Refining: (app([X,Y|Z],U,[V|W]):-true)
+Refining: (app([X|Y],[Z|U],[V|W]):-true)
+Refining: (app([X|Y],Z,[U,V|W]):-true)
+Refining: (app([X|Y],Z,[U|V]):-app(Y,Z,Y1))
+
+Query: app([2],[3,4],[2,3,4])? y.
+Checking: (app([X|Y],Z,[X|V]):-app(Y,Z,V))
+Found clause: (app([X|Y],Z,[X|V]):-app(Y,Z,V))
+    after searching 289 clauses.
+ok? y.
+Listing of app(X,Y,Z):
+    (app([],X,X):-true).
+    (app([X|Y],Z,[X|V]):-app(Y,Z,V)).
+
+Solving qsort([2,1,3],X)...
+solution: qsort([2,1,3],[1,2,3]); ok? y.
+no (more) solutions. ok? y.
+
+@qsort([2,1,4,3],X).
+Solving qsort([2,1,4,3],X)...
+solution: qsort([2,1,4,3],[1,2,3,4]); ok? y.
+no (more) solutions. ok? y.
+
+@qsort([2,1,2,3],X).
+Solving qsort([2,1,2,3],X)...
+solution: qsort([2,1,2,3],[1,2,2,3]); ok? n.
+Error: wrong solution qsort([2,1,2,3],[1,2,2,3]). diagnosing...
+
+Query: qsort([1,2],[1,2])? y.
+
+Query: qsort([3],[3])? y.
+
+Query: app([1,2],[2,3],[1,2,2,3])? y.
+
+Query: partition([1,2,3],2,[1,2],[3])? n.
+
+Query: partition([2,3],2,[2],[3])? n.
+Error diagnosed: (partition([2,3],2,[2],[3]):-partition([3],2,[],[3]),2=<2) is false.
+retract (y), (m)odify, or (r)eplace it? m.
+What is a reason for (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z)? partition([1],2,[1],[]).
+Checking: (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z)
+Refuted: (partition([2,3],2,[2],[3]):-partition([3],2,[],[3]),2=<2)
+Refining: (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z)
+Checking: (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z)
+Found clause: (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z)
+    after searching 3 clauses.
+ok? y.
+Listing of partition(X,Y,Z,U):
+    (partition([],X,[],[]):-true).
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X).
+    (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z).
+
+Solving qsort([2,1,2,3],X)...
+Error trapped: no solution to partition([2,3],2,X,Y)
+Error: missing solution partition([2,3],2,X,Y). diagnosing...
+
+Query: partition([2,3],2,X,Y)? y.
+Which (X,Y)? [],[3].
+Error diagnosed: partition([2,3],2,[],[3]) is uncovered.
+add (y) or (m)odify a clause? m.
+which? any.
+Refining: (partition(X,Y,Z,U):-true)
+Refining: (partition([X|Y],Z,U,V):-true)
+Refining: (partition(X,Y,[],Z):-true)
+Refining: (partition(X,Y,Z,[U|V]):-true)
+Refining: (partition([X|Y],Z,U,V):-true)
+Refining: (partition(X,Y,[],Z):-true)
+Refining: (partition(X,Y,Z,[U|V]):-true)
+Refining: (partition([X,Y|Z],U,V,W):-true)
+Refining: (partition([X|Y],Z,[],U):-true)
+Checking: (partition([X|Y],Z,[],Y):-true)
+Refuted: (partition([3],2,[],[]):-true)
+Checking: (partition([X|Y],Z,[],Y):-true)
+Refuted: (partition([3],2,[],[]):-true)
+Refining: (partition([X|Y],Z,U,[V|W]):-true)
+Refining: (partition([X|Y],X,U,V):-true)
+Refining: (partition([X|Y],Z,U,V):-partition(Y,Z,Y1,Z1))
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+Found clause: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+    after searching 99 clauses.
+ok? y.
+Listing of partition(X,Y,Z,U):
+    (partition([],X,[],[]):-true).
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X).
+    (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z).
+    (partition([X|Y],Z,U,V):-partition(Y,Z,U,V)).
+
+Error: wrong solution partition([3],2,[],[]). diagnosing...
+Error diagnosed: (partition([3],2,[],[]):-partition([],2,[],[])) is false.
+retract (y), (m)odify, or (r)eplace it? m.
+What is a reason for (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))? partition([2],2,[],[]).
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+Found clause: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+    after searching 1 clauses.
+ok? n.
+Refining: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+Found clause: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+    after searching 5 clauses.
+ok? y.
+Listing of partition(X,Y,Z,U):
+    (partition([],X,[],[]):-true).
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X).
+    (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z).
+    (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z).
+
+Solving qsort([2,1,2,3],X)...
+Error trapped: too many solutions to partition([1,2,3],2,X,Y)
+
+Query: partition([1,2,3],2,[],[3])? n.
+Error: wrong solution partition([1,2,3],2,[],[3]). diagnosing...
+Error diagnosed: (partition([1,2,3],2,[],[3]):-partition([2,3],2,[],[3]),1=<2) is false.
+retract (y), (m)odify, or (r)eplace it? m.
+What is a reason for (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)? partition([2],2,[],[]).
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+Refuted: (partition([1,2,3],2,[],[3]):-partition([2,3],2,[],[3]),1=<2)
+Refining: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z,Z=<X)
+Found clause: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z,Z=<X)
+    after searching 3 clauses.
+ok? y.
+Listing of partition(X,Y,Z,U):
+    (partition([],X,[],[]):-true).
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X).
+    (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z).
+    (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z,Z=<X).
+
+Solving qsort([2,1,2,3],X)...
+solution: qsort([2,1,2,3],[1,2,3]); ok? y.
+no (more) solutions. ok? y.
+
+@
+@exit.
+
+yes
+| ?- listing(qsort).
+
+qsort([_1|_2],_3) :-
+   partition(_2,_1,_4,_5),
+   qsort(_4,_6),
+   qsort(_5,_7),
+   app(_6,[_1|_7],_3).
+qsort([],[]).
+
+yes
+| ?- listing(partition).
+
+partition([],_1,[],[]).
+partition([_1|_2],_3,_4,[_1|_5]) :-
+   partition(_2,_3,_4,_5),
+   _3<_1.
+partition([_1|_2],_3,[_1|_4],_5) :-
+   partition(_2,_3,_4,_5),
+   _1=<_3,
+   _1<_3.
+partition([_1|_2],_3,_4,_5) :-
+   partition(_2,_3,_4,_5),
+   _1=<_3,
+   _3=<_1.
+
+yes
+| ?- listing(app).
+
+app([],_1,_1).
+app([_1|_2],_3,[_1|_4]) :-
+   app(_2,_3,_4).
+
+yes
+| ?- core    133632  (88064 lo-seg + 45568 hi-seg)
+heap     71168 =  20278 in use +  50890 free
+global    1451 =     16 in use +   1435 free
+local     1024 =     16 in use +   1008 free
+trail      511 =      0 in use +    511 free
+    0.03 sec. for 1 GCs gaining 25 words
+    0.35 sec. for 26 local shifts and 33 trail shifts
+   67.58 sec. runtime

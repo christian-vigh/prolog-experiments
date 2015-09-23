@@ -1,0 +1,112 @@
+/* infer
+
+Inference package for focus program
+Alan Bundy 7.7.82 */
+
+infer(Concept) :-		/* to forward infer from current defn */
+	rule(Rule),		/* find a rule */
+	eval(Concept,Rule,Conc),	/* evaluate rule in current defn */
+	simp(Conc,New),		/* simplify conclusion */
+	insert(Concept,New),	/* insert new conclusion in defn */
+	infer_mess(New),		/* announce inference */
+	fail.			/* force backtracking */
+
+infer(_).			/* until no new inferences remain */
+
+eval(Concept,record(Args,Tree,Posn),Ans) :-	/* to evaluate record */
+	definition(Concept,CObjs,CDefn),		/* get concept defn */
+	member(define(Args,Tree,UpPosn,LowPosn),CDefn),	/* match define and record */
+	get_tv(Args,Tree,Posn,UpPosn,Ans).	/* get truth value */
+
+/* to evaluate record in definition */
+get_tv(_,_,Posn,UpPosn,t) :-		/* return true if */
+	append(Posn,_,UpPosn), !.	/* Posn is above upper mark */
+
+get_tv(_,_,Posn,UpPosn,f) :-		/* return false if */
+	common(Posn,UpPosn,Comm),	/* shared part of positions */
+	Comm \== Posn,			/* is equal to neither */
+	Comm \== UpPosn, !.
+
+get_tv(Args,Tree,Posn,_,record(Args,Tree,Posn)).	/* otherwise return input */
+	
+
+eval(Concept,Formula,Formula1) :-	/* to evaluate anything else */
+	Formula =.. [Func|Args],	/* break it apart */
+	Func \== record,		/* check it is not a record */
+	maplist(eval(Concept),Args,Args1),	/* recurse on its args */
+	Formula1 =.. [Func|Args1].	/* and put answer together */
+
+/* to simplify formula */
+simp(t,t) :- !.		/* do nothing if formula is t */
+
+simp(f,f) :- !.		/* do nothing if formula is f */
+
+simp(record(Args,Tree,Posn),record(Args,Tree,Posn)) :- !.	/* do nothing if formula is record */
+
+simp(P,Q) :- !,		/* to simplify complex formula */
+	P =.. [Func|Args],	/* break it apart */
+	maplist(simp,Args,Args1),	/* recurse on its args */
+	P1 =.. [Func|Args1],	/* put it together again */
+	simp1(P1,Q).		/* and perform simplification to it */
+
+simp1(P,Q) :-			/* to simplify at top level */
+	simp2(P,Q), !.		/* apply rules if possible */
+
+simp1(P,P).			/* otherwise do nothing */
+
+/* simplification rules */
+
+simp2(P v t, t).	simp2(P v f, P).
+simp2(t v P, t).	simp2(f v P, P).
+
+simp2(P & t, P).	simp2(P & f, f).
+simp2(t & P, P).	simp2(f & P, f).
+
+simp2(P <-> t, P).	simp2(P <-> f, NP) :- simp1(~P,NP).
+simp2(t <-> P, P).	simp2(f <-> P, NP) :- simp1(~P,NP).
+
+simp2(P -> t, t).	simp2(P -> f, NP) :- simp1(~P,NP).
+simp2(t -> P, P).	simp2(f -> P, t).
+
+simp2(~t, f).		simp2(~f, t).
+
+insert(Concept,record(Args,Tree,Posn)) :-	/* to use inferred record */
+	make_tv(Concept,t,record(Args,Tree,Posn)).	/* make it true */
+
+insert(Concept,~record(Args,Tree,Posn)) :-	/* to use inferred negation */
+	make_tv(Concept,f,record(Args,Tree,Posn)).	/* make it false */
+
+make_tv(Concept,TV,Record) :-		/* to make record have truth value TV */
+	definition(Concept,CObjs,CDefn),	/* get old definition */
+	one_of(make_tv1(TV,Record),CDefn,New),		/* alter it */
+	assert(definition(Concept,CObjs,New)),		/* assert new version */
+	retract(definition(Concept,CObjs,CDefn)).	/* remove old definition */
+
+make_tv1(t,record(Args,Tree,Posn),		/* to make a record true */
+	define(Args,Tree,UpPosn,LowPosn),	/* get current tree */
+	define(Args,Tree,Posn,LowPosn)) :-	/* and replace upper mark with record position */
+		discriminate_mess(Args,Tree,UpPosn,Posn).	/* print message */
+
+make_tv1(f,record(Args,Tree,Posn),		/* to make a record false */
+	define(Args,Tree,UpPosn,LowPosn),	/* get current tree */
+	define(Args,Tree,New,LowPosn)) :-	/* and replace upper mark with */
+		common(Posn,LowPosn,Comm),	/* common part of record posn and lower mark */
+		append(Comm,[ N|_],LowPosn),	/* with one more step */
+		append(Comm,[N],New),		/* towards lower mark */
+		discriminate_mess(Args,Tree,UpPosn,New).	/* print message */
+
+
+/* Announce Inference */
+
+infer_mess(record(Args,Name,Posn)) :-	/* to announce positive deduction */
+	tree(Name,_,Tree),		/* work out what relation is infered */
+	position(Pred,Tree,Posn),
+	Reln =.. [Pred|Args],
+	writef('I infer that %t is true. \n', [Reln]).	/* and print message */
+
+infer_mess(~record(Args,Name,Posn)) :-	/* to announce negative deduction */
+	tree(Name,_,Tree),		/* work out what relation is infered */
+	position(Pred,Tree,Posn),
+	Reln =.. [Pred|Args],
+	writef('I infer that %t is false. \n', [Reln]).	/* and print message */
+

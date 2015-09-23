@@ -1,0 +1,29 @@
+                         EDINBURGH PROLOG TOOLS
+   Contributed by the AI Applications Institute, Edinburgh University
+                   Received on the 14th of April 1988
+                     Shelved on the 6th of July 1988
+
+
+This entry comes as this file, TOOLS.PRE, plus 180 other files - a
+mixture of documentation (some of it intended to be part of an on-line
+Prolog advice system), Prolog source, and steering files.
+
+
+The entries are described in CONTENTS. We've had to flatten the
+directory structure it lists there, but since all the files have
+different names anyway, this doesn't matter.
+
+There is one file which is mentioned in CONTENTS but not included in
+this entry. That is UTIL.SAV, which is some sort of compiled Edinburgh
+Prolog. Since: (a) this will not pass through most mail links; and (b)
+will only run on one particular Prolog system (if that), I feel
+justified in omitting it.
+
+
+As far as I know all files are as Edinburg supplied them, except for
+CONTENTS, from which I've removed some <underline> <backspace>
+sequences, which might upset various editors.
+
+
+I have not tested all these files - use them at your own risk! There is
+a lot of useful stuff here! [jnp]

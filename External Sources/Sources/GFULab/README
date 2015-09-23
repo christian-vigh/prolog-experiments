@@ -1,0 +1,341 @@
+1. Installation
+---------------
+
+In order to install GFU-LAB, it suffices to copy the distributed files in a
+directory. 
+
+ ----------------------------------------------------------------------------
+                        
+A quick contact with GFU-LAB:
+
+In order to get an idea of GFU-LAB capabilities, load SWI-Prolog, consult load.pl and
+type the following:
+
+ GFU> l yaqui.gra                         % Loads a Yaqui grammar
+ GFU> l yaqui.lex                         % Loads the lexicon
+ GFU> l yaqui.txt                         % Load the file with text sentences
+ GFU> info                                % gives information about the loaded grammar
+ GFU> t 1                                 % tests the first sentence
+ GFU> synt                                % Shows the syntactic analysis of the
+                                          % sentence (under the form od a feature description).
+ GFU> synt: head                          % Simplifies the displayed FD: only the
+                                          % 'head' feature is shown.
+ GFU> sem                                 % The 'sem' representation of the sentence is displayed
+ GFU> list                                % The prolog list internal representation is shown.
+ GFU> t 2                                 % The second sentence will be analyzed.
+ ...
+ GFU> quit                                % Returns to the shell
+
+ ----------------------------------------------------------------------------
+ 
+2. A grammar in GFU-LAB
+
+In order to write a grammatical description of a language, two ASCII files
+should be created: one containing grammar rules, and other including lexical
+entries.
+
+The syntax file must have the extension .gra, and the lexicon file must have
+the extension  .lex. So, 'leng.gra' and 'leng.lex' are correct filenames.  
+
+In any kind of file, a line of text preceeded by the sign '%' is a comment,
+and will be ignored by the compiler.
+
+
+2.1 The syntax file
+
+The syntax file must include, in the specified order:
+
+2. A function declaration (v. below)
+3. Hierarchical features declarations (v. manual, sec. 6.3)
+4. Templates affecting the grammar rules (v. manual, sec. 6.2)
+5. Grammar default rules (v. manual, sec. 6.1)
+6. Phrase Structure rules (v. manual, sec. 3)
+
+In addition, it may contain a language declaration and an axiom declaration.
+
+The function declaration informs the compiler about those relations governed
+by any lexical predicate. The format of this declaration is the following:
+
+        FG = A.
+
+Where A is a sequence of relation labels, separated by blanks. Note the
+declaration must be ended by a dot.
+
+For instance:
+
+        FG = subject object complement.
+
+Although not strictly neceessary, it is possible to declare the name of the
+language described in the file. The form of this declaration is:
+
+        LANGUAGE = A.
+
+Where A is an atomic symbol, as in:
+
+        LANGUAGE = English.
+
+This declaration is only worth when the command 'info' is used (v. 4.3).
+
+It is also possible to declare which is the axiom of the grammar (i.e. the
+maximal category that GFU-LAB tries to prove the utterance is parsing 
+corresponds to). By default, the axiom is S (=Sentence).
+
+The axiom is declared:
+
+        AXIOM = A.
+
+Where A is a symbol corresponding to a phrasal category defined in the grammar.
+For instance:
+
+        AXIOM = SENT.
+
+2.2 Lexicon File
+
+The lexicon file will include, in this order:
+
+1. Declaration of contractions and collocations (manual: 5.3)
+2. Templates affecting the lexical entries (manual: 6.2)
+3. Declaration of lexical classes (manual: 5.2)
+4. Lexical entries (manual: 5.1)
+ 
+
+3. Pragmatics: how to get the best from GFU-LAB
+-----------------------------------------------
+Just like every computational tool, GFU-LAB may be used in a more or less
+efficient way. This section intends to give the reader some hints in order
+to take advantage of the virtues of the system, and to ellude its
+inadequacies.
+
+3.1 Syntax errors
+
+GFU-LAB does not report syntax errors in the files. It limits itself to
+say is a given rule has not been compiled, without pointing out where is
+exactly the problem. Generally speaking, most errors happen because of
+some negligences:
+
+* To forget the final dot after each rule and statement.
+
+* Bad definition of functions (the lexical entries that refer to wrong
+  functions cannot be compiled).
+
+* To infringe the precedence of statements, as put forward in section 2. So,
+  templates should be declaraed before any call in rules; likewise, classes 
+  are to be declared before than lexican entries.
+
+* To miss the metavariables in the constraints (so, case=accusative instead 
+  of U/case=accusative).
+
+
+3.2 Ways to increase the efficiency of grammars
+
+As a rule of thumb to design efficient grammars, GFU-LAB user should write the
+rules so that they cooperate with the parser strategy. These are some tips:
+
+* NEVER write rules that could be equivalent to X --> X (X being the same 
+  category). This an absolute recursive rule that will exhaust the system 
+  global stack. This unwanted effect is indirectly achieved by writing 
+  recursive rules with optional nodes, just as in:
+  
+                N1 --> &DEM N1.
+                N1 --> N1 &AP.
+                (Note that N1 --> N1 AP is fine!)
+                
+* When using existence constraints in PS rules, it is advantageous to make 
+  them refer to fully specified FDs. For instance, the rule (1) wiull be 
+  inefficient, since the mother is only partially specified in the time 
+  when the constraint applies.
+
+    (1)  V1 -->  NP : D/case=dative
+                      U/type =c psico
+                      U/subject=D
+                 V1. 
+
+
+A better solution is to attach the constraint to the constituent V1: 
+
+
+    (2)  V1 -->  NP : D/case=dative 
+                      U/subject=D
+                 V1 : D/type =c psico 
+                      U=D. 
+
+* The constraints should be ordered scrupulously. In the case of consecutive
+  sets, it is advisable to put first these constraints that have more
+  probablities to evaluate actual features, and to put off those constraints 
+  that presumibly add new features onto the FD. Thus, while rules (3) and (4)
+  state the same phenomenon, the second is better because it gives preference
+  to case checking, and only then does the function assignment.
+
+        (3) S --> NP : U/object=D D/case=accusative
+                  VP.
+
+        (4) S --> NP : D/case=accusative U/object=D              
+                  VP.
+
+
+When dealing with disjunctions, it is preferrable to put first those
+constraints more likely to be successful, and to difer the more improbable ones
+to the end.
+
+* It is a good practice to systematically introduce the same feature sets in
+all akin DFs. For instance, it is quite useful for all the sentences to be
+tensed (even infinitive ones). If this norm is not respected, there is a risk
+that underspecified DFs could blindly unify with other DFs, and yield unwanted
+results. Thus, if an infinitive verb DF does not include tense, nothing will
+prevent it from unifying with another structure containing an overt tense
+feature.
+
+* Be careful with the definition of categories. Whereas the utilization of few
+categories is, from a purely theoretical point of view, a contribution to the
+simplicity of grammars, very often it raises computational inefficiency. In
+GFU-LAB, for instance, might be more convenient to divide the class of verbs in
+several categories ( main verb, auxiliary, modal, etc) instead of a unique verb
+category, because these subclasses have their own syntactic personality.
+
+ -----------------------------------------------------------------------------
+
+ The user interface
+
+The user interface of GFU-LAB has many commands that aid to write and test the
+grammars:
+
+
+4.1 Grammar writing
+
+e <FILENAME> 
+------------
+allow to edit the specified file. It calls the TED editor. If some other
+editor is preferred, you must include a command line after the call GFU15, 
+at the DOS prompt, specifying the whole path of the required editor. I
+recommend the NORTON editor, for its versatility and little memory 
+requirements. (MINAVAIL = 80 in the GFU.ENV file)
+
+
+l <FILENAME>
+------------ 
+It compiles and loads the specified file (DOS path are admitted). This may be a
+syntax file (extension .gra), a lexicon file (.lex) or a text file (.txt).
+
+[no] links.
+----------- 
+If the LINKS choice is used, the system will create a table of links (v.
+section 8) when compiling PS rules. This operation can take excessive
+time, specially in the writing-and-test stage of development of grammars.
+If the NO LINKS choice is used, no table is created, and files load
+quickly. However, the parsing time could be much higher. Bt default, the
+system works in LINKS mode.
+
+
+4.2 Grammar testing
+
+[no] det.
+---------  
+When the DET choice is taken, the parser will work deterministically: only the
+first parse will be shown. If the NO DET choice is uesd, the system will yield
+all the possible parses, according to the rules in the grammar. By default, the
+system opens in DET mode.
+
+
+[no] trace. 
+-----------
+Allows to trace and untrace the parser operation. If TRACE is selected, the
+system will pause in every step. The user will then be able to inspect the
+composed DF (choice 'v'), to switch the trace off (choice 'n') or to keep on
+tracing (RETURN key).
+
+
+axiom = <Category>. 
+------------------
+Permits to redefine the axiom with a new category. For instance, in order to
+parse only noun phrases, the user should write
+
+        > axiom = NP
+
+provided that rules for that particular category have been written.
+
+
+* <Utterance> 
+-------------
+parses the specified utterance.
+
+
+test <Number>. 
+--------------
+If a test sentence file (extension .txt) has been compiled, this command allows
+to test the sentence with the specified number. For instance:
+
+        > test 21
+
+The test file should contain uttereances in the format
+
+        #<Integer> <Utterance> .
+
+As in
+
+        #1 this is a test sentence .
+
+It is also possible specify the axiom that the utterance must be tried to be
+parsed with. Again, the format is:
+
+        #<Number> ( <Axiom> ) <Utterance> .
+
+As in
+
+        #15 (NP) this same example.
+
+Test files also admit comments.
+
+
+see list.  
+--------
+Shows the last DF produced by the parser. The display is lineal.
+
+synt. 
+----
+Pretty-prints the last DF produced by the parser, in a way reminiscent of LFG
+boxes. Very often, FDs are quite complex and lengthy, so that they
+do not fit in the screen, it is possible to specify which attributes we are
+interested in, thus allowing the system to ignore the others. For instance, in
+order to display only the features 'pred' and 'tense' we will input:
+
+        > synt: pred tense
+
+Representations are handled internally as prolog lists. In order to inspect the
+full prolog representation of a given sentence, the command 'list' is also 
+available.
+
+In grammars that use a 'sem' feature in order to hold the semantic 
+structure of a phrase (see details in the tiny Spanish lexicon 'SPA.LEX')
+the command 'sem' displays only this representation.
+
+4.3 Other commands
+
+s <Filename> 
+----------------
+Saves the grammatical database in the file specified. The file will contain 
+PROLOG code.
+
+info. 
+-----
+Should this command been sollicited, the system reports the state of certain
+internal records (LINK mode, determinism mode, etc). It also shows the language
+whose grammar is currently loaded, the number of PS rules, links and lexical
+entries available. For instance:
+
+        > info
+     
+     Language........... English
+     Axiom ............. S
+     Parsing ........... deterministic, optimized
+
+     PS Rules .......... 26
+     LINKs ............. 82
+     Lexical entries ... 115
+
+exit 
+----
+it exits from the system, and returns to DOS. It will finish the working
+session with GFU-LAB.
+
+
+                                                                                                                                                                 

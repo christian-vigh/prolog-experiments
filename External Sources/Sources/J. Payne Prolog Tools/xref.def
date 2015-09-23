@@ -1,0 +1,143 @@
+%   File   : XREF.DEF
+%   Authors: Dave Bowen, Chris Mellish
+%   Updated: 15 September 1984
+%   Purpose: System definitions for use with XREF.PL.
+
+%   These are the predicates which are part of the basic Prolog system.
+
+system([_|_]).
+system(abolish(_,_)).
+system(revive(_,_)).
+system(incore(_)).
+system(asserta(_,_)).
+system(asserta(_)).
+system(assertz(_,_)).
+system(assertz(_)).
+system(retract(_)).
+system(clause(_,_,_)).
+system(clause(_,_)).
+system(recorda(_,_,_)).
+system(recordz(_,_,_)).
+system(recorded(_,_,_)).
+system(instance(_,_)).
+system(erase(_)).
+system(true).
+system(length(_,_)).
+system(name(_,_)).
+system(op(_,_,_)).
+system(var(_)).
+system(atom(_)).
+system(!).
+system(statistics).
+system(statistics(_,_)).
+system(functor(_,_,_)).
+system(call(_)).
+system(expand_term(_,_)).
+system(debug).
+system(debugging).
+system(display(_)).
+system(get(_)).
+system(get0(_)).
+system(leash(_)).
+system(nl).
+system(nodebug).
+system(print(_)).
+system(put(_)).
+system(skip(_)).
+system(tab(_)).
+system(trace).
+system(ttyflush).
+system(ttyget(_)).
+system(ttyget0(_)).
+system(ttynl).
+system(ttyput(_)).
+system(ttyskip(_)).
+system(ttytab(_)).
+system(write(_)).
+system(writeq(_)).
+system(ancestors(_)).
+system(depth(_)).
+system(maxdepth(_)).
+system(subgoal_of(_)).
+system(abort).
+system(arg(_,_,_)).
+system(assert(_)).
+system(atomic(_)).
+system(bagof(_,_,_)).
+system(break).
+system(close(_)).
+system(compare(_,_,_)).
+system(compile(_)).
+system(consult(_)).
+system(current_atom(_)).
+system(current_functor(_,_)).
+system(current_predicate(_,_)).
+system(current_op(_,_,_)).
+system(fail).
+system(fileerrors).
+system(gc).
+system(gcguide(_)).
+system(halt).
+system(integer(_)).
+system(keysort(_,_)).
+system(listing).
+system(listing(_)).
+system(log).
+system(mode(_)).		% not an evaluable predicate
+system(nofileerrors).
+system(nogc).
+system(nolog).
+system(nonvar(_)).
+system(numbervars(_,_,_)).
+system('C'(_,_,_)).		% generated in grammar rules
+system(phrase(_,_)).
+system(prompt(_,_)).
+system(public(_)).		% not an evaluable predicate
+system(read(_)).
+system(reconsult(_)).
+system(rename(_,_)).
+system(repeat).
+system(restore(_)).
+system(save(_)).
+system(save(_,_)).
+system(see(_)).
+system(seeing(_)).
+system(seen).
+system(setof(_,_,_)).
+system(sort(_,_)).
+system(tell(_)).
+system(telling(_)).
+system(told).
+system(trimcore).
+system(plsys(_)).
+system(end_of_file).
+system('LC').
+system('NOLC').
+system(\+_).
+system((_->_)).
+system(spy _).
+system(nospy _).
+system(_=_).
+system(_ is _).
+system(_==_).
+system(_\==_).
+system(_=.._).
+system(_<_).
+system(_>_).
+system(_=<_).
+system(_>=_).
+system(_@<_).
+system(_@=<_).
+system(_@>=_).
+system(_@>_).
+system(_^_).
+system(_=\=_).
+system(_=:=_).
+
+applies(call(Goal), Goal).
+applies(phrase(Nonterminal, List), Nonterminal+2).
+applies(bagof(Vars,Test,Bag), Test).
+applies(setof(Vars,Test,Set), Test).
+applies((P->Q), (P,Q)).
+applies(X^P, P).
+applies(\+G, G).

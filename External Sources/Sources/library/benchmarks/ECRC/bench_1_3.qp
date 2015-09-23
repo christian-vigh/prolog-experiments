@@ -1,0 +1,23 @@
+
+Quintus Prolog Release 1.6 (Sun)
+Copyright (C) 1986, Quintus Computer Systems, Inc.  All rights reserved.
+
+[WARNING: Singleton variables, clause 2 of cre_env/1: X, Y, Z]
+[WARNING: Singleton variables, clause 1 of env12/3: X, Y, Z]
+[/usr/ra/sicstus/V0.3/Bench/bench_1_3.pl compiled (2.583 sec 2816 bytes)]
+
+yes
+T overall loop:   2850
+T compens loop:   34
+T net:            2816
+KLips:            0.056463
+
+
+yes
+T overall loop:   2734
+T compens loop:   66
+T net:            2668
+KLips:            0.0595951
+
+
+yes

@@ -1,0 +1,212 @@
+/****h* Modules/boolean
+ ===============================================================================
+ *
+ * NAME
+ *	boolean - boolean predicates.
+ *
+ * FILE
+ *	Modules/boolean.pro
+ *
+ * CONTENTS
+ *	Implements array as property bags.
+ *
+ * AUTHOR
+ *	Christian Vigh, January 2007.
+ *
+ ===============================================================================
+ ******/
+
+
+
+% logical predicates
+
+
+% true's or false's...
+true(1).	true(yes).	true(on).	true(true).	true(y).
+true(vrai).	true(oui).	true(o).
+
+false(0).	false(no).	false(off).	false(false).	false(n).
+false(faux).	false(non).
+
+
+
+% What is a boolean ?
+boolean(X) :-
+	true(X).
+boolean(X) :- 
+	false(X).
+
+
+% Equality testing
+boolean_identity(0,0).
+boolean_identity(1,1).
+
+
+% The NOT operation
+boolean_not(1,0).
+boolean_not(0,1).
+
+
+% The OR operation
+boolean_or(0, 0, 0).
+boolean_or(0, 1, 1).
+boolean_or(1, 0, 1).
+boolean_or(1, 1, 1).
+
+
+% The AND operation
+boolean_and(0, 0, 0).
+boolean_and(0, 1, 0).
+boolean_and(1, 0, 0).
+boolean_and(1, 1, 1).
+
+
+% The XOR operation
+boolean_xor(0, 0, 0).
+boolean_xor(0, 1, 1).
+boolean_xor(1, 0, 1).
+boolean_xor(1, 1, 0).
+
+
+% The IMP operation
+boolean_imp(0, 0, 1).
+boolean_imp(0, 1, 1).
+boolean_imp(1, 0, 0).
+boolean_imp(1, 1, 1).
+
+
+% The NAND operation
+boolean_nand(0, 0, 1).
+boolean_nand(0, 1, 1).
+boolean_nand(1, 0, 1).
+boolean_nand(1, 1, 0).
+
+
+% The NOR operation
+boolean_nor(0, 0, 1).
+boolean_nor(0, 1, 0).
+boolean_nor(1, 0, 0).
+boolean_nor(1, 1, 0).
+
+
+
+% Value
+% for nonvar values, it unifies its second argument with either 0 or 1, depending
+% on the logical value specified in X.
+% For var values it simply acts as a placeholder and unifies its second argument
+% with the first.
+% This trick is to allow ANY element of a logical assignment (including the
+% left-hand side) to contain a variable.
+%
+% Examples:
+%	X <- not true.
+%	X <- not A.
+%	true <- not A.
+%
+boolean_value(X, X) :-		
+	var(X), !. 
+boolean_value(X, 1) :-
+	nonvar(X),
+	true(X), !.
+boolean_value(X, 0) :-
+	nonvar(X),
+	false(X), !.
+
+	
+% Assignment operator
+% Important !!!
+% - Unary operators must have the greatest priority
+% - then assignment operators
+% - then binary operators
+% binary operators must not have a priority higher than assignment, otherwise
+% prolog would arrange the expression grouping in a bizarre way...
+%
+:- op( 700, xfx,   <-).
+:- op( 900,  fx,  not).
+:- op( 500, xfx,   or).
+:- op( 500, xfx,  and).
+:- op( 500, xfx,  xor).
+:- op( 500, xfx,  imp).
+:- op( 500, xfx,  nand).
+:- op( 500, xfx,  nor).
+
+
+X <- not A  :-				% NOT operator
+	structured_expression(A, Xa),
+	boolean_value(Xa, Abis),
+	boolean_value(X , Xbis),
+	boolean_not(Abis, Xbis).
+
+
+X <- A or B  :-				% OR operator
+	binary_operator(A, B, X, Abis, Bbis, Xbis),
+	boolean_or(Abis, Bbis, Xbis).
+
+
+X <- A and B  :-			% AND operator
+	binary_operator(A, B, X, Abis, Bbis, Xbis),
+	boolean_and(Abis, Bbis, Xbis).
+
+
+X <- A xor B  :-			% XOR operator
+	binary_operator(A, B, X, Abis, Bbis, Xbis),
+	boolean_xor(Abis, Bbis, Xbis).
+
+
+X <- A imp B  :-			% IMP operator
+	binary_operator(A, B, X, Abis, Bbis, Xbis),
+	boolean_imp(Abis, Bbis, Xbis).
+
+
+X <- A nand B  :-			% NAND operator
+	binary_operator(A, B, X, Abis, Bbis, Xbis),
+	boolean_nand(Abis, Bbis, Xbis).
+
+
+X <- A nor B  :-			% NOR operator
+	binary_operator(A, B, X, Abis, Bbis, Xbis),
+	boolean_nor(Abis, Bbis, Xbis).
+
+
+
+
+
+X <- Y :-				% Simple assignment
+	simple_expression(Y),
+	boolean_value(X, Xbis),
+	boolean_value(Y, Ybis),
+	boolean_identity(Xbis, Ybis).			
+
+
+
+
+%
+% Operations common to binary operators
+%
+binary_operator(A, B, X, Abis, Bbis, Xbis) :-
+	structured_expression(A, Xa),
+	structured_expression(B, Xb),
+	boolean_value(Xa, Abis),
+	boolean_value(Xb, Bbis),
+	boolean_value(X , Xbis).
+
+
+%
+% Since unification is heavily used, we must restrain Prolog from searching
+% in undesirable goals ; we thus has to do the distinction between structured
+% expressions (A or B) and simple ones (A).
+%
+simple_expression(A) :-
+	not(structure(A)).
+	
+structured_expression(A, Xa) :-
+	structure(A),
+	Xa <- A.
+structured_expression(A, A).
+
+
+/*X <*  F :- 				% For calling internal predicates in the
+   	F =.. [Pred|Args], 		% boolean formula
+   	P =.. [Pred, X|Args], 
+   	call(P). 
+*/

@@ -1,0 +1,170 @@
+/* isolax.prb
+
+Alan Bundy 22.6.82
+Description Space for Learning Isolate rule
+Syntactic Characterisation */
+
+/* Description Space */
+space(isolax, [occurstree, typetree]).
+
+/* Occurrence Tree */
+tree(occurstree, 2, occurs_rel(free_of,contains(single_occ,mult_occ)) ).
+
+/* Type Tree */
+tree(typetree, 1,
+expr(term(simple(constant,variable),
+	  function(minus,plus,addition,subtraction,multiplication,division)),
+     formula(proposition(equality,inequality),
+	     complex(negation,disjunction,conjunction,
+		     implication(single_impl,double_impl)))) ).
+
+/* Examples */
+specimen(minus,			/* -u=v <-> u=-v */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	minus(expr_at([2,2],rule))] ).
+
+specimen(divide,			/* u/v=w -> u=w*v */
+	[single_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	division(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	multiplication(expr_at([2,2],rule))] ).
+
+/* Near Misses */
+specimen(disjunct,		/* -u=v v u=-v false! */
+	[disjunction(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	minus(expr_at([2,2],rule))] ).
+
+specimen(ineq1,		/* -u>= <-> u=-v false! */
+	[double_impl(rule),
+	inequality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	minus(expr_at([2,2],rule))] ).
+
+specimen(ineq2,			/* -u=v -> u=<-v */
+	[single_impl(rule),
+	equality(expr_at([1],rule)),
+	inequality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	minus(expr_at([2,2],rule))] ).
+
+specimen(collect,		/* u+u=v <-> u=v/2 */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	mult_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	addition(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	division(expr_at([2,2],rule))] ).
+
+
+specimen(zero,			/* -u=u <-> u=0+0 */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	addition(expr_at([2,2],rule))] ).
+
+specimen(cancel,		/* -u=v <-> u=u-u-v */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	mult_occ(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	subtraction(expr_at([2,2],rule))] ).
+
+
+specimen(taut,			/* u=v <-> u=+v */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	variable(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	plus(expr_at([2,2],rule))] ).
+
+specimen(spec,			/* -u=0 <-> u=+0 */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	constant(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	plus(expr_at([2,2],rule))] ).
+
+specimen(const,			/* -5=v <-> 5=-v */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	minus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	constant(expr_at([2,1],rule)),
+	minus(expr_at([2,2],rule))] ).
+
+specimen(plus,			/* +u=v <-> u=v */
+	[double_impl(rule),
+	equality(expr_at([1],rule)),
+	equality(expr_at([2],rule)),
+	single_occ(expr_at([2,1],rule),expr_at([1,1],rule)),
+	free_of(expr_at([2,1],rule),expr_at([1,2],rule)),
+	free_of(expr_at([2,1],rule),expr_at([2,2],rule)),
+	plus(expr_at([1,1],rule)),
+	variable(expr_at([1,2],rule)),
+	variable(expr_at([2,1],rule)),
+	variable(expr_at([2,2],rule))] ).
+
+
+

@@ -1,0 +1,9 @@
+% Meta predicates
+
+link(X, Y) :-
+	belongs(X, Y).
+link(X, Y) :-
+	belongs(X, Temp),
+	link(Temp, Y).
+
+

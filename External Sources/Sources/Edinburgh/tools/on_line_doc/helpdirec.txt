@@ -1,0 +1,18 @@
+In general HELP files, whose names end in .HLP, are to be found in
+the same subdirectory as the file they describe. *But* there are a
+few .HLP files which do not describe a particular .PL file. These are
+to be found in the special directory
+	/usr/local/lib/prolog/toolkit/static/on_line_doc/helper_files
+.HLP files can be found in the following directories:
+
+
+/usr/local/lib/prolog/data/lists
+/usr/local/lib/prolog/data/special
+/usr/local/lib/prolog/data/terms
+/usr/local/lib/prolog/demo/demo/grammars
+/usr/local/lib/prolog/demo/prolog/common_extns
+/usr/local/lib/prolog/io/formatted_write
+/usr/local/lib/prolog/toolkit/dynamic/tracing
+/usr/local/lib/prolog/toolkit/static/inspection
+/usr/local/lib/prolog/toolkit/static/on_line_doc
+/usr/local/lib/prolog/toolkit/static/on_line_doc/helper_files

@@ -1,0 +1,9 @@
+<help  name="AmziProlog.Help">
+	<module  name="Strings">
+		<predicate  name="string_index" arity=3>
+			<parameter name="Str" type="read">String to search for</parameter>
+			<parameter name="Search" type="read">String to search</parameter>
+			<parameter name="Str" type="read">String to search</parameter>
+	
+	</module>
+</help>

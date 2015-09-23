@@ -1,0 +1,24 @@
+% Refinement graph generator for pds
+
+search_rg(X,P,Y) :- % search for Y that covers P, starting from X.
+	create_io(X,Vx), !,
+	search_rg1((X,Vx),P,Y).
+
+search_rg1(X,P,Y) :-
+	covers(X,P), X=(Xc,_), \+looping(Xc) ->
+	    check_refinements([X],Xs,Xs,P,Y,1) ;
+	derefine(X,X1,P), search_rg1(X1,P,Y).
+
+% derefine(X,Y) :-  Y is the result of derefining X. which means,
+% in the meantime, omitting one condition from X.
+derefine((X,Vx),Y,_) :-
+	writelv(['Derefining ',X,'...']), nl, derefine1((X,Vx),Y).
+derefine1(((X:-Xs),Vx),Y) :-
+	deconc(Xs,Ys), create_io((X:-Ys),Vy), new(((X:-Ys),Vy),Y).
+derefine1(((X:-true),Vx),((Y:-true),Vy)) :-
+	mgt(X,Y), \+variants(X,Y), create_io((Y:-true),Vy).
+
+% delete the last conjunct
+deconc((X1,(X2,Xs)),(X1,Ys)) :- !, deconc((X2,Xs),Ys).
+deconc((X1,X2),X1) :- !.
+deconc(X,true) :- X\==true.

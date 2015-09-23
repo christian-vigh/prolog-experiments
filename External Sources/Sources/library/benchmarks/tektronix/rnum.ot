@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN ReadNumber BENCHMARK
+!**  Average cputime for 200 readnums is 2644.441406 msecs.
+!**  Average cputime for 400 readnums is 5172.218750 msecs.
+!**  Average cputime for 600 readnums is 7927.773438 msecs.
+!**  Average cputime for 800 readnums is 10522.210938 msecs.
+!**  Average cputime for 1000 readnums is 12744.437500 msecs.
+!**  END ReadNumber BENCHMARK

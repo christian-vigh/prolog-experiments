@@ -1,0 +1,244 @@
+:- import(utilities).
+
+:- dynamic( array_value/4 ).
+:- dynamic( array_options/2 ).
+:- sorted( array_value/4 ).
+
+
+
+%***************************  Constants  *********************************
+
+# define 	ERR_ARRAY_BASE					0x1000
+# define	ERR_ARRAY_ALREADY_DEFINED			( ERR_ARRAY_BASE +   1 )
+# define	ERR_ARRAY_UNDEFINED_ARRAY			( ERR_ARRAY_BASE +   2 )
+# define	ERR_ARRAY_INVALID_BOUNDARY			( ERR_ARRAY_BASE +   3 )
+# define	ERR_ARRAY_INVALID_DIMENSION_SIZE		( ERR_ARRAY_BASE +   4 )
+
+
+# define 	ARRAY_PREDICATE(Name,Bounds)			array$array(Name,Bounds)
+# define 	ARRAY_VALUE_PREDICATE(Name,Index,Value)		array$value(Name,Index,Value)
+# define	ARRAY_OPTIONS_PREDICATE(Name,Value)		array$options(Name,Value)
+
+
+
+%***************************  General Options *********************************
+
+% general options
+% use_exceptions : 
+%	1 if exceptions are to be used, 0 if normal prolog goal satisfaction
+%	mechanism is to be used.
+% base :
+%	For array boundaries which are defined by giving a size instead of an
+%	index range, the 'base' option determines if the first element has index
+%	0 or one.
+%
+option(use_exceptions, Value) :-
+	( Value == 0 ; Value == 1 ),
+	retractall( ARRAY_OPTIONS_PREDICATE(use_exceptions, _ ) ),
+	assert( ARRAY_OPTIONS_PREDICATE(use_exceptions, Value) ).
+
+option(base, Value) :-
+	( Value == 0 ; Value == 1 ),
+	retractall( ARRAY_OPTIONS_PREDICATE(base, _ ) ),
+	assert( ARRAY_OPTIONS_PREDICATE(base, Value) ).
+
+% Default values
+ARRAY_OPTIONS_PREDICATE(use_exceptions, 1).
+ARRAY_OPTIONS_PREDICATE(base          , 1).
+
+
+
+%***************************  Array predicates  *******************************
+
+% is_array : satisfies if Name is an array
+is_array(Name) :-
+	array(Name, _).
+	
+	
+% create : creates an array
+create(Name, Boundaries) :-
+	array_must_be_undefined(Name),
+	array_parse_boundaries(Boundaries, Bounds),
+	assert( ARRAY_PREDICATE(Name, Bounds) ).
+
+
+% delete : deletes an array
+delete(Name) :-
+	array_must_be_defined(Name),
+	retractall( ARRAY_PREDICATE( Name, _ ) ),
+	retractall( ARRAY_VALUE_PREDICATE( Name, _, _ ) ).
+
+
+% Prints the contents of an array 
+portray(Name) :-
+	array_must_be_defined(Name),
+	print 'Array ' + Name + ' ',
+	array(Name, Boundaries),
+	portray_boundaries(Boundaries),
+	print ': ' + nl.
+	
+portray_boundaries([]).
+portray_boundaries( [ [Low, High] | Tail ] ) :-
+	print '[' + Low + '..' + High + '] ',
+	portray_boundaries(Tail).
+
+
+%***************************  Exceptions and checkings  ***********************
+
+% array_throw : throws an exception if the array option 'use_exceptions' is 
+% either undefined or non-zero.
+array_throw( Exception ) :-
+	( 
+	  	not( array_options( use_exceptions, X ) ) ;
+	  	X \== 0
+	 ),
+	throw( Exception ).
+array_throw( Exception ) :- !.
+
+
+
+
+% Checks that the specified array does not already exist
+array_must_be_undefined(Name) :-
+	not( is_array(Name) ), !.
+array_must_be_undefined(Name) :-
+	array_throw( array_error(ERR_ARRAY_ALREADY_DEFINED, 'Array is already defined', Name) ).
+
+
+% Checks that the specified array already exist
+array_must_be_defined(Name) :-
+	is_array(Name), !.
+array_must_be_defined(Name) :-
+	array_throw( array_error(ERR_ARRAY_UNDEFINED_ARRAY, 'Array does not exist', Name) ).
+
+
+% Parses the boundary list specified in the create/2 predicate.
+array_parse_boundaries( [], [] ).
+array_parse_boundaries( [Head|Tail], [X|RTail] ) :-
+	array_parse_boundary( Head, X ),
+	array_parse_boundaries( Tail, RTail ).
+	
+
+array_parse_boundary( Low-High, [X, Y] ) :-
+	array_get_low_boundary(Low, X),
+	array_get_high_boundary(High, Y),
+	( 
+		X =< Y ; 
+		array_throw( array_exception(ERR_ARRAY_INVALID_BOUNDARY, 'Invalid array boundary', [X, Y]) )
+	  ), !.
+
+array_parse_boundary(Size, _) :-
+	Size =< 0,
+	array_throw( array_exception(ERR_ARRAY_INVALID_DIMENSION_SIZE, 'Invalid dimension size', Size) ), !.
+array_parse_boundary(Size, [X, Y] ) :-
+	array_options(base, Base),
+	Low is 0, High is Size - 1,
+	X is Low + Base, Y is High + Base, !.
+	
+
+array_get_low_boundary(A, A) :-
+	is_number(A).
+array_get_low_boundary(Keyword, -inf) :-
+	is_member(Keyword, [infinite, infinity, inf, -infinite, -infinity, -inf]).
+	
+array_get_high_boundary(A, A) :-
+	is_number(A).
+array_get_high_boundary(Keyword, -inf) :-
+	is_member(Keyword, [infinite, infinity, inf, +infinite, +infinity, +inf]).
+
+	
+
+/***
+
+valid_index(Name, Index) :-
+	array_property(Name, 1, Low, High),
+	Index >= Low, Index =< High, !.
+valid_index(Name, Index) :-
+	array_boundary(Name, 1, Low, High),
+	throw(
+		array_error(
+			ERR_ARRAY_INVALID_INDEX, 'Index is outside array bounds',
+				Index, Low, High )
+	       ).
+
+copy(From, To) :-
+	array_defined(From),
+	array_undefined(To),
+	assert( array(To) ),
+	findall( [Dimension, Low, High],
+			array_boundary(From, Dimension, Low, High),
+			BoundaryList),
+	copy_boundaries(To, BoundaryList),
+	findall( [Dimension, Index, Value],
+			array_value(From, Dimension, Index, Value),
+			ValueList),
+	copy_values(To, ValueList).
+
+copy_boundaries(_, []).
+copy_boundaries(To, [ [Dimension, Low, High] | Tail]) :-
+	assert( array_boundary(To, Dimension, Low, High) ),
+	copy_boundaries(To, Tail).
+	
+copy_values(_, []).
+copy_values(To, [ [Dimension, Index, Value] | Tail]) :-
+	assert( array_value(To, Dimension, Index, Value) ),
+	copy_values(To, Tail).
+
+set(Name, Index, Value) :-
+	array_defined(Name),
+	valid_index(Name, Index),	
+	retractall( array_value(Name, 1, Index, _) ),
+	assert( array_value(Name, 1, Index, Value) ).
+	
+get(Name, Index, Value) :-
+	array_defined(Name),
+	valid_index(Name, Index),
+	do_get(Name, Index, Value).
+	
+do_get(Name, Index, Value) :-
+	array_value(Name, 1, Index, Value), !.
+do_get(Name, Index, '').
+
+
+reset(Name, Index) :-
+	array_defined(Name),
+	valid_index(Name, Index),
+	retractall( array_value(Name, 1, Index, _) ).
+
+foreach(Name, Index, Value) :-
+	array_value(Name, 1, Index, Value).
+
+
+reset(Name) :-
+	retractall( array_value(Name, _, _, _) ).
+
+resize(Name, Range) :-
+	valid_boundary(Name, Range, Low, High),
+	retractall( array_boundary(Name, 1, _, _) ),
+	assert( array_boundary(Name, 1, Low, High) ),
+	not( resize_delete(Name, 1, Low, High) ).
+	
+resize_delete(Name, Dimension, Low, High) :-
+	array_value(Name, Dimension, X, V),
+	( X < Low ; X > High ),
+	retractall( array_value(Name, Dimension, X, _) ),
+	fail.
+
+
+low(Name, X) :-
+	array_defined(Name),
+	array_boundary(Name, _, X, _).
+
+high(Name, X) :-
+	array_defined(Name),
+	array_boundary(Name, _, _, X).
+
+size(Name, X) :-
+	array_defined(Name),
+	array_boundary(Name, _, Low, High),
+	X is High - Low + 1.
+	
+
+
+%:- end_body(array).
+***/

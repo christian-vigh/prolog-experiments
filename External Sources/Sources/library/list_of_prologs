@@ -1,0 +1,1173 @@
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+NAME:		Advanced AI Systems Prolog
+VERSION:	M-1.15
+SRC/MACHINE/OS:	Macintosh Plus, Macintosh SE, Macintosh II compatible.
+COST:		$199
+FEATURES:
+   Edinburgh syntax; pretty printer; global variables; DCGs;
+   arithmetic and strings; garbage collection; graphics;
+   lisp machine like interface, edit complie eval interactively;
+   access to Macintosh toolbox; interactive debugger.
+CONTACT:	Advanced AI Systems, Inc.
+		P.O. Box 39-0360
+		Mountain View, CA 94039
+		(415) 948-8658
+NOTES:	Reviewed in MACGUIDE winter 1987.
+DATED:		Feb 1988
+---------------------------------------------------------------------
+NAME:           A.D.A. Prolog
+VERSION:        First release, dated 1985
+SRC/MACHINE/OS: C / MSDOS and PCDOS systems
+AVAILABILITY:	Full version from May 1985; five versions of
+		increasing complexity available separately;
+		educational and commercial licenses.
+COST:           ??
+FEATURES:       
+    Incremental compiler, VML virtual memory system and extensions
+    invisible to user, database access routines, debugging, stream
+    input, list-based structure sharing, UNIX style modules, incre-
+    mental garbage collection, Edinburgh-compatible syntax.
+CONTACT:        Automata Design Associates
+		1570 Arran Way
+		Dresker, PA 19025
+		(215) 335-5400
+DATED:          June 1985
+---------------------------------------------------------------------
+NAME:		ALS Prolog
+VERSION:	PC: 1.1 (shipping 1.2 soon)
+		Mac: 1.0
+SRC/MACHINE/OS: PC,XT,AT; VAXMate; Mac; SUN3 in beta test
+AVAILABILITY:	commercial and educational site licenses available
+COST:		PC: $499 professional, $199 personal
+		Mac: $349 (no professional/personal distinction)
+STATUS:
+FEATURES:
+    Incremental interactive compiler, needs no interpreter:
+    compiles full Prolog "on the fly"; modules, garbage collection,
+    tail recursion; standard debugger, assert, clause, etc. operate
+    on compiled code; C interface, real strings, screen control,
+    interrupt handling, DCGs.
+    Professional version has virtual code space (almost unlimited
+    program size; stand-alone applications generator; DOS interface,
+    PC windowing primitives.  Mac version has multi-window interface,
+    integrated editor; graphics, windowing.
+CONTACT:	Applied Logic Systems, Inc.
+		P.O. Box 90, University Station
+		Syracuse, NY 13210-0090 USA
+		(315) 471-3900
+DATED:		Feb 1988
+---------------------------------------------------------------------
+NAME:		Arity/Prolog V5.0
+SRC/MACHINE/OS:	IBM-PC and compatibles, the compiler is written in
+		Arity/Prolog
+AVAILABILITY:	Feb 88
+COST:		??
+FEATURES:
+    Interpreter and compiler, with debugger; "string support",
+    embedded 'C' language expression and interface, UNIX-style file I/O
+    and systems functions, windowed text screen management; DCG support;
+    database supports B-trees, hash tables.
+CONTACT:	Arity Corporation
+		30 Domino Drive
+		Concord, MA 01742
+		(617) 371-1243
+
+DATED:		Feb 1988
+---------------------------------------------------------------------
+NAME:		Basser Prolog
+VERSION:	3
+SRC/MACHINE/OS:	C/Unix (V7, 4.?BSD & others) also VMS
+AVAILABILITY:	Educational license, source or binary
+COST:		A$300 or US$300 or negotiable, VMS version extra
+STATUS:		running, some development & support
+FEATURES:
+    Fast interpreter, full interface to Unix, Dec-10 debugging
+    facilities, real arithmetic, backtrackable I/O, good docu-
+    mentation (user manual & tutorial).
+CONTACT:	Andrew Taylor (USENET: mulga!basser!andrewt)
+		Department of Computer Science
+		Sydney University
+		Sydney, N.S.W.  2006
+		Australia
+NOTES:
+    Yet another prolog syntax. Most of the code is clean and readable.
+    Generally similar to DEC-10 prolog.  Basser Prolog has sufficient
+    "features" to make it a reasonable programming environment and a
+    useful tool.
+DATED:		May 1984
+-------------------------------------------------------------------------
+NAME:           BIM-Prolog
+VERSION:        2.3
+SRC/MACHINE/OS: VAX/VMS & UNIX and SUN/4.2bsd UNIX
+AVAILABILITY:   Academic and commercial
+COST:           Varies; discounts for academic users.
+FEATURES:
+    Compiler/interpreter, algorithmic debugging, external language
+    interface, graphics and windowing, module concept, partial
+    evaluation, relational database interface (Sybase, Unify & Ingres),
+    dbxtool-like window debugger.
+
+CONTACT:       
+    Raf Venken				The SHURE Group
+    BIM	        			1514 Pacific Ranch Dr.
+    Kwikstraat 4			Encinitas, CA 92024
+    3078 Everberg			(sun!suntan!bshure)
+    B-Belgium
+    (32-2) 759-5925			(619) 944-0320
+					(800) 627-6564
+DATED:          SEP 1988
+-------------------------------------------------------------------------
+NAME:		BNR Macintosh Prolog
+VERSION:	(0.15)
+SRC/MACHINE/OS:	Apple Macintosh Plus/SE Mac II (BW & Color);
+		written in 68000 assembler, Prolog, and MPW Pascal.
+AVAILABILITY:	Experimental use at Bell Northern Research
+		(not publicly released)
+COST:		N/A
+FEATURES:
+   Complete MPW-like Prolog programming environment with editor windows, 
+   interpreter, and 4-port debugger. High-level graphics description language
+   with access to Mac Toolbox (Quick Draw, dialogues, event handling etc).
+   Dialect extensions include nested module structure, cyclic structures,
+   freeze and diff, soft cut and ancestor cut, "logical" real arithmetic
+   (i.e. constraint arithmetic for real intervals), variable name
+   retention, variable functors and variable arity predicates. 
+STATUS:	N/A
+CONTACT:	Marianne Morin
+		Bell Northern Research
+		P.O. Box 3511 Station C
+		Ottawa Ontario
+		Canada K1Y 4 H7
+		(613) 763-2835
+		morin @ BNR.BITNET
+		
+DATED:		February 1988
+---------------------------------------------------------------------
+NAME:		C-Prolog
+VERSION:	1.5
+SRC/MACHINE/OS:	C/UNIX 4.1/2 BSD, C/VMS
+AVAILABILITY:	Academic and commercial licenses
+COST:		100 pounds, academic
+		updates (if you have earlier version) 50 pounds
+FEATURES:
+    Interpreter, Prolog-10 compatibility, four port debugger.
+CONTACT:
+    Department of Architecture		SRI International
+    Edinburgh Univeristy		333 Ravenswood Ave.
+    Forest Hill Rd.			Menlo Park, CA 94025
+    Edinburgh  EH1 1GZ
+    U.K.
+    (decvax!mcvax!ukc!edcaad!margaret)
+DATED:		July 1984
+-------------------------------------------------------------------------
+NAME:		Caltech Prolog (tentative)
+VERSION:	0.2
+SRC/MACHINE/OS:	IBM, written in Prolog and 370 assembly
+AVAILABILITY:	Not being distributed.
+FEATURES:
+    Compiler completely compiles itself, but some normal glue routines
+    still missing.  Speed of about 1 Megalip on an IBM 3090 for naive
+    reverse.
+CONTACT:	Mike Newton (newton@vlsi.caltech.edu)
+DATED:		Oct 1987
+-------------------------------------------------------------------------
+NAME:		CLP(R)
+VERSION:	2.0
+SRC/MACHINE/OS: C / VAXen,Pyramid,Sun,etc. / UNIX
+AVAILABILITY:	educational or research, site license
+COST:		$150 Australian / $170 for overseas orders
+FEATURES:
+    Interpreter, targetted at educational or research usage.
+    The CLP(R) language is an instance of the Constraint Logic
+    Programming scheme described in [Jaffar & Lassez 87].  Its
+    operational mode is similar to that of Prolog.  A major
+    difference is that unification is replaced by a more general
+    mechanism: solving constraints in a domain of uninterpreted
+    functors over real arithmetic. (from the programmer's manual)
+CONTACT:	clp@moncsbruce.oz.au
+		munnari!moncsbruce.oz!clp@seismo
+
+		CLP(R) Distribution
+		Department of Computer Science
+		Monash University
+		Clayton, Victoria 3168
+		Australia
+NOTES:
+    Jaffar,J. & Lassez,J-L., "Constraint logic programming",
+    POPL, Munich, Jan 87.
+DATED:		June 1987
+-------------------------------------------------------------------------
+NAME:		Edinburgh Prolog (formerly NIP)
+VERSION:	1.5.02 (1 December 87)
+SRC/MACHINE/OS: C and Prolog / UNIX
+AVAILABILITY:	Educational, research, and commercial
+COST:		details from contact below
+FEATURES:
+    Compatibility with DEC-10 and C-Prolog, compilation to intermediate
+    code, real arithmetic, interface to user C routines.
+CONTACT:	Robert Rae, AI Applications Institute,
+		University of Edinburgh, 80 South Bridge,
+		EDINBURGH EH1 1HN, United Kingdom.
+NOTES:
+    Intended to be portable onto any 32-bit UNIX system, but not usually
+    supplied in source form.  Executable versions currently available for
+    VAX BSD, SUN, Gould UTX32, Pyramid, etc.  Development funded
+    principally by Alvey initiative.
+DATED:		Dec 1987
+-------------------------------------------------------------------------
+NAME:           EqL (Equational Language)
+VERSION:        1.0  
+SRC/MACHINE/OS: C / Unix
+AVAILABILITY:	Anyone
+COST:           None.  Access by FTPing to dopey.cs.unc.edu, log in as
+		ftp, use your name as password, connect to directory
+		pub/EqL, and get all files in directory.  Will mail a
+		tape if unable to access by FTP.
+FEATURES:       
+    Combines logic and functional programming, rule-based language, 
+    functional syntax, interpreter is essentially an equation solver, 
+    has tracing, runs about half as fast as C-Prolog interpreter,
+    tutorial available.
+CONTACT:        Bharat Jayaraman
+		Computer Science Department
+		University of N. Carolina at Chapel Hill
+		Chapel Hill, NC 27514
+
+		bj@cs.unc.edu
+		(919) 962-1764
+DATED:          December 1987
+NOTES:
+    The language was first described in the 1986 LISP & FP conference.
+    Several papers and reports available.  The language has been
+    extensively tested, and also used in a graduate programming language
+    class.  Compiled version being planned.
+-------------------------------------------------------------------------
+NAME:		ExperProlog-II
+SRC/MACHINE/OS: Macintosh
+COST:		$495
+FEATURES:
+    Based on Alain Colmerauer's Prolog-II: infinite trees, "freeze"
+    operator, etc.; non-standard Mac interface.
+CONTACT:	ExperTelligence Inc.
+		559 San Ysidro Rd.
+		Santa Barbara, CA 93108
+		(805) 969-7871
+NOTES:	See review in April 1987 issue of Dr. Dobbs and March 1987
+	 issue of MacUser.
+DATED:		Jan 1988
+-------------------------------------------------------------------------
+NAME:		GProlog
+VERSION:	Versions corresponding to C-Prolog versions 1.4 and 1.5
+SRC/MACHINE/OS: C with some assembler/Sun 2 and Sun 3/SunOS (4.2 BSD)
+AVAILABILITY:	Anyone
+COST:
+    Send a magtape and $10 to cover postage and handling.  Will store
+    files in tar format.  Specify which version of C-Prolog you are using.
+STATUS:
+    Has been in use for several years, including use in a couple of large
+    projects.
+FEATURES:	Adds SunCore graphics predicates to C-Prolog
+CONTACT:	Barry Brachman		   {ihnp4!alberta,uw-beaver,seismo}!
+		Dept. of Computer Science 	ubc-vision!ubc-cs!brachman
+		Univ. of British Columbia  brachman@cs.ubc.cdn
+		Vancouver, B.C. V6T 1W5  
+		(604) 228-4327
+DATED:		August 1987
+NOTES:
+    A few of the SunCore routines are not available to GProlog.  The
+    distribution consists of patches to be applied to the original
+    C-Prolog 1.4 or 1.5 sources; C-Prolog is *not* included in the
+    distribution.  Will email the 6 page manual in LaTeX form upon
+    request.
+-------------------------------------------------------------------------
+NAME:		Horne
+VERSION:        28
+SRC/MACHINE/OS:	Common Lisp / Explorer (v2.1) & Symbolics 36xx (v7.1)
+AVAILABILITY:	Horne is considered obsolete, since Rhet is now available,
+		however, full sources are distributed to anyone, upon
+		signing a license/disclaimer for non-commercial use.
+COST:		$150 (academic), TR for $2.50  Non-academic institutions
+		are requested to send whatever they can afford over $150
+		to help defray expenses.
+FEATURES:
+    LISP interface; tracing and debugging; typed theorem proving;
+    automated reasoning facilities include forward chaining, constraint
+    posting. Also included: REP, Knowledge Representation extensions, that
+    allow reasoning about structured types, classification of objects, etc.
+    Similar in spirit to KL-1, but internal representation is consistent
+    with Horn clause notation, allowing for more flexible systems.
+CONTACT:
+    Admin: (distribution, TR) Rose Peet (rose@cs.rochester.edu)
+    Technical: Brad Miller (miller@cs.rochester.edu)
+    Author: James Allen (james@cs.rochester.edu)
+
+		 Computer Science Dept.
+		 River Campus
+		 University of Rochester
+		 Rochester, NY 14627
+DATED:		October 1988
+---------------------------------------------------------------------
+NAME:           HP Prolog
+VERSION:        1.0 (product# 79232U)
+SRC/MACHINE/OS: Common Lisp / HP9000/300 / HP-UX (System V)
+		 (source not available)
+AVAILABILITY:   Hewlett Packard
+FEATURES:
+    Runs in HP's Common Lisp environment, allowing very transparent
+    combination of Lisp and Prolog programs.  Since Lisp has complete
+    foreign-function calling capabilities, Prolog has access to all
+    HP-UX intrinsics, graphics/networking libraries, etc.  Supports 
+    two syntaxes: Q-Prolog, a Quintus compatability mode, and Z-Prolog,
+    a Lisp-like S-expression syntax.  Includes interpreter, compiler,
+    screen-oriented 4-port debugger, etc.
+CONTACT:        Your local HP sales office
+DATED:          December 1987
+---------------------------------------------------------------------
+NAME:           ICL Prolog
+VERSION:        First release dated 1984
+SRC/MACHINE/OS: Pascal / VME on ICL 2900 to intermediate code
+AVAILABILITY:   Commercial license.
+COST:           Complete package priced at 400 pounds per quarter,
+		 including functional LISP.
+FEATURES:
+    Compiler; lexical modules for construction of large applications;
+    incremental garbage collection, tail recursion optimization,
+    early detection of determinacy, clause indexing, trace and
+    debugging facilities; large address space, interface to other
+    languages.
+CONTACT:        J. W. Doores
+		International Computers Ltd.
+		Wenlock Way, West Gorton
+		Manchester M12 5DR
+		Tel: 061-223 1301
+DATED:          June 1985
+NOTES:
+    Improved version to be released soon written in 'C' and Prolog,
+    for UNIX on Orion and PERQ PNX systems.
+---------------------------------------------------------------------
+NAME:		IF/Prolog
+VERSION:	?
+SRC/MACHINE/OS:	Apple Macintosh; Apollo/UNIX; Data General AOS/VS;
+		DEC VMS/ULTRIX; IBM-PC/MS-DOS/UNIX; SUN UNIX;
+		HP9000/300, HP9000/800
+COST:           30% discount to non-commercial research institutions.
+FEATURES:
+    Interpreter, compiler; interfaces to operating system, GKS
+    (Graphics Kernel System) database (Oracle/Informix/...) and C
+    functions; emacs editor; full screen box debugger.
+CONTACT:	InterFace Computer Gmbh.
+		Garmischer Strasse 4	Phone: (089) 510 86 55
+		D-8000 Munich 2		karin@ifcom.uucp
+		Germany
+NOTES:
+    Also offer tutorials/courses and consulting in either English
+    or German.
+DATED:		Sept 1987
+---------------------------------------------------------------------
+NAME:		Lambda Prolog
+VERSION:	2.6
+SRC/MACHINE/OS: C-Prolog 1.5, straightforward conversion to Quintus
+AVAILABILITY:
+    Available by FTP from linc.cis.upenn.edu; log in as anonymous, use
+    your login id as password; cd pub/lp2.6; retrieve the code in the
+    subdirectory.
+    Can mail tar format tapes for those who cannot FTP.
+CONTACT:
+	 Dale Miller (dale@linc.cis.upenn.edu)
+	 University of Pennsylvania
+    or
+	 Gopalan Nadathur (gopalan@cs.duke.edu)
+	 Duke University
+FEATURES:
+    Lambda Prolog extends Prolog by
+	 (1) using typed lambda-terms instead of first-order terms,
+	 (2) permitting quantification over function and predicate variables
+	 (3) performing higher-order unification and lambda-conversion
+	 (4) permitting and interpreting universally quantified goals, and
+	 (5) containing a notion of modules.
+    This logic programming language provides many of the higher-order
+    features which are common in functional programming languages.  The
+    availability of higher-order unification, however, gives this
+    language a certain kind of richness not present in other programming
+    languages.  We illustrate this richness by demonstrating how this
+    language can be used to provide novel specifications of
+	 (1) theorem provers and proof systems,
+	 (2) program transformation algorithms, and
+	 (3) knowledge representation systems.
+DATED:	Sept 1987
+---------------------------------------------------------------------
+NAME:		LISPLOG
+VERSION:	2
+SRC/MACHINE/OS:	SYMBOLICS COMMON LISP and FRANZ LISP or COMMON LISP
+		 in UNIX on VAX, APOLLO, SUN, and IBM-RT
+AVAILABILITY: 	Unrestricted.
+COST: 		Still free
+FEATURES:
+    Iterative interpreter and CProlog translator; several LISP/PROLOG
+    interfaces; varying-length structures; predicate variables;
+    specialized cut operator and initial-cut tools; zoom-box model;
+    modules; streams; forward-chaining extensions; micro-UNIXPERT
+    system.
+CONTACT: 	LISPLOG-Buero, AG Richter
+		FB Informatik, Univ. Kaiserslautern
+		Postfach 3049
+		6750 Kaiserslautern
+		W. Germany
+		E-mail: lisplog@uklirb.UUCP
+DATED:		September 1987
+NOTES:		Recursive interpreter (version II) also supported.
+---------------------------------------------------------------------
+NAME:		LM-Prolog
+SRC/MACHINE/OS:	ZetaLisp/LMI Lambda
+AVAILABILITY:	commercial and non-commercial licenses.
+STATUS:		Stable.
+FEATURES:
+    Compiles to Zetalisp, interpreter, "4 port" debugger, microcode
+    support, worlds, indexing, lazy and eager collections,
+    constraints; Concurrent Prolog interpreter; backtracking Turtle
+    graphics; interface to Lisp; optional occur check, optional
+    cyclic structures, mutable arrays, full Lisp machine environment;
+    DEC-10 Prolog compatibility package.
+CONTACT:	Mats Carlsson
+		SICS
+		PO Box 1263
+		S-16313 SPANGA, Sweden
+		mats-c@sics.se
+DATED:		December 1986
+---------------------------------------------------------------------
+NAME:           LOGLISP
+VERSION:        Version 3 (dated 1984)
+SRC/MACHINE/OS: UCI Rutgers LISP/DEC 10; Zetalisp/LMI Lambda;
+		Symbolics 3600.
+AVAILABILITY:   Commercial, academic and US Government licenses.
+COST:           $30 to $400, depending on license.
+FEATURES:
+    Interpreter incorporating breadth-first and heuristic search mode
+    and notion of reducibility; LISP host environment with embedded
+    logic programming system; uses structure sharing techniques with
+    reduction; functions in modules; set of new LISP primitives
+    callable from within LISP programs.
+CONTACT:        K. J. Greene
+		313 Link Hall
+		School of Computer and Information Science
+		Syracuse University
+		Syracuse, NY 13210
+DATED:          June 1985
+---------------------------------------------------------------------
+NAME:		LPA Mac-Prolog
+SRC/MACHINE/OS:	Macintosh, 512K
+COST:		$295, optimizing compiler $100
+FEATURES:
+    Incremental compiler and interpreter; editing of windows with
+    cut, paste, find and replace compiled upon initiation of a
+    command or query.  Independent multiple evaluations can be
+    initiated in separate evaluation spaces.  Full window and menu
+    support available through Prolog primitives.
+CONTACT:	Programming Logic Systems, Inc.
+NOTES:	See August 1986 issue of Computer Language and March 1987
+	issue of MacUser.
+DATED:		Jan 1988
+---------------------------------------------------------------------
+NAME:		MacPROLOG
+SRC/MACHINE/OS:	Macintosh
+COST:		$295 MacPROLOG, $100 optimizing compiler
+FEATURES:	Micro-Prolog for the Macintosh.
+CONTACT:	Programming Logic Systems, Inc.
+		31 Crescent Dr.
+		Milford, CT 06460
+		(203) 877-7988
+NOTES:	From review in April 1987 issue of Dr. Dobbs.
+DATED:		Jan 1988
+---------------------------------------------------------------------
+NAME:           Micro-Prolog
+VERSION:        3.1 (dated March 1984)
+SRC/MACHINE/OS: Assembler/ CP/M-80 and MSDOS microcomputers.
+AVAILABILITY:   Academic and commercial licenses available.
+COST:           For CPM80 machines: 125 pounds or $195;
+		for CPM86/MSDOS/PCDOS machine: 175 pounds or $295;
+		special rates for educational institutions.
+FEATURES:
+    Extensibility of supervisor made possible by modules; interactive
+    program text editor; editor and trace utility modules; real
+    numbers; memory trace facility; SIMPLE extension to supervisor;
+    DEC-10 front end for machines with >64KB memories; APES -- Expert
+    System Shell available.
+CONTACT:
+    Programming Logic Systems	Logic Programming Associates
+    31 Crescent Drive		Studio 4,
+				The Royal Victoria Patriotic Building
+    Milford, CT 06460		Trinity Road
+				London SW18 6SX
+DATED:          June 1985
+---------------------------------------------------------------------
+NAME:           Modula-Prolog
+SRC/MACHINE/OS: Modula-2, MS-DOS, VAX VMS and UNIX
+AVAILABILITY:   ?
+COST:           ?
+FEATURES:
+    Modula-Prolog is a software package written in Modula-2, offering
+    tools for constructing Prolog interpreters which can interact in
+    many ways with other Modula-2 programs.  Fully compatible with
+    Clocksin & Mellish.
+CONTACT:        Carlo Muller
+		Brown Boveri Research
+		CH-5405 Baden
+		Switzerland
+DATED:		Sept 1985
+---------------------------------------------------------------------
+NAME:		MProlog
+VERSION:	1.5 (dated 1984)
+SRC/MACHINE/OS:	CDL2 & Prolog; DEC VAX: VMS and UNIX (4.2 BSD);
+		IBM: VM/CMS, MVS/TSO; IBM-PC: PC DOS; 68000 based
+		UNIX variations; Tektronix 4404 workstation; HP3000.
+AVAILABILITY:	wide range-- commercial, educational, per CPU, OEM
+		distribution and run-time licenses
+COST:		Educational and OEM discounts available.
+FEATURES:
+    Interpreter, compiler; program development environment -
+    interactive editor, concurrent proof editing, trace facilities;
+    user-defined error handling; garbage collection; over 250
+    built-in predicates; external routine interfaces; modularity;
+    portability
+CONTACT:	Logicware Inc.
+		5000 Birch Street
+		West Tower, Suite 3000
+		Newport Beach, CA 92660
+		(714) 476-3634
+	 or 
+		Logicware Inc.
+		1000 Finch W., Suite 600
+		Toronto, Canada  M3J 2V5
+		(416) 665-0022
+	 or
+		Systems, Computers and Informatics Laboratory, SZKI
+		1368 Budapest, POB 224
+		Hungary
+DATED:		March 1985
+---------------------------------------------------------------------
+NAME:		MU-Prolog
+VERSION:	3.2
+SRC/MACHINE/OS:	C/UNIX on VAX, SUN, Perkin Elmer, Pyramid, Gould,
+		Elxsi,....  (portable to most UNIX systems)
+FEATURES:	DEC-10 compatability, database system, coroutines.
+AVAILABILITY:	Now (non-military educational and research only)
+COST:		$200 (Australian)
+STATUS:		Stable, no longer supported.  Replaced by NU-Prolog.
+CONTACT:	Lee Naish
+		(lee@mulga.oz.au, munnari!lee@seismo.css.gov.us)
+	Department of Computer Science
+	University of Melbourne
+	Parkville, Victoria  3052
+	Australia
+DATED:		October 1988
+NOTES:		
+    Extra control facilities enable coroutining.  Negation and other
+    predicates are delayed when insufficiently instantiated.  The
+    database system allows terms containing functors and variables to
+    be stored on disk.
+---------------------------------------------------------------------
+NAME:		NU-Prolog
+VERSION:	1.3
+SRC/MACHINE/OS:	C/UNIX on VAX, SUN, Encore, Perkin Elmer, Pyramid,
+		Elxsi,....  (portable to most UNIX systems)
+FEATURES:	Quintus compatability, database system, coroutines,
+		compiler. 
+AVAILABILITY:	Now
+COST:		$400 (Australian) for academic users.
+		Price on request for others.
+STATUS:		Stable.
+CONTACT:	John Shepherd
+		(jas@mulga.oz.au, munnari!jas@seismo.css.gov.us)
+	NU-Prolog Distribution
+	Department of Computer Science
+	University of Melbourne
+	Parkville, Victoria  3052
+	Australia
+DATED:		October 1988
+NOTES:		
+    Extra control facilities enable coroutining.  Predicates are
+    delayed when insufficiently instantiated.  Good facilities for
+    negation, quantifiers, implication etc.  Interface to foreign
+    functions on BSD systems.  Includes a NU-Prolog program checker
+    and an automatic control generator.  The database system allows
+    terms containing functors and variables to be stored on disk.
+    Implementation is based on an extended version of the WAM.  A
+    stream-and parallel version is being developed for shared-memory
+    multi-processors.
+---------------------------------------------------------------------
+NAME:		PARLOG
+SRC/MACHINE/OS: C and PARLOG / Sun and VAX / 4.x UNIX
+AVAILABILITY:	non-commercial
+COST:		$300 or 150 Pounds per machine type.
+FEATURES:
+    Based on an abstract instruction set, the SPM
+    (Sequential PARLOG Machine); SPM emulator written in
+    C, PARLOG-SPM compiler written in PARLOG, interpreter
+    written in PARLOG; fairly complete implementation of
+    PARLOG, guards may contain any "safe" PARLOG conjunction,
+    powerful metacall facility.
+CONTACT:	Mrs. Pat Easton-Orr
+		Department of Computing
+		Imperial College of Science & Technology
+		Huxley Building
+		180 Queen's Gate
+		London SW7 2BZ, England
+		Phone: +44 1 589 5111
+		ARPA:  parlog%doc.ic.ac.uk@seismo.arpa
+		uucp:  ..!mcvax!ukc!icdoc!parlog
+NOTES:	For a description of PARLOG, see the book "Parallel Logic
+	Programming in PARLOG", by Steve Gregory.
+DATED:		Jan 1988
+---------------------------------------------------------------------
+NAME:		Personal Prolog
+SRC/MACHINE/OS: Macintosh
+COST:		$64.95
+CONTACT:	Optimized Systems Software
+		1221 B Kentwood Avenue
+		San Jose, CA 95129
+		(408) 446-3099
+NOTES:	See April 1987 issue of MacUser.
+DATED:		Jan 1988
+---------------------------------------------------------------------
+NAME:		POPLOG
+SRC/MACHINE/OS:	VAX (VMS/Ultrix and UNIX BSD), Sun-2, SUN-3,
+		HP9000/200, HP9000/300, Apollo version with reduced
+		features.
+AVAILABILITY:	academic and commercial licenses
+COST:		substantial educational discounts available.
+STATUS:
+    Development continuing. "Delivery" mechanism planned.  Being
+    ported to other machines. Developed as part of software infra-
+    structure for UK "Alvey Programme" in advanced IT.  Now
+    marketed and supported internationally.
+FEATURES:
+    Mixed language development system, providing incremental
+    compilers for DEC-10 Prolog, Common Lisp and POP-11 (like Lisp,
+    but readable syntax, co-routines, etc.); routines written in C,
+    Fortran and Ada may be linked dynamically into POPLOG
+    environment and unlinked if necessary.  Integrated editor
+    included. Window manager. Large number of online HELP, TEACH
+    and Program library files.  Incremental compiler for Standard
+    ML available optionally.  The languages all compile
+    incrementally via a common virtual machine. So mixed language
+    programming is supported, with shared data-structures.
+    Tools provided for adding incremental compilers for new
+    languages.  The Prolog is fast, but re-coding critical
+    deterministic bits in POP-11 can achieve further speed-up.
+    Object Oriented programming library included. Autoloading and
+    search lists provide extreme tailorability, e.g. for teaching,
+    or project libraries.
+CONTACT:
+    Academic users in USA and Canada:
+	 Prof Robin Popplestone  (Also at University of Amherst)
+	 Computable Functions Inc.,
+	 35 South Orchard Drive,
+	 Amherst, MA 01002, USA
+	 tel (413) 253-7637
+    Others
+	 AI Business Centre
+	 Systems Designers Plc,
+	 Pembroke House,
+	 Pembroke Broadway
+	 Camberley, Surrey, GU15 3XD, England
+	 Phone +44 (0)276 686200
+    UK academic users:
+	 Poplog Manager,
+		 School of Cognitive Sciences
+		 Sussex University
+		 Falmer, Brighton BN1 9QN, England
+NOTES:
+    Poplog Version.13 with full Common Lisp, new Window Manager, and
+    many enhancements will be released Oct/Nov 1987.  POPLOG is
+    marketed under license from the University of Sussex.
+DATED:		Sept 1987
+---------------------------------------------------------------------
+NAME:		Prolog-1
+SRC/MACHINE/OS:	MS-DOS, CP/M, PDP-11 VAX, Macintosh
+AVAILABILITY:	?
+COST:		?
+FEATURES:
+    Standard syntax, ES/P expert system shell, 1KLIPS on VAX/VMS.
+CONTACT:
+    Expert Systems, International
+    34 Alexandra Road			1150 First Avenue
+    Oxford OX2 0DB			King of Prussia, PA 19406
+    U.K.
+NOTES:
+    Plans to interface to RAPPORT relational database.  Teknowledge
+    used this Prolog for their M.1 product.  See March 1985 issue
+    of Dr. Dobb's Journal.
+DATED:		March 1985
+---------------------------------------------------------------------
+NAME:		Prolog-2
+SRC/MACHINE/OS: largely Prolog, CP/M-86, MS-DOS, RSX/RT/11; IBM-C
+AVAILABILITY:	Academic and commercial.
+COST:		Varies with license.
+FEATURES:
+    Fast interpreter; compiler for IBM-PC version only; DEC-10
+    compatible syntax; source file editor, clause indexing, tail
+    recursion optimization, virtual memory facility, debugger 
+    (OR-gree), error handler, garbage collector, ability to overlay
+    modules, windowing scheme, help facility.
+CONTACT:	Expert Systems International, Ltd.
+		same address as Prolog-1
+NOTES:		Compiler/interpreter for VAX/VMS to be released
+		early 1986.
+DATED:		June 1985
+---------------------------------------------------------------------
+NAME:		Prolog-10 and Prolog-20
+VERSION:	3.52 (Prolog-10), 1.5 (Prolog-20)
+SRC/MACHINE/OS:	Prolog+Macro-10; TOPS-10 and TOPS-20
+AVAILABILITY:	Academic and commercial licenses
+STATUS:		stable, maintenance only
+FEATURES:	Compiler and interpreter
+CONTACT:	Quintus Computer Systems
+		2345 Yale Street, Palo Alto, CA 94304
+		(415)494-3612
+NOTES:
+    This version is vastly improved in comparison with the original
+    Edinburgh system: an incremental compiler integrated with the
+    interpreter producing tail-recursion optimized code, an
+    interactive debugger and execution stepper for interpreted code,
+    many other goodies; the TOPS-20 version runs in native mode and
+    has a number of improvements over the TOPS-10 one
+DATED:		July 1984
+---------------------------------------------------------------------
+NAME:		Prolog-86
+VERSION:	2.01
+SRC/MACHINE/OS:	MS-DOS, PC-DOS, CPM-86
+COST:		$125
+CONTACT:	Solution Systems
+		335-D Washington Street
+		Norwell, MA 02061
+		(617) 659-1571
+DATED:		March 1985
+NOTES:		See March 1985 issue of Dr. Dobb's Journal.
+---------------------------------------------------------------------
+NAME:		Prolog-II
+SRC/MACHINE/OS: Prolog, Pascal, Candide, Fortran; many operating systems.
+AVAILABILITY:   Academic and commercial.
+COST:		2500F to 15000F.
+FEATURES:
+    Portability on account of virtual machine, and interpreter and
+    compiler; interactive clause development editor; unification to
+    infinite trees; postponement of evaluation; new data structures;
+    modularity as system of "worlds", tree structured rule space.
+CONTACT:	M van Canegham
+		PrologIA
+		278 Rue St. Pierre
+		13005 Marseille
+		France
+DATED:		June 1985
+---------------------------------------------------------------------
+NAME:		PROLOG/i, PROLOG/m
+SRC/MACHINE/OS:	IBM PC (PROLOG/i) and Macintosh (PROLOG/m)
+COST:		$69.95 PROLOG/i
+		$99.95 PROLOG/m
+CONTACT:	Chalcedony Software
+		5580 La Jolla Blvd.
+		Suite 126
+		La Jolla, CA 92037
+		(619) 483-8517
+NOTES:		August 1986 issue of Computer Language, April 1987
+		issue of Dr. Dobbs, March 1987 issue of MacUser.
+DATED:		Jan 1988
+---------------------------------------------------------------------
+NAME:		Prolog-CRISS (formerly FOLL-Prolog)
+VERSION:	3.1 dated 1985
+SRC/MACHINE/OS: Pascal, HB68/MULTICS; ICL2900/VME/B; UNIX machine;
+		VAX/VMS; PC/MS-DOS
+AVAILABILITY:	Academic and commercial.
+COST:		10000F, or 1000F for academic use.
+FEATURES:
+    Interpreter; cross-referencing between program identifiers,
+    partial delay of program execution, intelligent backtracking,
+    loop detection, definite clause grammar translation, database
+    features, modularity on worlds.
+CONTACT:	CRISS - BP 47X
+		38040 Grenoble Cedex
+		France
+DATED:		June 1985
+---------------------------------------------------------------------
+NAME:		PROLOG/P
+VERSION:	2.00
+SRC/MACHINE/OS: Wide range of systems, including VAX/VMS and 68000
+		machines.
+AVAILABILITY:	Academic and commercial.
+COST:		?
+FEATURES:
+    Interpreter written in Pascal, programming environment written
+    in Prolog/P; possesses powerful yet portable features of Prolog
+    language; interactive programming environment, flexible and
+    extensible; modularity: can incorporate modules written in
+    other languages; large number of evaluable predicates;
+    optimized memory management, tail recursion, garbage collection.
+    Speed: 1300 LIPS on VAX 750/VMS.
+CONTACT:	Mr. Hentinger
+		CRIL (Conception et Realisation Industriel de Logiciel)
+		12 Bis, Rue Jean-Jaures
+		92807 Puteaux
+		France
+		Tel: 776.34 37
+DATED:		June 1985
+---------------------------------------------------------------------
+NAME:           Quintus Prolog
+VERSIONS:       1.0 and 2.0
+SRC/MACHINE/OS: Sun-2, Sun-3, Sun-4; VAX VMS, Ultrix, UNIX 4.3 BSD; 
+		Apollo; Tektronix 4400; NCR Tower; IBM RT PC; 
+		IBM 370 VM, MVS; Xerox 1100.
+AVAILABILITY:   Supported commercial license, academic and multiple CPU
+		discounts.
+COST:           Call for pricing and general sales information
+FEATURES:
+    Incremental optimizing compiler with TRO and indexing; efficient
+    use of memory; upwards compatible from DEC-10 Prolog and C-Prolog;
+    Emacs interface with reconsulting/recompilation from editor buffers
+    (Unipress Emacs license included); interfaces to other programming
+    languages -- C, FORTRAN, Pascal and assembler on most UNIX systems;
+    supported library including inter-process communication package.
+    2.0 versions have modules, garbage-collection of the heap, indexing
+    of dynamic (asserted) code.
+    A number of additional products are also available:  (1) PAC
+    (Prolog Application Compiler), which allows the building of stand
+    alone applications for economical distribution, (2) ProWINDOWS, a
+    high-level, object-oriented window system, and (3) high-level
+    interfaces to Unify and Oracle databases.  All currently or
+    imminently available on Suns; contact Quintus for availability on
+    other platforms.
+STATUS:         Continuing development; fully supported
+CONTACT:        Don Hester
+		Quintus Computer Systems, Inc.
+		1310 Villa St, Mountain View, California 94041
+		(415) 965-7700   ...!sun!quintus!hester
+DATED:          December 1987
+---------------------------------------------------------------------
+NAME:           Rhet
+VERSION:	15.x
+SRC/MACHINE/OS: Common Lisp with extensions / Explorer 3.x and
+		Symbolics 7.x
+AVAILABILITY:	Full Sources are distributed to anyone, upon signing a
+		license/disclaimer for non-commercial use.
+COST:		$150 (academic), TR (user's manual) for $6.00, TR
+	        (programmer's guide [for source hackers]) for $5.50.
+	        Non-academic institutions are requested to send
+	        whatever they can afford over $150 to help defray
+	        expenses.
+FEATURES:
+    This is a Knowledge Representation system based on concepts
+    proved with HORNE.  It includes 2 major modes for representing
+    knowledge (as Horn Clauses or as frames), which are interchangable;
+    a type subsystem for typed and type restricted objects (including
+    variables); E-unification; negation; forward and backward chaining;
+    complete proofs (prove, disprove, find the KB inconsistent, or
+    claim a goal is neither provable nor disprovable); incremental
+    compilation (next version); contextual reasoning; default reasoning
+    (soon); truth maintenance; intelligent backtracking; full LISP
+    compatibility (can call or be called by lisp); upward compatible with
+    HORNE; user-declarable reasoning subsystems (soon); Allen & Koomen's
+    TEMPOS time interval reasoning subsystem (soon); frames have KL-1 type
+    features, plus arbitrary predicate restrictions on slots within a frame
+    as well as default values for slots; separate subsystem providing
+    advanced user-interface facilities, graphics, and ZMACS interface on the
+    lispms.
+CONTACT:
+    Admin: (distribution and TRs) Rose Peet (rose@cs.rochester.edu)
+    Technical:	Brad Miller (miller@cs.rochester.edu)
+		James Allen (james@cs.rochester.edu)
+
+		Computer Science Department
+		University of Rochester
+		Rochester, NY 14627
+NOTES:	Rhet is an evolving system. Patches are available for ftp, new
+	releases are expected roughly every nine to twelve months.
+NOTES:
+	The current version is essentially a pre-release, and is only
+	recommended for those who can put up with beta-test level software.
+        The code should be easier to port than HORNE (q.v.), however.
+DATED:		October 1988
+---------------------------------------------------------------------
+NAME:		Salford University Prolog
+SRC/MACHINE/OS:	Fortran 77, runs on Prime computers
+COST:		$3500 for universities, $750 annual maint.
+FEATURES:
+    Edinburgh syntax; packaged with Salford Lisp; programs in one
+    language can call programs in the other.
+CONTACT:	Salford University Industrial Centre Limited
+		Salford M5 4WT
+		England
+
+		 Or
+
+		Mitchell Associates
+		P.O. Box 6189
+		San Rafael, CA
+		(415) 435-2024
+DATED:		June 1985
+---------------------------------------------------------------------
+NAME:		SB-Prolog
+VERSION:	2.5
+SRC/MACHINE/OS:
+    C and UNIX. Assumes longwords need only be word-aligned, may not
+    port easily to machines with stronger alignment requirements.  At
+    present, does not work on Sun4.
+AVAILABILITY:
+    FTP-able from arizona.edu, restrictions similar to GNU.  Login to
+    arizona.edu as anonymous, copy contents of the directory 'sbprolog'.
+    Several files are in tar format, so ftp should be done in
+    binary mode.  The system is also available on 1600 bpi tar format
+    tapes at distribution cost ($20 in USA and Canada; $40 elsewhere).
+COST:	FREE!!
+FEATURES:
+    Based on the Warren Abstract Machine.  Allows arbitrary mixing of
+    compiled (byte code) and interpreted code.  Provides user-directed
+    goal caching; argument indexing in both compiled and interpreted
+    code; CProlog-like trace/debug package; compilation to byte-code
+    object files, with dynamic loading of undefined predicates.
+CONTACT:	Saumya K. Debray (debray@arizona.edu)
+		Department of Computer Science
+		University of Arizona
+		Tucson, Arizona 85721
+		(602) 621-4527
+DATED: September 1988
+---------------------------------------------------------------------
+NAME:		Sicstus Prolog
+SRC/MACHINE/OS:	C/Berkeley Unix, marginally SysV
+AVAILABILITY:	Commercial and non-commercial licenses.
+STATUS:		Actively maintained.
+FEATURES:
+    Interpreted and compiled code mixed arbitrarily, 32-bit integer
+    and double-precision floating point arithmetic, unification of
+    cyclic structures, a garbage collector and a stack shifter,
+    attention key (^C) handling, a "procedure box" debugger, dynamic
+    interfacing to C functions, backtrackable operations, and wait
+    declarations for data-driven execution.  Functionally comparable
+    with Quintus Prolog 2.2.
+CONTACT:	Birgitta Klingenberg
+		PO Box 1263
+		S-164 28 KISTA
+		Sweden
+		sicstus_request@sics.se
+NOTES:
+    Current version (0.6) has manual (hardcopy and on-line).  Save
+    and restore have been added.  20Klips on a SUN-3.  Does not have
+    indexed interpreted code, modules or Emacs interface.
+DATED:		Sept 1988
+---------------------------------------------------------------------
+NAME:		TI Prolog
+VERSION:	2 (1987)
+SRC/MACHINE/OS:	TI Prolog, Common Lisp, Explorer Microcode / 
+		Explorer I and II
+AVAILABILITY:	Educational, Commercial
+COST:		??
+STATUS:		Very stable and fully supported.
+FEATURES:
+    Incremental compiler, 100% compatible between compiled and
+    interpreted code, Compatible with DEC-10/20 Prolog, incremental
+    garbage collection, tail recursion optimization, DCG support;
+    package (modularity) system; first and second level indexing;
+    Lisp <=> Prolog interface; Zmacs Prolog mode; undefined predicate
+    warning, Lisp error handling; "4 port" debugger and trace; reserved
+    original variable's name; stream IO; full Lisp machine environment;
+    good documentation.
+CONTACT:	Texas Instruments Incorporated
+		P.O. Box 809063
+		Dallas, Texas 75380-9063
+		or call 1-800-527-3500
+NOTES:
+    120K lips on an Explorer II and 42K lips on an Explorer I for naive
+    reverse.  Fully-compatible to EDINBURGH Prolog, very easy to port.
+    Widely used by various large projects.
+DATED:		December 1987
+---------------------------------------------------------------------
+NAME:		Trilogy
+VERSION:	Commercial version V1.0 released September 1987.
+SRC/MACHINE/OS:	IBM-PC/XT/ATs or compatibles under DOS-2.1 or higher.
+COST:		99.95 (US) + shipping/handling.
+FEATURES:
+    Constraint based logic prog. lang. It contains six different
+    decision procedures. These include the full dec. proc. for the
+    Presburger Arithmetic (arbitrarily quantified systems of linear
+    equations and inequalities in integers). Trilogy also decides
+    constraints involving finite mappings such as "a(x)=y" where all
+    three variables can be solved for.  Because of the constraints
+    Trilogy executes combinatorial problems involving arithmetic
+    thousand times faster than Prologs.  Trilogy is fully based on
+    the first order theory of S-exprs and it does not contain a single
+    extralogical feature. Trilogy is an integrated language in that it
+    contains 3G constructs (Pascal-like predicates and types) as well
+    as 4G constructs (extensive dbase file operations).  Dbase files
+    can be also queried in the 5G setting of predicate calls.  Trilogy
+    comes with its own environment including online editor, native
+    code compiler, linker, loader, and module librarian.
+CONTACT:	Complete Logic Systems Inc.,
+		741 Blueridge Ave, V7R 2J5,
+		North Vancouver B.C.
+		tel: (604) 986-3234.
+DATED:		Sept 1987
+---------------------------------------------------------------------
+NAME:		UNH Prolog
+VERSION:	1.3 (1985)
+SRC/MACHINE/OS:	C, VAX/VMS and UNIX
+AVAILABILITY:	Per machine license for all users
+COST:		$300 handling charge for all users
+STATUS:		Active
+FEATURES:	Compatible with DEC-10/20 Prolog
+CONTACT:	James L. Weiner/Wendy Fogg
+		Department of Computer Science
+		University of New Hampshire
+		Durham, New Hampshire 03824
+NOTES:
+    Fully-compatible to EDINBURGH Prolog, with exception that some of
+    the more obscure features are not implemented.  Debugging features
+    of EDINBURGH Prolog also implemented.  Hooks into UNIX supported.
+DATED:		Sept 1985
+---------------------------------------------------------------------
+NAME:		UNSW Prolog
+VERSION:	4.2
+SRC/MACHINE/OS:	C/Unix V7,32V,5.0,4.1BSD
+AVAILABILITY:	Educational and research purposes only
+COST:		A$100 in Australia,
+		 US$150 elsewhere
+FEATURES:
+    Interpreter, enhanced UNIX interface Based on DEC-10 Prolog (not
+    completely compatible)
+CONTACT:	Claude Sammut
+		(claude@cheops.eecs.unsw.oz
+		 cheops.eecs.unsw.oz!claude@ukc)
+		School of Electrical Engineering and Computer Science,
+		University of New South Wales
+		P.O. Box 1
+		Kensington, N.S.W. 2033
+		Australia
+		Phone:	+61 2 697 4052
+NOTES:
+    Changes in version 4.2 include:
+	 about 25% faster
+	 real arithmetic
+	 streams
+	     Most i/o predicates take a stream as an optional first
+	     argument.  These are Quintus like.
+	 inter process communication facilities
+	   * asynchronous processes may be started with streams to and
+	     from the process optionally created
+	   * A stream may be polled to see if it is ready to be read.
+	   * In a BSD universe it is possible to do a select on a list
+	     of streams. Select blocks for a given interval until one of
+	     the supplied streams are ready. This stream is unified with
+	     the last argument.
+	 many bug fixes
+	 a profiling facility that gives the user the ability to find out,
+	 for each clause total calls, fails, exits, cputime, the number
+	 of times each subgoal of the clause exits
+DATED:		Sept 1987
+---------------------------------------------------------------------
+NAME:           Uranus System
+SRC/MACHINE/OS: LISP/Dec 20, VAX/UNIX, Symbolics
+AVAILABILITY:   Academic only
+FEATURES:
+    A superset of Prolog/KR (Prolog for Knowledge Representation).
+    DEC 10 compatibility features; multiple worlds mechanism, lazy
+    and pseudo parallel evaluation.
+CONTACT:        Hideyuki Nakashima
+		Information Processing Group
+		Electrotechnical Laboratory
+		Sakura-mura, Ibaraki 305, Japan
+DATED:		Sept 1985
+---------------------------------------------------------------------
+NAME:		VM/Prolog, VS/Prolog
+SRC/MACHINE/OS:	VM/CMS and MVS operating systems on high-end machines
+AVAILABILITY:	?
+COST:		?
+CONTACT:	IBM, of course.  Program order numbers are
+			 VM/Prolog: 5785-ABH
+			 VS/Prolog: 5798-DYL
+		 Documentation: SH20-6541 and SH40-0030, respectively.
+FEATURES:
+    Highly tailorable syntax; rich set of built-ins, including I/O,
+    arithmetic, string handling; interfaces to relational databases
+    DB2 and SEQUEL; interfaces to such IBM facilities as graphic
+    terminal I/O, REXX and ISPF command language procedures and
+    variables, shell commands, LISP/VM, XEDIT editor; labels, remote
+    cuts, fails; axiom insertion/deletion at arbitrary locations;
+    suspend/resume capability.
+NOTES:	This entry from unofficial sources.  Check with IBM for the
+	real details...
+DATED:		Jan 1988
+---------------------------------------------------------------------
+NAME:    	VPI Prolog
+SRC/MACHINE/OS:	Pascal, VAX with VMS.
+AVAILABILITY:	Unrestricted.
+COST:		$1000
+FEATURES:
+    Uses list allocation (9 byte cons) and syntax, double precision
+    reals; facilities for interactive program development; interfaces
+    to Lisp, Pascal and Fortran available, also general purpose expert
+    system shell.
+CONTACT:	Prof. John Roach,
+		Dept. of Computer Science,
+		Virginia Polytechnic Institute,
+		Blacksburg, Va.
+		(703) 961 5368
+DATED:		February 1983
+---------------------------------------------------------------------
+NAME:		WProlog
+SRC/MACHINE/OS:	IBM VM/370 CMS
+FEATURES:	Very fast interpreter!
+AVAILABILITY:	educational, commercial, third party
+COST:		Yearly license, 50% academic discount
+CONTACT:	WATCOM Products, Inc.
+		415 Phillip Street
+		Waterloo, Ontario
+		Canada, N2L 3X2
+		(519) 886-3700
+DATED:		Sept 1987
+---------------------------------------------------------------------
+NAME:		York Portable Prolog
+VERSION:	2
+SRC/MACHINE/OS:	Pascal interpreter (ISO Standard Pascal)/ wide range
+		 of systems that support Pascal.
+AVAILABILITY: 	Educational, research etc.
+COST: 		200 pounds sterling.
+STATUS: 	Available now
+FEATURES:
+    Modeled after Edinburgh PDP-11 version; large number of
+    built-in predicates; interactive debugging package written in
+    Prolog; supports full Prolog syntax, with definite clause
+    grammars, garbage collection of the Prolog database.
+CONTACT: 	Mrs Jennifer Turner
+		Software Technology Research Centre
+		Department of Computer Science
+		University of York
+		York, YO1 5DD, U.K.
+		(0904) 59861
+DATED:		December 1984
+---------------------------------------------------------------------
+NAME:		ZYX Macintosh Prolog
+VERSION:	(1 5)
+SRC/MACHINE/OS:	Apple Macintosh Plus/SE/II;
+		written in 68000 assembler, Prolog, and Pascal.
+AVAILABILITY:	Commercial and academic license.
+		Demo version available for $15 handling charge.
+COST:		$575 (academic discounts available)
+FEATURES:
+    File compiler that compiles to machine code or bytecode. Development
+    environment with editor windows, interpreter, and 4-port debugger.
+    Z-Prolog dialect extensions include multiple name spaces, support for
+    strings, pathnames, floating-point numbers, if-then-else, a powerful
+    macro facility for meta-programming, generalized DCG, coroutines
+    (freeze and dif). Close compatibility with HP Prolog. Full garbage
+    collection, save/restore, Quickdraw interface, and a utility for
+    creating Macintosh-style "pseudo-applications". Edinburgh (C-Prolog)
+    compatibility package. Does 33 kLIPS on a Mac II.
+STATUS:		Fully supported.
+CONTACT:	Pia Kinhult (pk@zyx.se) or Jan-Erik Gustavsson (jeg@zyx.se)
+		ZYX Sweden AB
+		Styrmansgatan 6
+		S-114 54 Stockholm, Sweden
+		+46 (8) 665 32 05
+NOTES:		Pre-release of version (2 4) being distributed now,
+		featuring a faster and better interpreter.
+DATED:		January 1988
+---------------------------------------------------------------------
+---------------------------------------------------------------------

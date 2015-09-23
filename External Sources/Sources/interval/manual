@@ -1,0 +1,192 @@
+This is a brief description of the facilities supplied by the integer interval 
+arithmetic package.
+
+If you load using ii.pl or iidebug.pl only then the builtin Sepia arithmetic 
+routines are redefined:
+	>/2, </2, >=/2, =</2	have their usual meaning	
+	=:=/2	Evaluate both sides and constrain to be equal.
+	is/2	Evaluate an expression.
+	=\=/2	Evaluate both sides and constrain to be unequal.
+		All expressions support *, +, -(unary and binary), 
+	        /(integer divide)
+		integer constants and function calls using the Sepia 
+		conventions.  Such functions may return ordinary integers or 
+		results from the constraint system (not reals).
+
+For a number of interesting examples using the expressions above please see 
+the file sample.pl
+
+If you load using ii.pl,iidebug.pl or iisimple.pl then the following routines 
+are (also) available.
+
+	iis/2	evaluate an arithmetic expression (same as is/2)
+	itimes/3
+		itimes(A,B,C) C is constrained to be the product of A and B
+		(this also implies constraints on A and B)
+	iadd/3
+		iadd(A,B,C) C is constrained to be the sum of A and B
+	isquare/2
+		isquare(A,B) B is constrained to be the square of A
+	igt/2, ilt/2, ileq/2, igeq/2, iineq/2
+		inequations constraining the arguments
+	iinteger/1
+		Constrain argument to be an integer interval.
+	isolve/1
+		Forces solutions to equations.  This is the preferred
+	        way of solving equations where some search for a solution
+                is necessary.
+		isolve(Goal) finds solutions to Goal and forces the 
+		variables in the Goal to be single integer values so long
+                as unsatisfied constraints remain.
+	isolve/2
+		isolve(Vars,Goal) finds solutions to Goal and forces the 
+		variables in the list Vars to be single integer values.
+	        This gives more control over the search process.
+                First by omitting inessential variables in Goal
+                from the list Vars unnnecessary backtracking may be avoided.
+	        Also different forms of Vars may be used:
+	            rr(Vars) - variables are split into narrower ranges
+                               on a round-robin schedule (used by default)
+                    sm(Vars) - the list of variables is searched each time
+                               it is necessary to split a variable into a 
+                               smaller range and the variable with the smallest
+                               range is split.
+                    se(Vars) - the first variable on the list and is repeatedly
+                               split until it is a singleton integer. Then the
+                               second is chosen and repeatedly split ....
+	isplit/1
+		By backtracking visit all the integers in the range of the
+		variable.  For example "ileq(1,X),ileq(X,4),isplit(X)" will 
+		force X to be 1,2,3, and 4.
+	neg/1   A constructive and safe form of negation. Knows about 
+		intervals. (warning this is still experimental and not yet 
+		fully tested)
+
+Debugging:
+If the iidebug version of the system is loaded then a number of routines
+for tracing and debugging the integer constraints are made available:
+	ii_trace/0
+			trace execution of constraints.
+	noii_trace/0
+			turn off tracing.
+	ii_stats/0
+			Print statistics gathered while ii_trace turned on.
+
+An example of the format of a trace message while ii_trace is on is:
+**153:start-gt(T[1..1681], 0)
+
+** always printed
+
+153 the sequence number of the original call that set the constraint involved
+
+start  the operation on the constraint the possibilities are:
+	start	first time the constraint is called
+	wake	wake constraint as result of variable binding
+	split	force the interval to be split into two (usually as result of
+		isolve doing its thing)
+	cases	multiply (and other constraints) sometimes force backtracking
+		through a number of disjoint cases
+	done	a constraint has been satisfied and need never be checked again
+		(of course after backtracing it may become alive again)
+	delay	suspend a constraint until it is woken by a variable being 
+		bound
+	set	a variable is being squeezed to a (smaller) interval
+	unify	two meta-terms each representing an interval are being unified
+		or a meta_term is being unified with an integer
+	bind	special case in unification of meta_term to meta_term when the
+		meta_term is an integer by the time it gets looked at
+		(dont ask - if you really want to know look at the code)
+	retry	sometimes a constraint needs to be executed twice in a row
+
+-	(+ indicates forward execution - backtracking)
+
+gt(T[1..1681], 0)
+	the constraint that is being executed with variables (T) and their
+	bindings (T[1..1681]) (0 is a constant)
+		
+Variables constrained to integer intervals print as follows:
+	[<lower bound>..<upper bound.]
+	a lower or upper bound will be either an integer or empty
+	Examples:
+		[-1..9] 	all integers from -1 to 9 inclusive
+		[..]		all possible integers
+		[..10]		all integers less or equal to 10
+		[+..]		unusual case, all integers greater than 2^31-1
+		[..-]		unusual case, all integers less than -2^31+1
+
+
+An example execution of the system follows:
+
+S eclipse
+ECRC Common Logic Programming System [sepia opium megalog]
+Version 3.2.3, Copyright ECRC GmbH, Fri Dec 11 21:50 1992
+[eclipse 1]: [ii].
+macros.pl  compiled optimized 112 bytes in 0.00 seconds
+utilities.pl compiled optimized 980 bytes in 0.03 seconds
+nodebug.pl compiled optimized 296 bytes in 0.02 seconds
+mach_dep.pl compiled optimized 1668 bytes in 0.03 seconds
+intdef.pl  compiled optimized 4408 bytes in 0.13 seconds
+xinterval.pl compiled optimized 29988 bytes in 0.68 seconds
+simple.pl  compiled optimized 3760 bytes in 0.10 seconds
+neg.pl     compiled optimized 2760 bytes in 0.05 seconds
+interval.pl compiled optimized 19788 bytes in 0.42 seconds
+arith.pl   compiled optimized 1044 bytes in 0.03 seconds
+
+
+Version 1.5 released Tue Feb 23 21:30:08 MST 1993
+Integer Interval Arithmetic system
+Copyright 1992,1993 John G. Cleary, University of Calgary
+cleary@cpsc.ucalgary.ca
+
+
+copyright.pl compiled optimized 0 bytes in 0.00 seconds
+ii.pl      compiled optimized 0 bytes in 1.60 seconds
+
+yes.
+[ii 2]: 12 is X*Y.
+
+X = _m315[-12..12]
+Y = _m305[-12..12]
+
+Delayed goals:
+        itimes_delay(not_forced, _m315[-12..12], _m305[-12..12], 12)
+yes.
+[ii 3]: isolve(12 is X*Y).
+
+X = 3
+Y = 4     More? (;)
+
+X = 4
+Y = 3     More? (;)
+
+X = 6
+Y = 2     More? (;)
+
+X = 2
+Y = 6     More? (;)
+
+X = 1
+Y = 12     More? (;)
+
+X = 12
+Y = 1     More? (;)
+
+X = -12
+Y = -1     More? (;)
+
+X = -1
+Y = -12     More? (;)
+
+X = -2
+Y = -6     More? (;)
+
+X = -6
+Y = -2     More? (;)
+
+X = -4
+Y = -3     More? (;)
+
+X = -3
+Y = -4
+yes.
+[ii 4]:

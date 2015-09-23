@@ -1,0 +1,44 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+*/
+bintree(N,T) :-
+make_list(N,L),
+make_tree(T,L).
+
+make_tree(T,[H|L]) :-
+create_node(T,H),
+build_tree(T,L), !.
+
+create_node(N,V) :-
+N =.. [node,V,_,_].
+
+build_tree(_,[]) :- !.
+
+build_tree(T,[H|L]) :-
+insert(T,H),
+build_tree(T,L).
+
+insert(node(C,L,R),V) :-
+V<C, var(L), create_node(L,V).
+
+insert(node(C,L,R),V) :-
+V<C, nonvar(L), insert(L,V).
+
+insert(node(C,L,R),V) :-
+V>=C, var(R), create_node(R,V).
+
+insert(node(C,L,R),V) :-
+V>=C, nonvar(R), insert(R,V).
+make_list(0,[]) :- !.
+
+make_list(N,[X|L]) :-
+rnd(100,X),
+N1 is N-1,
+make_list(N1,L).
+
+seed(13).
+
+rnd(R,N) :-
+retract(seed(S)), N is (S mod R) + 1,
+Newseed is (125*S+1) mod 4096,
+asserta(seed(Newseed)), !.

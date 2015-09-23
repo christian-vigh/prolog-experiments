@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/Meta_pro.html</title>
+<!-- Source: ./Meta.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo6">Modules/Meta</a></li>
+<li>2. <a href="#robo92">Modules.Meta/apply</a></li>
+</ul>
+<hr />
+<a name="Modules2fMeta">
+</a><a name="robo6"></a><h2>Modules/Meta [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>Meta</strong> - Prolog meta-predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">Meta.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Implements Prolog meta-predicates.
+</pre>
+<p class="item_name">USES</p>
+<pre>      <a href="./List_pro.html#robo3">list</a>.Pro
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, July 2005.
+
+</pre>
+
+<hr />
+<a name="Modules2eMeta2fapply">
+</a><a name="robo92"></a><h2>Modules.Meta/apply [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>apply</strong>/3, <strong>apply</strong>/4
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>apply</strong>(List, Operation, Result)
+      <strong>apply</strong>(List, Operation, Result, OpType)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      <strong>apply</strong> applies the specified [Operation] to every element of [List], and 
+      unifies [Result] with the <a href="./List_pro.html#robo3">list</a> of elements which have been applied the 
+      [Operation].
+              
+      [Operation] can be either a string (enclosed with backquotes) or an atom
+      (possibly enclosed with single quotes).
+              
+      When [Type] is &#39;expression&#39; (or &#39;exp&#39; or &#39;e&#39;), the [Operation] can be any 
+      valid mathematical expression, for example :
+              
+              <strong>apply</strong>([1,2,3], &#39;X * 2&#39;, Result).
+              
+      or even :
+
+              <strong>apply</strong>([1,2,3], &#39;X * sin(2 * X)&#39;, Result).
+                      
+      (the first example unifies [R] with every element of [1,2,3] multiplied 
+      by 2, ie : [2,4,6]).
+              
+      Within [Operation], the element of [List] currently processed must be 
+      referenced as the variable X.
+              
+      The other accepted value for [Type] can be &#39;operation&#39; (or &#39;op&#39; or &#39;o&#39;).
+      In that case, [Operation] is not a mathematical expression but a <a href="./List_pro.html#robo3">list</a> of 
+      predicates such as in the following example :
+              
+              <strong>apply</strong>([a,b,<a href="./Maths_pro.html#robo85">c</a>], &#39;atom_uplow(R,X)&#39;, Result, operation)
+              
+      which puts in [Result] all the elements of [List] converted to <a href="./List_pro.html#robo76">upper</a> case. 
+      [Result] will thus be mapped to [A,B,C].
+              
+      The <strong>apply</strong>/3 version uses &#39;expression&#39; for [OpType].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be processed.
+                      
+      [Operation] (i) -
+              Operation to <strong>apply</strong> on each element of [List].
+                      
+      [Result] (o) -
+              List containing the result from applying [Operation] to every 
+              element of [List].
+                      
+      [OpType] (i) -
+              Type of [Operation]. Can be one of the following :
+                      
+              &#39;expression&#39; or &#39;exp&#39; or &#39;e&#39; :
+                      [Operation] specifies a mathematical expression.
+                      In this expression, the variable &#39;X&#39; refers to the element
+                      of [List] currently being processed.
+                              
+              &#39;operation&#39; or &#39;op&#39; or &#39;o&#39; :
+                      [Operation] specifies a <a href="./List_pro.html#robo70">set</a> of predicates to process each
+                      element of [List]. In this expression, the variable &#39;X&#39;
+                      refers to the element of [List] currently being processed. 
+                      The resulting value, referred to as the variable &#39;R&#39;, has
+                      to be unified by the <a href="./List_pro.html#robo3">list</a> of predicates given in [Operation].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>apply</strong><span class="sign">(</span>V<span class="sign">,</span> O<span class="sign">,</span> R<span class="sign">,</span> Type<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./List_pro.html#robo42">belongs</a><span class="sign">(</span>Type<span class="sign">,</span> <span class="sign">[</span>expression<span class="sign">,</span> <span class="keyword">exp</span><span class="sign">,</span> <span class="keyword">e</span><span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        apply_prepare<span class="sign">(</span>V<span class="sign">,</span> O<span class="sign">,</span> R<span class="sign">,</span> expression<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+<strong>apply</strong><span class="sign">(</span>V<span class="sign">,</span> O<span class="sign">,</span> R<span class="sign">,</span> Type<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./List_pro.html#robo42">belongs</a><span class="sign">(</span>Type<span class="sign">,</span> <span class="sign">[</span>operation<span class="sign">,</span> <span class="keyword">op</span><span class="sign">,</span> o<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        apply_prepare<span class="sign">(</span>V<span class="sign">,</span> O<span class="sign">,</span> R<span class="sign">,</span> operation<span class="sign">)</span><span class="sign">.</span>
+        
+<strong>apply</strong><span class="sign">(</span>V<span class="sign">,</span> O<span class="sign">,</span> R<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        apply_prepare<span class="sign">(</span>V<span class="sign">,</span> O<span class="sign">,</span> R<span class="sign">,</span> expression<span class="sign">)</span><span class="sign">.</span>
+        
+
+<span class="comment">%</span>
+<span class="comment">% apply_prepare only performs the necessary to declare a temp predicate that will </span>
+<span class="comment">% perform the operation, then calls the doapply predicate that performs</span>
+<span class="comment">% the real stuff.</span>
+<span class="comment">%</span>
+apply_prepare<span class="sign">(</span>Value<span class="sign">,</span> Operation<span class="sign">,</span> Result<span class="sign">,</span> Type<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="comment">% If not a string, try all possible conversions -&gt; string</span>
+        apply_stringify<span class="sign">(</span>Operation<span class="sign">,</span> NewOp<span class="sign">)</span><span class="sign">,</span>
+                
+        <span class="comment">% Then we build a temp function definition that we will pass as an</span>
+        <span class="comment">% argument to assert/1</span>
+        <span class="comment">% When Type is &#39;expression&#39;, the definition looks like :</span>
+        <span class="comment">%    temp_function(X, R) :- R is [Operation given as argument]</span>
+        <span class="comment">% Otherwise (&#39;operation&#39;) :</span>
+        <span class="comment">%    temp(function(X, R) :- [Operation given as argument]</span>
+        apply_buildfunction<span class="sign">(</span>Type<span class="sign">,</span> NewOp<span class="sign">,</span> FDef<span class="sign">)</span><span class="sign">,</span>
+                
+        <span class="comment">% We convert the string to a term (I&#39;m using strings enclosed in</span>
+        <span class="comment">% backquotes because I didn&#39;t find any way to process single-quoted</span>
+        <span class="comment">% atoms</span>
+        <span class="keyword">string_term</span><span class="sign">(</span>FDef<span class="sign">,</span> FDefTerm<span class="sign">)</span><span class="sign">,</span>
+        
+        <span class="comment">% Now add the temp predicate to Prolog <a href="./Array_pro.html#robo22">base</a></span>
+        <span class="keyword">assert</span><span class="sign">(</span> FDefTerm <span class="sign">)</span><span class="sign">,</span>
+
+        <span class="comment">% Apply the operation on all elements of the <a href="./List_pro.html#robo3">list</a></span>
+        apply_apply<span class="sign">(</span>Value<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        
+        <span class="comment">% Remove the temp predicate from the <a href="./Array_pro.html#robo22">base</a></span>
+        <span class="keyword">retract</span><span class="sign">(</span> FDefTerm <span class="sign">)</span><span class="sign">,</span>
+
+        <span class="comment">% Cut to avoid unnecessery processing of other <strong>apply</strong>() clauses</span>
+        <span class="sign">!</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% apply_apply(List, Result) -</span>
+<span class="comment">%       Does the real stuff of applying the operation to each element</span>
+<span class="comment">%       of the <a href="./List_pro.html#robo3">list</a>.</span>
+<span class="comment">%</span>
+apply_apply<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+apply_apply<span class="sign">(</span><span class="sign">[</span>V<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>        <span class="comment">% Does the real stuff</span>
+        apply_apply<span class="sign">(</span>Tail<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        temp_function<span class="sign">(</span>V<span class="sign">,</span> R<span class="sign">)</span><span class="sign">,</span>            <span class="comment">% Call the temp predicate defined in <strong>apply</strong></span>
+        <a href="./List_pro.html#robo41">append</a><span class="sign">(</span><span class="sign">[</span>R<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% apply_stringify(V, Str) :</span>
+<span class="comment">%       unifies Str to V, after having converted it to a string.</span>
+<span class="comment">%       V can be an atom or a string.</span>
+<span class="comment">%</span>
+apply_stringify<span class="sign">(</span>V<span class="sign">,</span> V<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">is_string</span><span class="sign">(</span>V<span class="sign">)</span><span class="sign">.</span>
+apply_stringify<span class="sign">(</span>V<span class="sign">,</span> Str<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>V<span class="sign">)</span><span class="sign">,</span> 
+        <span class="keyword">string_atom</span><span class="sign">(</span>Str<span class="sign">,</span> V<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% apply_buildfunction(Type, Output) -</span>
+<span class="comment">%       Builds a function according to the type of operation given.</span>
+<span class="comment">%</span>
+apply_buildfunction<span class="sign">(</span>expression<span class="sign">,</span> Operation<span class="sign">,</span> Output<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">stringlist_concat</span><span class="sign">(</span> 
+                <span class="sign">[</span> <span class="squote">&#39;temp_function(X,R) :- R is &#39;</span><span class="sign">,</span> Operation <span class="sign">]</span><span class="sign">,</span> Output <span class="sign">)</span><span class="sign">.</span>
+
+apply_buildfunction<span class="sign">(</span>operation<span class="sign">,</span> Operation<span class="sign">,</span> Output<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">stringlist_concat</span><span class="sign">(</span> 
+                <span class="sign">[</span> <span class="squote">&#39;temp_function(X,R) :- &#39;</span><span class="sign">,</span> Operation <span class="sign">]</span><span class="sign">,</span> Output <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Meta.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:10
+</p>
+</div> <!-- footer -->
+</body>
+</html>

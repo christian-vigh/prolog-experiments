@@ -1,0 +1,79 @@
+
+; HOW TO USE Portable-PROLOG
+;       (prolog {file-name})
+;               (prolog)        input from terminal
+;               (prolog {(directory)} file-name {extension})
+;                       A file must be terminated by "stop".
+;
+; The Syntax of Portable-Prolog
+;       +(f1 {p1}...):                                  asserts a fact
+;       +(f1 {p1}...)-(f2 {p2}...) ... -(fn {pn}...):   asserts a theorem 
+;       -(f1 {p1}...) ... -(fn {pn}...):                        query
+;       -(end):, stop, end, epilog, or end              end of prolog session
+;
+; Convensions
+;       *variable               represents a variable
+;       -(call function parameter...)   apply a function to parameters
+;                                       with a success of unification
+;       -(eval form clause)     unifies the value of form with clause
+
+; ---- Now Enter the Portable-Prolog ----
+
+
+; Problem 1. Naive reverse
+
++(NREVERSE (*X . *L0) *L)-(NREVERSE *L0 *L1)-(CONCAT *L1 (*X) *L):
++(NREVERSE () ()):
+
++(CONCAT (*A . *X) *Y (*A . *Z))-(CONCAT *X *Y *Z):
++(CONCAT () *Y *Y):
+
+; [10-1:] Reverse 30 element.
+
++(REV15 *X)-(NREVERSE ( 1  2  3  4  5  6  7  8.  9. 10.
+                       11. 12. 13. 14. 15. ) *X):
+
++(BENCH101)
+-(EVAL (SSTATUS GCTIME 0) *GC1) -(EVAL (RUNTIME) *TIME1)
+-(REV15 *X)
+-(EVAL (RUNTIME) *TIME2) -(EVAL (STATUS GCTIME) *GC2)
+-(EVAL (DIFFERENCE *TIME2 *TIME1) *TOTALTIME)
+-(EVAL (DIFFERENCE *TIME2 *TIME1 *GC2) *RUNTIME)
+-(CALL PRINT
+       (Total = *TOTALTIME usec, Runtime = *RUNTIME usec and Gc = *GC2 usec)):
+
+; Problem 2. Quicksort.
+
++(QSORT (*X . *L) *R *R0)
+      -(PARTITION *L *X *L1 *L2)
+      -(QSORT *L2 *R1 *R0)
+      -(QSORT *L1 *R (*X . *R1)):
++(QSORT () *R *R):
+
++(PARTITION (*X . *L) *Y (*X . *L1) *L2)
+      -(EVAL (LESSP *X *Y) T)
+      -(PARTITION *L *Y *L1 *L2):
++(PARTITION (*X . *L) *Y *L1 (*X . *L2))
+      -(PARTITION *L *Y *L1 *L2):
++(PARTITION () *A () ()):
+
+; [10-2:] Sort 20 element.
+
++(SORT20 *X)-(QSORT (27. 74. 17. 33. 94. 18. 46. 83. 65.  2.
+                    32. 53. 28. 85. 99. 47. 28. 82.  6. 11. ) *X ()):
+
++(BENCH102)
+-(EVAL (SSTATUS GCTIME 0) *GC1) -(EVAL (RUNTIME) *TIME1)
+-(SORT20 *X)
+-(EVAL (RUNTIME) *TIME2) -(EVAL (STATUS GCTIME) *GC2)
+-(EVAL (DIFFERENCE *TIME2 *TIME1) *TOTALTIME)
+-(EVAL (DIFFERENCE *TIME2 *TIME1 *GC2) *RUNTIME)
+-(CALL PRINT
+       (Total = *TOTALTIME Runtime = *RUNTIME usec and Gc = *GC2 usec)):
+
+; Now measure the benchmarks.
+
+; -(BENCH101):
+; -(BENCH102):
+OK
+

@@ -1,0 +1,95 @@
+/*
+ *			Ruminations on recursive data types in Prolog
+ *	  (in a manner similar to ML)
+ */
+
+			/* Some service predicates		*/
+for(1).
+for(I) :- for(I1), I is I1+1.
+
+/*
+ * Declaration of a recursive class nat and an operation plus
+ *	nat = {zero} + nat
+ */
+
+nat(zero).
+nat(succ(X)) :- nat(X).
+
+				/* Several consecutive natural numbers	*/
+?- asserta(count(1)), nat(X), write(X), nl, retract(count(I)), I1 is I+1,
+   asserta(count(I1)), I > 5.
+
+				/* operation plus			*/
+				/* plus(addendum1, addendum2, sum)	*/
+plus(zero,X,X).
+plus(succ(X),Y,succ(Z)) :- plus(X,Y,Z).
+
+				/* Example		*/
+?- plus(succ(succ(succ(zero))),succ(succ(zero)),X).
+
+/*
+ * Declaration of recursive types
+ *	btree = {integer} + (btree * btree)
+ * Note that it declares a truly recursive type without using pointers
+ * (not even mentioning them).
+ *
+ */
+
+btree(leaf(X)) :- var(X), X = 0.
+btree(leaf(X)) :- nonvar(X), integer(X).
+btree(node(X,Y)) :- btree(X), btree(Y).
+
+				/* Generating a couple of btrees	*/
+?- asserta(count(1)), btree(X), write(X), nl, retract(count(I)), I1 is I+1,
+   asserta(count(I1)), I > 5.
+
+				/* Dynamic type checking		*/
+
+?- btree(leaf(0)).
+?- btree(leaf(5)).
+?- btree(leaf(atom)).
+?- btree(X), btree(X).		/* Check out what we've just created	*/
+?- btree(node(leaf(1),leaf(2))).
+?- X = node(node(leaf(1),leaf(3)),node(leaf(5),leaf(6))), btree(X).
+?- X = node(node(leaf(1),leaf(3)),node(leaf(6))), btree(X).
+
+				/* Declaration of the selector		*/
+get_value(leaf(I),I).
+get_value(node(X,Y),I) :- get_value(X,I).
+get_value(node(X,Y),I) :- get_value(Y,I).
+
+?- get_value(leaf(0),X).
+?- get_value(node(leaf(0),leaf(1)),X), display(X), nl, fail.
+
+/*
+ * An assignment turns out pretty easy (theoretically). If
+ * X is bound to a, say, btree, and Y is free, then Y = X binds
+ * Y to the same btree. This is example of sharing. This may lead
+ * to a problem however:if X and Y are bound (point to) the same
+ * object then changing X has a side effect of automatically changing Y.
+ * But it is not the case here where changing of object is simply forbidden.
+ * If we need Y to be a btree with slightly different contents
+ * that X is, we must create a new btree (and fill it with some
+ * info extracted from X). Then this is a copy semantics.
+ * Thus, in the present case (case of PROLOG where recursive
+ * types are allowed), we use simple sharing semantics when
+ * it is appropriate, and copying semantics is used when it
+ * is required.
+ *
+ * The example below shows how to create a btree with a different
+ * contents, namely with the value of each leaf increased by one.
+ */
+
+			/* incr_value(src,dest)			*/
+			/* dest is a copy of btree 'src' with	*/
+			/* the value of each leaf increased	*/
+			/* by one				*/
+
+incr_value(leaf(I),leaf(I1)) :- I1 is I+1.
+incr_value(node(X,Y),node(X1,Y1)) :- incr_value(X,X1), incr_value(Y,Y1).
+
+?- X = node(leaf(1),node(leaf(5),leaf(6))),
+   write('Source btree'), nl, printq(X), nl,
+   incr_value(X,Y),
+   nl, write('btree with leaf values increased'), nl, display(Y).
+

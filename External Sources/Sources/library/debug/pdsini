@@ -1,0 +1,16 @@
+% initialization stuff.
+
+:- declare(qsort(+[x],-[x]),[determinate,total]).
+:- declare_called(qsort(X,Y),[qsort(Z,U),partition(V,W,X1,Y1),append(Z1,U1,V1),c(W1,X2,Y2)]).
+:- declare(partition(+[x],+x,-[x],-[x]),[determinate,total]).
+:- declare_called(partition(X,Y,Z,U),[partition(V,W,X1,Y1),Z1<U1,V1=<W1]).
+:- declare(append(+[x],+[x],-[x]),[determinate,total]).
+:- declare_called(append(X,Y,Z),[append(U,V,W)]).
+:- declare(le(+0,+0),[determinate]).
+:- declare_called(le(_,_),[le(Z,U)]).
+:- declare(insert(+x,+[x],-[x]),[determinate,total]).
+:- declare_called(insert(X,Y,Z),[insert(U,V,W),X2<Y2,X1=<Y1]).
+:- declare(isort(+[x],-[x]),[determinate,total]).
+:- declare_called(isort(X,Y),[isort(Z,U),insert(V,W,X1)]).
+:- declare(+x'=<'+x,[determinate]).
+:- declare(+x'<'+x,[determinate]).

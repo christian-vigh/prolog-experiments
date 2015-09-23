@@ -1,0 +1,23 @@
+
+#  VAX C-Prolog Benchmark Package
+#  Copyright 1985 by Tektronix, Inc., and Portland State University
+
+echo '!** Start Benchmark Run.'>results.ben
+echo -n '!** ' >>results.ben
+date >> results.ben
+benchrun primes
+benchrun polyeval
+benchrun memfill
+benchrun cd
+benchrun hanoi
+benchrun nairev
+benchrun bintree
+benchrun bltsort
+benchrun sort
+benchrun loop
+benchrun genlist
+benchrun dsearch
+benchrun wnum
+benchrun rnum
+cat *.ot >>results.ben
+echo '!** Finish Benchmark Run.'>>results.ben

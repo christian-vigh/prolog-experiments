@@ -1,0 +1,103 @@
+
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+libdir      = @libdir@/prologdoc
+bindir      = @bindir@
+pldir       = @PLDIR@
+cssdir      = @CSSDIR@
+mandir      = @mandir@
+man1dir     = $(mandir)/man1
+archive     = @PACKAGE_TARNAME@-@PACKAGE_VERSION@
+
+perl        = @PERL@
+verstr      = @PACKAGE_STRING@
+
+
+
+INSTALL        = @INSTALL@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_DATA   = @INSTALL_DATA@
+
+pod2man    = $(perl) -MPod::Man -e "Pod::Man->new(center=>'Prolog Utilities', release=>q($(verstr)))->parse_from_file(@ARGV)"
+
+modules = \
+	pldoc.pl \
+	ascii_symbols.pl \
+	file_parser.pl \
+	file_translater.pl \
+	prolog_doc.pl \
+	config.pl
+
+scripts = \
+	pldoc
+
+styles = \
+	style.css \
+	prologdoc.png
+
+man1 = \
+	PrologDoc.1 \
+	pldoc.1
+
+all: binaries manual
+
+pldoc.1: pldoc.in
+	$(pod2man) pldoc.in pldoc.1
+
+PrologDoc.1: PrologDoc.pod
+	$(pod2man) PrologDoc.pod PrologDoc.1
+
+manual: $(man1)
+
+binaries:
+
+message-install:
+	@echo 'run "make install" now'
+
+.PHONY: all message-install
+
+install: all install-bin install-pl install-css install-manual
+	@echo "Installation complete"
+
+install-bin:
+	@echo "Installing binaries"
+	@$(INSTALL) -c -d $(bindir)
+	@for i in $(scripts); \
+		do \
+		echo "Installing $(bindir)/$$i"; \
+		$(INSTALL) $$i $(bindir)/$$i; \
+		done
+
+install-pl:
+	@echo "Installing prolog modules"
+	@$(INSTALL) -c -d $(pldir)
+	@for i in $(modules); \
+		do \
+		echo "Installing $(pldir)/$$i"; \
+		$(INSTALL_DATA) $$i $(pldir)/$$i; \
+		done
+
+install-css:
+	@echo "Installing style sheets and images"
+	@$(INSTALL) -c -d $(cssdir)
+	@for i in $(styles); \
+		do \
+		echo "Installing $(cssdir)/$$i"; \
+		$(INSTALL_DATA) $$i $(cssdir)/$$i; \
+		done
+
+install-manual:
+	@echo "Installing manual pages"
+	@$(INSTALL) -c -d $(mandir)
+	@$(INSTALL) -c -d $(man1dir)
+	@for i in $(man1); \
+		do \
+		echo "Installing $(man1dir)/$$i"; \
+		$(INSTALL_DATA) $$i $(man1dir)/$$i; \
+		done
+
+dist:
+	mkdir -p $(archive) && \
+	( for i in `cat MANIFEST`; do cp -p $$i $(archive)/; done) && \
+	tar czf $(archive).tar.gz $(archive) && \
+	rm -Rf $(archive)

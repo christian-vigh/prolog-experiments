@@ -1,0 +1,70 @@
+A Compiler for Flat Concurrent Prolog to Prolog
+-----------------------------------------------
+
+Flat Concurrent Prolog
+----------------------
+
+Flat Concurrent Prolog  corresponds to the AND parallel subset of
+Concurrent Prolog. It was introduced in order to gain experience with a
+number of implementation issues relating to Concurrent Prolog and to provide a
+basis for experimentation with various distributed and parallel algorithms.
+
+An FCP program differs from a CP program in that guard systems contain only
+boolean combinations (conjunctions and negations) of simple test
+predicates (guard_kernel predicates). Declaratively, FCP programs are
+the same as CP programs, but differ procedurally.
+
+To satisfy a goal A, the clauses whose heads are unifiable with A are
+selected and considered in textual order. An extended unification, comprising
+unification of the goal with the head and execution of the guard, is tried for
+each clause. If an attempt is made to instantiate a variable to a non variable
+via a read-only reference during this extended unification,it suspends and the
+next clause is tried.  If an extended unification succeeds the goal is reduced
+to the corresponding body, and previous suspended unifications and subsequent
+clauses are ignored. If no clauses succeed and at least one extended
+unification has suspended, the process is suspended. If all unifications fail,
+the system fails.
+
+As in CP, the execution of the goals in the body occurs in parallel using
+dataflow synchronization.
+
+FCP provides a simple 'otherwise' predicate, which  may appear alone, only
+in the last clause of a procedure. 'otherwise' succeeds if and only if all
+previous extended unifications have failed.
+
+FCP is expressive enough to incorporate most of the applications of
+Concurrent Prolog explored to date [ref: liberal sprinkling of CP refs].
+In particular, almost all the parallel algorithms implemented in Concurrent
+Prolog.
+
+
+FCP   compiler
+--------------
+
+The FCP to PROLOG compiler is a modification of the Concurrent Prolog to
+PROLOG compiler of Chikayama done by Udi Shapiro & Colin Mierowsky.
+
+It compiles FCP clauses into PROLOG clauses and executes these according
+to the definition of FCP.
+
+
+Syntax
+------
+
+This version supportts 2 syntactic conventions :
+
+ i)  :- for implication and ; for commit
+ii)  <- for implication and | for commit. If run under CProlog the | must be
+     quoted.
+
+
+Use
+---
+
+To compile a file  :  fcpc(File).
+To run a goal      :  fcp Goal.
+
+tracing
+
+To trace all reductions : fs or fcpspy.
+to trace specific reductions : fs Goal, or fs List_of_Goals

@@ -1,0 +1,50 @@
+% logical predicates
+
+
+% true's or false's...
+true(1).	true(yes).	true(on).	true(true).	true(y).	
+true(vrai).	true(oui).	true(o).
+
+false(0).	false(no).	false(off).	false(false).	false(n).	
+false(faux).	false(non).
+
+
+
+% What is a boolean ?
+boolean(X) :-
+	true(X), !.
+boolean(X) :- 
+	false(X), !.
+boolean(X) :-
+	throw( domainerror(boolean, X) ).
+	
+
+% Value
+truthvalue(X, 1) :-
+	true(X).
+truthvalue(X, 0) :-
+	false(X).
+	
+toggle(1, 0).
+toggle(0, 1).
+
+
+
+	
+% Assignment operator
+:- op( 500, xfx, <--).
+:- op( 700,  fx, ~  ).
+
+
+X <--  ~ A :-
+	Xa <-- A,
+	boolean(Xa),
+	truthvalue(Xa, Xf),
+	toggle(Xf, X).
+
+X <--  X :-
+	b
+X *= F :- 
+   F =.. [Pred|Args], 
+   P =.. [Pred,X|Args], 
+   call(P). 

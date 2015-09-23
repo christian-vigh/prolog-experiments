@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="com.amzi.prolog.ui.launch.prologRuntime">
+<stringAttribute key="lsxList" value=""/>
+<stringAttribute key="cfgPathname" value=""/>
+<stringAttribute key="projectPathname" value="D:\Development\Eclair\Prolog Modules"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+</listAttribute>
+<stringAttribute key="xplPathname" value="bin\Eclair.xpl"/>
+<stringAttribute key="projectName" value="Eclair"/>
+</launchConfiguration>

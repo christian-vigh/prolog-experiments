@@ -1,0 +1,51 @@
+%I am not sure how this fits in with the other files and haven't used 
+%this, but its included here for completeness.
+%----------------------------------------------------------------------
+
+%addendum to PDSDC file
+% New fp.
+
+fp(not(A),X) :- !,
+	ip(A,X).
+fp(A,X) :-
+	solve(A,_,S), divide_and_query(S,X).
+
+% divide_and_query([(A,1)],A) :-  !.
+divide_and_query([(A,1),X],X) :-  !.
+divide_and_query([(A,Wa)|S],X) :-
+	Wm is (Wa+1)/2, divide(Wm,S,[(B,Wb)|Sb]),
+	( query(forall,B,false) -> divide_and_query([(B,Wb)|Sb],X) ;
+	  fp(A,X) ).
+
+divide(Wm,[(A,Wa)|S],Sm) :-
+	Wm>=Wa  -> Sm=[(A,Wa)|S] ; divide(Wm,S,Sm).
+
+solve(true,0,[]) :- !.
+solve((A,B),W,S) :- !,
+	solve(A,Wa,Sa), solve(B,Wb,Sb),
+	( Wa>=Wb -> S=Sa ; S=Sb ),
+	W is Wa+Wb.
+solve(not(A),W,S) :- !,
+	( solve(A,W,S) -> fail ; W=1, S=[(not(A),1)] ).
+solve(A,W,S) :-
+	system(A) -> ( A -> W=0, S=[] ) ;
+	clause(A,B), solve(B,Wb,Sb),
+	( fact(A,true) -> W=0, S=[] ;
+	  Sb=[] -> W=1, S=[(A,1),(A:-B)] ;
+	  W is Wb+1, S=[(A,W)|Sb] ).
+
+/*      ( fact(A,true) -> W=0, S=[] ;
+	  W is Wb+1, S=[(A,W)|Sb] ).  */
+
+
+ip((A,B),X) :- !,
+	( A -> ip(B,X) ; ip(A,X) ).
+ip(not(A),X) :- !,
+	fp(A,X).
+ip(A,X) :-
+	clause(A,B), satisfiable(B) -> ip(B,X) ; X=A.
+
+satisfiable((A,B)) :- !,
+	query(exists,A,true), satisfiable(B).
+satisfiable(A) :-
+	query(exists,A,true).

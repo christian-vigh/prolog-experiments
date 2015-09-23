@@ -1,0 +1,18 @@
+% logical predicates
+
+
+% A boolean is...
+boolean(0).
+boolean(1).
+
+% 
+:- op(500, fx, [not]).
+ 
+ junk([ 
+ 	/\,
+ 
+ 	*=
+ 	]).
+
+
+ 

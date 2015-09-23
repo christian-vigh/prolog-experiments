@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN BinaryTree BENCHMARK
+!**  Average cputime for 10 bintree is 177.777466 msecs.
+!**  Average cputime for 20 bintree is 311.111328 msecs.
+!**  Average cputime for 30 bintree is 611.111328 msecs.
+!**  Average cputime for 40 bintree is 833.330566 msecs.
+!**  Average cputime for 50 bintree is 1150.000977 msecs.
+!**  END BinaryTree BENCHMARK

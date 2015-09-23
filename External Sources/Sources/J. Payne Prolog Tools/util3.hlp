@@ -1,0 +1,363 @@
+%   File   : UTIL3.HLP
+%   Author : Diana Bental
+%   Updated: 1 February 1985
+%   Purpose: Provide details of contents of files in util
+%   Needs  : No other files.
+
+%	u - part of 'util' baseload
+%	t - part of 'toolkit' baseload
+%	m - part of 'mutil' baseload
+%	'util' is part of the 'toolkit' baseload - so t implies ut
+%	and ut implies that the module has been loaded twice
+%	Load info gathered from util:util, util:mutil and mec:toolki.mic
+
+Class : programming environment
+-------------------------------
+
+ADVICE.PL     Interlisp-like advice package	Needs concat/3, flag/3
+		It gives a way of inserting code at any or all ports of an
+		interpreted predicate without actually modifying the code.
+
+ANDOR.PL      Meta-circular interpreter maintaining extended AND/OR tree
+		---more enlightenment please ????
+
+CC.PL         conditional compilation
+		Class : programming environment / standardisation
+		Allows programmer to specify different code for different
+		dialects of Prolog and operating systems in the same file.
+
+COUNT.PL   t  counts predicates and clauses in program and its subfiles
+
+EDIT.PL   um  edits a file then runs mec:prolog
+
+FINE.PL       Get to an editor and back again (Old)
+		Runs the 'fine' editor
+
+HELPER.PL  t  prints extracts from help files
+
+IXREF.PL   t  Interactive cross-referencer (needs PP.PL)
+
+MEDIC.PL      helps to diagnose mode errors
+
+PP.PL      t  Prolog pretty-printer, interface to current_predicate &c
+
+PROLOG.TYP    declare types of built-in predicates and minimal utilities
+
+PUTSTR.PL     prints a section of a file (for new unwritten help system)
+
+SYSTEM.PL     Table of built-in predicates.
+		Useful for finding out what system predicates exist, and for
+		use in tools like the cross-referencer.
+
+TERMIN.PL     check for missing base cases
+
+TEST.PL       tests compiled routines by interpreting them
+
+TIMING.PL     (use with TIMING.POP ?) to get dynamic call counts
+		Count how many times predicates get called
+
+TRACE.PL  um  contains trace routines
+		Class : programming environment / Demo(?)
+		--- More enlightenment please ???
+
+TYPE.PL   ut  types file(s) to the screen
+
+TYPECH.PL     checks Prolog types
+
+VCHECK.PL  t  reads each clause of a file and reports unique variables
+
+
+Class : file handling
+---------------------
+
+BACKUP.PL     backs up a file with the extension specified
+		Creates a copy of a file with same name and specified extension
+		(.bak is default).
+
+BUNDLE.PL     Bundle and Unbundle files.
+		---more enlightenment please ???? - what's a bundle?
+
+FILES.PL  um  contains file-manipulating routines
+		Performs tasks like finding out whether a file
+		exists, opening, closing, deleting and appending files.
+
+GETFIL.PL  u  read a file name from the terminal
+		Prompts the user to type in a file name. (The name is not
+		validated, so this could be used as a more general read
+		routine.)
+
+LIB.PL        looks through directories for a file and reconsults it
+
+LIB2.PL       a version of the VAX "lib" predicate (friend of lib.pl)
+
+RECON.PL      versions of consult and reconsult using try_hard_to_see
+
+TRYSEE.PL ut  searches several directories/extensions for a file
+
+
+Class : i/o formatting
+----------------------
+
+ASK.PL     u  asks questions with one-character answers
+		Class : Programming environment / io formatting
+
+PORSTR.PL     Portray lists of characters as strings.
+		Class : programming environment / io formatting
+		Writes a complete list of character codes as text enclosed
+		in double quotes.
+
+RDSENT.PL     reads a single sentence as a list of words.
+		Class : programming environment / io formatting
+		Reads a string of characters and parses them to a list
+		of tokens consisting of words, numbers and punctuation marks.
+
+STRIO.PL      Prolog i/o to character strings
+		Behaves pretty much like read and write, but reads/writes
+		to a charcter string rather than a file.
+
+WRITEF.PL um  contains formatted output routines
+
+
+Class : Standardisation
+-----------------------
+
+ARITH.PL   u  new standard arithmetic primitives
+		C-prolog primitive predicates which replace the operators
+		that use 'is', hence leading to faster(?), multidirectional
+		code.
+		(As far as I know, these only increase speed if wired into C
+		rather than as implemented here, but I haven't run benchmarks).
+
+CTYPES.PL     character types (for Prolog standardisation)
+		Defines predicates for recognising different character
+		types whose use is not dependent on the implementation.
+
+DEC10.Pl      Dec10 compatibilty file for CProlog
+
+RDTOK.GEN     tokeniser in fairly standard Prolog
+		Class : standardisation (?) / Demo (?)
+
+RDTOK.PL      is an interface to the Prolog tokeniser
+		Class : standardisation (?) / Demo (?)
+
+READ.PL       is a Prolog parser written in Prolog (needs RdTok.Pl)
+		Class : standardisation (?) / Demo (?)
+
+SETOF.PL      defines set_of, bag_of, findall
+		Class : standardisation / Demo
+
+TOPLEV.PL     Prolog 'top level'
+		Class : standardisation / Demo
+
+WRITE.PL      Portable definition of write/1 and friends.
+		Class : Standardisation / Demo
+
+
+Class : Demos
+-------------
+
+ARC3.PL       Implement Mackworth's AC-3 algorithm.
+		Class : Demo (?)
+		---more enlightenment please ????
+
+IDBACK.PL     intelligent backtracking database parser
+		Class : Demo (?)
+
+MODULE.PL     elementary module system for Dec10 Prolog
+		Simulate modules by qualifying the name of each predicate
+		with the name of the file from which it came.
+
+SORTS.PL      Specify generalised sorting routines.
+		This file contains specifications for two sorts, keysort/3
+		and sort/2, which are now part of DEC10 Prolog.
+
+
+Class : Language extension
+--------------------------
+
+1) Control Structure
+
+APPLIC.PL um  contains apply-like routines	Needs append/3
+		Build function calls from the predicate name and a list
+		of arguments; then use this to do things like mapping one list
+		onto another according to some predicate.
+BETWEE.PL  u  generate integers
+		The code appears to be buggy; however as I don't know what
+		it's supposed to do I can't be sure of this. The predicate
+		between(+L,+U,-N) returns an integer N  that increases by one
+		from L to U with each backtrack. But it cycles twice, which I
+		assume to be a bug.
+
+FEACH.PL      Repetition/summation predicate
+		Being obsolete and not intended for general use, it is
+		included for use by MECHO.
+
+2) Data type
+
+ARRAYS.PL     is an updateable arrays facility
+
+ASSOC.PL      contains binary tree implementation of "association lists"
+		---more enlightenment please ????
+
+BAGUTL.PL  u  contains bag-manipulating utilities
+
+FLAT.PL       Flatten various binary trees to lists and convert back.
+		Created for use by PRESS
+
+GRAPHS.PL     processes graphs (including transitive closure)
+		Allows two possible representations ; either a list
+		of (from_to) vertex pairs, or a list of (vertex-neighbours)
+		pairs. Possible operations are conversions between these
+		represenations, transitive closure and transposition.
+
+HEAPS.PL      contains (mergable) heap-manipulating routines
+
+LAZY.PL       Lazy lists
+
+LISTUT.PL um  contains list-manipulating utilities
+
+LOGARR.PL     Extendable arrays with logarithmic access time.
+
+LONG.PL       arithmetic manipulation of rational numbers
+
+MAP.PL        Implement finite maps.
+
+MULTIL.PL     contains multiple-list routines
+
+ORDER.PL      Define the "ordered" predicates on lists
+		Test if a list is ordered, create an ordered list from an
+		unordered one, generate lists of a given length.
+
+ORDSET.PL  t  contains ordered-set-manipulating routines
+		Represent sets by ordered lists with no duplicates.
+
+PROJEC.PL  u  Implements keyed lists and sorting on some part of a structure
+		A keyed list is a list of key-value pairs
+		
+QUEUES.PL     defines queue operations
+		Operations such as creating an empty queue, joining two
+		queues, looking at the head of queue and adding items to the
+		tail.
+
+SETUTL.PL um  contains set-manipulating utilities
+		Sets are represented as (un-ordered) lists with no repeated
+		elements.
+
+TREES.PL      contains routines for updating binary trees
+		Converts lists to/from trees, checks if trees are equivalent
+		(or can be mapped onto one another), updates entries in a tree,
+		counts entries.
+
+3) Syntax
+
+CLAUSE.PL     Convert a formula in FOPC to clausal form.
+
+DCSG.PL       Preprocessor for Definite Clause Slash Grammars
+
+DISTFI.PL     Extended syntax for Prolog Terms - includes distfix operators
+
+EXPAND.PL     expands simple macros
+
+XGPROC.PL     Translate XGs to Prolog (some kind of grammar-but which?)
+
+4) Other
+
+ARITH.OPS um  declarations for PRESS's extra arithmetic operators
+
+INVOCA.PL um  contains forall, once, not
+		Class : language extension / control structure
+		Interpreted
+ 
+NOT.PL        negates "suspiciously"
+		Checks that there are no free variables in the goal
+		which is to be negated.
+
+UPDATE.PL     updates "data-base" relations
+
+
+Class : unclassifiable - any help with sorting out what these are for would
+be appreciated
+----------------------
+
+DECONS.PL     Construct and take apart Prolog control structures.
+		---more enlightenment please ????
+
+UNFOLD.PL     unit resolution for optimising "data abstraction" style code
+		---more enlightenment please ????
+
+
+Class : programming utilities
+-----------------------------
+
+FLAGRO.PL um  manipulates global variables (flags)
+		Provides a clean interface to global variables
+
+
+GENSYM.PL um  contains the compiled routines cgensym, concat, gensym
+		Create new atom names, either by adding a number to an existing
+		name or by concatenating existing names.
+		
+IMISCE.PL um  contains \=, casserta, cassertz, clean, diff, gcc
+		Contains miscellaneous utilities. Must be interpreted.
+
+RANDOM.PL     random number generator
+
+SAMSOR.PL     a sorting routine which exploits existing order
+
+TIDY.PL    u  simplifies algebraic expressions, but not much (for PRESS)
+
+
+Class : metalogical operations
+------------------------------
+
+DEPTH.PL      Find the depth of a term or check the depth is within some limit
+
+METUTL.PL um  contains meta-logical operations
+		---more enlightenment please ????
+
+OCCUR.PL   u  check no/place of occurrence, replace at specific position
+		Find out if a sub-structure occurs in a structure,
+		if it can be found on a particular path. Replace an expression
+		in a particular position.
+
+STRUCT.PL um  defines substitution and other metalogical operations
+		Operations treating a term as a data-structure.
+		Counts the occurrences of a sub-term in a term, performs
+		substitution, makes a copy of a structure with any variables
+		ground.
+
+
+Class : operator definitions
+----------------------------
+
+UTIL.OPS  um  declares operators used by UTIL not already in PROLOG
+		Class : operator definitions
+
+
+Class : not part of program
+---------------------------
+
+FLALL         list of files in UTIL:, suitable for SUBFIL
+		Probably out of date by now
+
+FLS           list of files in UTIL:, suitable for PRINT
+		Probably out of date by now
+
+MUTIL         is the root for the Minimal UTILities collection
+
+MUTIL.MIC     is used by MAKSYS to build MUTIL.EXE 
+
+SUCC.PL       defines succ and plus   /*not in UTIL 28/1/85 */
+
+UTIL          Root file for the Utilities package.
+
+UTIL.DEF      contains definitions of utilities for XREF
+
+UTIL.MIC      is used by MAKSYS to build the UTILities package
+
+UTIL.TXT      "Utility is_defined_in File" sorted on both keys (needs updating)
+
+UTIL2.TXT     lists purpose of each file in UTIL
+
+UTIL3.HLP	- this file : classification and purpose of each file in util
+

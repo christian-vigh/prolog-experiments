@@ -1,0 +1,5 @@
+0.2 - 18 June 2002 (2002bc17)
+Support for Swi. Added support for requires/1. Almost there for Yap.
+
+0.1 -   20 May 2002 (2002bb20).
+Support for SICStus 3.9.0 .

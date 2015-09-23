@@ -1,0 +1,60 @@
+/* make_rec
+
+Make  records from list of relations
+Alan Bundy 7.7.82 */
+
+make_rec(Concept,Example,VObjs,VRec,Pairs) :- !,
+	specimen(Example,ERelns),
+	gen_list(ERelns,VRelns,Pairs),
+	maplist(second,Pairs,VObjs),
+	maplist(convert,VRelns,VRec).
+
+/* Take list of terms and apply gen_term to each member */
+gen_list([],[],[]).
+
+gen_list([ETerm|ERest], [VTerm|VRest], Pairs) :-
+	gen_term(ETerm,VTerm,Pairs1),
+	gen_list(ERest,VRest,Pairs2),
+	union(Pairs1,Pairs2,Pairs).
+
+/* Take term, find all atoms in it and replace with variables,
+returning list of atom, variable pairs */
+gen_term([],[],[]) :- !.
+
+gen_term(N,N,[]) :-
+	integer(N), !.
+
+gen_term(Atom,Var,[pair(Atom,Var)]) :-
+	atom(Atom), !.
+
+gen_term(EStruc,VStruc,Pairs) :- !,
+	EStruc =.. [Func|EArgs],
+	gen_list(EArgs,VArgs,Pairs),
+	VStruc =.. [Func|VArgs].
+
+
+/* take second argument of pair */
+second(pair(F,S),S).
+
+/* Convert input relation style into internal representation as predicate tree */
+convert(Reln, record(Args,Name,ExPosn)) :-
+	Reln =.. [Pred|Args],
+	length(Args,N),
+	tree(Name,N,Tree),
+	node_at(Pred,Tree,ExPosn).
+
+/* find nth element of list */
+nth_el(1,[Hd|Tl],Hd).
+
+nth_el(N,[Hd|Tl],El) :-
+	nth_el(PN,Tl,El), N is PN + 1.
+
+
+/* Find Position of Node in Tree */
+node_at(Node,Tree,[]) :-
+	Tree =.. [Node|SubTrees].
+
+node_at(Node,Tree,[N|Posn]) :-
+	Tree =.. [Root|SubTrees],
+	nth_el(N,SubTrees,SubTree),
+	node_at(Node,SubTree,Posn).

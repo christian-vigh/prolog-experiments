@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN Primes BENCHMARK
+!**  Average cputime for 10 primes is 66.666565 msecs.
+!**  Average cputime for 20 primes is 211.110718 msecs.
+!**  Average cputime for 40 primes is 522.221680 msecs.
+!**  Average cputime for 60 primes is 777.776855 msecs.
+!**  Average cputime for 80 primes is 1277.776367 msecs.
+!**  END Primes BENCHMARK

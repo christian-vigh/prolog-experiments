@@ -1,0 +1,41 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/*  Get an average cpu time for 5 different parameters  */
+
+test_dsearch :-
+nl, write('!**  BEGIN DbaseSearch BENCHMARK'), nl,
+ave_dsearch(500),
+ave_dsearch(1000),
+ave_dsearch(1500),
+ave_dsearch(2000),
+ave_dsearch(2500),
+nl, write('!**  END DbaseSearch BENCHMARK'), nl.
+
+/*  call the benchmark 3 times and calculate the average  */
+
+ave_dsearch(P) :-
+call_dsearch(P,T1),
+call_dsearch(P,T2),
+call_dsearch(P,T3),
+calc_ave_dsearch(P,T1,T2,T3).
+
+/*  call benchmark and return cputime in msecs.  */
+
+call_dsearch(P,T) :-
+T1 is cputime,
+dsearch(P),
+T2 is cputime,
+T is 1000*(T2-T1).
+
+/*  calculate average of 3 times for parameter P  */
+
+calc_ave_dsearch(P,T1,T2,T3) :-
+Ave is (T1+T2+T3)/3,
+nl, write('!**  Average cputime for '),
+write(P), write(' dsearch is '),
+write(Ave), write(' msecs.'), nl.
+
+:- test_dsearch.
+

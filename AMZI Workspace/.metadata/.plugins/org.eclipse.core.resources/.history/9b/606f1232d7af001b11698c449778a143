@@ -1,0 +1,30 @@
+% logical predicates
+
+
+% true's or false's...
+true(1).	true(yes).	true(on).	true(true).	true(y).	
+true(vrai).	true(oui).	true(o).
+
+false(0).	false(no).	false(off).	false(false).	false(n).	
+false(faux).	false(non).
+
+
+
+% What is a boolean ?
+boolean(X) :-
+	true(X).
+boolean(X) :- 
+	false(X).
+boolean(X) :-
+	throw( domainerror(boolean, X) ).
+	
+
+
+% NOT operator
+:- op(500, fx, ~).
+
+~ X :-
+	boolean(X), true(X), fail.
+	
+~ X :-
+	boolean(X), false(X).

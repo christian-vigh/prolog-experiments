@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="com.amzi.prolog.ui.launch.prologListener">
+<stringAttribute key="lsxList" value=""/>
+<stringAttribute key="consultList" value="'Array.pro','List.pro','Maths.pro','Meta.pro','Properties.pro','Utilities.pro','ctype.pro'"/>
+<stringAttribute key="cfgPathname" value=""/>
+<stringAttribute key="projectPathname" value="D:\Development\Prolog\Modules"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+</listAttribute>
+<stringAttribute key="loadList" value=""/>
+<stringAttribute key="projectName" value="Modules"/>
+</launchConfiguration>

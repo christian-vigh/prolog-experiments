@@ -1,0 +1,6 @@
+
+
+map_add([], map).
+
+map_add( [Key:Value | Tail], map(Key, Value, Map) ) :-
+	map_add(Tail, Map).

@@ -1,0 +1,42 @@
+bound(X) :-
+	nonvar(X), !.
+
+unbound(X) :-
+	var(X), !.
+
+undefined( Name, Value ) :-
+	atom_concat( 'kr$', Name, Func ),
+	Goal =.. [Func, Value],
+	call(Goal),
+	fail, !.
+undefined( _, _ ).
+
+defined( Name, Value ) :-
+	atom_concat( 'kr$', Name, Func ),
+	Goal =.. [Func, Value],
+	call(Goal), !.
+defined( _, _ ) :- !.
+
+
+object(Name) :-
+	bound(Name), undefined(object, Name),
+	create_object(Name).
+object(Name) :-
+	bound(Name), defined(object, Name),
+	write('error : the object '''), write(Name), write(''' is already defined.'),
+	nl, fail, !.
+object(Name) :-
+	kr$object(Name).
+
+
+create_object(Name, Template) :-
+
+kr$template(Word) :-
+	bound(Word), undefined(kr$concept, Word),
+	assert( kr$concept( Word ) ).
+kr$template(Word) :-
+	bound(Word), defined(kr$concept, Word),
+	write('error : the '''), write(concept), write(''' is already defined.'),
+	nl, fail, !.
+kr$template(Word) :-
+	kr$concept(Word).

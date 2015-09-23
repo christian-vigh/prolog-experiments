@@ -1,0 +1,16 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/* prolog module to read numbers from a file, in order to test file input */
+
+read_num(Max) :-
+see('numdata'),
+asserta(n(0)),
+repeat,
+	read(X),
+	retract(n(N)),
+	N1 is N+1,
+	asserta(n(N1)),
+N1>=Max, !,
+seen.

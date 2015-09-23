@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN DbaseSearch BENCHMARK
+!**  Average cputime for 500 dsearch is 55.552155 msecs.
+!**  Average cputime for 1000 dsearch is 105.550110 msecs.
+!**  Average cputime for 1500 dsearch is 149.993896 msecs.
+!**  Average cputime for 2000 dsearch is 216.674805 msecs.
+!**  Average cputime for 2500 dsearch is 266.662598 msecs.
+!**  END DbaseSearch BENCHMARK

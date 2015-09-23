@@ -1,0 +1,61 @@
+% Meta predicates
+concept(X) :-
+	retractall( kr$concept(X) ),
+	assert( kr$concept(X) ).
+
+belongs(X, Y) :-
+	retractall( kr$belongs(X, Y) ),
+	assert( kr$belongs(X, Y) ).
+	
+	kr$belongs(X, Y) :-
+		kr$belongs(Temp, Y),
+		kr$belong(X, Temp).
+
+
+% Grammar
+sentence( [exit] )  		-->  kw_exit, kw_optional_dot.
+sentence( [help] ) 		-->  kw_help, kw_optional_dot.
+
+kw_exit  	-->  ( [exit] ; [bye] ; [quit] ; [q] ; [x] ).
+kw_help  	-->  ( [help] ; [h] ; ['?'] ).
+kw_optional_dot -->  ( ['.'] ; ['. '] ; [] ).
+
+
+% Command predicates
+exit.
+
+help :-
+	write('Help for Expert System :'), nl,
+	write('----------------------'), nl,
+	write('     help             Shows command help.'), nl,
+	write('     quit             Leaves the expert system.'), nl,
+	nl.
+
+% Command loop	
+main :-
+   	write('Expert System Version 0.1'), nl,
+   	write('-------------------------'), nl, nl,
+   	read_database,
+	repeat,
+   	do_command.
+
+do_command :-
+   	write('Command> '),
+   	read_string(STRING),
+   	string_tokens(STRING, TOKENS),
+   	sentence(CLIST, TOKENS, []),
+   	COMMAND =.. CLIST,
+   	do_call(COMMAND),
+   	!,
+   	COMMAND == exit.
+
+ 
+ do_call(Command) :-
+ 	call(Command).
+ do_call(_) :-
+ 	write('incorrect command. Type ''Help'' for a list of available commands.'),
+ 	nl.
+ 	
+ 	
+ read_database :-
+ 	consult('Database.pro').

@@ -1,0 +1,145 @@
+Problems solved in getting examples to run:
+
+1.  Added system clauses in a file Xref.def.
+
+2.  Added definition of check_solutions on p. 67, for some reason wasn't
+in the original file.
+
+3. Misspelling: "uncoverered"  instead of  "uncovered" in  the predicate
+missing_solution in PDSDC.  [Perhaps this predicate wasn't with the files
+and I added it and misspelled it in the process.]
+
+4. Twice when  programs in  the scenario  referenced existing  functions
+[specifically    MEMBER     and     APPEND]     questions     such    as
+declare(incore(append))) came up  which weren't  in the  scenario in the
+book.  By using new function names such as MEM or APP the problems  went
+away.
+ 
+----------------------------------------------------------------------
+Running Examples and Scenarios in Text:
+
+1.  To run FP the diagnosis program on page 40 and get the transcript on
+pages 41 and 42:
+
+  Consult(fp).
+
+Then type in transcript.  Works fine.
+
+2.  To run the improved FP (fewer queries) on pages 48 to 50:
+
+You need to have  FACT(A,true) assertions in  the database so  I haven't
+tested this one.  It definitely will not work without those assertions.
+
+3. To run the improved IP on P. 58:
+
+|? -   Consult(ip).
+
+4. To run the complete diagnosis system and debugging scenario on  pages
+68 to 72:
+
+|? -   [pds5,qsort,pdsini].
+
+   Qsort is  the buggy  program on  page 68  used in  the scenario.  The
+scenario proceeds  exactly  as  in  the  text  there.  I am not sure why
+PDSINI must be  read in  after PDS5  [it is  also read  in PDS5] but its
+declarations about QSORT  do not  appear to  be recorded  unless this is
+done [if PDSINI is not read in after PDS5 and QSORT the PDS system  will
+ask the user to declare QSORT, in  which case the correct answer to  the
+question "Declare  QSORT...?"  is  the  declaration  of QSORT in PDSINI:
+"declare(qsort(+[x],-[x]),[determinate,total])." ].
+
+5. To run the model inference system and scenario on pages 100 to 104:
+
+|? -  [mis].
+
+Then follow scenario.
+
+6. To run the model inference system using the eager search strategy, following
+the scenario on pages 105 to 108.
+
+|? -  [mis].
+|? -  value(X,Y).
+|? -  retract(value(X,Y)).
+|? -  assert(value(search_strategy,eager)).
+
+   The last two lines are necessary to set up the eager search strategy.
+The input "call(set(search_strategy,eager))" is not accepted by MIS,  so
+skip that line  and follow  the rest  of the  scenario except  use "mem"
+instead of "member" throughout the scenario so that MIS will not confuse
+the new  function  it  is  synthesizing  with  the  incore definition of
+"member".   Thus  the  first  fact  should be "mem(a,[b,a]),true."   not
+"member(a,[b,a]),true."
+
+7. To run the PDS6 scenario on pages 147 to 155.
+
+|? - [pds6,qsort2].
+
+Then follow the scenario with the following changes: 
+
+  1. Replace  all occurrences  of "append"  by "app"  so that  PDS wont'
+confuse the append predicate in qsort  [renamed to app] with the  incore
+definition of append.  Specifically on page 150 when answering the "What
+is    a    reason..."        question     the    answer    should     be
+"app([1,2],[3,4],[1,2,3,4])".
+
+  2. On page  154 you will  be asked an  additional question not  in the
+book to which you should answer "n".  Here is the correct scenario  with
+the extra question emphasized by  asterisks.  This part of  the scenario
+begins on page 153 (lower middle) and ends on page 155.  The  additional
+question occurs on the top of page 154.
+
+Error: wrong solution partition([3],2,[],[]). diagnosing...
+Error diagnosed: (partition([3],2,[],[]):-partition([],2,[],[])) is false.
+retract (y), (m)odify, or (r)eplace it? m.
+What is a reason for (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))? partition([2],2,[],[]).
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+Found clause: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+    after searching 1 clauses.
+ok? n.    /*  *******THIS IS THE UNANTICIPATED QUESTION, ANSWER NO HERE************   */
+Refining: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V))
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+Found clause: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+    after searching 5 clauses.
+ok? y.
+Listing of partition(X,Y,Z,U):
+    (partition([],X,[],[]):-true).
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X).
+    (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z).
+    (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z).
+
+Solving qsort([2,1,2,3],X)...
+Error trapped: too many solutions to partition([1,2,3],2,X,Y)
+
+Query: partition([1,2,3],2,[],[3])? n.
+Error: wrong solution partition([1,2,3],2,[],[3]). diagnosing...
+Error diagnosed: (partition([1,2,3],2,[],[3]):-partition([2,3],2,[],[3]),1=<2) is false.
+retract (y), (m)odify, or (r)eplace it? m.
+What is a reason for (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)? partition([2],2,[],[]).
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+Refuted: (partition([1,2,3],2,[],[3]):-partition([2,3],2,[],[3]),1=<2)
+Refining: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z)
+Checking: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z,Z=<X)
+Found clause: (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z,Z=<X)
+    after searching 3 clauses.
+ok? y.
+Listing of partition(X,Y,Z,U):
+    (partition([],X,[],[]):-true).
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W),Z<X).
+    (partition([X|Y],Z,[X|V],W):-partition(Y,Z,V,W),X=<Z,X<Z).
+    (partition([X|Y],Z,U,V):-partition(Y,Z,U,V),X=<Z,Z=<X).
+
+Solving qsort([2,1,2,3],X)...
+solution: qsort([2,1,2,3],[1,2,3]); ok? y.
+no (more) solutions. ok? y.
+
+8. To run the inferring insertion sort scenario in the appendix:
+
+|? - [mis].
+|? - retract(value(X,Y)),assert(value(X,eager)).
+
+
+Then proceed as in the scenario.  You may have to declare the  predicate
+insert earlier than in the scenario,  in which case the correct  replies
+are on  page  168  in  the  middle.   Also  you  may have to declare the
+predicate  =<,   in   which   case   the   replies   are  similar  [i.e.
+declare(=<(+x,+x),[total,determinate])) ].

@@ -1,0 +1,35 @@
+terminal(X) :- member(X,
+   [begin,end,if,then,while,do,call,':=',';',
+    '(',')',+,-,*,/,<,=]).
+nonterminal(N) :- member(N,[
+   statement(X,Y),statementlist(X,Y),condition(X,Y),
+   expression(X,Y),term(X,Y),factor(X,Y),ident(X,Y),
+   number(X,Y),comparator(X,Y),
+   plusminus(X,Y),timesdiv(X,Y) ]).
+
+ident([X|Xs],Xs) :- atom(X),\+terminal(X).
+number([X|Xs],Xs) :- integer(X).
+plusminus --> [+] | [-].
+timesdiv --> [*] | [/].
+comparator --> ['='] | ['<'].
+
+:- system(ident(_,_)).
+:- system(number(_,_)).
+:- system(plusminus(_,_)).
+:- system(timesdiv(_,_)).
+:- system(comparator(_,_)).
+
+:- declare(statement(+[x],-[x]),[total,determinate]).
+:- declare(statementlist(+[x],-[x]),[total,determinate]).
+:- declare(condition(+[x],-[x]),[total,determinate]).
+:- declare(expression(+[x],-[x]),[total,determinate]).
+:- declare(term(+[x],-[x]),[total,determinate]).
+:- declare(factor(+[x],-[x]),[total,determinate]).
+
+:- declare(ident(+[x],-[x]),[total,determinate]).
+:- declare(number(+[x],-[x]),[total,determinate]).
+:- declare(plusminus(+[x],-[x]),[total,determinate]).
+:- declare(timesdiv(+[x],-[x]),[total,determinate]).
+:- declare(comparator(+[x],-[x]),[total,determinate]).
+
+:- end.

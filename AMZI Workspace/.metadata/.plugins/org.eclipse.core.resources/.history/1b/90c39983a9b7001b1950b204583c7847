@@ -1,0 +1,27 @@
+% Meta predicates
+
+% Succeeds if there is a direct or indirect belongs link between X and Y
+link(X, Y) :-
+	belongs(X, Y).
+link(X, Y) :-
+	belongs(X, Temp),
+	link(Temp, Y).
+
+
+% Finds which entity can do the specified action
+find(Predicate, Entity, Action) :-
+	atom_concat('find_', Predicate, Func),
+	Goal =.. [Func, Entity, Action],
+	call(Goal).
+	
+find_action(Entity, Action) :-
+	action(Entity, Action).
+find_action(Entity, Action) :-
+	link(X, Entity),
+	action(X, Action).	
+	
+find_property(Entity, Property) :-
+	property(Entity, Property).
+find_property(Entity, Action) :-
+	link(X, Entity),
+	property(X, Property).

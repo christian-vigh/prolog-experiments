@@ -1,0 +1,22 @@
+
+
+:- op(900, xfx, ..).
+:- op(700, xfx, covers).
+:- op(800,  fx, /<).
+:- op(800,  fx, />).
+:- op(800,  xf, </).
+:- op(800,  xf, >/).
+
+
+
+
+valid_interval(-inf, _, _).
+valid_interval(+inf, _, _).
+valid_interval(A, B, Op) :-
+	Op(A, B).
+
+
+X covers /<A..B>/  :-
+	valid_interval(A, B, Op),
+	X = [ [A, B, >=, <=] ].
+

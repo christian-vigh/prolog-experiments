@@ -1,0 +1,106 @@
+
+yes
+| ?- problem1(A).
+Rule is:
+	remove: [_527]
+	add: []
+	match: [[_537,_547,direct]]
+	source: [[inside,_527,_537]]
+	target: [] 
+
+Answer description is:
+	objects: [_547]
+	relations: []
+	similarities: [[circle,_547,direct]] 
+
+Answer is fig4
+
+
+
+A = fig4 
+
+yes
+| ?- problem2(A).
+Rule is:
+	remove: [_527]
+	add: []
+	match: [[_537,_547,direct]]
+	source: [[inside,_527,_537]]
+	target: [] 
+
+Answer description is:
+	objects: [_547]
+	relations: []
+	similarities: [[circle,_547,direct]] 
+
+Rule is:
+	remove: [_527]
+	add: []
+	match: [[_537,_547,[scale,2]]]
+	source: [[inside,_537,_527]]
+	target: [] 
+
+Answer description is:
+	objects: [_547]
+	relations: []
+	similarities: [[square,_547,[scale,2]]] 
+
+Answer is fig4a
+
+
+
+A = fig4a 
+
+yes
+| ?- problem3(A).
+Rule is:
+	remove: [_527]
+	add: []
+	match: [[_537,_547,direct]]
+	source: [[inside,_527,_537]]
+	target: [] 
+
+Answer description is:
+	objects: [_547]
+	relations: []
+	similarities: [[circle,_547,direct]] 
+
+Rule is:
+	remove: [_527]
+	add: []
+	match: [[_537,_547,[scale,2]]]
+	source: [[inside,_537,_527]]
+	target: [] 
+
+Answer description is:
+	objects: [_547]
+	relations: []
+	similarities: [[square,_547,[scale,2]]] 
+
+Rule is:
+	remove: [_381,_391]
+	add: [_401]
+	match: []
+	source: [[inside,_381,_391]]
+	target: [] 
+
+Answer description is:
+	objects: [_401]
+	relations: []
+	similarities: [] 
+
+Answer is fig5
+
+
+
+A = fig5 
+
+yes
+| ?- core     49664  (20480 lo-seg + 29184 hi-seg)
+heap     15360 =  14048 in use +   1312 free
+global    1187 =     16 in use +   1171 free
+local     1024 =     16 in use +   1008 free
+trail      511 =      0 in use +    511 free
+    0.06 sec. for 1 GCs gaining 144 words
+    0.08 sec. for 4 local shifts and 12 trail shifts
+    1.77 sec. runtime

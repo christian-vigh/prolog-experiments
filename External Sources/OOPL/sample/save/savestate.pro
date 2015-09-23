@@ -1,0 +1,23 @@
+saved_oopl_mem_pair(self, oopl, oopl).
+saved_oopl_mem_pair(class, oopl, oopl).
+saved_oopl_mem_pair(method, oopl, ooplMethod).
+saved_oopl_mem_pair(instance_method, oopl, classMethod).
+saved_oopl_mem_pair(template, oopl, oopl(template, instance_method)).
+saved_oopl_mem_pair(self, base, base).
+saved_oopl_mem_pair(class, base, oopl).
+saved_oopl_mem_pair(instance, oopl, base).
+saved_oopl_mem_pair(method, base, classMethod).
+saved_oopl_mem_pair(template, base, base).
+saved_oopl_mem_pair(instance_method, base, baseMethod).
+saved_oopl_mem_pair(self, hello, hello).
+saved_oopl_mem_pair(class, hello, oopl).
+saved_oopl_mem_pair(instance, oopl, hello).
+saved_oopl_mem_pair(method, hello, classMethod).
+saved_oopl_mem_pair(template, hello, hello).
+saved_oopl_mem_pair(instance_method, hello, helloMethod).
+saved_oopl_mem_pair(parent, hello, base).
+saved_oopl_mem_pair(self, helloObject, helloObject).
+saved_oopl_mem_pair(class, helloObject, hello).
+saved_oopl_mem_pair(instance, hello, helloObject).
+saved_oopl_mem_pair(method, helloObject, helloMethod).
+saved_oopl_mem_pair(method, helloObject, baseMethod).

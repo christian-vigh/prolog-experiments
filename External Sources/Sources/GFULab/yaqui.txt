@@ -1,0 +1,282 @@
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%                                                                       %%%
+ %%%    Corpus for testing Yaqui                                           %%%
+ %%%                                                                       %%%
+ %%%    Uto-Aztecan language of Mexico and Arizona                         %%%
+ %%%                                                                       %%%
+ %%%    (Sentences from Jacqueline Lindenfeld's "Yaqui Syntax",            %%%
+ %%%     University of California Press, 1973                              %%%
+ %%%                                                                       %%%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        %----------------------------------%
+        % Basic Clause Structure           %
+        %----------------------------------%
+        
+ #1 itom cu'u bem kari-po yewe.
+ #2 itepo bahi misim hipwe.
+ #3 bempo ka tahka'im bwa'e.
+ #4 bempo sakoba'im tu'ure.        % They like watermelons (p. 14)
+ #5 bempo tekipanoa.               % ellos estan trabajando (p15)
+ #6 ien itom usim yewe.            % nuestros niños est n jugando ahora (p14)
+ #7 apo bo'o-t si lauti weye.      % él camina muy despacio por el camino (p14)
+ #8 apo lominko-po teopo-po bwika. % canta en la iglesia el domingo (p18)
+ #9 bempo pahko becibo tahkae.     % hacen tortillas para la ceremonia (p18)
+ #10 apo yuke becibo wante.        % ella corre por la lluvia (p18)
+ #11 bempo hekka nasuk huni tekipanoa. % est n trabajando a pesar del viento (p19)
+ #12 bempo pa'ako koce.            % est n durmiendo fuera (p16) 
+ #13 inepo in abaci-mak weye.      % voy con mi hermano (p19)
+ #14 apo hume kutam si uttea cukta.     % est  cortando los palos muy r pidamente (p20)
+ #15 itom pare ame-u noka.        % nuestro p rroco les est  hablando (p20)
+ #16 apo aman koce.               % ella est  durmiendo aqu¡ (p20)
+
+ % Opcional Subject
+ 
+ #17 tuka yuku-k.                % Ayer llovi¢ (p. 41)
+ #18 in abaci-mak weye.          % voy con mi hermano (p19)
+
+ % N-V Agreement 
+
+ % La mayor parte de los verbos no tienen flexi¢n de n£mero. Hay unas pocas
+ % excepciones, que concuerdan con el sujeto s¢lo en el caso de aspecto 
+ % realizado.
+ 
+ #19 hu'u cu'u muku-k.         % El perro se ha muerto (p.52)
+ #20 hume cu'um koko-k.        % Se han muerto los perros (p.52)
+ 
+ % Dependency-Marking in the Direct Object
+ 
+ #21 itepo baci-ta tu'ure.          % nos gusta el maiz (p. 16)
+ #22 inepo em misi-ta bica-k.       % He visto tu gato (p.54)
+ #23 tuka-ne antonyo-ta bica-k.     % Ayer v¡ a Antonio (p.54)
+
+ % Case-agreement by means of dependency-marking in Det and Adj
+
+ #24 itepo hunuka kari-ta attea-k. % Poseemos esta casa (p.56)
+ #25 inepo inie hamut-ta-u noka-k. % Habl‚ con esta mujer (p.57)
+ #26 itepo inie o'o-ta-mak saha-k. % Fuimos con este hombre (p.57)
+ #27 apo habe o'o-ta-mak huni yeye'e.   % baila con cualquier hombre (p.58) 
+ #28 apo bu'u tomi-ta gahtaroa-k.  % gasta mucho dinero (p.58)
+ #29 itepo bwe'u cu'u-ta hinu-k.   % Se ha comprado un perro grande (p.60)
+    
+ % Applicative Adjuncts
+
+ #30 ne tuisi tekipanoa in aca'im becibo.         % trabajo mucho por mis padres (p21)
+ #31 hume malawam lauti ho'a-u yaha bem usim becibo. % Las madres vuelven a casa r pidamente por los ni¤os (p.16)
+ #32 bempo hume usim bwibwikria.                   % cantan siempre para los ni¤os. (p.40)
+
+ % Aspect
+
+ #33 apo inim kate-k.             % ella est  aqu¡ (p24)
+ #34 tuka itepo bwika-k.          % ayer cantamos (p23)
+ #35 bempo bwiksu-k.               % ya han cantado (p.24)
+ #36 inepo usi-ta-mak eteho-n.     % yo estaba charlando con un ni¤o (p.24)
+ #37 inepo usi-ta-mak eteho-k-an.  % yo hab¡a estado charlando con un ni¤o (p.24)
+ #38 inepo usi-ta-mak etehosu-k-an. % yo ya hab¡a estado charlando con un ni¤o (p.24)
+ #39 apo hu'ubwa yepsa-k.         % ha llegado hace un momento (p.25)
+ 
+ % Casos curiosos de traducci¢n (valores modales con morfemas de aspecto):
+
+ #40 batoi-mak-ne nok-pea.        % me gusta hablar con la gente (p.21)
+ #41 itom asoa tekipanoa-bae.     % nuestro hijo quiere trabajar (p.21)
+ #42 apo yi'i-taite.              % Est  empezando a bailar (p.22)
+ #43 itepo yoko aman kat-baene.   % Queremos ir all¡ ma¤ana (p.22)
+ #44 hita animal inim ane-n.      % Aqu¡ viv¡a un animal (p.26)
+
+        %-----------------------------%
+        %  Noun Phrase Structure      %
+        %-----------------------------%
+        
+ #45 gwa'a o'o haibu simsu-k.     % Ese hombre ya se ha ido (p.25)
+ #46 itepo cikti ta'apo tekipanoa. % trabajamos cada dia (p.27)
+ #47 apo si'ime hunume naiki sakoba'im ne maka-k.
+        % ‚l me ha dado todas estas cuatro sand¡as (p.28)
+ #48 bu'u usim aman saha-k.       % muchos ni¤os fueron all¡ (p.28)    
+ #49 ini illiki baci bahi tahka'im ya'a-ne.
+        % este poco de trigo har  tres tortillas (p. 28)
+ #50 itepo hwebena sewam hipwe.  % Tenemos muchas flores (p.28)
+ #51 eme'e si'ime kari-u bicaa tenne-k.  
+        % todos vosotros corr¡steis hacia la casa (p.29)
+ #52 si'ime usim saha-k.         % todos los ni¤os se han ido (p.49)
+ #53 apo hume tutu'i hamucim-mak sika.
+        % se ha ido con las mujeres buenas (p.50)
+ #54 hume tutu'uli hamucim koce. % estas guapas mujeres est n durmiendo (p.50)
+ #55 hume hamut tutu'ulimme koce. % estas guapas mujeres est n durmiendo (p.50)
+ #56 ime'e bwere hamucim si tekipanoa.
+        % estas mujeres grandes trabajan mucho (p.50)
+                  
+ % Number agreement in the NP
+ 
+ #57 gwame usim teopo-u saha.    % estos ni¤os van a la iglesia (p20)
+ #58 ime supem ne tu'ure.        % me gusta esta falda (p47)
+ #59 inepo hunume usim bica-k.   % He visto a los ni¤os (p48)
+ 
+ % Uso de dependencia en caso posposicional 
+
+ % Hay tres tipos de posposiciones, seg£n si el nombre que rigen est  marcado
+ % con dependencia (Lindenfeld p.55)
+ 
+ #60 apo pino-ta betuk kate-k.        % ella estaba bajo un  rbol (p55)
+ #61 apo kuta-ta-mak weama.            % ‚l anda con un bast¢n (p55)
+ #62 apo kuta-mak weama.               % idem.
+
+ % Genitivo
+ 
+ #63 itepo itom pare-ta kari-ta-u yaha-k.        
+        % vinimos a la casa de nuestro sacerdote (p56)
+ #64 senu hamut-ta usi muku-k. % ha muerto el hijo de una mujer (p.58)
+ #65 hume naiki peo-ta kaba'im hihibwa.        
+        % Los cuatro caballos de Pedro est n siempre comiendo (p66)
+         
+ % N£cleo el¡ptico: 
+
+ #66 itepo hunuka attea-k.          % Poseemos esta (p.56)
+ #67 itom acai naikim hinu-k.       % Nuestro padre ha comprado cuatro (p49)
+ #68 inepo inia-u noka-k.           % Le habl‚ a este (p57)
+ #69 apo hwebenak hipwe.            % ella tiene mucho (p59)
+ #70 itepo bwe'uk hinu-k.           % hemos comprado uno grande (p60)
+ #71 gwae tutu'ulik usi muku-k.     % ha muerto el hijo de esa guapa (p60)
+ 
+        %-----------------------------%
+        %  Troublesome structures     %
+        %-----------------------------%
+ 
+ % Passives
+
+ #72 hu maso wepul o'o-ta-e me'ewa-k. 
+        % el ciervo fue muerto por un hombre (p38)
+ #73 hu maso bahi owim-mea me'ewa-k.  
+        % el ciervo fue muerto por tres hombres (p38)
+ #74 wepul o'o huka maso-ta me'a-k.   % un hombre mat¢ el ciervo (p38)
+ #75 bahi owim huka maso-ta me'a-k.   % tres hombres mataron al ciervo (p38)
+ #76 apo me'ewa-k.                    % lo han matado (p39)
+ 
+ % Possesive denominalization (Lindenfeld pp.42-44)
+ 
+ #77 in abaci cu'u-k.              % Mi hermano tiene un perro (p23)
+ #78 itepo hunuka kari-k.          % Poseemos esta casa (p.57)
+ #79 apo si'imeta baci-k.          % ella tiene todo el trigo (p.59)
+ #80 bempo illikik tomi-k.         % tienen poco dinero (p.59)
+ #81 bempo tu'ik kari-k.           % tienen una buena casa (p.61)
+ #82 apo senuk tutu'ulik asoa-k.   % tiene una bonita hija (p.61)
+ #83 inepo woim mama-k.            % tengo dos manos (p.50)
+ #84 inepo ime illikim sakoba'i-k. % tengo estas pocas sand¡as (p.50)
+ #85 apo bwerem cu'u-k.            % tiene perros grandes (p51)
+ #86 bempo tutu'ulim kari-k.       % tienen casas bonitas (p51)
+ #87 inepo kari-ne.                % yo tendr‚ una casa (p44)
+ 
+ % Negation
+
+ #88 ne ka maria-ta bica-k.        % No he visto a Mar¡a (p31)
+ #89 kaabe ne-u noka-k.            % Nadie me ha hablado (p31)
+ #90 kaita bete-k.                 % No se ha quemado nada (p31) 
+ #91 bempo kaita bica-k.           % No han visto nada (p32)
+ 
+ % Copulatives
+
+ #92 em usi hamut si tutu'uli.      % Tu hija es muy guapa (p15)
+ #93 ini baci ka tu'i.              % Este maiz no es bueno (p15)
+ #94 ien-te allea.                  % ahora somos felices (p18)
+ #95 gwa'a kari si mwela.           % Esta casa es muy vieja (p27)
+ #96 eme ka yorim.                  % Vosotros no sois mexicanos (p48)
+ #97 inime misim animalim.          % Estos gatos son animales (p48)
+ #98 bempo naiki owim.              % Son cuatro hombres (p49)
+ #99 ini peo-ta acai.               % Este es el padre de Pedro (p56)
+ #100 in acai-ta conim tosali.      % El cabello de mi padre es blanco (p56)
+ #101 inie kari bwe'u.              % La casa de este es grande (p57)
+  
+ % Imperatives
+
+ #102 hume misim ne maka.           % dame estos gatos (p17)
+ #103 kutam-mea hume bakocim me'a.  % mata las serpientes con palos (p20)
+ #104 si'ime kari-ta tu'ute-'e.     % Limpia toda la casa (p28)
+ #105 mamni tahka'im ne maka.       % dame cinco tortillas (p28)
+ 
+ % Causatives
+
+ #106 inepo huka hamut-ta baci-ta bwa'atua-k.      
+        % hice comer trigo a la mujer (Su rez 101)
+
+ % Questions (p. 33-36)
+
+ #107 haisaakai empo mahae.     % ¨Por qu‚ tienes miedo? (p12)
+ #108 haisa hunu hamut hiaki.   % ¨Es yaqui esta mujer? (p13)
+ #109 habesa teopo-po bwika.    % ¨Qui‚n est  cantando en la iglesia? (p13)
+ #110 hitasa kari wece-k.       % ¨Qu‚ casa se ha desplomado? (p34)
+ #111 haisa hitasa kari wece-k. % idem
+ #112 habesa enci bica-k.       % ¨Qui‚n lo ha visto? (p36)
+ 
+ % Comparative Clauses
+
+ #113 in hamut em mara-ta beppa tutu'uli.  
+        % esta mujer es m s guapa que su hija (p55)
+
+ % Relative Clauses
+
+ #114 hu kari in acai-ta hinu-k-a'u wece-k.
+        % La casa que ha comprado mi padre se ha desplomado (p65)
+ #115 empo huka kari-ta hinu-k-a'u tu'ure.
+        % Te gusta la casa que has comprado (p66)
+ #116 hu o'o tuka em bica-k-a'u cu'u-ta si hihibwa-m itom maka-k.
+        % El hombre que viste ayer nos ha dado un perro que come mucho (p67)
+ #117 hume usim tenne-me bica-'e.  % Mira a los ni¤os que est n corriendo (p69)
+ #118 hu cu'u itom usim nu'u-k-a'u ko'okwe.
+        % El perro que han tra¡do nuestros ni¤os est  enfermo (p69)
+ #119 inika baci-ta em hinu-k-a'u ne maka.      % Dame el maiz que has comprado (p72)
+ #120 inime'e hume hamucim in ame-t noka-k-a'u.
+        % Estas son las mujeres de las que te habl‚ (p72)
+
+ % Adverbial clauses
+ 
+ #121 in usi hamut in kuna-ta benasi si hihibwa.  % (p.53)
+ #122 inepo in mala muku-k-nate-kai tekipanoa.     % (p.25)
+ #123 uttea maneharoa-tek-o senu aa a-u me'e-ne.
+                  % Conduciendo de prisa uno puede matarse (p.23)
+ #124 huka o'o-ta yepsa-k-o itepo saha-k.
+                  % Nos fuimos cuando lleg¢ el hombre (p.81)
+ #125 huka o'o-ta yepsa-k itepo saha-k.        % idem
+ #126 empo lottils-ta-ksi ka yi'i-ne.  % Si est s cansado, no bailar s (p82)
+ #127 kwando huka o'o-ta yepsa-k-o itepo saha-k.
+                  % Nos fuimos cuando lleg¢ el hombre (p.83)
+ #128 ini cu'u muk-ne si ka yuin hibwa-tek-o.
+        % Este perro se morir  si no come mucho (p84)
+ #129 si ne yuin tomi-ta hipwe-tek-o mehiko-u bicaa sim-'ean.
+        % Si tuviera mucho dinero, me ir¡a a M‚xico (p84)
+ #130 enci-ne ania-bae pake tekil-ta cupa'a-ne.
+        % te ayudar‚ para que acabes el trabajo (p84)
+ #131 pahko-ta-ne ka bica-k bwe'ituk ne ko'okwe.
+        % No vi la ceremonia porque estoy enfermo (p84)
+ #132 apo sika porke ka im ho'a-pea.
+        % Se fue porque no le gusta vivir aqu¡ (p84)
+ #133 empo si kusisi noka kielekun ne ka enci hikkaha.
+        % Hablas tan r pido que no te entiendo (p84)
+ #134 apo ka ho'a-po kate-k kielekun-ne ka-a bica-k.
+        % Ella no estaba en casa, as¡ que no la vi (p85)
+ #135 apo bino-ta hinu-k ella'apo si behe'e.
+        % Ha comprado vino aunque cuesta mucho (p85)
+ #136 itepo aman kat-ne usi-ta ko'okwe huni'i.
+        % Iremos all¡, aunque el ni¤o est  enfermo (p85)
+ #137 apo ket usi-ta-kai ka tekipanoa.
+        % Como todav¡a es un ni¤o, no trabaja (p90)
+ #138 ne kaita noka porke ne lottila.  %No digo nada porque estoy cansado (p96)
+
+ % Nominalizations
+
+ #139 inime ba'am hi'i becibo.         % Este agua es para beber (p100)
+ #140 inime ba'am hume usim hi'i-ne becibo.
+                % Este agua es para que beban los ni¤os (p100)
+ #141 tuisi tu'i ke hu hamut bwika-kai.  % es muy bueno que cante la mujer (p101)
+ #142 tuisi tu'i hu hamut bwika-kai.  % idem
+ #143 na-a bica ke hu ili usi cu'u-ta hipwe.
+                % Veo que el nin¤o peque¤o tiene un perro (p102)
+ #144 inepo enci bica ke hibwa-suk.   % Veo que ya has comido (p102) 
+ #145 kane hu'unea hita-ne bwaja-ne.  % No s‚ qu‚ comer (p103)
+ #146 huka ili usi-ta ne tehwa-k aman a wee-sae-kai.
+                % Le dije al ni¤o peque¤o que fuera all¡ (p104)
+ #147 in kuna si yuk-ne-tia.        % Mi marido dice que va a llover mucho (p105)
+ #148 apo hunen hia huka hamut-ta tutu'uli-tia.
+                % Dice que esta mujer es bonita (p106)
+ #149 apo hunen hia ke hu hamut tutu'uli.      %idem
+ #150 bempo enci panim hinu-tua-k.             % Te han hecho comprar pan (p118)
+ 
+

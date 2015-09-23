@@ -1,0 +1,69 @@
+
+
+:- op( 500, xfx, covers ).
+:- op( 700, xfx, ..).
+
+% Assignment operator
+X covers interval(Left, Low .. High, Right) :-		% X covers interval(<,1-100,>)
+	interval( X, Left, Low, High, Right ).
+
+X covers interval(Low .. High) :-			% X covers interval(1-100) :
+	interval(X, <, Low, High, >).			% Inclusive interval
+
+X covers Low .. High :-					% X covers 1-100 : inclusive interval
+	interval(X, <, Low, High, >).
+
+X covers <>(Low .. High) :-				% X covers <>(1-100) left- and right-inclusive
+	interval( X, <, Low, High, > ).
+X covers <<(Low .. High) :-				% X covers <<(1-100) left-inclusive, right-exclusive
+	interval( X, <, Low, High, < ).
+X covers >>(Low .. High) :-				% X covers >>(1-100) left-exclusive, right-inclusive
+	interval( X, >, Low, High, > ).
+X covers ><(Low .. High) :-				% X covers ><(1-100) left-exclusive, right-exclusive
+	interval( X, >, Low, High, < ).
+
+
+X covers [H|T] :-					% Multiple disjoint intervals
+	XH covers H,					% using the interval() functor
+	XT covers T,
+	X = [XH | XT].
+[] covers [].
+
+
+% Build an interval
+interval(X, Left, Low, High, Right) :-
+	interval_left(  Left,  Low, Op1, Value1),
+	interval_right(Right, High, Op2, Value2),
+	interval_check(Op1, Value1, Op2, Value2),
+	X = [Left, Right, Value1, Value2, Op1, Op2].
+	
+	
+interval_left(>, Keyword, '', -inf) :-
+	is_member(Keyword, 
+		['infinite', '-infinite', 'infinity', '-infinity', 'inf', '-inf']).
+interval_left(>, inf, '', -inf).
+interval_left(>, Value,  >, Value).
+interval_left(<, Value, >=, Value).	
+
+
+interval_right(<, Keyword, '', +inf) :-
+	is_member(Keyword, 
+		['infinite', '+infinite', 'infinity', '+infinity', 'inf', '+inf']).
+interval_right(>, inf, '', +inf).
+interval_right(>, Value, =<, Value).
+interval_right(<, Value,  <, Value).	
+
+
+% Check the consistency of an interval
+interval_check(_, -inf, _,   _).
+interval_check(_,    _, _, +inf).
+interval_check(_, -inf, _, +inf).
+interval_check(_, -inf, _, -inf) :- fail, !.
+interval_check(_, +inf, _, +inf) :- fail, !.
+interval_check(Op1, Value1, Op2, Value2) :-
+	R1 =.. [Op1, Value2, Value1],
+	call(R1),
+	R2 =.. [Op2, Value1, Value2],
+	call(R2).
+
+

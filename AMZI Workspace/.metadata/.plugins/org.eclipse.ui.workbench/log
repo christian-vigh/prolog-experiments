@@ -1,0 +1,69 @@
+!SESSION 2007-01-28 16:36:26.968 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.4.2_09
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 16:36:27.765
+!MESSAGE Could not install bundle ../amzi_7-6-2/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 16:36:27.781
+!MESSAGE Could not install bundle ../amzi_7-6-1/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+!SESSION 2007-01-28 16:36:54.796 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.4.2_09
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=fr_FR
+Command-line arguments:  -data D:\Development\Prolog\AMZI Workspace -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.ui.editors 2 0 2007-01-28 16:42:18.390
+!MESSAGE The selected spelling engine does not exist
+!SESSION 2007-01-28 16:51:50.468 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.4.2_09
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 16:51:51.343
+!MESSAGE Could not install bundle ../amzi_7-6-2/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 16:51:51.359
+!MESSAGE Could not install bundle ../amzi_7-6-1/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+!SESSION 2007-01-28 17:02:31.859 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.4.2_09
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 17:02:32.609
+!MESSAGE Could not install bundle ../amzi_7-6-2/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 17:02:32.609
+!MESSAGE Could not install bundle ../amzi_7-6-1/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+!SESSION 2007-01-28 17:06:09.937 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.4.2_09
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 17:06:10.718
+!MESSAGE Could not install bundle ../amzi_7-6-2/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 17:06:10.718
+!MESSAGE Could not install bundle ../amzi_7-6-1/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+!SESSION 2007-01-28 17:15:24.156 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.4.2_09
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 17:15:24.921
+!MESSAGE Could not install bundle ../amzi_7-6-2/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/
+
+!ENTRY org.eclipse.update.configurator 2007-01-28 17:15:24.921
+!MESSAGE Could not install bundle ../amzi_7-6-1/docs/eclipse/plugins/com.amzi.prolog.doc_1.0.0/   Bundle "com.amzi.prolog.doc" version "1.0.0" has already been installed from: update@plugins/com.amzi.prolog.doc_1.0.0/

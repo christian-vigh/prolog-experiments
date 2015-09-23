@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CVUtilities", "CVUtilities.vcproj", "{0E1EA4C4-CC64-4D15-B153-2ABA45299A26}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "..\Test\Test.vcproj", "{FA9334FC-F054-4BC1-AD71-57321AAAC9B2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{0E1EA4C4-CC64-4D15-B153-2ABA45299A26}.Debug.ActiveCfg = Debug|Win32
+		{0E1EA4C4-CC64-4D15-B153-2ABA45299A26}.Debug.Build.0 = Debug|Win32
+		{0E1EA4C4-CC64-4D15-B153-2ABA45299A26}.Release.ActiveCfg = Release|Win32
+		{0E1EA4C4-CC64-4D15-B153-2ABA45299A26}.Release.Build.0 = Release|Win32
+		{FA9334FC-F054-4BC1-AD71-57321AAAC9B2}.Debug.ActiveCfg = Debug|Win32
+		{FA9334FC-F054-4BC1-AD71-57321AAAC9B2}.Debug.Build.0 = Debug|Win32
+		{FA9334FC-F054-4BC1-AD71-57321AAAC9B2}.Release.ActiveCfg = Release|Win32
+		{FA9334FC-F054-4BC1-AD71-57321AAAC9B2}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

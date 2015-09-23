@@ -1,0 +1,54 @@
+
+Fellow Prolog hackers-
+
+The following files contain a set of Prolog benchmarks that were put
+together by students at Portland State University, under the supervision of
+professor Karen Cunningham, and Dana Laursen of Tektronix AI Machines.
+
+The classic Prolog benchmarks, such as naive reverse and count down are
+included, as are additional benchmarks which are designed to test various
+aspects of Prolog performance. Some of these additional benchmarks were
+written by students who had little prior exposure to Prolog, and may not be
+as efficient as possible. We are of two minds on this.  As long as everyone
+runs the benchmarks as written, comparing numbers will be valid, but to the
+extent that an interpreter or compiler optimizes the "idiomatic" style and
+penalizes the naive style, such a system will be penalized.  In any case, we
+don't feel like hacking on these any more, so we're sending them out as is.
+
+We'd like to publicly thank the AI Machine group at Tektronix (makers of the
+4404) for making these benchmarks available, and of course the students of
+Portland State University for assembling them in the first place.
+
+Tektronix, Inc. is providing these benchmarks solely as a service to the
+Prolog community, and makes no warranty of their fitness, either express or
+implied, for any purpose whatsoever.
+
+That out of the way, about the benchmarks-
+
+They were written for C-Prolog, running on a Vax, and have also been run in
+M-Prolog on the 4404.  They test procedure call, the builtin sort routine,
+file I/O, searching large databases, and primitive arithmetic.  To run the
+benchmarks edit the file benchrun, and put the name of your Prolog where it
+says "System name".  Then, to run the whole suite of tests on a 4.2 Unix
+machine simply type "genrun".  To run a single test, type "benchrun <name>"
+where <name> is the name of one of the tests.  On other operating systems
+you may have to modify the shell scripts.
+
+Any numbers you report should be accompanied with relevant particulars of
+the environment such as the hardware and load factor.  If someone feels like
+it, it would be interesting to come up with an optimized version of the
+poorly written benchmarks and see how the performance curves differ.
+
+Have at and enjoy--
+
+Kent Beck
+Dana Laursen
+Tektronix, Inc.
+P.O. Box 500, MS 50-662
+Beaverton, OR 97077
+
+503/627-6172 (Kent)
+503/685-3642 (Dana)
+
+uucp: {decvax|allegra}!tektronix!tekchips!{kentb|danal}
+csnet: {kentb|danal}%tekchips@tektronix.csnet

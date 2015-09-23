@@ -1,0 +1,79 @@
+% logical predicates
+
+
+% true's or false's...
+true(1).	true(yes).	true(on).	true(true).	true(y).	
+true(vrai).	true(oui).	true(o).
+
+false(0).	false(no).	false(off).	false(false).	false(n).	
+false(faux).	false(non).
+
+
+
+% What is a boolean ?
+boolean(X) :-
+	true(X).
+boolean(X) :- 
+	false(X).
+boolean(X) :-
+	throw( domainerror(boolean, X) ).
+
+
+% The OR operation
+boolean_or(0, 0, 0).
+boolean_or(0, 1, 1).
+boolean_or(1, 0, 1).
+boolean_or(1, 1, 1).
+	
+
+% Value
+truthvalue(X, 1) :-
+	true(X).
+truthvalue(X, 0) :-
+	false(X).
+	
+toggle(1, 0).
+toggle(0, 1).
+
+
+
+	
+% Assignment operator
+:- op( 500, xfx,   <*).
+:- op( 700,  fx,  not).
+:- op( 700, xfx,   or).
+
+
+X <*  not A :-				% NOT operator
+	Xa <* A,
+	boolean(Xa),
+	truthvalue(Xa, Xb),
+	toggle(Xb, X).
+	
+X <*  A or B :-				% OR operator
+	Xa <* A,
+		boolean(Xa),
+		truthvalue(Xa, Xab),
+	Xb <* B,
+		boolean(Xb),
+		truthvalue(Xb, Xbb),
+	boolean_or(Xab, Xbb, X).
+
+
+X <*  ( A ) :-				% To remove a level of parentheses
+	Xa <* A,
+	boolean(Xa),
+	truthvalue(Xa, Xb),
+	X is Xb.
+	
+
+X <*  F :- 				% For calling internal predicates in the
+   	F =.. [Pred|Args], 		% boolean formula
+   	P =.. [Pred, X|Args], 
+   	call(P). 
+
+
+X <*  Y :-				% Simple assignment, Y is a boolean constant
+	boolean(Y),
+	truthvalue(Y, Ya),
+	X is Ya.

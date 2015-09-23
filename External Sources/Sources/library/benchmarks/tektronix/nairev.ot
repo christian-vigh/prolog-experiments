@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN NaiveReverse BENCHMARK
+!**  Average cputime for 10 nairev is 44.444702 msecs.
+!**  Average cputime for 15 nairev is 83.333313 msecs.
+!**  Average cputime for 20 nairev is 172.222412 msecs.
+!**  Average cputime for 25 nairev is 183.333008 msecs.
+!**  Average cputime for 30 nairev is 294.444336 msecs.
+!**  END NaiveReverse BENCHMARK

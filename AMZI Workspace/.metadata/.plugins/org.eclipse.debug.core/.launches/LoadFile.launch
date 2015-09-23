@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="com.amzi.prolog.ui.launch.prologFileListener">
+<stringAttribute key="lsxList" value=""/>
+<stringAttribute key="consultList" value="'LoadFile.pro'"/>
+<stringAttribute key="cfgPathname" value=""/>
+<stringAttribute key="projectPathname" value="D:\Development\Eclair\Prolog Modules"/>
+<stringAttribute key="loadList" value=""/>
+<stringAttribute key="projectName" value="Eclair"/>
+</launchConfiguration>

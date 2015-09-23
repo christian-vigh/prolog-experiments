@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN GenList BENCHMARK
+!**  Average cputime for 20 genlist is 255.555420 msecs.
+!**  Average cputime for 40 genlist is 522.221680 msecs.
+!**  Average cputime for 60 genlist is 794.443359 msecs.
+!**  Average cputime for 80 genlist is 1016.664551 msecs.
+!**  Average cputime for 100 genlist is 1272.223633 msecs.
+!**  END GenList BENCHMARK

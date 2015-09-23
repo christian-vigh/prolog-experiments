@@ -1,0 +1,20 @@
+From: "Bruce T. Smith" <bts%mcnc.csnet@CSNET-RELAY.ARPA>
+Subject: A set of PROLOG benchmarks...
+
+I received the following file late in the Summer, with permission
+to post it to the net.  It's a set of Prolog benchmarks, by folks
+at Tektronix and Portland State University.  The times included
+are for C-Prolog on a Tektronix Magnolia-- as I understand it, a
+predecessor of the 4404. 
+
+I've run them-- with minor changes-- with Quintus Prolog, on a VAX
+785 at MCNC, and with C-Prolog, UNSW Prolog and MU-Prolog at UNC
+Chapel Hill, also on a 785. (Both running 4.2bsd UNIX.) For those
+folks with other Prologs or other machines, I will volunteer to
+collect the results you mail and post a summary to the net later
+in the Fall.
+
+I'd also like to hear comments on the benchmarks themselves.  For
+that, a discussion on the net is more appropriate.
+
+Cut along the dotted line, and enjoy!

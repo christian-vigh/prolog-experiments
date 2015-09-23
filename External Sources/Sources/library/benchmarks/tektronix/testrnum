@@ -1,0 +1,41 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/*  Get an average cpu time for 5 different parameters  */
+
+test_rnum :-
+nl, write('!**  BEGIN ReadNumber BENCHMARK'), nl,
+ave_rnum(200),
+ave_rnum(400),
+ave_rnum(600),
+ave_rnum(800),
+ave_rnum(1000),
+nl, write('!**  END ReadNumber BENCHMARK'), nl, halt.
+
+/*  call the benchmark 3 times and calculate the average  */
+
+ave_rnum(P) :-
+call_rnum(P,T1),
+call_rnum(P,T2),
+call_rnum(P,T3),
+calc_ave_rnum(P,T1,T2,T3).
+
+/*  call benchmark and return cputime in msecs.  */
+
+call_rnum(P,T) :-
+T1 is cputime,
+read_num(P),
+T2 is cputime,
+T is 1000*(T2-T1).
+
+/*  calculate average of 3 times for parameter P  */
+
+calc_ave_rnum(P,T1,T2,T3) :-
+Ave is (T1+T2+T3)/3,
+nl, write('!**  Average cputime for '),
+write(P), write(' readnums is '),
+write(Ave), write(' msecs.'), nl.
+
+:- test_rnum.
+

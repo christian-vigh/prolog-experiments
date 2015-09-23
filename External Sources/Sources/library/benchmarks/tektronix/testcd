@@ -1,0 +1,41 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/*  Get an average cpu time for 5 different parameters  */
+
+test_cd :-
+nl, write('!**  BEGIN CountDown BENCHMARK'), nl,
+ave_cd(100),
+ave_cd(200),
+ave_cd(300),
+ave_cd(400),
+ave_cd(500),
+nl, write('!**  END CountDown BENCHMARK'), nl.
+
+/*  call the benchmark 3 times and calculate the average  */
+
+ave_cd(P) :-
+call_cd(P,T1),
+call_cd(P,T2),
+call_cd(P,T3),
+calc_ave_cd(P,T1,T2,T3).
+
+/*  call benchmark and return cputime in msecs.  */
+
+call_cd(P,T) :-
+T1 is cputime,
+cd(P,0),
+T2 is cputime,
+T is 1000*(T2-T1).
+
+/*  calculate average of 3 times for parameter P  */
+
+calc_ave_cd(P,T1,T2,T3) :-
+Ave is (T1+T2+T3)/3,
+nl, write('!**  Average cputime for '),
+write(P), write(' cd is '),
+write(Ave), write(' msecs.'), nl.
+
+:- test_cd.
+

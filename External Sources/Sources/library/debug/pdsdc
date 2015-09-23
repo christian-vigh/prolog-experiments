@@ -1,0 +1,122 @@
+/* the diagnosis component */
+
+solve(P,X) :-
+	solve(P,25,X), ( X\==true, ! ; true ).
+
+% A depth-bounded interpreter
+solve(true,D,true) :- !.
+solve(A,0,(overflow,[])) :- !.
+solve((A,B),D,S) :-  !,
+	solve(A,D,Sa),
+	( Sa=true -> solve(B,D,Sb), S=Sb ; S=Sa ).
+solve(A,D,Sa) :-
+	system(A) -> A, Sa=true ;
+	D1 is D-1,
+	clause(A,B), solve(B,D1,Sb),
+	( Sb=true -> Sa=true ;
+	  Sb=(overflow,S) -> Sa=(overflow,[(A:-B)|S]) ).
+
+% A divide-and-query diagnosis program
+false_solution(A) :-
+	writelv(['Error: wrong solution ',A,'. diagnosing...']), nl,
+	fpm((A,W),_,0), % just to find W, the length of the computation
+	fp(A,W,X) -> handle_error('false clause',X) ;
+	write('!Illegal call to fp'), nl.
+
+fp(A,Wa,X) :-
+	fpm((A,Wa),((P:-Q),Wm),Wa),
+	( Wa=1 -> X=(P:-Q) ;
+	  query(forall,P,true) -> Wa1 is Wa-Wm, fp(A,Wa1,X) ;
+	  fp(P,Wm,X) ).
+
+% fpm((A,Wa),(M,Wm),W) :- solve A, whose weight is Wa.  find
+% a goal M in the computation whose weight, Wm, is less then W/2,
+% and is the heaviest son of a node whose weight exceeds (W+1)/2.
+
+fpm(((A,B),Wab),M,W) :- !,
+	fpm((A,Wa),(Ma,Wma),W), fpm((B,Wb),(Mb,Wmb),W),
+	Wab is Wa+Wb,
+	( Wma>=Wmb -> M=(Ma,Wma) ; M=(Mb,Wmb) ).
+fpm((A,0),(true,0),W) :-
+	system(A), !, A ;
+	fact(A,true).
+fpm((A,Wa),M,W) :-
+	clause(A,B), fpm((B,Wb),Mb,W),
+	Wa is Wb+1,
+	( Wa>(W+1)/2 -> M=Mb ; M=((A:-B),Wa) ).
+
+% A program for tracing an incomplete procedure
+missing_solution(A) :-
+	writelv(['Error: missing solution ',A,'. diagnosing...']), nl,
+	query(exists,A,true), \+solve(A,true) -> ip(A,X), handle_error('uncovered atom',X);
+	write('!Illegal call to ip'), nl.
+
+ip(A,X) :-
+	clause(A,B), ip1(B,X) -> true ; X=A.
+ip1((A,B),X) :- !,
+	( query(exists,A,true), ( A, ip1(B,X) ; \+A, ip(A,X) ) ).
+	% cannot use -> because need to check all solutions
+	% in case of a nondeterministic procedure.
+ip1(A,X) :-
+	query(exists,A,true), ( A -> break(ip1(A,X)) ; ip(A,X) ).
+
+stack_overflow(P,S) :-
+	writelv(['Error: stack overflow on ',P,'. diagnosing...']), nl,
+
+	( find_loop(S,S1) ->  check_segment(S1)  ;
+	  check_segment(S) ).
+
+find_loop([(P:-Q)|S],Sloop) :-
+	looping_segment((P:-Q),S,S1) -> Sloop=[(P:-Q)|S1] ;
+	find_loop(S,Sloop).
+
+looping_segment((P:-Q),[(P1:-Q1)|S],[(P1:-Q1)|Sl]) :-
+	same_goal(P,P1) -> writelv([P,' is looping.']), nl, Sl=[] ;
+	looping_segment((P:-Q),S,Sl).
+
+check_segment([(P:-Q),(P1:-Q1)|S]) :-
+	query(legal_call,(P,P1),true) ->
+	    check_segment([(P1:-Q1)|S]) ;
+	false_subgoal(P,Q,P1,C) -> false_solution(C) ;
+	handle_error('diverging clause',(P:-Q)).
+
+false_subgoal(P,(Q1,Q2),P1,Q) :-
+	% search for a subgoal Q of P to the left of P1 that returned a false
+	% solution.
+	Q1\==P1,
+	( query(forall,Q1,false) -> Q=Q1 ; false_subgoal(P,Q2,P1,Q) ).
+
+
+msolve(P,X) :-
+	msolve(P,25,X), ( X\==true, ! ; true ).
+
+% A depth-bounded monitoring interpreter
+msolve(A,0,(overflow,[])) :- !.
+msolve((A,B),D,S) :-  !,
+	msolve(A,D,Sa),
+	( Sa=true -> msolve(B,D,Sb), S=Sb ; S=Sa ).
+msolve(A,D,Sa) :-
+	system(A) -> A, Sa=true ;
+	D1 is D-1,
+	setof0((A,B,Sb), (clause(A,B), msolve(B,D1,Sb)),R),
+	result(R,A,Sa).
+
+result(R,A,(overflow,[(A:-B)|St])) :-
+	member((A,B,(overflow,St)),R), !.
+result(R,A,false) :-
+	member((A,_,false),R), ! ;
+	member((A,B,true),R), fact(A,false) ,!,
+	    false_solution(A) ;
+	fact(A,true), \+(member((A,_,true),R)), !,
+	    missing_solution(A).
+result([],A,false) :-
+	attribute(A,total), !,
+	    writelv(['Error trapped: no solution to ',A]), nl,
+	    missing_solution(A).
+result([A1,A2|R],A,false) :-
+	attribute(A,determinate), !,
+	    writelv(['Error trapped: too many solutions to ',A]), nl,
+	    member((A,_,_),[A1,A2|R]), query(forall,A,false), !,
+		false_solution(A).
+result(R,A,true) :-
+	member((A,_,true),R).

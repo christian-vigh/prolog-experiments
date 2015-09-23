@@ -1,0 +1,183 @@
+type a sentence - 'help' for help - 'bye' to exit
+? help
+
+You can give a command to MOVE or PUT a block somewhere.
+E.g.    put a green block on a blue block
+        move the little red block onto a big green block
+        put a block on the table onto a blue block
+        move the block on a block on a block onto a red block
+? pick up the blue block
+
+Trying to analyse:
+pick up the blue block
+** []
+** cannot parse the sentence
+type a sentence - 'help' for help - 'bye' to exit
+? take the red block off the blue block
+
+Trying to analyse:
+take the red block off the blue block
+** []
+** cannot parse the sentence
+type a sentence - 'help' for help - 'bye' to exit
+? move the red block off the green block onto the table
+
+Trying to analyse:
+move the red block off the green block onto the table
+** []
+** cannot parse the sentence
+type a sentence - 'help' for help - 'bye' to exit
+? help
+
+You can give a command to MOVE or PUT a block somewhere.
+E.g.    put a green block on a blue block
+        move the little red block onto a big green block
+        put a block on the table onto a blue block
+        move the block on a block on a block onto a red block
+?
+
+Trying to analyse:
+
+** []
+** cannot parse the sentence
+type a sentence - 'help' for help - 'bye' to exit
+? put the red block on the green block onto the table
+
+Trying to analyse:
+put the red block on the green block onto the table
+** [[vp [v put]
+        [np [det the] [snp [ap [adj red]] [noun block]]]
+        [pp [prep on]
+            [np [det the]
+                [snp [ap [adj green]] [noun block]]
+                [pp [prep onto] [np [det the] [snp [noun table]]]]]]]
+    [vp [v put]
+        [np [det the]
+            [snp [ap [adj red]] [noun block]]
+            [pp [prep on]
+                [np [det the] [snp [ap [adj green]] [noun block]]]]]
+        [pp [prep onto] [np [det the] [snp [noun table]]]]]]
+** [[put the
+         [[isa block ? A] [colour red ? A]]
+         on the
+         [[isa block ? A]
+          [colour green ? A]
+          [on ? A ? A1]
+          [isa table ? A1]]]
+    [put the
+         [[isa block ? A]
+          [colour red ? A]
+          [on ? A ? A2]
+          [isa block ? A2]
+          [colour green ? A2]]
+         on the
+         [[isa table ? A]]]]
+** [[put [ambgs] on boxg] [put [none] on table]]
+** ambiguous or unsatisfiable reference(s)
+type a sentence - 'help' for help - 'bye' to exit
+? move the pink block onto the table
+
+Trying to analyse:
+move the pink block onto the table
+** []
+** cannot parse the sentence
+type a sentence - 'help' for help - 'bye' to exit
+? help
+
+You can give a command to MOVE or PUT a block somewhere.
+E.g.    put a green block on a blue block
+        move the little red block onto a big green block
+        put a block on the table onto a blue block
+        move the block on a block on a block onto a red block
+? put a green block onto the table
+
+Trying to analyse:
+put a green block onto the table
+** [[vp [v put]
+        [np [det a] [snp [ap [adj green]] [noun block]]]
+        [pp [prep onto] [np [det the] [snp [noun table]]]]]]
+** [[put a [[isa block ? A] [colour green ? A]] on the [[isa table ? A]]]]
+** [[put boxG on table]]
+** [put boxG on table]
+** [[move boxb boxr] [move boxG table]]
+** ok
+type a sentence - 'help' for help - 'bye' to exit
+? put the big green block onto the small green block
+
+Trying to analyse:
+put the big green block onto the small green block
+** [[vp [v put]
+        [np [det the] [snp [ap [adj big] [ap [adj green]]] [noun block]]]
+        [pp [prep onto]
+            [np [det the]
+                [snp [ap [adj small] [ap [adj green]]] [noun block]]]]]]
+** [[put the
+         [[isa block ? A] [size large ? A] [colour green ? A]]
+         on the
+         [[isa block ? A] [size small ? A] [colour green ? A]]]]
+** [[put boxG on boxg]]
+** [put boxG on boxg]
+** [[move boxG boxg]]
+** ok
+type a sentence - 'help' for help - 'bye' to exit
+? put the small green block onto the small blue block
+
+Trying to analyse:
+put the small green block onto the small blue block
+** [[vp [v put]
+        [np [det the]
+            [snp [ap [adj small] [ap [adj green]]] [noun block]]]
+        [pp [prep onto]
+            [np [det the]
+                [snp [ap [adj small] [ap [adj blue]]] [noun block]]]]]]
+** [[put the
+         [[isa block ? A] [size small ? A] [colour green ? A]]
+         on the
+         [[isa block ? A] [size small ? A] [colour blue ? A]]]]
+** [[put boxg on boxb]]
+** [put boxg on boxb]
+** [[move boxG boxR] [move boxg boxb]]
+** ok
+type a sentence - 'help' for help - 'bye' to exit
+? put the big blue box onto the table
+
+Trying to analyse:
+put the big blue box onto the table
+** [[vp [v put]
+        [np [det the] [snp [ap [adj big] [ap [adj blue]]] [noun box]]]
+        [pp [prep onto] [np [det the] [snp [noun table]]]]]]
+** [[put the
+         [[isa block ? A] [size large ? A] [colour blue ? A]]
+         on the
+         [[isa table ? A]]]]
+** [[put boxB on table]]
+** [put boxB on table]
+** []
+** too easy
+type a sentence - 'help' for help - 'bye' to exit
+? put the big blue box onto the little green box
+
+Trying to analyse:
+put the big blue box onto the little green box
+** [[vp [v put]
+        [np [det the] [snp [ap [adj big] [ap [adj blue]]] [noun box]]]
+        [pp [prep onto]
+            [np [det the]
+                [snp [ap [adj little] [ap [adj green]]] [noun box]]]]]]
+** [[put the
+         [[isa block ? A] [size large ? A] [colour blue ? A]]
+         on the
+         [[isa block ? A] [size small ? A] [colour green ? A]]]]
+** [[put boxB on boxg]]
+** [put boxB on boxg]
+** [[move boxg boxG]
+    [move boxb boxg]
+    [move boxr boxb]
+    [move boxr table]
+    [move boxb boxr]
+    [move boxB boxg]]
+** ok
+type a sentence - 'help' for help - 'bye' to exit
+? bye
+
+WRITING ALTERED FILES

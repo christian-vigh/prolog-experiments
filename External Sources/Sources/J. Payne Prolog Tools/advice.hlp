@@ -1,0 +1,97 @@
+File: Advice.Hlp	Author: R.A.O'Keefe	Updated: 21 August 1984
+
+#source.
+    The source code for the Prolog advice package is UTIL:ADVICE.PL.
+    This help file is UTIL:ADVICE.HLP.
+
+#needs.
+    To get help, HELPER.PL must be compiled.
+    To print out the advice using pa/1, PP.PL must be compiled.
+    To turn the advice package on, you need flag/3 from FLAGRO.PL.
+
+#purpose.
+    The advice package is a debugging tool.  It gives you a way of
+    inserting verification and printing code at any or all of the four
+    ports of an INTERPRETED predicate without actually modifying the
+    code yourself.  The idea is that you say "whenever you are at the
+    X port of a goal matching Y do action Z".  Advice cannot be used
+    to bind variables as it is failed back over.  Advice at the call
+    port can switch tracing on, and advice at the exit or fail ports
+    can switch it off.
+
+#commands.
+    advise(Head, Port, Action)		-- see advise.
+    advised(Head)			-- see advised.
+    unadvise(Head), unadvise(Head,Port)	-- see unadvise.
+    pa, pa Pattern			-- see pa.
+
+#data,database.
+    The advice package uses the data base in three ways.
+    First, it uses the flag "advice" (see advice).
+    Second, it records a term advice(Port,Goal,Action) under the
+    key Goal for each (Goal,Port,Action) combination.  If you want
+    to remove one piece of advice from a single predicate this is
+    where you look.
+    Finally, it renames the clauses for the original predicate.
+    It is to be hoped that this will not happen in other Prologs,
+    but the other two uses of the data base are likely to be permanent.
+
+#advice.
+    Advice is what is recorded, the verb you use to give advice is
+    advise with an S.
+
+    The only advice you can actually give is "execute such and such
+    a Prolog form at such a Port of such a Goal".  This should
+    include spying and mode/type checking, but it currently DOESN'T.
+
+    As an efficiency measure, advice will NOT be checked for unless
+    the 'advice' flag is on.  Use
+	flag(advice, _, on)		-- to turn advice checking on
+	flag(advice, _, off)		-- to turn it off
+	flag(advice, on, on)		-- to check if it is on
+	flag(advice, Old, Old)		-- to find out what it is.
+    THIS FLAG IS NOT ON INITIALLY.  YOU HAVE TO TURN IT ON YOURSELF.
+    That is because Dec-10 compiled code cannot have actions in it.
+    In other Prologs the flag should be on to start with.
+
+#advise,advise(Goal,Port,Action).
+    :- advise(Goal, Port, Action)
+    where Goal is a compound term such as prove(X,Y) and NOT a
+    pattern such as prove/2, Port is one of call/exit/redo/fail,
+    and Action is a Prolog form
+    tucks the advice away in the recorded data base and renames the
+    clauses.  As a typical example,
+	:- advise(prove(X,Y), call, writef('call %t\n', [prove(X,Y)]).
+    says to obey the writef form whenever control reaches the call
+    port of a prove/2 goal.
+
+#advised,advised(Goal).
+    advised(Goal)
+    recognises or enumerates Goals which have been advised.  You have
+    to give a compound term such as current_predicate/2 or system/1
+    wants, not a pattern F/N such as spy or pp wants.
+
+#pa.
+    pa				-- print all advice
+    pa help			-- display list of topics
+    pa Pattern			-- print advice for selected predicates
+
+    This reminds you what advice you have given.  A distinction is made
+    between predicates which have never been advised and predicates
+    which don't happen to have any advice at the moment.
+
+#unadvise,unadvise(Goal),unadvise(Goal,Port).
+    unadvise(Goal, Port)		-- remove some advice for Goal
+    unadvise(Goal)			-- remove all advice for Goal
+
+    unadvise(Goal, Port) removes all the advice pertaining to one
+    particular Port (call/exit/redo/fail) of the *predicate* specified
+    by Goal.  It will remove advice for heads that do not match the
+    Goal pattern exactly; only the principal functor matters.
+
+    unadvise(Goal) removes all the advice for the predicate
+    specified by Goal, and renames its clauses back to their original
+    state.  Removing all the advice for each of the four ports will
+    not rename the clauses back.
+
+#end_of_file.

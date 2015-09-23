@@ -1,0 +1,31 @@
+:-	['arith.ops',
+	 'util.ops',
+	 'IMISCE.pl',
+	 'INVOCA.pl',
+	 'OCCUR.pl',
+	 'PROJEC.pl',
+	 'applic.pl',
+	 'arith.pl',
+	 'ask.pl',
+	 'bagutl.pl',
+	 'between.pl',
+	 'edit.pl',
+	 'files.pl',
+	 'flags.pl',
+	 'gensym.pl',
+	 'getfile.pl',
+	 'listut.pl',
+	 'long.pl',
+	 'metutl.pl',
+	 'read_in.pl',
+	 'setutl.pl',
+	 'struct.pl',
+	 'tidy.pl',
+	 'trace.pl',
+	 'trysee.pl',
+	 'type.pl',
+	 'writef.pl'
+	].
+
+:- save_program('util.sav').
+

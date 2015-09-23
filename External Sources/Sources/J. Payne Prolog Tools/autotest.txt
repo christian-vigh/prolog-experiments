@@ -1,0 +1,303 @@
+AutoTest.DOC
+Shelved on the 21st of December 1987
+Updated on the 20th of February 1988 with the final comment on testing
+for correct instantiation.
+
+
+                                AUTOTEST
+
+
+HOW TO USE IT:
+
+There are two main predicates: '$run'(F) and '$run_test'(F).
+
+
+'$run'(F) expects F  to be an atom naming a  steering file. The steering
+file  names  other files,  the  so-called  "test-files". Each  test-file
+contains goals to be auto-tested.
+
+'$run_test'(F) expects F  to name a test-file, and not  a steering file.
+It tests the goals in F.
+
+
+STEERING FILE
+
+The steering file  must contain at least no Prolog  terms. Each term can
+be:
+    (1) log_to( Atom )  or  log_to( List_of_atoms )
+    (2) log_all_tests(on)  or  log_all_tests(off)
+    (3) The atom 'stay'
+    (4) Another atom
+If the term is 'log_to(_)', it resets the log files - see later. If it's
+log_all_tests,  it   alters  whether  successful  tests   are  recorded.
+Otherwise,  the atom  specifies a  filename, that  of a  so-called 'test
+file'. If any filename is 'stay', then  the rest of the steering file is
+assumed to be the one and only test file.
+
+
+TEST FILES
+
+Each test file must contain at least  no Prolog terms. Each term must be
+one of:
+    (1) A structure of the form Goal :: Spec
+    (2) log_to( Atom )  or  log_to( List_of_atoms )
+    (3) log_all_tests(on)  or  log_all_tests(off)
+    (4) Anything else.
+:: is an xfx, 255 operator declared in AutoTest.PL.
+
+If the  term is 'log_to(_)' or  'log_all_tests(_)', it behaves  like the
+same term in a steering file.
+
+If the term  is not of the  form Goal :: Spec, then  AutoTest will write
+it to the log file(s). Terms of these forms are treated specially:
+    (a) A <> B      - recursively write A and B
+    (b) A ... B     - equivalent to A <> ' ' <> B
+    (c) nl          - emit a newline
+    (d) '$'(S)      - assume S is a list of character codes, and convert
+                      it to an atom before writing.
+<> and ... are xfy, 40 operators.
+
+
+GOALS AND SPECIFICATIONS
+
+If the term is a structure, Goal::Spec, then the Spec must be one of
+    (a) The atom 's' or 'succeeds'
+    (b) The atom 'f' or 'fails'
+    (c) The atom 'c' or 'crashes'
+    (d) A structure, 'c(ErrorKind)' or 'crashes(ErrorKind)'
+    (e) Anything else
+
+(a) to  (d) specify whether the  Goal should succeed, or  fail, or crash
+with some error. (e) specifies some  more tests, given as a Prolog goal,
+which must succeed. Usually, they  will contain tests on variables bound
+by Goal.
+
+Examples might be:
+    (a)  append( [1], [2], [1,2] ) :: s.
+    (b)  member( x, [] ) :: f.
+    (c)  see( V ) :: c.
+    (d)  see( 'Not a filename' ) ::
+         crashes( error('-RMS-E-FNF, file not found') ).
+    (e)  member( X, [1,2,3,4] ) :: X == 4.
+
+When testing a  Goal::Spec term, AutoTest calls the Goal  (and then cuts
+it, to prevent backtracking into it). It notes whether the Goal:
+    (a) Succeeded
+    (b) Failed
+    (c) Caused an error
+If (c), AutoTest tries to determine the error-code, if any.
+
+AutoTest then compares the Goal's effect  with its Spec. If they differ,
+it  writes a  message  stating what  did happen,  and  what should  have
+happened. In doing this:
+    Goal's success obviously matches 's' or 'succeeds'
+    Goal's failure obviously matches 'f' or 'fails'
+    Goal's crashing matches 'c' or 'crashes' or 'c(_)' or 'crashes(_)'
+    - except  that, if AutoTest  can determine  an error code,  and Spec
+      specified a  DIFFERENT code,  then AutoTest  will write  a message
+      saying so.
+    If  the  Spec is a  Prolog  goal,  AutoTest calls it. If it fails or
+    causes an error, AutoTest reports that.
+
+Normally, AutoTest will not log successful  tests. You can make it do so
+by including the term 'log_all_tests(on)'  in the steering or test file.
+This will cause all tests, whether  or not they succeeded, to be logged.
+A subsequent  'log_all_tests(off)' will revert AutoTest  to logging only
+failed tests.
+
+
+TRAPPING ERRORS
+
+Note that the way errors  are detected is implementation-dependent. This
+version of  AutoTest can't  detect them, because  it relies  on standard
+Edinburgh Prolog. You will have to modify the predicate
+    '$call_giving_sfe'
+to  trap errors,  and  return  a structure 'e(ErrorCode)' in its  second
+argument; or the atom 'e' if you can't find out the error code.
+
+
+LOGGING
+
+When  AutoTest   writes  messages,   it  does   so  via   the  predicate
+'$writef_to_log',  which  sends  to  the  log  files  specified  by  the
+assertion '$log_files' below.
+
+'$writef_to_log' writes the same message to each file in turn. The files
+are closed when AutoTest finishes.
+
+If you give a 'log_to(FL)' in the steering file, FL must be one atom, or
+a list  of atoms, specifying  the names of  the new log  files. AutoTest
+closes any log  files which are not  named in FL, and makes  those in FL
+the new files. They are not opened until first written to.
+
+
+PREDICATE NAMES
+
+In order to avoid interfering with predicates under test, all predicates
+in  AutoTest.PL have  names starting  with $  (dollar). There  are three
+infix operators declared: "::", "<>", and "...".
+
+
+OPEN FILES
+
+If an error occurs while AutoTest is  reading a file, then that file may
+not  be closed  properly. This  means that  the next  call of  '$run' or
+'$run_test' may start part of the way down the file.
+
+
+EXAMPLES
+
+There now  follows a sample steering  file, between (not  including) the
+line of equals signs.
+
+========================================================================
+/*  AUTOTEST.STEER  */
+
+/*  Steering file for AutoTest.PL  */
+
+'autotest.tst'.
+========================================================================
+
+That file would cause the contents of AUTOTEST.TST to be tested.
+
+
+Here is AUTOTEST.TST, again between equals signs.
+
+========================================================================
+/*  AUTOTEST.TST  */
+
+/*  SAMPLE INPUT TO AUTOTEST.PL
+
+    This input contains some terms which should provoke messages
+    from AutoTest.
+
+    This is the expected output:
+
+Line 1 of AutoTest.TST
+Goal 5 = 5 should have failed but suceeded
+Goal 6 = 6 should have failed but suceeded
+Goal 7 \= 7 should have suceeded but failed
+Goal 8 \= 8 should have suceeded but failed
+Goal 9 = 9 should have crashed but suceeded
+Goal 10 = 10 should have crashed but suceeded
+Goal 11 \= 11 should have crashed but failed
+Goal 12 \= 12 should have crashed but failed
+Goal 13 = 13 should have crashed with error 137 but suceeded
+Goal 14 = 14 should have crashed with error 137 but suceeded
+Goal 15 \= 15 should have crashed with error 137 but failed
+Goal 16 \= 16 should have crashed with error 137 but failed
+Goal functor(f(1, 2), f, 2) should have passed tests f = g , 2 = 3 but failed
+Final line of AutoTest.TST
+
+*/
+
+'Line 1 of' ...
+'AutoTest.TST'<>nl.             /*  Display  */
+
+1 = 1 :: s.                     /*  OK  */
+
+2 = 2 :: succeeds.              /*  OK  */
+
+3 \= 3 :: f.                    /*  OK  */
+
+4 \= 4 :: fails.                /*  OK  */
+
+5 = 5 :: f.                     /*  Message  */
+
+6 = 6 :: fails.                 /*  Message  */
+
+7 \= 7 :: s.                    /*  Message  */
+
+8 \= 8 :: succeeds.             /*  Message  */
+
+9 = 9 :: c.                     /*  Message  */
+
+10 = 10 :: crashes.             /*  Message  */
+
+11 \= 11 :: c.                  /*  Message  */
+
+12 \= 12 :: crashes.            /*  Message  */
+
+13 = 13 :: c(137).              /*  Message  */
+
+14 = 14 :: crashes(137).        /*  Message  */
+
+15 \= 15 :: c(137).             /*  Message  */
+
+16 \= 16 :: crashes(137).       /*  Message  */
+
+17 = X :: X = 17.               /*  OK  */
+
+functor( f(1,2), F, A ) ::
+    F = f, A = 2.               /*  OK  */
+
+functor( f(1,2), F, A ) ::
+    F = g, A = 3.               /*  Message  */
+
+'Final line of'<>
+' AutoTest.TST'<>nl.            /*  Display  */
+========================================================================
+
+Here is another steering file:
+
+========================================================================
+/*  DEMO.STEER  */
+/*  Steering file for AutoTest.PL  */
+
+
+'autotest.tst'.             /* Log to files specified in AutoTest.PL */
+log_to( 'fred' ).           /* Log to FRED.                          */
+'test2.pl'.                 /* TEST2.PL is the next test file.       */
+log_to( [bert,joe,me] ).    /* Log to BERT., JOE., ME.               */
+'[-]TEST3.TST'.             /* [-]TEST3.TST is the next test file.   */
+log_to( user ).             /* Now log just to the terminal.         */
+stay.                       /* Future test input comes from here.    */
+fail::s.
+log_all_tests(on).          /* Report future tests, even if OK.      */
+true::f.
+'Final line of steering file.'<>nl.
+========================================================================
+
+
+NOTE ON TESTING FOR PROPER INSTANTIATION
+
+Suppose we want to test the predicate 'append', which joins two lists to
+make a third. The obvious way to do this is:
+
+    append( [1,2,3,4], [5,6,7,8], [1,2,3,4,5,6,7,8] ) :: s.
+
+Now, suppose that our 'append' works correctly if the third argument is
+instantiated at call, so
+    ?- append( [1,2,3,4], [5,6,7,8], [1,2,3,4,5,6,7,8] ).
+succeeds. Suppose  further that it doesn't  quite work correctly  if the
+third argument is uninstantiated. Instead, it gives a wrong solution; if
+you backtrack into it, it then gives the correct solution:
+
+    ?- append( [1,2,3,4], [5,6,7,8], X ).
+    X = []
+    More ? (yes/no)
+    yes
+    X = [1,2,3,4,5,6,7,8]
+
+(This is actually unlikely to happen with the way that most people write
+'append', but it's  a good illustration of what can  happen when testing
+other predicates).
+
+
+If you autotest 'append' with  the third argument instantiated as above,
+this bug will not be invoked. If you test it like this:
+
+    append( [1,2,3,4], [5,6,7,8], X ), X = [1,2,3,4,5,6,7,8] :: s.
+
+the bug will be invoked. However, although the first value for X will be
+wrong, the goal X=[1,2,3,4,5,6,7,8] will force backtracking into append;
+append will  then provide  a correct value  for X;  the whole  test will
+succeed; so the bug won't be noticed.
+
+
+Get round this by using this test:
+    append( [1,2,3,4], [5,6,7,8], X ) :: X = [1,2,3,4,5,6,7,8].
+As soon as 'append' returns with its first (wrong) value for X, AutoTest
+will cut it, so 'append' can never return the second (correct) value for
+X. The post-test X=[1,2,3,4,5,6,7,8] will fail, and AutoTest will report
+this, hence making the bug obvious.

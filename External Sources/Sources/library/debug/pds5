@@ -1,0 +1,36 @@
+/* a diagnosis system based on the programs in the thesis (and file dsdc) */
+
+:- initialized -> true ;
+   ['xref.def'], [pdsdc,pdsdb,pdsini], compile([dsutil,type]),
+   assert(initialized).
+
+pds :-
+	nl, read('@',P), ( P=exit ; solve_and_check(P), pds ).
+
+solve_and_check(P) :-
+	bagof0((P,X),solve(P,X),S), check_solutions(P,S).
+
+check_solutions(P,S) :- 
+	member((P1,(overflow,X)),S) -> stack_overflow(P1,X);
+	member((P1,true),S),fact(P1,false) -> false_solution(P1);
+	fact(P,true),\+member((P,true),S) -> missing_solution(P);
+	confirm_solutions(P,S).
+
+confirm_solutions(P,[(P1,X)|S]) :-
+	member((P1,(overflow,X)),S) -> stack_overflow(P1,X) ;
+	writelv(['solution: ',P1, ';']),
+	( ( system(P1) ; fact(P1,true) ) -> nl, confirm_solutions(P,S) ;
+	  confirm(' ok') -> assert_fact(P1,true), confirm_solutions(P,S) ;
+	  assert_fact(P1,false), false_solution(P1) ).
+confirm_solutions(P,[]) :-
+	write('no (more) solutions.'),
+	( system(P) -> nl ;
+	  confirm(' ok') -> true ;
+	  ask_for_solution(P), assert_fact(P,true), missing_solution(P) ).
+
+handle_error('false clause',X) :- !,
+	writelv(['error diagnosed: ',X,' is false.']), nl, plisting(X).
+handle_error('uncovered atom',X) :- !,
+	writelv(['error diagnosed: ',X,' is uncovered.']), nl, plisting(X).
+handle_error('diverging clause',X) :-  !,
+	writelv(['error diagnosed: ',X,' is diverging.']), nl, plisting(X).

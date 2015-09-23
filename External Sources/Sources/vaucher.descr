@@ -1,0 +1,68 @@
+                          STRUCTURES IN PROLOG
+                           By Jean G. Vaucher,
+     De'partement d' informatique et R.O., Universite' de Montre'al
+                   Shelved on the 15th of August 1989
+
+
+This package is taken from
+
+    "Record manipulation in Prolog" (Short Communication),
+    Jean G. Vaucher,
+    De'partement d' informatique et R.O., Universite' de Montre'al.
+
+    in
+
+    "Software - Practice and Experience",
+    Vol _19_(8),
+    pp. 801-807,
+    (August 1989).
+
+It provides a  set of primitive predicates and operators  that allow the
+arguments  of Prolog  structures  to  be accessed  by  name rather  than
+position, and  that implement Lisp-style  property lists. These  make it
+more  convenient  to  write  programs that  are  easily  understood  and
+modified. [JNP]
+
+
+Examples:
+---------
+
+    ?- def_record( person(name,age,address) ).
+    Define a template for the 'person' structure.
+
+    ?- inst( person, P ),
+       field( P..name, 'Matthew Latner Linton' ),
+       field( P..name, Z ).
+    Create a 'person' in P, set its name, and unify that name with Z.
+
+    ?- def_record( address(number,street,town) ).
+    Template for the 'address' structure.
+
+    ?- inst( address, A ),
+       inst( person, P ),
+       field( P..address, A ),
+       field( P..age, 25 ),
+       field( P..address..street, 'St. Peter's Street' ).
+       field( P..address..town, 'Hanningtown' ).
+    Create an address A and person P, and set some fields.
+
+    ?- inst( person, P ),
+       field( P..name, 'Fred' ), field( P..age, 25 ),
+       update( P..name, 'Bert', P2 ).
+    Create a person, and use 'update' to make a modified copy.
+
+
+
+SIZE : 18 kilobytes.
+
+
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : yes.
+
+
+PORTABILITY : Easy.
+
+
+INTERNAL DOCUMENTATION :
+
+    Long  description  of  how  to  use  the  predicates,  and  a  brief
+    description of how they work: adequate given their simplicity.

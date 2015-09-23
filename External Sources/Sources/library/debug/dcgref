@@ -1,0 +1,41 @@
+% Refinement operator for definite clause grammars.
+:- public
+	refinement/2,
+	create_io/2,
+	ntlisting/0,
+	clearnt/0.
+
+refinement(((P:-Q1),(Vi,Vi,Vo)),((P:-Q2),(Vi1,Vi1,Vo))) :-
+	% add goal
+	Vi\==[],
+	nonterminal(Q),
+	Q=..[F,Qi,Qo],
+	Vi=[Qi], Vi1=[Qo],
+	\+(( P=..[F,Pi,_], Pi==Qi )),
+	qconc(Q,Q1,Q2).
+
+refinement(((P:-Q),(Vi,Vi,Vo)),((P:-Q),([],[],[]))) :-
+	% Close a clause
+	Vi\==[], Vi=Vo.
+
+refinement(((P:-Q),(Vi,Vi,Vo)),((P:-Q),(Vi1,Vi1,Vo))) :-
+	% instantiate.
+	Vi=[[X|Xs]],
+	terminal(X),
+	Vi1=[Xs].
+
+qconc(A,true,A) :- !.
+qconc(A,(B,X),(B,Y)) :- !, qconc(A,X,Y).
+qconc(A,B,(B,A)).
+
+
+% create the input set Xi and output set Xo and free set Xf of variables
+% of a clause P:-Q.  does also typecheking.
+
+create_io((P:-true),([Xi],[Xi],[Xo])) :-
+	P=..[_,Xi,Xo].
+
+ntlisting :-
+	nonterminal(X), \+system(X), plisting(X), fail ; true.
+clearnt :-
+	nonterminal(X), \+system(X), X=..[F|_], abolish(F,2), fail ; true.

@@ -1,0 +1,102 @@
+
+                       WRITEF - FORMATTED WRITE UTILITY
+
+fwritef(File, Format)
+
+        Formatted write to file.  Equivalent to 'fwritef(File, Format, [])'.
+
+fwritef(File, Format, List)
+
+        Formatted  write  to  File.    Temporarily redirects output to the file
+        named by File, but is otherwise like 'writef(Format, List)'.
+
+writef(Format)
+
+        Formatted write.  Equivalent to 'writef(Format, [])'.
+
+writef(Format, List)
+
+        Formatted write.  Format is an atom whose characters  will  be  output.
+        Format  may  contain  certain special character sequences which specify
+        certain  formatting  actions.    The  following  sequences  result   in
+        particular (otherwise hard to use) characters being output.
+
+            '\n'  --  <NL> is output
+            '\l'  --  <LF> is output
+            '\r'  --  <CR> is output
+            '\t'  --  <TAB> is output
+            '\e'  --  <ESC> is output
+            '\\'  --  The character "\" is output
+            '\%'  --  The character "%" is output
+            '\nnn' -  where nnn is an integer (1-3 digits)
+                      the character with ASCII code nnn is output
+                      (NB : nnn is read as DECIMAL)
+
+        The  following  special  sequences specify that items be taken from the
+        List and output in some way.  List, then, provides all the actual terms
+        that are required to be output, while Format specifies  where  and  how
+        this is to occur.
+
+            '%t'  --  output the next item (mnemonic: Term)
+            '%w'  --  Write the next item
+            '%q'  --  Writeq the next item
+            '%d'  --  Display the next item
+            '%p'  --  Print the next item (identical to %t)
+            '%l'  --  output the next item using prlist
+            '%c'  --  output the next item using prconj
+            '%e'  --  output the next item using prexpr
+            '%n'  --  put the next item as a character (ie it is
+                             an iNteger)
+            '%r'  --  Repeat the next item N times where N is the
+                            second item (an integer)
+            '%s'  --  write the next item as a String (so it must
+                            be a list of characters)
+            '%i'  --  the next item is a format, and the item after that
+                            a list.  Apply writef to that format and
+                            list (Indirect).  Use for error messages.
+            '%j'  --  output a singular/plural indication
+            '%f'  --  perform a ttyflush (no items used)
+
+        %l  (prlist)  works  on  lists  [A1,...,An].    %c  (prconj)  works  on
+        conjunctions A1&...&An.  They both display A1, ..., An with one element
+        per line, preceded by four  spaces.    You  will  probably  want  a  \n
+        (newline) in front of %l or %c, but unless you want a blank line in the
+        output there is no need for a \n afterwards.
+
+        There is a new set of three special sequences:
+
+            '%Nc' --  write the next item Centered in N columns.
+            '%Nl' --  write the next item Left justified in N columns.
+            '%Nr' --  write the next item Right justified in N columns.
+                      N is a decimal number with at least one digit.
+                      The item must be an atom, integer, or string.
+
+        In  each  of  these  cases,  a minimum of N characters will be written.
+        Enough spaces will be added around (c), after (l),  or  before  (r)  to
+        make the total up to N. If the item is too long, exactly one space will
+        be added.
+
+        There  are  two  forms  of %j.  With no number in front of it, it takes
+        three arguments N,S,P from the list, and writes S if N =  1  (singular)
+        or  P  if  N  =/=  1  (plural).  The test for N=1 is unification, not a
+        numeric test, so beware.  With a number in front of it, it  takes  just
+        one  argument  from  the  list, and the number indicates the style.  We
+        have
+
+            %1j  writes '' for singular, 's' for plural, e.g. 'cup%1j'.
+            %2j  writes '' for singular, 'es' for plural, e.g. 'tomato%2j'.
+            %3j  writes 'y' for singular, 'ies' for plural, e.g. 'tr%3j'.
+            %4j  writes 'fe' for singular, 'ves' for plural, e.g. 'kni%4j'.
+            %5j  writes 's' for singular, '' for plural, e.g. 'fight%5j'.
+            %6j  writes 'es' for singular, '' for plural, e.g. 'go%6j'.
+            %7j  writes 'ies' for singular, 'y' for plural, e.g. 'dr%7j'.
+            %8j  writes '' for singular, 'j' for plural.
+
+        The following examples may help to explain the use of writef.
+
+            writef('Hello there\n\n')
+            writef('%t is a %t\n',[Person,Property])
+            writef('Input : %l \nBecomes : %e\n \7',[In,Out])
+            writef('%20l %4r clauses %3r predicates.\n', [File,Ccnt,Pcnt])
+            fwritef('demo.for', '\tDO %w I = 1, %w\n', [End,Limit])
+            writef('%d tr%3j %j enough.\n', [N,N,N,was,were])

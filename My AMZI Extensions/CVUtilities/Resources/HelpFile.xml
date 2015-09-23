@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prolog [
+<!ELEMENT prolog (packages*, modules*)>
+<!ELEMENT packages (package*, modules*)>
+<!ELEMENT modules (module*)>
+<!ELEMENT package (modules*)>
+<!ATTLIST package
+	name CDATA #REQUIRED
+	description CDATA #REQUIRED 
+>
+<!ELEMENT module (predicate+)> 
+<!ATTLIST module
+	name CDATA #REQUIRED
+	description CDATA #REQUIRED
+>
+<!ELEMENT predicate (description?, arguments?, succeeds?, fails?, notes?)>
+<!ATTLIST predicate
+	name CDATA #REQUIRED
+	arity CDATA #REQUIRED
+	short-description CDATA #IMPLIED
+>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT arguments (argument*)>
+<!ELEMENT argument EMPTY>
+<!ATTLIST argument
+	name CDATA #REQUIRED
+	position CDATA #REQUIRED
+	description CDATA #REQUIRED
+	access  (read|write|readwrite) #REQUIRED
+>
+<!ELEMENT succeeds EMPTY>
+<!ATTLIST succeeds
+	when CDATA #REQUIRED
+>
+<!ELEMENT fails EMPTY>
+<!ATTLIST fails
+	when CDATA #REQUIRED
+>
+
+]>
+<prolog>
+	<modules>
+		<module name="CVUtilities" description="General extended predicates">
+			<predicate name="modlist" arity="0" short-description="Lists the predicates proposed by the CVUtilities lsx">
+				<description>
+					The modlist/0 predicate list the modules contained in the CVUtility lsx extension. modlist/0 always succeeds.
+				</description> 
+			</predicate>
+			<predicate name="module" arity="1" short-description="Lists the predicates defined in the specified CVUtilities LSX module">
+				<description>
+					The module/1 predicate lists the predicates defined in the specified module of the CVUtilities LSX
+				</description> 
+				<arguments>
+					<argument position="1" access="read" description="CVUtilities module whose contents are to be listed" name="Module"/> 
+				</arguments>
+			</predicate>
+			<predicate name="module" arity="0" short-description="Lists the predicates defined in the whole CVUtilities LSX module">
+				<description>
+					The module/0 predicate lists the predicates defined in all the modules of the CVUtilities LSX
+				</description> 
+			</predicate>
+			<predicate name="help" arity="1" short-description="Displays help for the specified predicate">
+					<description>
+						help/1 displays full help for the specified CVUtilities predicate. The predicate specification can either be an atom or a functor/arity expression.
+					</description>
+					<arguments>
+						<argument position="1" access="read" description="CVUtilities predicate to display help for" name="Predicate"/>
+					</arguments> 
+			</predicate>
+			<predicate arity="1" name="usage" short-description="Displays a brief usage string about the specified predicate">
+				<description>
+						usage/1 displays a short usage string about the specified predicate [Predicate]. The predicate specification can either be an atom or a functor/arity expression, or a substring of the searched predicate.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Predicate to display" name="Predicate"/>
+				</arguments>
+			</predicate>
+			<predicate name="where" arity="1" short-description="Displays the modules where the specified predicate is defined">
+					<description>
+						where/1 displays the location in the CVUtilities library where [Predicate] is defined. The predicate specification can either be an atom or a functor/arity expression, or a substring of the searched predicate.
+					</description>
+					<arguments>
+						<argument position="1" access="read" description="Predicate to display" name="Predicate"/>
+					</arguments> 
+			</predicate>
+		</module>
+		<module name="Math" description="Mathematic operations">
+			<predicate arity="2" name="fact" short-description="Computes a factorial">
+				<description>
+					Computes the factorial of [Number] and unifies [Result] with the result.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Factorial to compute" name="Number"/>
+					<argument position="2" access="write" description="Result" name="Result"/>
+				</arguments>
+			</predicate>
+			<predicate arity="3" name="comb" short-description="Computes the number of combinations of Y elements among X">
+				<description>
+					Computes the number of combinations of [Y] elements among [X]
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Size of the set" name="X"/>
+					<argument position="2" access="read" description="Size of the subset" name="Y"/>
+					<argument position="3" access="write" description="Unified with the number of combinations of [Y] elements among [X]" name="Result"/>
+				</arguments>
+			</predicate>
+			<predicate arity="3" name="perm" short-description="Computes the number of permutations of Y elements among X">
+				<description>
+					Computes the number of permutations of [Y] elements among [X]
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Size of the set" name="X"/>
+					<argument position="2" access="read" description="Size of the subset" name="Y"/>
+					<argument position="3" access="write" description="Unified with the number of permutations of [Y] elements among [X]" name="Result"/>
+				</arguments>
+			</predicate>
+		</module>
+		<module name="Path" description="Operations on paths and directories">
+			<predicate name="chdir" arity="1" short-description="Changes the current working directory">
+				<description>
+					Changes the current working directory. The chdir/1 predicate also changes the current drive.
+				</description>
+				<arguments>
+					<argument position="1" access="read" name="NewDir" description="New current working directory (and drive)"/>
+				</arguments>
+			</predicate>
+			<predicate name="cd" arity="1" short-description="Changes the current working directory">
+				<description>
+					Changes the current working directory. The chdir/1 predicate also changes the current drive.
+				</description>
+				<arguments>
+					<argument position="1" access="read" name="NewDir" description="New current working directory (and drive)"/>
+				</arguments>
+			</predicate>
+			<predicate arity="3" name="copyfile" short-description="Copies a file to another">
+				<description>
+				The copyfile/3 predicate copies the file [From] to the file [To]. If the [FailIfExists] argument is set to a non-zero value, the predicate will fail if the file specified by [To] already exists.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Name of the file to copy" name="From"/>
+					<argument position="2" access="read" description="Destination file" name="To"/>
+					<argument position="3" access="read" description="When non-zero, the copy will fail if the destination file already exists" name="FailIfExists"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="copyfile" short-description="Copies a file to another">
+				<description>
+					The copyfile/2 predicate copies the file [From] to the file [To].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Name of the file to copy" name="From"/>
+					<argument position="2" access="read" description="Destination file" name="To"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="delext" short-description="Deletes the extension part in a filename">
+				<description>
+					The delext/2 predicate removes the extension part from the filename specified by [Name], and unifies [Result] with the new filename.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Filename whose extension is to be removed" name="Name"/>
+					<argument position="2" access="write" description="New filename" name="Result"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="fileexists" short-description="Checks if the specified file exists">
+				<description>
+					fileexists/1 checks if the file specified by [Name] exists. It succeeds when the file exists, and fails if not.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="File name whose existence is to be checked" name="Name"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="fileflag" short-description="Checks for a file flag or retrieves the list of defined flags for a file name">
+				<description>
+					The fileflag/2 predicate either checks for the existence of the specified file flag (when [Flag] is bound), or unifies [Flag] with the list of flags currently defined for the file specified by [Path].
+					When a flag name is specified, fileflag/2 succeeds if the specified file attribute is defined for [Path].
+					When [Flags] is an unbound variable, fileflag/2 always succeed.
+					A file attribute can be any of the following values (comparison is not case-sensitive) : archive, compressed, directory, encrypted, hidden, normal, offline, readonly, reparse_point, sparse_file, system or temporary.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path whose file attributes are to be checked" name="Path"/>
+					<argument position="2" access="readwrite" description="Either the name of the file attribute to check or an unbound variable that will receive the list of currently defined file attributes for [Path]" name="Flags"/>
+				</arguments>
+			</predicate>
+ 			<predicate arity="2" name="filematch" short-description="Checks if a file corresponds to a wildcard expression">
+				<description>
+					The filematch/2 predicate checks that the specified file [Name] corresponds to the wildcard given by [WildCard].
+					filematch/2 succeeds if [Wildcard] corresponds to [Name], and fails otherwise.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Filename to check" name="Name"/>
+					<argument position="2" access="read" description="Wildcard to check against [Name]" name="Wildcard"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="filesize" short-description="Retrieves the size of a file">
+				<description>
+					The filesize/2 predicate unifies [Size] with the size of the file given by [Path].
+					filesize/2 fails if the specified path does not exist or its attributes cannot be retrieved.
+				</description>
+					<arguments>
+						<argument position="1" access="read" description="File whose size is to be retrieved" name="Path"/>
+						<argument position="2" access="write" description="Unified with the size of the file specified by [Path]" name="Size"/>
+					</arguments>
+			</predicate>
+			<predicate arity="4" name="filetime" short-description="Retrieves a file access, modification or creation time">
+				<description>
+					The filetime/4 predicate retrieves the access, update or creation time for the specified [Path].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path whose time is to be retrieved" name="Path"/>
+					<argument position="2" access="read" description="Type of type to be retrieved : 'creation' for the creation time, 'modification' for the modification time and 'access' for the last access time" name="Type"/> 
+					<argument position="3" access="write" description="Unified to the term date(yyyy,mm,dd,dow) where 'yyyy' is the year, 'mm' the month, 'dd' the day and 'dow' the number of the day in the week (first day = monday = 1)" name="Date"/>
+					<argument position="4" access="write" description="Unified to the term time(hh,mn,ss,ms) where 'hh' is the hour, 'mn' the minute, 'ss' the second and 'ms' the number of milliseconds" name="Time"/>
+				</arguments>
+			</predicate>
+			<predicate arity="3" name="filetime" short-description="Retrieves a file access, modification or creation time">
+				<description>
+					The filetime/3 predicate retrieves the access, update or creation time for the specified [Path].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path whose time is to be retrieved" name="Path"/>
+					<argument position="2" access="read" description="Type of type to be retrieved : 'creation' for the creation time, 'modification' for the modification time and 'access' for the last access time" name="Type"/> 
+					<argument position="3" access="write" description="Unified to the term datetime(yyyy,mm,dd,dow,hh,mn,ss,ms) where 'yyyy' is the year, 'mm' the month, 'dd' the day, 'dow' the number of the day in the week (first day = monday = 1), 'hh' is the hour, 'mn' the minute, 'ss' the second and 'ms' the number of milliseconds" name="DateTime"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="findfiles" short-description="Finds all files matching the specified wildcard">
+				<description>
+					The findfiles/2 predicate locates all the files matching the specified wildcard path [Wildcard] and unifies [List] with the list of the files that has been found.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Wildcard expression to use for the search" name="Wildcard"/>
+					<argument position="2" access="write" description="Unified with the list of resulting filenames" name="List"/>
+				</arguments>
+			</predicate>
+			<predicate name="fullpath" arity="2" short-description="Expands the specified path">
+				<description>
+					Expands the specified path and unifies [Result] with the result.
+				</description>
+				<arguments>
+					<argument position="1" access="read" name="Path" description="Path to expand"/>
+					<argument position="2" access="read" name="Path" description="Expanded path"/>
+				</arguments>
+			</predicate>
+			<predicate name="getcwd" arity="1" short-description="Retrieves the current working directory">
+				<description>
+					Unifies [Result] with the current working directory.
+				</description>
+				<arguments>
+					<argument position="1" access="read" name="Path" description="Current working directory"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="getlfn" short-description="Gets the long file name corresponding to a short file name">
+				<description>
+					The gelfn/2 predicate unifies [LongPath] with the long file name corresponding to the short path name given by [ShortPath]. If the translation fails, [LongPath] will be unified to [ShortPath].
+					The getlfn/2 predicate always succeeds.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Short path name to convert" name="ShortPath"/>
+					<argument position="2" access="write" description="Result of the translation" name="LongPath"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="getsfn" short-description="Gets the short file name corresponding to a long file name">
+				<description>
+					The gesfn/2 predicate unifies [ShortPath] with the short file name corresponding to the long path name given by [LongPath]. If the translation fails, [ShortPath] will be unified to [LongPath].
+					The getlfn/2 predicate always succeeds.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Long path name to convert" name="LongPath"/>
+					<argument position="2" access="write" description="Result of the translation" name="ShortPath"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isdir" short-description="Checks if the specified path is a directory">
+				<description>
+				The isdir/1 predicate checks if the path specified by [Path] is a directory.
+				The predicate fails if [Path] does not reference a valid and existing directory.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isempty" short-description="Checks if the specified path is an empty directory">
+				<description>
+				The isempty/1 predicate checks if the path specified by [Path] is an empty directory.
+				The predicate fails if [Path] does not reference a valid, existing and empty directory.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isexe" short-description="Checks if the specified path is an executable file">
+				<description>
+				The isexe/1 predicate checks if the path specified by [Path] is an executable file.
+				The predicate fails if [Path] does not reference a valid executable file suffix.
+				</description> 
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isfilespec" short-description="Checks if the specified path is a file-only specification">
+				<description>
+				The isdir/1 predicate checks if the path specified by [Path] is a file specification, without any reference to a directory.
+				The predicate fails if [Path] includes a directory specification.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="ishtmlfile" short-description="Checks if the specified path is a HTML file">
+				<description>
+				The ishtmlfile/1 predicate checks if the path specified by [Path] is a HTML file.
+				The predicate fails if [Path] does not reference one of HTML file suffixes.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="islfnfilespec" short-description="Checks if the specified path is a long file name">
+				<description>
+				The islfnfilespec/1 predicate checks if the path specified by [Path] is a long file name specification.
+				The predicate fails if [Path] does not designates an LFN specification.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isnetworkpath" short-description="Checks if the specified path references a network path">
+				<description>
+				The isnetworkpath/1 predicate checks if the path specified by [Path] references a network location.
+				The predicate fails if [Path] does not reference a valid network location.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isrelative" short-description="Checks if the specified path is relative">
+				<description>
+				The isrelative/1 predicate checks if the path specified by [Path] is a relative path.
+				The predicate fails if [Path] references an absolute path.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isroot" short-description="Checks if the specified path is a root path">
+				<description>
+				The isroot/1 predicate checks if the path specified by [Path] is a root path, either from a disk or from a network server.
+				The predicate fails if [Path] does not reference a root path.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="issameroot" short-description="Checks if both paths have the same root">
+				<description>
+					The issameroot/2 predicate checks if [Path1] and [Path2] have the same root.
+					The predicate fails if [Path1] and [Path2] have different roots.
+				</description>
+				<arguments>
+						<argument position="1" access="read" description="First path to compare" name="Path1"/>
+						<argument position="2" access="read" description="Second path to compare" name="Path2"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isunc" short-description="Checks if the specified path is a UNC path">
+				<description>
+				The isunc/1 predicate checks if the path specified by [Path] is a UNC path.
+				The predicate fails if [Path] does not reference a UNC path.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isuncserver" short-description="Checks if the specified path is a UNC server path">
+				<description>
+				The isuncserver/1 predicate checks if the path specified by [Path] references a server, without the share name.
+				The predicate fails if [Path] does not reference a server.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isuncservershare" short-description="Checks if the specified path references a server and a share location">
+				<description>
+				The isuncservershare/1 predicate checks if the path specified by [Path] is a UNC path with a server and a share name.
+				The predicate fails if [Path] does not reference a server with a share name.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="isurl" short-description="Checks if the specified path is a URL">
+				<description>
+				The isurl/1 predicate checks if the path specified by [Path] is a URL.
+				The predicate fails if [Path] does not reference a URL.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to check" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="mkdir" short-description="Creates the specified directory">
+				<description>
+					The mkdir/1 predicate creates the specified directory. It succeeds if directory creation has been successful, and fails if an error occurred while performing the operation (for example, if the specified directory already exists).
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Directory to create" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="3" name="movefile" short-description="Moves a file to another">
+				<description>
+				The movefile/3 predicate copies the file [From] to the file [To]. If the [FailIfExists] argument is set to a non-zero value, the predicate will fail if the file specified by [To] already exists.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Name of the file to move" name="From"/>
+					<argument position="2" access="read" description="Destination file" name="To"/>
+					<argument position="3" access="read" description="When non-zero, the move will fail if the destination file already exists" name="FailIfExists"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="movefile" short-description="Moves a file to another">
+				<description>
+					The movefile/2 predicate moves the file [From] to the file [To].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Name of the file to move" name="From"/>
+					<argument position="2" access="read" description="Destination file" name="To"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="pathdir" short-description="Gets the directory part of a path">
+				<description>
+					pathdir/2 unifies [Dir] with the directory part of the path specified by [Path].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to analyze" name="Path"/>
+					<argument position="2" access="write" description="Unified with the directory part of [Path]" name="Dir"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="pathdrive" short-description="Gets the drive part of a path">
+				<description>
+					pathdrive/2 unifies [Drive] with the drive letter part of the path specified by [Path].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to analyze" name="Path"/>
+					<argument position="2" access="write" description="Unified with the drive letter part of [Path]" name="Drive"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="pathext" short-description="Gets the extension part of a path">
+				<description>
+					pathext/2 unifies [Ext] with the extension part of the path specified by [Path].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to analyze" name="Path"/>
+					<argument position="2" access="write" description="Unified with the extension part of [Path]" name="Ext"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="pathfilename" short-description="Gets the filename part of a path (filename with extension)">
+				<description>
+					pathfilename/2 unifies [FName] with the filename part of the path specified by [Path] (name with extension).
+				</description>
+				<arguments> 
+					<argument position="1" access="read" description="Path to analyze" name="Path"/>
+					<argument position="2" access="write" description="Unified with the filename part of [Path]" name="FName"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="pathname" short-description="Gets the name part of a path (filename without extension)">
+				<description>
+					pathname/2 unifies [Name] with the name part of the path specified by [Path] (filename without extension).
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to analyze" name="Path"/>
+					<argument position="2" access="write" description="Unified with the name part of [Path]" name="Name"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="rename" short-description="Renames a file">
+				<description>
+					rename/2 changes the name of the file specified by [Old] into [New].
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="File to rename" name="Old"/>
+					<argument position="2" access="read" description="New name for [Old]" name="New"/>
+				</arguments>
+			</predicate>
+			<predicate arity="3" name="renext" short-description="Renames the extension in a file name">
+				<description>
+					The renext/3 predicate renames the extension in filename [Name] with [Ext], and unifies [Result] with the result.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Filename whose extension is to be renamed" name="Name"/>
+					<argument position="2" access="read" description="New extension for the filename" name="Extension"/>
+					<argument position="3" access="write" description="New file name" name="Result"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="rm" short-description="Deletes the specified file">
+				<description>
+					The rm/1 predicate deletes the file specified by [Path]. It succeeds if the file has been removed, and fails if the file does not exists or if an error occurred while trying to delete it.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="File to delete" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="rmdir" short-description="Deletes the specified directory">
+				<description>
+					The rmdir/1 predicate removes the specified directory. It succeeds if the directory has been removed, and fails if an error occurred while performing the operation (for example, if the directory does not exist or if it is not empty).
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Directory to remove" name="Path"/>
+				</arguments>
+			</predicate>
+			<predicate arity="5" name="splitpath" short-description="Splits a path in several elements">
+				<description>
+					The splitpath/5 predicate splits a path in several elements :
+					- drive part in the [Drive] argument
+					- directory part in the [Dir] argument
+					- name part in the [Name] argument ; and
+					- extension in the [Ext] argument
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to split" name="Path"/>
+					<argument position="2" access="read" description="Unified with the drive letter part of [Path]" name="Drive"/>
+					<argument position="3" access="read" description="Unified with the directory part of [Path]" name="Dir"/>
+					<argument position="4" access="read" description="Unified with the file name part of [Path] (without extension)" name="Name"/>
+					<argument position="5" access="read" description="Unified with the extension part of [Path]" name="Ext"/>
+				</arguments>
+			</predicate>
+			<predicate arity="6" name="splitpath" short-description="Splits a path in several elements">
+				<description>
+					The splitpath/5 predicate splits a path in several elements :
+					- drive part in the [Drive] argument
+					- directory part in the [Dir] argument
+					- name part in the [Name] argument
+					- extension in the [Ext] argument
+					- filename + extension part in the [FName] argument
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Path to split" name="Path"/>
+					<argument position="2" access="read" description="Unified with the drive letter part of [Path]" name="Drive"/>
+					<argument position="3" access="read" description="Unified with the directory part of [Path]" name="Dir"/>
+					<argument position="4" access="read" description="Unified with the file name part of [Path] (without extension)" name="Name"/>
+					<argument position="5" access="read" description="Unified with the extension part of [Path]" name="Ext"/>
+					<argument position="6" access="read" description="Unified with the filename and extension parts of [Path]" name="FName"/>
+				</arguments>
+			</predicate>
+			<predicate name="tempfile" arity="4" short-description="Generates a temp file name">
+				<description>
+					Unifies [Result] with a temp file name located in the [TempDir] directory, using the string [Prefix] as a prefix,
+					with [UniqueId] as a suffix. if [UniqueId] is zero, tempfile will search for the next available unique id in the
+					specified directory.
+				</description>
+				<arguments>
+					<argument position="1" access="read" name="TempDir" description="Directory location for the temp file name"/>
+					<argument position="2" access="read" name="Prefix" description="Prefix to use for the temp file name"/>
+					<argument position="3" access="read" name="UniqueId" description="Integer id to append to the temp file name (specify 0 to search for the next available id)"/>
+					<argument position="4" access="write" name="Result" description="Resulting path name"/>
+				</arguments>
+			</predicate>
+			<predicate name="tempfile" arity="3" short-description="Generates a temp file name">
+				<description>
+					Unifies [Result] with a temp file name located in the Windows temp directory, using the string [Prefix] as a prefix,
+					with [UniqueId] as a suffix. if [UniqueId] is zero, tempfile will search for the next available unique id in the
+					specified directory.
+				</description>
+				<arguments>
+					<argument position="1" access="read" name="Prefix" description="Prefix to use for the temp file name"/>
+					<argument position="2" access="read" name="UniqueId" description="Integer id to append to the temp file name (specify 0 to search for the next available id)"/> 
+					<argument position="3" access="write" name="Result" description="Resulting path name"/>
+				</arguments>
+			</predicate>
+			<predicate name="tempfile" arity="2" short-description="Generates a temp file name">
+				<description>
+					Unifies [Result] with a temp file name located in the Windows temp] directory, using the string [Prefix] as a prefix.
+					A unique id will be appended to the file name. 
+				</description>
+				<arguments>
+					<argument position="1" access="read" name="Prefix" description="Prefix to use for the temp file name"/>
+					<argument position="2" access="write" name="Result" description="Resulting path name"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="temppath" short-description="Unifies [Path] with the path of the Windows temp directory">
+					<description>
+							temppath unifies [Path] with the value of the current Windows temp directory.
+					</description>
+					<arguments>
+						<argument position="1" access="write" description="Variable to receive the path of the temp directory" name="path"/>
+					</arguments>
+			</predicate>
+ 		</module>
+		<module name="Strings" description="String manipulation predicates">
+			<predicate name="string_index" arity="3" short-description="searches a string within another">
+				<description>
+						The string_index/3 predicate searches for the string [Search] within the string [Str]. It unifies [Index] with the index of the searched string.
+					</description>
+				<arguments>
+					<argument position="1" name="Str" description="String to be searched" access="read"/>
+					<argument position="2" name="Search" description="String to search for" access="read"/>
+					<argument position="3" name="Index" description="Unified with the position of [Search] within [Str]. Index starts at 1." access="write"/>
+				</arguments>
+				<succeeds when="The string [Search] is a substring of [Str]"/>
+				<fails when="The string [Search] has not been found in [Str]"/>
+			</predicate>
+			<predicate name="string_index" arity="4" short-description="searches a string within another starting at the specified position">
+				<description>
+						The string_index/4 predicate searches for the string [Search] within the string [Str]. It unifies [Index] with the index of the searched string, starting the search at position  [Index]. string_index/4 returns the index from the beginning of the string, not from the position given by [Start].
+					</description>
+				<arguments>
+					<argument position="1" name="Str" description="String to be searched" access="read"/>
+					<argument position="2" name="Search" description="String to search for" access="read"/>
+					<argument position="3" name="Start" description="Index ,where to start the search" access="read"/>
+					<argument position="4" name="Index" description="Unified with the position of [Search] within [Str]. Index starts at 1." access="read"/>
+				</arguments>
+				<succeeds when="The string [Search] is a substring of [Str]"/>
+				<fails when="The string [Search] has not been found in [Str]"/>
+			</predicate>
+		</module>
+		<module name="File" description="File IO routines">
+			<predicate arity="2" name="string_file" short-description="Unifies a variable with the contents of a file">
+					<description>
+						The string_file predicate unifies [Contents] with the contents of the file [Filename].
+					</description>
+					<arguments>
+							<argument position="1" access="write" description="Variable which will be unified with the contents of the file [Filename]" name="Contents"/>
+							<argument position="2" access="read" description="Filename whose contents are to be read" name="Filename"/>
+					</arguments>
+			</predicate>
+		</module>
+		<module description="System-dependent predicates" name="System">
+			<predicate arity="1" name="computername" short-description="Retrieves the computer name">
+					<description>
+						computername/1 unifies [Name] with the name of the computer where the application is running.
+					</description>
+					<arguments>
+						<argument position="1" access="write" description="Unified with the value of the computer name" name="Name"/>
+					</arguments>					
+			</predicate>
+			<predicate arity="2" name="getenv" short-description="Retrieves the value of an environment variable">
+				<description>
+					getenv/2 unifies [Value] with the contents of the environment variable given by [Name].
+				</description>
+				<arguments>
+						<argument position="1" access="read" description="Name of the environment variable whose value is to be retrieved" name="Name"/>
+						<argument position="2" access="write" description="Unified with the value of the environment variable specified by [Name]" name="Value"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="getenvlist" short-description="Retrieves the names of currently defined environment variables">
+				<description>
+						getenvlist/1 unifies [List] with the names of the environment variables currently defined.
+				</description>
+				<arguments>
+					<argument position="1" access="write" description="Unified with the list of environment variables" name="List"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="setenv" short-description="Assigns a value to an environment variable">
+				<description>
+						The setenv/2 predicate assigns the new value [Value] to the environment variable specified by [Name].
+				</description>
+				<arguments>
+						<argument position="1" access="read" description="Name of the environment variable to change" name="Name"/>
+						<argument position="2" access="read" description="Value to assign to [Name]" name="Value"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="username" short-description="Retrieves the name of the current user">
+				<description>
+						username/1 unifies [Name] with the name of the current Windows user.
+				</description>
+				<arguments>
+					<argument position="1" access="write" description="Unified with the current username" name="Name"/>
+				</arguments>
+			</predicate>
+			<predicate arity="1" name="message" short-description="Displays a message box using the specified string">
+				<description>
+						message/1 displays a single message box using the specified [String] as the message. The message box will have a default title of "message", and will show an OK button.
+				</description>
+				<arguments>
+						<argument position="1" access="read" description="Message to display" name="String"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="message" short-description="Displays a message box using the specified string and title">
+				<description>
+					message/2 displays a single message box, using [Title] for the caption and [String] as the message. The message box will show an OK button.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Title of the message box" name="Title"/>
+					<argument position="2" access="read" description="Message to display" name="String"/>
+				</arguments>
+			</predicate>
+			<predicate arity="4" name="message" short-description="Displays a message box using the specified options and returns the result">
+				<description>
+						message/4 displays a message box using the specified [Title] and [Message]. The [MBOptions] argument can specify any of the Windows constants MB_xx. If several options are to be given, specify them as a list like in the following example :
+						
+								message("message", "cancel the operation ?", [mb_yesno, mb_iconexclamation], Result).
+						
+						Constant names are not case sensitive.
+						
+						The message/4 predicate unifies [Result] with the result of the Windows function MessageBox. The result is returned as an atom corresponding to the function's return value constants, not an integer (for example, 'idok').
+				</description>
+				<arguments>
+						<argument position="1" access="read" description="Title of the message box" name="Title"/>
+						<argument position="2" access="read" description="Message to display" name="Message"/>
+						<argument position="3" access="read" description="Either a single atom representing an MB_xx constant, or a list of atoms" name="MBOptions"/>
+						<argument position="4" access="write" description="Unified as an atom with the constant returned by the MessageBox function" name="Result"/>
+				</arguments>
+			</predicate>
+			<predicate arity="2" name="sysmetric" short-description="Retrieves a system metric">
+				<description>
+					sysmetric/2 unifies [Value] with the value of the system metric given by [MetricName]. [MetricName] can be the atom representation of any of the SM_xx Windows constants, for example : sm_cxscreen (with of the screen in pixels). The atom given for [MetricName] is not case-sensitive.
+				</description>
+				<arguments>
+					<argument position="1" access="read" description="Name of the system metric whose value is to be retrieved" name="MetricName"/>
+					<argument position="2" access="write" description="Unified with the value of the specified metric" name="Value"/>
+				</arguments>
+			</predicate>
+		</module>
+	</modules>
+</prolog>

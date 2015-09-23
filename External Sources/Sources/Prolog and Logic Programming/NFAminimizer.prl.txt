@@ -1,0 +1,222 @@
+/*
+ ************************************************************************
+ *
+ *			A Hopcroft-Ullman Algorithm
+ *	for determining equivalence classes of a finite automaton
+ *
+ * Algorithm 2.6 of Hopcroft & Ullman
+ *
+ * Representation of a finite automaton:
+ * A data base with the following facts
+ *	states([state1,...stateN]).		gives state labels
+ *	initial(state).				Specifies an initial state
+ *	final(state1).				Specifies a final state
+ *	final(stateK).				another final state (if any).
+ *	alphabet([symbol1,...symbolM]).		Alphabet symbols
+ *	eats(state_from,symbol,state_to).	Means Delta(state_from,symbol)
+ *						is a state_to.
+ *	.... an 'eats' fact for every edge of the FSM.
+ *
+ * Output of the algorithm
+ * A list of lists, each list standing for a one equivalence class.
+ *
+ ************************************************************************
+ */
+
+
+		/* This is a representation of the automaton to		*/
+		/* minimize from Aho & Ullman, I, p.127			*/
+
+states([q0,q1,q2,q3,q4,q5]).
+initial(q0).
+final(q0).
+final(q5).
+alphabet([a,b]).
+eats(q0,a,q5).
+eats(q0,b,q2).
+eats(q1,a,q1).
+eats(q1,b,q0).
+eats(q2,a,q3).
+eats(q2,b,q1).
+eats(q3,a,q2).
+eats(q3,b,q4).
+eats(q4,a,q4).
+eats(q4,b,q5).
+eats(q5,a,q5).
+eats(q5,b,q3).
+
+/*
+ *------------------------------------------------------------------------
+ *  Initial classification - build lists of the final and non-final states
+ */
+
+final_states(States) :- setof(State,final(State),States),!.
+
+not_final_states(States) :- 
+	states(All_states), 
+	not_final_states(All_states,States),!.
+
+not_final_states([Trial|Others],Not_finals) :-
+	final(Trial),			/* Trial is final, don't include */
+	not_final_states(Others,Not_finals).
+not_final_states([Trial|Others],[Trial|Other_non_final]) :-
+	not_final_states(Others,Other_non_final).
+not_final_states([],[]).
+
+/*
+ *------------------------------------------------------------------------
+ *		Estimate the size of the "quotient" set
+ *
+ * Given Set_of_states and the set of symbols (alphabet)
+ * 	count_quotient_set(Set_of_states,Alphabet,Frequencies)
+ * computes the set of frequencies,
+ *	Frequency[i] = ||{q | q in Set_of_states and there exists 
+ *	    		      p such that eats(p,Alphabet[i],q) is true}||
+ *
+ */
+
+			/* Loop over all the symbols in the alphabet	*/
+count_quotient_set(Set_of_states,[A|Other_symbols],[F|Other_freqs]) :-
+	count_quotient_set1(Set_of_states,A,0,F),
+	count_quotient_set(Set_of_states,Other_symbols,Other_freqs).
+count_quotient_set(_,[],[]).
+
+			/* The quotient set with respect to a particular*/
+			/* symbol A					*/
+count_quotient_set1([],_,F,F).
+count_quotient_set1([State|Other_states],A,F,Fnew) :-
+	eats(_,A,State),!,    /* There is somebody who eats A and gives State*/
+	F1 is F+1,
+	count_quotient_set1(Other_states,A,F1,Fnew).
+count_quotient_set1([State|Other_states],A,F,Fnew) :-
+	count_quotient_set1(Other_states,A,F,Fnew).
+
+
+/*
+ *------------------------------------------------------------------------
+ *		   Body of the classification algorithm
+ * 
+ * While working, the program appends/deletes the facts reflecting the
+ * current status in the classification. The facts are of the form
+ * class(ListOfStates,ListOfSymbols)
+ * where the ListOfSymbols contains those symbols of the alphabet
+ * that should be applied to the class in attempts to split it.
+ */
+
+classification(List_of_classes) :-
+	initialize,
+	write('Initial classification'),nl,listing(class),nl,
+	classify,
+	setof(X,class(X,_),List_of_classes).
+
+				/* Build two initial classes, Final and	*/
+				/* Not_final states			*/
+initialize :-
+	final_states(Final),
+	not_final_states(Not_final),
+	set_indices(Final,Not_final),
+	!.
+
+				/* Build the index list for the two	*/
+				/* classes of states and write all 	*/
+				/* the info into the data base		*/
+set_indices(SetStates1,SetStates2) :-
+	alphabet(Alphabet),
+	count_quotient_set(SetStates1,Alphabet,ListFreq1),
+	count_quotient_set(SetStates2,Alphabet,ListFreq2),
+	partition_alph(ListFreq1,ListFreq2,Alphabet,Symbols1,Symbols2),
+	assertz(class(SetStates1,Symbols1)),
+	assertz(class(SetStates2,Symbols2)),
+	!.
+
+	/*
+	  partition_alph(ListFreq1,ListFreq2,Alphabet,Symbols1,Symbols2)
+	  given two lists of frequencies and the alphabet,
+	  returns two list of symbols,
+	  Alphabet[i] is put to Symbols1 if ListFreq1[i] <= ListFreq2[i],
+	  Alphabet[i] is put to Symbols2 otherwise.
+	*/
+
+partition_alph([Fr1|OthersFr1],[Fr2|OthersFr2],[A|OthersAl],[A|Oss1],SS2) :-
+	Fr1 =< Fr2,
+	partition_alph(OthersFr1,OthersFr2,OthersAl,Oss1,SS2).
+partition_alph([Fr1|OthersFr1],[Fr2|OthersFr2],[A|OthersAl],SS1,[A|Oss2]) :-
+	Fr1 > Fr2,
+	partition_alph(OthersFr1,OthersFr2,OthersAl,SS1,Oss2).
+partition_alph([],[],[],[],[]).
+partition_alph(_,_,_,_,_) :-
+	write('partition_alph: illegal call'),nl,
+	break.
+
+
+classify :-
+	class(States,Indices),
+	Indices = [A|Other_symbs],	/* If the index set is not empty */
+	retract(class(States,_)),
+	asserta(class(States,Other_symbs)),	/* with one index removed*/
+	write('Iteration with the basis class '),write(States),nl,
+	split(States,A),
+	nl,
+	write('End of iteration, classes are'),nl,
+	listing(class),
+	classify.
+
+classify.	/* End of classification - All the index sets are empty */
+
+	
+	/* split(Basis_set,A) tries to partition each class of states
+	   with respect to the symbol A and the Basis_set. In the other words,
+	   for each class(States,_) the predicate finds
+	   SubSet1 = { q | q in States and eats(q,a,p), p in Basis_set }
+	   SubSet2 = States - SubSet1
+	   If SubSet1 and SubSet2 are both non-empty,
+	   actually split the States into two more classes SubSet1 and
+	   SubSet2, and construct indices in the same way like we
+ 	   did for the initial classes
+	*/
+
+split(Basis_set,A) :-
+	class(States,_),		/* Loop over all the states	*/
+	split1(Basis_set,States,A,SubSet1),
+	SubSet1 = [_|_],		/* Proceed if SubSet1 isn't empty*/
+	subtract(States,SubSet1,SubSet2),
+	SubSet2 = [_|_],		/* Proceed if SubSet2 isn't empty*/
+	retract(class(States,Indices)),	/* Remove the old class		*/
+	write('Splitting the class '),write(States),nl,
+	write('Into the '),write(SubSet1),write(' and '),write(SubSet2),nl,
+	set_indices(SubSet1,SubSet2),
+	fail.				/* Repeat for other classes	*/
+	
+split(_,_) :- !.			/* We've checked all the states	*/
+
+	/*
+	   split1(Basis_set,States,A,SubSet) finds
+	   SubSet = { q | q in States and eats(q,a,p), p in Basis_set }
+	*/
+
+split1(Basis_set,[S|Other_states],A,[S|OtherSubSet]) :-
+	eats(S,A,P),			/* Two conditions to include	*/
+	member(P,Basis_set),		/* S in the Subset		*/
+	split1(Basis_set,Other_states,A,OtherSubSet),
+	!.
+					/* Otherwise			*/
+split1(Basis_set,[S|Other_states],A,OtherSubSet) :-
+	split1(Basis_set,Other_states,A,OtherSubSet),
+	!.
+split1(_,[],_,[]) :- !.
+
+
+	/* A deterministic (!) predicate to check if an element is in the set*/
+member(P,[P|_]) :- !.
+member(P,[_|Other_els]) :- member(P,Other_els),!.
+
+	/*
+	  subtract(Set,SubSet,Diff) finds the difference
+	  Diff = Set - Subset
+	*/
+subtract([S|Set],SubSet,Diff) :-
+	member(S,SubSet),
+	subtract(Set,SubSet,Diff),!.
+subtract([S|Set],SubSet,[S|Other_diff]) :-
+	subtract(Set,SubSet,Other_diff),!.
+subtract([],_,[]) :- !.

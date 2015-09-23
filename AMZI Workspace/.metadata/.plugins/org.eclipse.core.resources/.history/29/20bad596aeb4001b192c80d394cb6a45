@@ -1,0 +1,98 @@
+
+
+:- indexed	array_value(1, 1, 0).
+
+:- import(utilities).
+
+
+# define ERR_ARRAY			10000
+# define ERR_ARRAY_UNDEFINED		10001
+# define ERR_ARRAY_ALREADY_DEFINED	10002
+# define ERR_ARRAY_INVALID_BOUNDARY	10003
+# define ERR_ARRAY_INVALID_SIZE		10004
+# define ERR_ARRAY_INVALID_INDEX	10005
+
+
+array_defined(Name) :- 
+	array(Name, _, _), !.
+array_defined(Name) :-
+	throw(
+		array_error( 
+			ERR_ARRAY_UNDEFINED, 'Array is not defined', Name ) 
+	       ).
+
+array_undefined(Name) :- 
+	not(array(Name, _, _)), !.
+array_undefined(Name) :-
+	throw(
+		array_error( 
+			ERR_ARRAY_ALREADY_DEFINED, 'Array is already defined', Name ) 
+	       ).
+
+valid_boundary(Name, unlimited-unlimited, -inf, +inf) :- !.
+valid_boundary(Name, unlimited-High     , -inf, High) :- !.
+valid_boundary(Name, Low-unlimited      ,  Low, +inf) :- !.
+valid_boundary(Name, Low-High           ,  Low, High) :-
+	Low =< High, !.
+valid_boundary(Name, Low-High           ,  Low, High) :-
+	throw(
+		array_error( 
+			ERR_ARRAY_INVALID_BOUNDARY, 'Invalid boundaries', Low, High ) 
+	        ).
+valid_boundary(Name, unlimited		,    0, +inf).
+valid_boundary(Name, Size               ,    0, High) :-
+	Size > 0, 
+	High is Size - 1, !.
+valid_boundary(Name, Size               ,    _,    _) :-
+	throw(
+		array_error( 
+			ERR_ARRAY_INVALID_SIZE, 'Invalid array size', Size ) 
+	        ).
+
+valid_index(Name, Index) :-
+	array(Name, Low, High),
+	Index >= Low, Index =< High, !.
+valid_index(Name, Index) :-
+	array(Name, Low, High),
+	throw(
+		array_error(
+			ERR_ARRAY_INVALID_INDEX, 'Index is outside array bounds',
+				Index, Low, High )
+	       ).
+		
+
+create(Name, Range) :-
+	array_undefined(Name),	
+	valid_boundary(Name, Range, Low, High),
+	assert( array(Name, Low, High) ).
+
+delete(Name) :-
+	array_defined(Name),
+	retractall(array(Name, _, _)),
+	retractall(array_value(Name, _, _)).
+
+
+set(Name, Index, Value) :-
+	valid_index(Name, Index),	
+	retractall( array_value(Name, Index, _) ),
+	assert( array_value(Name, Index, Value) ).
+	
+get(Name, Index, Value) :-
+	valid_index(Name, Index),
+	do_get(Name, Index, Value).
+	
+do_get(Name, Index, Value) :-
+	array_value(Name, Index, Value), !.
+do_get(Name, Index, null).
+
+
+array_print(Name) :-
+	write('Array '), write(Name), write(' : '), nl,
+	findall([X, Y], array_value(Name, X, Y), ElementsList),
+	print(Name, ElementsList).
+
+	
+array_print(Name, []).
+array_print(Name, [ [Index, Value] | Tail ]) :-
+	print nl + spaces(3) + '[' + right(Index, 5) + '] ; '+  Value + nl,
+	print(Name, Tail).

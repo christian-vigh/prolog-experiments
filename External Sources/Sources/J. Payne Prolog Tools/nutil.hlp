@@ -1,0 +1,73 @@
+ADVICE.PL     Interlisp-like advice package	Needs concat/3, flag/3
+APPLIC.PL     contains apply-like routines	Needs append/3
+ARC3.PL       Mackworth's "arc consistency"
+ARITH.OPS     declarations for PRESS's extra arithmetic operators
+ARITH.PL      defines plus/3,times/3,divide/4,succ/2 and so on
+ARRAYS.PL     is an updateable arrays facility
+ASK.PL        asks questions with one-character answers
+ASSOC.PL      contains a binary tree implementation of "association lists"
+BACKUP.PL     backs up a file with the extension specified
+BAGUTL.PL     contains bag-manipulating utilities
+BETWEE.PL     integer enumeration
+CLAUSE.PL     convert arbitrary logical form to clauses
+COUNT.PL      counts predicates and clauses in a program and its subfiles
+DCSG.PL       Definite Clause Slash Grammar preprocessor
+DECONS.PL     construct/deconstruct Prolog special forms
+EDIT.PL       edits a file then runs mec:prolog
+EXPAND.PL     expands simple macros
+FILES.PL      contains file-manipulating routines
+FLAGRO.PL     manipulates global variables (flags)
+FLAT.PL       flatten binary trees to lists, and conversely
+FLALL         list of files in UTIL:, suitable for SUBFIL
+FLS           list of files in UTIL:, suitable for PRINT
+GENSYM.PL     contains the compiled routines cgensym, concat, gensym
+GETFIL.PL     read a line, prompt for a file name
+GRAPHS.PL     processes graphs (including transitive closure)
+HEAPS.PL      contains (mergable) heap-manipulating routines
+HELPER.PL     prints extracts from help files
+IMISCE.PL     contains \=, casserta, cassertz, clean, diff, gcc
+INVOCA.PL     contains forall, once, not
+IXREF.PL      Interactive cross-referencer (needs PP.PL)
+LIB.PL        looks through directories for a file, then reconsults the file
+LIB2.PL       the compiled part of LIB
+LISTUT.PL     contains list-manipulating utilities
+LONG.PL       contains routines for arithmetic manipulation of rational numbers
+MAP.PL        implements functions of (small) finite domain
+MEDIC.PL      helps to diagnose mode errors
+METUTL.PL     contains meta-logical operations
+MULTIL.PL     contains multiple-list routines
+MUTIL         is the root for the Minimal UTILities collection
+MUTIL.MIC     is used by MAKSYS to build MUTIL.EXE 
+NOT.PL        negates "suspiciously"
+OCCUR.PL      checks number/place of occurrence, replace at specific position
+ORDER.PL      tell when a list is in order (can use any test)
+ORDSET.PL     contains ordered-set-manipulating routines
+PP.PL         Prolog pretty-printer, easy interface to current_predicate &c
+PROJEC.PL     selects Kth argument of each element of a list
+PROLOG.TYP    declares types for built-in predicates and minimal utilities
+PUTSTR.PL     prints a section of a file (part of new unwritten help system)
+QUEUES.PL     defines queue operations
+RDSENT.PL     reads a single sentence as a list of words.
+RDTOK.PL      is an interface to the Prolog tokeniser
+READ.PL       is a Prolog parser written in Prolog (needs RdTok.Pl)
+READIN.PL     reads an English paragraph as a list of words.
+SETOF.PL      defines set_of, bag_of, findall
+SETUTL.PL     contains set-manipulating utilities
+STRUCT.PL     defines substitution and other things that should be in METUTL
+TEST.PL       tests compiled routines by interpreting them
+TIDY.PL       simplifies algebraic expressions, but not much (for PRESS)
+TIMING.PL     use with TIMING.POP to get dynamic call counts
+TRACE.PL      contains trace routines
+TREES.PL      contains routines for updating binary trees
+TRYSEE.PL     searches several directories/extensions for a file
+TYPE.PL       types file(s) to the screen
+TYPECH.PL     checks Prolog types
+UPDATE.PL     updates "data-base" relations
+UTIL          Root file for the Utilities package.
+UTIL.DEF      contains definitions of utilities for XREF
+UTIL.MIC      is used by MAKSYS to build the UTILities package
+UTIL.OPS      declares operators used by UTIL not already in PROLOG
+UTIL.TXT      "Utility is_defined_in File" sorted on both keys (needs updating)
+VCHECK.PL     reads each clause of a file and reports unique variables
+WRITE.PL      portable versions of display,print,write,writeq
+WRITEF.PL     contains formatted output routines

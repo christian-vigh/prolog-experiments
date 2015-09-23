@@ -1,0 +1,14 @@
+
+
+:- op( 500, xfx, covers ).
+:- op( 800, xfx, and).
+
+
+X covers interval(Left, Low, High, Value2) :-
+	write(Low), nl.
+	
+X covers [H|T] :-
+	XH covers H,
+	XT covers T,
+	X = [XH | XT].
+X covers [].

@@ -1,0 +1,19 @@
+Here is  a Flat Concurrent Prolog Compiler to the digest, as well
+as an introduction to FCP. We suggest that the introduction be published
+and the files for the compiler be placed in the library. The files in this
+message have been concatenated and are identified by "/**FILE : Name **/"
+They are :
+
+letter - this file
+intro - introduction
+
+lfcpc - load file
+compile.pl        -  compiler
+kernel.pl         -  for compiling body kernel predicates
+runtime.pl        -  runtime routines
+toplevel.pl       -  top level routines
+trace.pl          -  trace package
+unify.pl          -  unification
+util.pl           -  utilities
+
+Udi Shapiro / Colin Mierowsky

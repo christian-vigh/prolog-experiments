@@ -1,0 +1,76 @@
+Prolog-10  version 3.3
+Copyright (C) 1981 by D. Warren, F. Pereira and L. Byrd
+
+| ?- [mis].
+?
+
+xref.def consulted   96 words      0.09 sec.
+
+misrg compiled: 936 words,     0.83 sec.
+
+dsutil compiled: 4167 words,     3.97 sec.
+
+pdsref compiled: 1398 words,     1.55 sec.
+
+type compiled: 1324 words,     1.51 sec.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+
+pdsini consulted   94 words      0.30 sec.
+
+pdsdc consulted   1784 words      0.82 sec.
+
+pdsdb consulted   1912 words      0.95 sec.
+
+missrc consulted   498 words      0.28 sec.
+
+mis consulted   14997 words     12.92 sec.
+
+yes
+| ?- [cfree].
+?
+?
+?
+?
+?
+?
+
+cfree consulted   978 words      0.49 sec.
+
+yes
+| ?- mis.
+
+Next fact? factor([a],[]),true.
+Checking fact(s)...
+Error: missing solution factor([a],[]). diagnosing...
+Error diagnosed: factor([a],[]) is uncovered.
+
+Searching for a cover to factor([a],[])...
+Refining: (factor([],[]):-true)
+Procedures called by factor([],[])? ident(_,_),expression(_,_),number(_,_).
+Failed to find a cover for factor([a],[]). queue is empty
+Refining: (factor([],[(X,Y)]):-true)
+Procedures called by factor([],[(X,Y)])? Failed to find a cover for factor([a],[]). queue is empty
+Refining: (factor([],[(X,Y),(Z,U)]):-true)
+Procedures called by factor([],[(X,Y),(Z,U)])? [ Execution aborted ]
+
+| ?- core     81408  (35840 lo-seg + 45568 hi-seg)
+heap     18944 =  17304 in use +   1640 free
+global    1451 =     16 in use +   1435 free
+local     1024 =     16 in use +   1008 free
+trail      511 =      0 in use +    511 free
+    0.01 sec. for 1 GCs gaining 921 words
+    0.05 sec. for 12 local shifts and 14 trail shifts
+   16.72 sec. runtime

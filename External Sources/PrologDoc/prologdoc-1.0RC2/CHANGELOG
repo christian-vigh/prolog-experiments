@@ -1,0 +1,46 @@
+#  This file is part of PrologDoc (http://prologdoc.sourceforge.net/).
+#
+#  Copyright (C) 1999 by Elisheva Bonchek (le7bonch AT cs.huji.ac.il) and Sara Cohen (sarac AT ie.technion.ac.il, http://iew3.technion.ac.il/~sarac) 
+#  Copyright (C) 2004 by Bram Adams (bram.adams AT ugent.be)
+#  Copyright (C) 2004 by Salvador Fandino (sfandino@yahoo.com)
+#
+#
+#  PrologDoc is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  PrologDoc is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with PrologDoc; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+******************
+* Release 1.0RC2 *
+******************
+enter Salvador Fandino!
+
+*real Linux-installation (./configure; make; make install)
+*man pages for pldoc and PrologDoc
+*new start script (in perl)
+*exit sicstus mode
+*solved problem with module references crossing directories
+
+
+
+******************
+* Release 1.0RC1 *
+******************
+= initial version, based on the work of Elisheva Bonchek (le7bonch AT cs.huji.ac.il) and Sara Cohen (sarac AT ie.technion.ac.il, http://iew3.technion.ac.il/~sarac).
+
+*switch to SWI-Prolog (freely available on http://www.swi-prolog.org/); SICSTUS-Prolog was not free software
+*limitation to files with extension .pl, residing in same directory as PrologDoc itself, has been solved
+*docs-directory automatically created if non-existing
+*validated plain html, with possible use of a CSS-stylesheet, instead of the fixed layout
+*synonymous predicates are differentiated on the index page and at the top of the other html-files by their form-values instead of the usual name/arity. Only if there are multiple files with the same predicate and arity, there will be synonyms. This could be solved in the future, but is not that relevant for the moment.
+*PrologDoc looks for a style sheet (style.css) in the specified PrologDoc-directory.
+*Default css-stylesheet by Kris De Schutter.

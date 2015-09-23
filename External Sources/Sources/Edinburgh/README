@@ -1,0 +1,18 @@
+ Karl Horton 15th March 1988
+ File: $read.me
+
+ This is the contents of the edinburgh library tape.
+
+ Unfortunately I had to flatten the directory structure as I copied it.
+ All the files have been left as version 1 and should stay that way,
+ modified versions should go elsewhere to preserve source integrity.
+
+ It must be said that it is in a bit of a mess;  If you want to use 
+ any of thi stuff you will need to do some source hacking.
+
+ Useful things to read are:
+
+ CONTENTS. - contains brief info on the files.
+ *.HLP     - contains details of a program written by the author.
+
+

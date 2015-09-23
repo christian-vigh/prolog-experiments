@@ -1,0 +1,256 @@
+			PrologDoc Help
+			=-=-=-=-=-=-=-
+
+#  This file is part of PrologDoc (http://prologdoc.sourceforge.net/).
+#
+#  Copyright (C) 1999 by Elisheva Bonchek (le7bonch AT cs.huji.ac.il) and Sara Cohen (sarac AT ie.technion.ac.il, http://iew3.technion.ac.il/~sarac) 
+#  Copyright (C) 2004 by Bram Adams (bram.adams AT ugent.be)
+#  Copyright (C) 2004 by Salvador Fandino (sfandino@yahoo.com)
+#
+#
+#  PrologDoc is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  PrologDoc is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with PrologDoc; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+0) Credits
+__________
+PrologDoc was created in 1999 by:
+	*Elisheva Bonchek (le7bonch AT cs.huji.ac.il)
+	*Sara Cohen (sarac AT ie.technion.ac.il, http://iew3.technion.ac.il/~sarac)
+
+In october 2004, Bram Adams (bram.adams AT ugent.be) reworked it for own, non-commercial use. He adjusted a number of things:
+*switch to SWI-Prolog (freely available on http://www.swi-prolog.org/); SICSTUS-Prolog was not free software
+*limitation to files with extension .pl, residing in same directory as PrologDoc itself, has been solved
+*docs-directory automatically created if non-existing
+*validated plain html, with possible use of a CSS-stylesheet, instead of the fixed layout
+*synonymous predicates are differentiated on the index page and at the top of the other html-files by their form-values instead of the usual name/arity. Only if there are multiple files with the same predicate and arity, there will be synonyms. This could be solved in the future, but is not that relevant for the moment.
+*PrologDoc looks for a style sheet (style.css) in the specified PrologDoc-directory.
+*Default css-stylesheet by Kris De Schutter.
+
+At the end of the month, it got released on sourceforge.net with version number 1.0RC1 and it started a whole new life. Soon Salvador Fandino (sfandino@yahoo.com) joined.
+
+1) Installation
+_______________
+*install SWI-Prolog (freely available on http://www.swi-prolog.org/) 
+*unpack the .tar.gz-file to a directory D and cd D
+*./configure [--with-pldir=path_to_directory_where_PrologDoc's_prolog_modules_should_be_put] \
+	     [--with-cssdir=path_to_directory_where_PrologDoc's_css_stylesheets_should_be_put] \
+	     [--with-swipl=path_to_directory_containing_SWI-Prolog_executable] \
+	     [--with-perl=path_to_directory_containing_Perl_executable]
+->By default, directories $libdir/prologdoc/prolog and $libdir/prologdoc/css are created. $libdir is /usr/local/lib by default, but can also be set: just do ./configure --help.
+->The SWI-Prolog executable, if not specified explicitly to ./configure, is supposed to be called swipl or pl. If not found on the path, an error message will display.
+->The same holds for the Perl executable, this time with the name perl.
+*make
+*su
+*make install (alternatively on Slackware: checkinstall)
+*We supply a default style.css, which you can change or replace if needed. It's located in the specified css-directory.
+
+
+2) Usage
+________
+pldoc [options] file1.pl file2.pl ...
+
+with as possible options:
+[-v|--verbose] 					Toggles verbose mode.
+[-l|--load preload_file]			Should contain the custom operators used in the source 
+						code you want to document. These will be preloaded before 
+						parsing the source code.
+[-p|--prefix prefix_for_html_elements]		Enables the use of css-stylesheets on other locations than 
+						the one specified at configure-time or on remote servers 
+						(i.e. --prefix=http://style_sheets/).
+[-s|--side-effects] 				Determines whether side effects should be documented.
+[-f|--footer <footer>]				Should be a string between quotation marks containing a footer 
+						which will be displayed on the generated HTML-pages. 
+						E.g.: pldoc -f "Copyright (c) 2004. All rights reserved." peanuts.pl
+[-t|--to dest_dir] 				Destination directory of the generated documentation. By default, 
+						the current working directory is used.
+[-z|--tracer]					Enables GUI-less debugging.
+[-Z|--gui-tracer]				Enables graphical debugging.
+[-?|--help]					Shows usage info.
+
+For extra help, do 'man pldoc'.
+
+
+3) Tags
+_______
+a) Automatically generated information:
+
+       When documenting a Prolog program "filename", the follow­
+       ing information is automatically inserted in PrologDoc
+       documentation, without user intervention:
+
+       Files
+           that "filename" consults.
+
+           Example: if "filename" contains
+
+             :‐ [file1,file2].
+
+           then file1 and file2 will be included in this list.
+
+       Libraries
+           that "filename" uses.
+
+           Example: if "filename" contains
+
+             :‐ use_module(library(system)).
+
+           then system will be included in this list.
+
+       Side‐effects
+           encountered when loading "filename".
+
+           Example: if "filename" contains
+
+             :‐ foo(bar).
+
+           then this predicate will be included in this list.
+
+           Note: generation of side effects documentation is tog­
+           gled off by default. Use
+
+             $ pldoc ‐‐side‐effects ...
+
+           to activate it.
+
+       Predicates
+           defined in "filename".
+
+           Note: This list will include only exported predicates
+           if "filename" is defined as a module.
+
+       Module name
+           if "filename" is defined as a module.
+
+
+b) Predicate-specific comments:
+
+       Using the PrologDoc syntax enables you to extensively doc­
+       ument predicates that you define. A PrologDoc predicate
+       comment is defined within
+
+          /** blah, blah, blah... */
+
+       It should be placed immediately before the predicate it is
+       documenting.  The PrologDoc syntax is similar to JavaDoc.
+       The following tags can be used within a predicate comment:
+
+       @descr
+           For giving a general description of the predicate
+
+       @form
+           is used to define the general form of the predicate
+
+       @constraints
+           Used to define constraints on the parameters.
+
+           After a @contraints tag there can be a series of:
+
+           @ground
+               to define a parameter that must be ground
+
+           @unground
+               to define a parameter that can not be ground
+
+           @unrestricted
+               to define a parameter that is not restricted
+
+           There can be several @constraints tags to define dif­
+           ferent options of constraining parameters.
+
+           Example: the following could be a predicate comment
+           for the member predicate:
+
+             /** @form member(Value,List)
+                 @constraints
+                    @ground Value
+                    @unrestricted List
+                 @constraints
+                    @unrestricted Value
+                    @ground List
+                 @descr True if Value is a member of List
+             */
+
+
+c) General file comments:
+
+       Using PrologDoc you can give a general description to the
+       file. This enables you to globally document the purpose of
+       the prolog program defined within. A general file comment
+       is defined within
+
+         /*** blah, blah, blah... */
+
+       and may be located anywhere in the file. The following
+       tags can be used within a predicate comment:
+
+       @descr
+
+       for giving a general description of the file
+
+       @author
+
+       to specify the name of an author
+
+       @date
+
+       to specify the date creation of the file
+
+       Note: since the values of the tags are copied "as is" into
+       the HTML documentation, HTML tags may be used within these
+       values.
+
+       Example:
+
+         /*** @descr This file is used for many thing. Among them are:
+                 <ul>
+                   <li> Purpose 1 ?
+                   <li> Purpose 2 ?
+                 </ul>
+              @author John Smith
+              @date 1/1/00
+         */
+
+
+For more information, have a look at 'man PrologDoc' or the PrologDoc-files themselves. You can generate PrologDoc's documentation with 'pldoc -t some_where path_to_PrologDoc's_files/*.pl'.
+
+
+4) Examples
+___________
+$pldoc -t /tmp/docs/ /home/bram/prolog/l[ab]*.pl: just documents /home/bram/prolog/l[ab]*.pl-files to /tmp/docs/ using the default css-stylesheet, without preloading, side-effects, footer nor verbose comments
+
+$pldoc -v -f "Copyright (c) 2004 Homer Simpson. All rights reserved." -p ./myoperators.pl `cat ./file.txt`: documents the prolog-files found line per line in file.txt, making sure that first the definitions of custom operators are read in. There's also a footer and lots of verbose comments made while processing.
+
+$pldoc -z -t /tmp/docs/ /home/bram/prolog/l[ab]*.pl: like first example, but with GUI-less debugging enabled
+
+$pldoc -v -f "Copyright (c) 2004 Homer Simpson. All rights reserved." -p ./myoperators.pl `cat ./file.txt`: like second example, but with graphical debugging enabled
+
+
+5) FAQ
+______
+a) Is embedded HTML-code possible?
+b) Why do embedded lists in file comments look so weird?
+c) Why do embedded lists in predicate comments look so weird?
+
+a) Yes, but be cautious with <ul>'s and <ol>'s (see b) and c)). Use \" instead of " in the tags (e.g. <font color=\"Red\">).
+b) End possible text before the list with </p> and start text after it with <p>.
+c) Known bug ;-).
+
+
+6) Future work
+______________
+*Generation of XML instead of HTML.
+*Extensibility for custom extensions of Prolog (DCG rules, object oriented systems like LogTalk or PCE, functional extensions like grips, etc.).
+*Hierarchical directory structure instead of flat organisation. Look at UsedNames-argument for run/6, generateHTML/6, getHTMLFileName/3 and seekUniqueName/4.
+*Embedded HTML-lists in predicate comments (and in file comments).
+*If multiple files with the same predicate and arity exist, there will be synonyms. This could be solved in the future (index), but is not that relevant for the moment.

@@ -1,0 +1,372 @@
+
+
+
+SRC Interactive Computing Facility                       Prolog Program Library
+SRC Interactive Computing Facility                       Prolog Program Library
+SRC Interactive Computing Facility                       Prolog Program Library
+SIG Artificial Intelligence                                           WINSTO
+SIG Artificial Intelligence                                           WINSTO
+
+
+
+                     Department of Artificial Intelligence
+                     Department of Artificial Intelligence
+                            University of Edinburgh
+                            University of Edinburgh
+                            University of Edinburgh
+
+
+                THE WINSTON-PLOTKIN-YOUNG-LINZ LEARNING PROGRAM
+                THE WINSTON-PLOTKIN-YOUNG-LINZ LEARNING PROGRAM
+                THE WINSTON-PLOTKIN-YOUNG-LINZ LEARNING PROGRAM
+
+                               Source:    Alan Bundy
+                       Program Issued:    May 1981
+                        Documentation:    September 1981
+
+
+1. Description1. Description1. Description
+
+This  is  a  rational  reconstruction  of  Winston's program, [Winston 75], for
+                                     1
+                                                                     _________
+learning new concepts, e.g. the arch.   It  takes  descriptions  of  speci
+which  can be either examples of arches or near misses to arches, and uses them
+to refine its definition of an arch. The rational reconstructing  was  done  by
+Plotkin,  Young  and  Linz,  as reported (all too briefly) in [Young et al 77].
+                                                    ___
+Their essential advance over Winston was  to  keep  two  defining  descriptions
+around:  an  upper  and  lower  bound; and use incoming evidence to try to move
+these descriptions closer together.
+
+
+2. How to Use the Program2. How to Use the Program2. How to Use the Program
+
+To use the program, first run the Prolog interpreter and then type
+
+    consult('UTIL:UTIL'), consult('PLL:WINSTO').
+
+This loads some general utility routines and then the  program  itself.    Note
+that  the  prefixes UTIL: and PLL: are just logical path names designating disk
+areas containing the utility routines and the Prolog library respectively.  You
+may have to define these logical names for yourself, or you can  omit  them  if
+all the necessary files are in your search path.  See documentation on PATH for
+more information.
+
+                            winston                           winston
+                            winston                           winston
+The  top  level  predicate, winston, will then be available.  winston takes one
+argument: the name of the concept to be learnt, e.g.  arch. If you call
+
+    winston(arch).
+
+_______________
+  1
+   In this program specification we will use 'arch'  as  the  running  example.
+Readers  may safely generalize 'arch' to 'concept', wherever it appears, except
+when indicated to the contrary.
+
+
+
+
+
+
+
+
+WINSTO                               - 2 -
+
+
+then  the  program  will prompt you for the name of a particular arch.  It will
+use this to initialize its lower bound arch description:  the upper  one  being
+initialized  to  the  contentless description.  The program will prompt you for
+the name of either an arch or a near miss. It will then ask you whether this is
+an example, to which you must reply  either  'yes'  or  'no'.  All  replies  to
+prompts must be terminated with full stop, carriage return.
+
+The  program  will  continue  to  prompt  you  with  requests  for  examples or
+near-misses, until its upper and lower bound  descriptions  coincide  at  which
+                                                                    winston
+                                                                    winston
+point it will announce that it has learnt the concept and will exit winston.
+
+If  the  evidence  you provide is already known to the program then it will say
+so. If it thinks you have provided contradictory evidence then it will say  so,
+try to back up to remake some choice, and then collapse in a heap.
+
+To make the program work you must have compiled the following information:
+
+   - A definition of the description space of the concept you want learnt.
+
+   - Descriptions  of  each of the examples and near misses to be input to
+     the program.
+
+The  information  required  for  the  concept  'arch'  can  be  found  in  file
+PLL:ARCH.PRB. It can be input by typing
+
+    consult('PLL:ARCH.PRB').
+
+                                                                 specimen
+                                                                 specimen
+The  description  of  a  specimen  is  given  by  the predicate, specimen. This
+predicate takes two arguments: the name of the specimen; and a list of defining
+propositions, e.g.
+
+    specimen(arch1, [block(a), block(b), block(c),
+            standing(a), standing(b), lying(c),
+            leftof(a,b),
+            supports(a,c), supports(b,c),
+            marries(a,c), marries(c,a), marries(b,c), marries(c,b)]).
+
+The predicates used in these  descriptions  must  be  arranged  into  trees  of
+                                                                    tree  tree
+                                                                    tree  tree
+related predicates,  and  these trees described with the predicate, tree. tree
+takes three arguments:  the name of the tree;  the  common  arity  of  all  the
+predicates  in  it;  and  the  tree  itself,  represented  as  a nested term of
+predicates, e.g.
+
+    tree(touchtree,2,touchrel(separate,touch(marries,abuts))).
+
+                                        touchrel
+                                        touchrel
+This tree is diagrammed in figure 3-1.  touchrel is  a  contentless  predicate.
+Two  objects  may  either touch or be separate. Two touching objects may either
+marry or abut.  One of these predicates can be marked as  a  default  with  the
+                  default
+                  default
+binary predicate, default, e.g.
+
+    default(touchtree,separate).
+
+Finally  a  list  of  those  predicate trees, which can be used in defining the
+                                                                  space
+                                                                  space
+concept, must be given.  This is done with the binary predicate,  space,  which
+takes the name of the concept and the list of allowed trees, e.g.
+
+    space(arch,[shapetree,touchtree,orienttree,directiontree,supporttree]).
+
+
+
+
+
+
+
+
+                                     - 3 -                               WINSTO
+
+
+3. How it Works3. How it Works3. How it Works
+
+We  first  describe  the  data-structures  used by the program and then give an
+overview of the program.
+
+
+3.1. Data-Structures3.1. Data-Structures3.1. Data-Structures
+
+The program's description of a concept consists of a set  of  predicate  trees,
+with  two  pointers  into each tree: one representing an upper bound; and one a
+lower bound. Each relation, in the incoming specimen description, is translated
+into a predicate tree, with a pointer to the relation's predicate  (see  figure
+3-1).
+
+   - If  every specimen pointer is below the lower bound then the specimen
+                       _______      is known to be an example.
+
+   - If one specimen pointer is above the upper bound then the specimen is
+           known not to be an example, but to be a near-miss.
+
+   - Otherwise, one specimen pointer must lie in the grey area between the
+     upper and lower bound and the  program  does  not  already  know  the
+     status  of  the specimen. On being told the status, it can modify its
+     definition, by either raising its lower bound to include the specimen
+     pointer (e.g. to predicate 'touch' in figure 3-1),  or  lowering  its
+     upper  bound  to  exclude  the  specimen  pointer  (e.g. to predicate
+     'marries' in figure 3-1).
+
+Note that there will be different predicate trees for different combinations of
+arguments  to  the  same  predicate,  e.g.  for  abuts(a,c),   abuts(a,b)   and
+abuts(c,a), say.
+
+A  set  of  predicate  trees  is  represented  by  a  list of terms:  each term
+representing a predicate tree together with pointers.   For  instance,  in  the
+case of the definition of a concept, a typical term might be
+
+    define([plato1,plato3], touchtree, [], [2,1])
+    define
+tree; the first gives the combination of arguments received by  the  predicates
+of  this  tree;  and  the  third and fourth give the positions of the upper and
+lower bounds, respectively. The  constants  used  as  arguments  in  a  concept
+definition are always called platoN, because they are ideal objects.  Positions
+in the tree are given by lists of positive integers which specify which arcs to
+follow  to  traverse  the tree from the root to the predicate being pointed to.
+The empty list specifies the root.    The  example  above  corresponds  to  the
+situation in figure 3-1.
+
+The  description  of  a specimen is recorded in a similar fashion.  The term in
+    record([a,c], touchtree, [2,2])
+
+where a and c are constants mentioned in the original specimen description.
+
+Once a match has been established  between  the  (platonic)  constants  of  the
+
+
+
+
+
+
+
+
+WINSTO                               - 4 -
+
+
+                        touchrel (upper bound position)
+                       /        \
+                      /  1       \  2
+                 separate       touch
+                              /       \
+                             / 1       \  2
+                        marries       abuts
+                           (lower        (specimen
+                            bound         position)
+                            position)
+
+
+                  Figure 3.1:
+
+
+definition    and    the   particular   constants   of   the   specimen,   e.g.
+{a/plato1, b/plato3, c/plato3}, then a difference description is built up. This
+is a also a list of terms, but constructed  from  the  six  argument  function,
+differ      differ      differ, e.g.
+
+    differ([plato1, plato3], touchtree, [], [2,2], [2,1],
+
+This  contains, not only, the information from the record and define terms, but
+
+also the status of the specimen, e.g. grey.
+
+
+3.2. Program Overview3.2. Program Overview3.2. Program Overview
+
+The program is divided into four parts.
+
+   1. Top level input/output procedures. The very top level  procedure  is
+      winston
+      winston
+      winston,  described  above,  but  the  heart  of  the program is the
+                learn
+                learn
+      procedure learn, which links together the remaining three  parts  of
+      the program.
+
+          learn(Concept, Specimen, YesNo) :- !,
+                  definition(Concept,CObjs,CDefn),
+                  make_rec(Concept,Specimen,EObjs,ERec),
+                  classify(CObjs,EObjs,CDefn,ERec,Diff,Verdict),
+                  learn1(Concept,Diff,YesNo,Verdict).
+
+                                                                     learn
+      current specimen; and its status  according  to  the  user.    learn
+      modifys the program's concept definition appropriately.
+
+   2. Procedures  to  translate  the  original input descriptions into the
+      internal representation as a set of predicate trees  with  pointers.
+                                                 make_rec
+                                                 make_rec
+      The  top  level  procedure of this part is make_rec, which takes the
+      concept and the specimen and returns the internal description of the
+      latter as a list of constants and a list of predicate tree records.
+
+   3. Procedures to  match  the  constants  in  the  specimen  description
+      against those in the stored definition and to classify the resulting
+      description  as  example, near miss or grey. The top level procedure
+                      classify
+                      classify
+      of this part is classify, which takes the  constants  and  predicate
+      trees  from both the concept definition and the specimen, and forms,
+      first a difference description and  then  a  classification  of  the
+
+
+
+
+
+
+
+
+                                     - 5 -                               WINSTO
+
+
+      specimen's status.
+
+   4. Procedures   to   act   appropriately  to  this  classification,  in
+      particular, to adjust the stored definition of the concept when  the
+      incoming  specimen is classified as 'grey'.  The top level procedure
+                          learn1
+                          learn1
+      of  this  part  is  learn1,  which  takes  the  concept,  difference
+      description  and  the  status  of the specimen according to both the
+      user and the program.
+
+The best match between the incoming specimen and the definition is found  in  a
+crude heuristic way. The heuristic is that even non-examples (near misses) will
+be  almost  examples. All matches of objects are tried. For each assignment all
+corresponding predicate trees are compared.  A  score  for  the  assignment  is
+totted  up:  each  pair  of  predicate  trees  contributing  either  0, 2 or 1,
+according to whether the specimen pointer appears below the lower bound,  above
+the upper bound or in between.  The assignment with the lowest score wins.
+
+It  can happen that the concept definition contains a predicate tree which does
+not correspond to any tree in the specimen description, or vice versa. In  such
+cases  the  program assumes that the missing tree is provided with a pointer to
+the default predicate in  the  case  of  a  missing  lower  bound  or  specimen
+position, and a pointer to the tree root in the case of a missing upper bound.
+
+
+4. Program Requirements4. Program Requirements4. Program Requirements
+
+The  Prolog system requires 30K words.  UTIL:UTIL, PLL:WINSTO, PLL:ARCH.PRB and
+working space require a further 26K words.  The following predicates  are  used
+by the program:
+
+    add_ups(2)      append(3)       apply(2)        best(2)
+    checklist(2)    classify(6      common(3)       compare(4)
+    consts_in(2)    convert(2)      default(2)      default_posn(2)
+    definition(3)   diff_to_defn(2) exclude(2)      extra_rec(2)
+    findall(3)      flatten(2)      gensym(2)       gensym1(3)
+    grey(1)         grey1(1)        learn(3)        learn1(4)
+    lowest(4)       lub(2)          make_diff(5)    make_rec(4)
+    make_subst(3)   maplist(3)      new_defn(2)     nth_el(3)
+    one_of(3)       pair_off(3)     perm(2)         position(3)
+    same(1)         score(2)        score1(2)       select(3)
+    some(2)         space(2)        specimen(2)     subst(3)
+    sumlist(2)      tree(3)         union(3)        verdict(2)
+    verdict1(2)     winston(1)      winston1(1)     writef(2)
+
+
+                                  REFERENCES
+                                  REFERENCES
+                                  REFERENCES
+
+
+[Winston 75]
+               Winston, P.
+               ________ __________ ____________ ____ ________
+               Learning structural descriptions from examples.
+               McGrawb Hill, 1975, .
+
+
+
+
+
+
+WINSTO                               - 6 -
+
+
+[Young et al 77]
+               Young, R.M., Plotkin, G.D. and Linz, R.F.
+               Analysis of an extended concept-learning task.
+                                     _____ __
+  In Reddy, R., editor, IJCAI-77, pages p285.  International Joint
+                  Conference on Artificial Intelligence, 1977.
+

@@ -1,0 +1,8 @@
+system(true).
+system(X < Y).
+system(X > Y).
+system(X = Y).
+system(X is Y).
+system(X =< Y).
+system(X >= Y).
+:- end.

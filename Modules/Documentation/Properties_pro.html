@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/Properties_pro.html</title>
+<!-- Source: ./Properties.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo7">Modules/Properties</a></li>
+<li>2. <a href="#robo93">Modules.Properties/is_property</a></li>
+<li>3. <a href="#robo94">Modules.Properties/property</a></li>
+<li>4. <a href="#robo95">Modules.Properties/property_bag</a></li>
+<li>5. <a href="#robo96">Modules.Properties/property_bag_delete</a></li>
+<li>6. <a href="#robo97">Modules.Properties/property_delete</a></li>
+<li>7. <a href="#robo98">Modules.Properties/property_names</a></li>
+</ul>
+<hr />
+<a name="Modules2fProperties">
+</a><a name="robo7"></a><h2>Modules/Properties [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>Properties</strong> - Property-handling predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">Properties.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Implements <a href="#robo94">property</a> bags as dynamic clauses.
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, July 2005.
+
+</pre>
+
+<hr />
+<a name="Modules2eProperties2fis5fproperty">
+</a><a name="robo93"></a><h2>Modules.Properties/is_property [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>is_property</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>is_property</strong>(Bag, Name)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>              Succeeds if [Name] is a <a href="#robo94">property</a> of [Bag].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Bag] (i) -
+              Property bag to look into.
+      [Name] (i) -
+              Name of the <a href="#robo94">property</a> to check.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>is_property</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        propertyBagItem<span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eProperties2fproperty">
+</a><a name="robo94"></a><h2>Modules.Properties/property, property_get,<br />property_set [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>        <strong>property</strong>/3, <strong>property_set</strong>/3, <strong>property_get</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>property</strong>(Bag, Name, Value)
+      <strong>property_set</strong>(Bag, Name, Value)
+      <strong>property_get</strong>((Bag, Name, Value)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      <strong>property</strong>/3 unifies [Value] with the value of the <strong>property</strong> [Name] in [Bag],
+      if [Value] is a variable (= <strong>property_get</strong>/3).
+      If [Value] is not a variable, then <strong>property</strong>/3 sets the value of the <strong>property</strong> 
+      [Name] in [Bag] to [Value] (= <strong>property_get</strong>/3).
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Bag] (i) -
+              Property bag to look for.
+      [Name] (i) -
+              Name of the <strong>property</strong>.
+      [Value] (i,o) -
+              When bound, specifies the new value for [Name].
+              Otherwise, unified to the value of <strong>property</strong> [Name] in [Bag].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <strong>property_set</strong> can be used to add new properties in [Bag].
+      To check for the presence of a <strong>property</strong>, use <a href="#robo93">is_property</a>/2.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>property</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">var</span><span class="sign">(</span>Value<span class="sign">)</span><span class="sign">,</span>
+        <strong>property_get</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+<strong>property</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>property_set</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">%</span>
+<span class="comment">% Implementation of <strong>property_set</strong>.</span>
+<span class="comment">%</span>
+<strong>property_set</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        propertyBag<span class="sign">(</span>Bag<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo97">property_delete</a><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span><span class="sign">(</span>
+                properties<span class="sign">:</span>propertyBagItem<span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+                        propertyBag<span class="sign">(</span>Bag<span class="sign">)</span>
+                <span class="sign">)</span><span class="sign">)</span><span class="sign">.</span>
+        
+
+<span class="comment">%</span>
+<span class="comment">% implementation of <strong>property_get</strong>.</span>
+<span class="comment">%       </span>
+<strong>property_get</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        propertyBagItem<span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eProperties2fproperty5fbag">
+</a><a name="robo95"></a><h2>Modules.Properties/property_bag [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>property_bag</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>property_bag</strong>(X)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Creates a <a href="#robo94">property</a> bag of name [X].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [X] (i) -
+              Name of new <a href="#robo94">property</a> bag.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Property bags are implemented as clauses.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>property_bag</strong><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">assert</span><span class="sign">(</span>properties<span class="sign">:</span>propertyBag<span class="sign">(</span>X<span class="sign">)</span><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eProperties2fproperty5fbag5fdelete">
+</a><a name="robo96"></a><h2>Modules.Properties/property_bag_delete [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>property_bag_delete</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      property_bagdelete(Bag)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Deletes the specified [Bag] and all its properties.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Bag] (i) -
+              Bag to check into.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <strong>property_bag_delete</strong> always succeed.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>property_bag_delete</strong><span class="sign">(</span>Bag<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">retractall</span><span class="sign">(</span><span class="sign">(</span> 
+                properties<span class="sign">:</span>propertyBagItem<span class="sign">(</span>Bag<span class="sign">,</span> _<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> 
+                        propertyBag<span class="sign">(</span>Bag<span class="sign">)</span> 
+                <span class="sign">)</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span>
+                properties<span class="sign">:</span>propertyBag<span class="sign">(</span>Bag<span class="sign">)</span>
+                <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eProperties2fproperty5fdelete">
+</a><a name="robo97"></a><h2>Modules.Properties/property_delete [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>property_delete</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>property_delete</strong>(Bag, Name)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Deletes the <a href="#robo94">property</a> [Name] from <a href="#robo94">property</a> bag [Bag].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Bag] (i) -
+              Bag to check into.
+      [Name] (i) -
+              Name of the <a href="#robo94">property</a> to <a href="./Array_pro.html#robo23">delete</a>.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>              <strong>property_delete</strong> always succeed.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>property_delete</strong><span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">retractall</span><span class="sign">(</span><span class="sign">(</span> 
+                properties<span class="sign">:</span>propertyBagItem<span class="sign">(</span>Bag<span class="sign">,</span> Name<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> 
+                        propertyBag<span class="sign">(</span>Bag<span class="sign">)</span> <span class="sign">)</span><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eProperties2fproperty5fnames">
+</a><a name="robo98"></a><h2>Modules.Properties/property_names [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>property_names</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>property_names</strong>(Bag, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <a href="./List_pro.html#robo3">list</a> of names of all the properties defined in [Bag].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Bag] (i) -
+              Property back to look into.
+      [Result] (o) -
+              List of properties defined in [Bag].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>property_names</strong><span class="sign">(</span>Bag<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">findall</span><span class="sign">(</span>X<span class="sign">,</span> propertyBagItem<span class="sign">(</span>Bag<span class="sign">,</span> X<span class="sign">,</span> _<span class="sign">)</span><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Properties.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:10
+</p>
+</div> <!-- footer -->
+</body>
+</html>

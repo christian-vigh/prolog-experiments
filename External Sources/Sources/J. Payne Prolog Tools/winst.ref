@@ -1,0 +1,114 @@
+                       **********************************
+                       * PROLOG CROSS REFERENCE LISTING *
+                       **********************************
+
+                           FOCUSSING CROSS REFERENCE
+
+
+PREDICATE               FILE          CALLED BY
+
+
+
+
+acceptable/2            CLASSI        extra_rec/3 new_defn/3 pair_off/4 
+
+add_ups/2               FOCUS         <user> focus/1 
+
+append/3                utility       compare/4 discriminate/2 
+
+apply/2                 utility       one_of/3 
+
+best/2                  CLASSI        classify/6 
+
+checklist/2             utility       continue/1 focus/1 grey/1 
+
+classify/6              CLASSI        learn/3 
+
+common/3                LEARN         common/3 discriminate/2 lub/2 
+
+compare/4               CLASSI        extra_rec/3 new_defn/3 pair_off/4 
+
+continue/1              FOCUS         continue/1 focus/1 
+
+convert/2               MAKERC        <user> make_rec/5 
+
+default/2               ARCH3.PRB     default_posn/2 
+
+default_posn/2          CLASSI        extra_rec/3 new_defn/3 
+
+definition/3            undefined     continue/1 grey/1 learn/3 
+
+diff_to_defn/2          LEARN         <user> learn1/4 
+
+discriminate/2          LEARN         NOT CALLED
+
+discriminate_mess/4     LEARN         discriminate/2 
+
+extra_rec/3             CLASSI        pair_off/4 
+
+focus/1                 FOCUS         NOT CALLED
+
+gen_list/3              MAKERC        gen_list/3 gen_term/3 make_rec/5 
+
+gen_term/3              MAKERC        gen_list/3 
+
+generalize_mess/4       LEARN         lub/2 
+
+gensym/2                utility       <user> focus/1 
+
+grey/1                  FOCUS         NOT CALLED
+
+grey1/1                 FOCUS         <user> grey/1 
+
+learn/3                 FOCUS         continue/1 
+
+learn1/4                LEARN         learn/3 
+
+lowest/4                CLASSI        best/2 lowest/4 
+
+lub/2                   LEARN         <user> learn1/4 
+
+make_diff/6             CLASSI        <user> classify/6 
+
+make_rec/5              MAKERC        focus/1 learn/3 
+
+maplist/3               utility       best/2 focus/1 learn1/4 make_rec/5 
+                                      pair_off/4 score/2 
+
+new_defn/3              CLASSI        <user> pair_off/4 
+
+nth_el/3                MAKERC        nth_el/3 
+
+one_of/3                LEARN         learn1/4 one_of/3 
+
+pair_off/4              CLASSI        make_diff/6 pair_off/4 
+
+perm/2                  utility       make_diff/6 
+
+position/3              utility       convert/2 default_posn/2 
+                                      discriminate_mess/4 generalize_mess/4 
+
+same/1                  FOCUS         <user> continue/1 
+
+score/2                 CLASSI        <user> best/2 
+
+score1/2                CLASSI        <user> score/2 
+
+second/2                MAKERC        <user> make_rec/5 
+
+select/3                utility       pair_off/4 
+
+space/2                 ARCH3.PRB     NOT CALLED
+
+specimen/2              ARCH3.PRB     make_rec/5 
+
+sumlist/2               utility       score/2 
+
+tree/3                  ARCH3.PRB     convert/2 default_posn/2 
+                                      discriminate_mess/4 generalize_mess/4 
+
+union/3                 utility       gen_list/3 
+
+writef/2                utility       best/2 continue/1 discriminate_mess/4 
+                                      focus/1 generalize_mess/4 grey/1 learn/3 
+                                      learn1/4 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ImportExportAction">
+	</section>
+	<section name="ShowViewDialog">
+		<item key="ShowViewDialog.STORE_SELECTED_VIEW_ID" value="org.eclipse.ui.views.TaskList"/>
+		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.ui"/>
+			<item value="MultiClipboard"/>
+			<item value="org.eclipse.team.ui"/>
+		</list>
+	</section>
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="109"/>
+		<item key="DIALOG_Y_ORIGIN" value="56"/>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="PreferencesImportWizard">
+	</section>
+</section>

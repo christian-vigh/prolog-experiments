@@ -1,0 +1,18 @@
+ToolKit is a version of UTIL which contains a number of tools to
+help you build and debug Prolog programs.  The ones which are
+currently provided are
+
+	helper	--  help utility & try_hard_to_see
+	pp	--  pretty-printer
+	ixref	--  interactive cross-referencer
+	count	--  clause counter
+	vcheck	--  variable check
+
+Other tools exist :
+
+	medic	--  for mode-checking in interpreted code
+	timing	--  for obtaining call counts
+	modgen	--  Chris Mellish's mode generator
+
+but are not currently loaded.  TELL [400,422] about bugs in
+these tools or ideas for new ones.

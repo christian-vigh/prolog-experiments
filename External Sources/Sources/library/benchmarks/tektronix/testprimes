@@ -1,0 +1,41 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/*  Get an average cpu time for 5 different parameters  */
+
+test_primes :-
+nl, write('!**  BEGIN Primes BENCHMARK'), nl,
+ave_primes(10),
+ave_primes(20),
+ave_primes(40),
+ave_primes(60),
+ave_primes(80),
+nl, write('!**  END Primes BENCHMARK'), nl.
+
+/*  call the benchmark 3 times and calculate the average  */
+
+ave_primes(P) :-
+call_primes(P,T1),
+call_primes(P,T2),
+call_primes(P,T3),
+calc_ave_primes(P,T1,T2,T3).
+
+/*  call benchmark and return cputime in msecs.  */
+
+call_primes(P,T) :-
+T1 is cputime,
+primes(P,P_list),
+T2 is cputime,
+T is 1000*(T2-T1).
+
+/*  calculate average of 3 times for parameter P  */
+
+calc_ave_primes(P,T1,T2,T3) :-
+Ave is (T1+T2+T3)/3,
+nl, write('!**  Average cputime for '),
+write(P), write(' primes is '),
+write(Ave), write(' msecs.'), nl.
+
+:- test_primes.
+

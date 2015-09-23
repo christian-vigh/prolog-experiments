@@ -1,0 +1,36 @@
+%   File   : IDBACK.DEF
+%   Author : R.A.O'Keefe
+%   Updated: 8 October 1984
+%   Purpose: "unit" interface clauses for IDBACK.PL
+%   Compile this file if and only if you compile your other
+%   unit/3 clauses.  I've swapped the arguments around from
+%   the way Pereira & Porto had them, for efficiency.
+
+unit((V1-T1)  <  (V2-T2), V1  <  V2, [T1,T2]).
+unit((V1-T1)  >  (V2-T2), V1  >  V2, [T1,T2]).
+unit((V1-T1) =:= (V2-T2), V1 =:= V2, [T1,T2]).
+unit((V1-T1) =\= (V2-T2), V1 =\= V2, [T1,T2]).
+unit((V1-T1)  >= (V2-T2), V1  >= V2, [T1,T2]).
+unit((V1-T1) =<  (V2-T2), V1 =<  V2, [T1,T2]).
+
+unit((V1-T1) @<  (V2-T2), V1 @<  V2, [T1,T2]).
+unit((V1-T1) @>  (V2-T2), V1 @>  V2, [T1,T2]).
+unit((V1-T1)  == (V2-T2), V1  == V2, [T1,T2]).
+unit((V1-T1) \== (V2-T2), V1 \== V2, [T1,T2]).
+unit((V1-T1) @>= (V2-T2), V1 @>= V2, [T1,T2]).
+unit((V1-T1) @=< (V2-T2), V1 @=< V2, [T1,T2]).
+
+unit(nonvar(V1-T1),   nonvar(V1),   [T1]).
+unit(var(V1-T1),      var(V1),      [T1]).
+unit(atomic(V1-T1),   atomic(V1),   [T1]).
+unit(atom(V1-T1),     atom(V1),     [T1]).
+unit(integer(V1-T1),  integer(V1),  [T1]).
+unit(compound(V1-T1), compound(V1), [T1]).
+
+unit(writeq(V1-T1),   writeq(V1),   [T1]).
+unit(tab(V1-T1),      tab(V1),      [T1]).
+unit(write(V1-T1),    write(V1),    [T1]).
+unit(print(V1-T1),    print(V1),    [T1]).
+unit(display(V1-T1),  display(V1),  [T1]).
+unit(nl,              nl,           []).
+

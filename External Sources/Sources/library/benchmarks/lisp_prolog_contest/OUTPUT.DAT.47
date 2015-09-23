@@ -1,0 +1,135 @@
+Received: by sicsten.UUCP; Sun, 8 Jun 86 15:21:11 -0100
+Received: by enea.uucp; Sun, 8 Jun 86 14:48:13 +0200 (MET)
+Received: by kuling.UUCP; Sun, 8 Jun 86 11:48:28 -0100
+Received: by enea.uucp; Sun, 8 Jun 86 09:32:58 +0200 (MET)
+Received: by mcvax.uucp; Sun, 8 Jun 86 08:11:16 +0200 (MET)
+Received: by seismo.CSS.GOV; Sat, 7 Jun 86 23:51:29 EDT
+Received: by su-shasta.arpa; Sat, 7 Jun 86 20:49:45 PDT
+Received: from NTT-20.NTT.JUNET (ntt-20.ARPA) by nttlab.ntt.junet (4.12/4.7JC-7) with TCP
+	id AA00418; Sat, 7 Jun 86 15:18:22 jst
+Date: Sat 7 Jun 86 15:08:16
+From: ken-ichiro murakami <enea!NTT-20!MURAKAMI>
+Subject: OUTPUT.DAT.47 (lisp/prolog contest)
+To: kuling!mats-c
+Message-Id: <12212820789.9.MURAKAMI@NTT-20.NTT.JUNET>
+
+System profile
+==============
+system name:
+authors' name:
+affiliation:
+version:
+	version number:			,  date:
+data types:
+	[] integer (     bits)
+        [] floating-point (     bits)
+	[] arbitrary precision integer
+        [] arbitrary precision floating point
+	[] array (restriction on dimension: [] no  [] yes ...        -dims)
+	[] string
+	[] others (please specify)
+
+
+
+number of functions (including libraries):
+	[] less than 101  [] less than 301  [] less than 601 [] more than 600
+data area: 
+		cells in cell equvalent, or               bytes
+compiler:
+	[] available ... compiling mode: (please specify)
+
+	[] N/A
+manual:
+	[] available ... [] complete manual (        pages)
+                         [] summary (        pages)
+	[] N/A
+size of source programs (including comments and libraries):
+	[] less than 10K bytes [] less than 100K bytes [] less than 1M bytes
+	[] more than or equal to 1M bytes
+availability:
+	[] No restriction on availability 
+                ... [] free [] not-free (cost:				)
+	[] Restricted availability
+                (condition:						)
+	[] N/A
+
+Machine profile
+===============
+If commercial machine
+---------------------
+machine name:
+vendor's name:
+memory capacity:
+operating system:
+
+If specialized hardware
+-----------------------
+machine name:
+builder & designer:
+affilication:
+CPU:
+	cycle time:			, width of internal bus:	bits
+memory:
+	virtural memory
+            ... [] yes  [] N/A  [] other (				)
+	cdr-coding ............. [] yes  [] N/A
+	addressing space ...           bits
+	real memory .........          bytes (             bit/word)	
+special hardware:
+	hardware stack ..... [] yes (access time:                    capacity:			)
+				    [] N/A
+	tag ......................... [] yes (width:          bits)   [] N/A
+        others (Please specify)
+
+
+
+
+----------------
+Remarks
+
+
+
+***** Sample *****
+
+System profile
+==============
+system name:	LIPQ
+authors:	Ikuo Takeuchi and Hiroshi G. Okuno
+affiliation:	Musashino ECL, NTT
+data types:	small integer (14 bits), 2-dim array and quaternary cell
+number of functions:	120
+capacity of free storage:	7.9 K cells including quaternary cells
+stack area:	Value stack 600 words, Control-stack 500 words
+compiler:	normal compiling and optimized compiling
+debugger:	break and backtrace
+manual:		Complete manual (233 pages) written in English
+size of system:	12K steps in assembler, 1K lines in LIPQ
+		(compiler, editor, etc.)
+
+Machine profile
+===============
+If commercial machine
+---------------------
+machine name:		PDP-11 series
+vendor:			DEC
+memory capacity:	28KW
+operating system:	DOS/BATCH V10-03A
+
+If specialized hardware
+-----------------------
+machine name:
+builder (designer):
+affilication:
+CPU cycle time:
+memory capacity:
+memory access time:
+special hardware:
+
+Comment
+=======
+(1) Binary program area is virtualized.  (2) Free storage is
+semi-virtualized (Bulk mechamism).  (3) Semantic-free pretty printing.
+(4) Programmable contro structure.  (5) Flexible variable binding
+(from MUDDLE).  (6) Iterative structure for almost GO-less
+programming.
+-------

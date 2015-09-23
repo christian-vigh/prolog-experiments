@@ -1,0 +1,62 @@
+
+
+% map_create : creates a map
+map_from_list( List, Map ) :-
+	sort(List, Sorted),
+	do_map_from_list( Sorted, Map ).
+	
+do_map_from_list([], map).
+
+do_map_from_list( [Key:Value | Tail], map(Key, Value, Map) ) :-
+	do_map_from_list(Tail, Map).
+
+
+% is_map 
+is_map(map).
+is_map( map(Key, _, Map) ) :-	
+	nonvar(Map),
+	is_map(Map, Key).
+	
+is_map( map( Key, _, Map ), PreviousKey ) :-
+	nonvar(Map),
+	PreviousKey @< Key,
+	is_map(Map, Key).
+
+
+% map_union
+map_union( Map1,  map, Map1 ).
+map_union(  map, Map2, Map2 ).
+map_union(  map,  map,  map ).
+
+map_union( map(Key1, Value1, Map1), map(Key2, Value2, Map2), 
+			map(Key1, Value1, Union) ) :-
+	Key1 @< Key2,
+	map_union(Map1, map( Key2, Value2, Map2 ), Union ).
+
+map_union( map(Key1, Value1, Map1), map(Key2, Value2, Map2), 
+		map(Key2, Value2, Union) ) :-
+	Key1 @> Key2,
+	map_union( map( Key1, Value1, Map1 ), Map2, Union).
+
+map_union( map(Key, Value, Map1), map(Key, Value, Map2), 
+		map(Key, Value, Union) ) :-
+	map_union( Map1, Map2, Union ).
+
+	
+	
+% map_to_list
+map_to_list( map, [] ).
+map_to_list( map(Key, Value, Map), [Key:Value | List] ) :-
+	map_to_list(Map, List).
+	
+% map_print
+map_print( Map ) :-
+	write( 'map' ), nl,
+	write( '   {' ), nl,
+	map_print_element( Map ),
+	write( '    }'), nl.
+
+map_print_element( map(Key, Value, Map) ) :-
+	tab(7), write(Key), write( '-> '), write(Value), nl,
+	map_print_element( Map ).
+map_print_element( map ).

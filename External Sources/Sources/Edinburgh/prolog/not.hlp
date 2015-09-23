@@ -1,0 +1,29 @@
+File: Util:Not.Hlp	Author: R.A.O'Keefe	Updated: 17 August 1983
+
+#source.
+The simple-minded not/1 lives in Util:Invoca.Pl.
+Whenever you could use it, you are strongly recommended to use '\+'/1.
+The suspicious not/1 lives in Util:Not.Pl.
+
+#purpose.
+The simple-minded not/1 was for compatibility with a long-dead version
+of Dec-10 Prolog.  It has been retained because some other Prologs use
+it.  However, it is always better to use \+ in Dec-10 Prolog, as not/1
+is not part of the bare Prolog system, and \+ is no worse in C Prolog.
+
+There are problems with negated goals containing universally quantified
+variables.  For example, if you write
+	bachelor(X) :- \+married(X), male(X).
+you will not be able to enumerate bachelors.  To help you detect such
+errors in your code, there is a suspicious version of not/1 which will
+report any negated goals containing unbound variables.  
+
+#commands.
+The source only defines one public predicate: not/1.
+
+If it detects an error, not/1 will switch on tracing and enter a
+break.
+
+not/1 understands the existential quantifier ^ .  See the description
+of bagof and setof in the Prolog manual to find out what that means.
+

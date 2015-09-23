@@ -1,0 +1,43 @@
+
+
+% Basic data type
+binary(0).
+binary(1).
+
+
+% not operator
+:- op(500, fx, bnot ).
+
+bnot 0.
+bnot 1 :- fail, !.
+
+vnot([], []).
+vnot([H|T], Result) :-
+	
+
+
+% and operator
+:- op(1000, xfx, band).
+
+1 band 1.
+
+% or operator 
+:- op(1000, xfx, bor).
+
+0 bor 1.
+1 bor 0.
+1 bor 1.
+
+% imp operator
+:- op(1000, xfx, bimp).
+
+1 bimp _.
+
+% xor
+:- op(1000, xfx, bxor).
+
+1 bxor 0.
+0 bxor 1.
+
+
+

@@ -1,0 +1,50 @@
+File: Mec:Ixref.Hlp	Author: R.A.O'Keefe	Updated: 10 May 1983
+
+#purpose.
+ixref is an interactive cross-reference utility.  You can use it to
+tell you whether you are redefining any system predicates, to find
+out which predicates are used but not defined, to discover which
+predicates call what other predicates, and so on.
+
+#sources.
+The Prolog interactive Cross-reference program no longer exists as
+a separate entity.  Instead, there are three programs
+	mec:helper.pl		-- general help utility
+	mec:pp.pl		-- pretty-printer (needs helper)
+	mec:ixref.pl		-- needs pp and helper
+
+#commands.
+ixref is part of ToolKit.  It extends the TermPatterns of pp.pl
+(see Mec:PP.Hlp, or give_help(pp) for details) with patterns
+
+	from(File)		-- predicates defined in File
+	from(-)			-- predicates from nowhere (undefined)
+	>(Patt)			-- calling Patt
+	<(Patt)			-- called by Patt
+	@>(Patt)		-- calling Patt, even indirectly
+	@<(Patt)		-- called by Patt, even indirectly.
+E.g. if p :- q.  q :- r. then p > q > r and p @> r, but not p > r.
+Ixref also provides two new commands:
+	sf			-- show file names ixreffed
+	sf "StrPatt"		-- show selected file names
+	sf TermPatt		-- show files defining any Patt
+	sp From-To		-- show call paths between From@>To.
+and of course
+	ixref(Files)		-- parse files & collect call/define info
+
+#database.
+The data extracted by ixref(Files) consists of
+	$seen(File)		-- File has been ixreffed
+	$seen(Fn,Ar)		-- Fn/Ar has been defined OR used
+	$defn(Fn,Ar,File)	-- Fn/Ar is defined in File
+	$call(Goal,Arg,Inc)	-- same as XREF's applies/2.
+	$call(F,A, G,B)		-- F/A calls G/B
+
+#misc.
+The storage required is about 2/3 of the storage used by the original
+clauses, e.g. PRESS needs about 35k.
+	Mec:ToolKit.Exe
+is a version of UTIL with Helper, Pp, Ixref, and Vcheck compiled.
+It can be used as an interactive cross-referencer.
+
+#end_of_file.

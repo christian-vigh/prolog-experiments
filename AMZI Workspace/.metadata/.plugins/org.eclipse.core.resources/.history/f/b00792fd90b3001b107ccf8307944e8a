@@ -1,0 +1,16 @@
+
+:- uses(list).
+
+
+collection(X) :-
+	X = [collection].
+	
+collection(X, [collection|List) :-
+	X = [collection|List].
+collection(X, List) :-
+	list(List),
+	X = [collection | List]
+collection(X, List] :-
+	X = [collection, Atom].
+	
+	

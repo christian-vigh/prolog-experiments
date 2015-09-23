@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/Map_pro.html</title>
+<!-- Source: ./Map.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo4">Modules/Map</a></li>
+<li>2. <a href="#robo78">Modules.Map/is_map</a></li>
+<li>3. <a href="#robo79">Modules.Map/map_from_list</a></li>
+<li>4. <a href="#robo80">Modules.Map/map_print</a></li>
+<li>5. <a href="#robo81">Modules.Map/map_to_list</a></li>
+<li>6. <a href="#robo82">Modules.Map/map_union</a></li>
+<li>7. <a href="#robo83">Modules.Map/map_value</a></li>
+</ul>
+<hr />
+<a name="Modules2fMap">
+</a><a name="robo4"></a><h2>Modules/Map [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>Map</strong> - Predicates for handling ordered-maps.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">Map.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Implements Maps.
+      A map is a structure containing an ordered <a href="./List_pro.html#robo70">set</a> of key:value pairs. Keys
+      are unique.
+      The underlying implementation of a map is similar to Prolog&#39;s implementation
+      of lists ; thus, a map containing :
+
+              [key1:value1, key2:value2, key3:value3]
+
+      will be represented as :
+
+              map( key1, value1, 
+                      map( key2, value2,
+                              map( key3, value3,
+                                      map ) ) ).
+
+      So, map elements are forward-chained using the map/3 predicate. Note that
+      the <a href="./List_pro.html#robo55">last</a> element of the chain is simply the atom &#39;map&#39;. 
+      An empty map is also represented as the atom &#39;map&#39;.
+
+      A map is created using <a href="#robo79">map_from_list</a>/2, which takes a <a href="./List_pro.html#robo3">list</a> of key:value
+      pairs, then creates a map. 
+      A map can be converted to a <a href="./List_pro.html#robo3">list</a> using the <a href="#robo81">map_to_list</a>/2 predicate.
+      Use <a href="#robo83">map_value</a>/3 to retrieve the value of a map entry.
+      The <a href="#robo80">map_print</a>/1 predicate can be used to pretty-<a href="./Stack_pro.html#robo106">print</a> the contents of a map.
+</pre>
+<p class="item_name">TODO</p>
+<pre>      Implement other operations on maps such as :
+      * map_intersect
+      * map_add
+      * map_remove
+      * etc.
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, February 2007 (subset based on R.A. O&#39;Keefe map package).
+
+</pre>
+
+<hr />
+<a name="Modules2eMap2fis5fmap">
+</a><a name="robo78"></a><h2>Modules.Map/is_map [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>is_map</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>is_map</strong>( <a href="#robo4">Map</a> )
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Succeeds if [<a href="#robo4">Map</a>] is a map. <strong>is_map</strong>/1 also checks the lexical order of the
+      elements in [<a href="#robo4">Map</a>].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [<a href="#robo4">Map</a>] (i) -
+              <a href="#robo4">Map</a> to be checked.
+</pre>
+<p class="item_name">SUCCEEDS IF</p>
+<pre>      [<a href="#robo4">Map</a>] is a map containing an ordered <a href="./List_pro.html#robo3">list</a> of Key/Value pairs.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>is_map</strong><span class="sign">(</span>map<span class="sign">)</span><span class="sign">.</span>
+<strong>is_map</strong><span class="sign">(</span> map<span class="sign">(</span>Key<span class="sign">,</span> _<span class="sign">,</span> <a href="#robo4">Map</a><span class="sign">)</span> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>   
+        <span class="keyword">nonvar</span><span class="sign">(</span><a href="#robo4">Map</a><span class="sign">)</span><span class="sign">,</span>
+        <strong>is_map</strong><span class="sign">(</span><a href="#robo4">Map</a><span class="sign">,</span> Key<span class="sign">)</span><span class="sign">.</span>
+
+<strong>is_map</strong><span class="sign">(</span> map<span class="sign">,</span> _ <span class="sign">)</span><span class="sign">.</span>
+<strong>is_map</strong><span class="sign">(</span> map<span class="sign">(</span> Key<span class="sign">,</span> _<span class="sign">,</span> <a href="#robo4">Map</a> <span class="sign">)</span><span class="sign">,</span> PreviousKey <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">nonvar</span><span class="sign">(</span><a href="#robo4">Map</a><span class="sign">)</span><span class="sign">,</span>
+        PreviousKey <span class="sign">@</span><span class="sign">&lt;</span> Key<span class="sign">,</span>
+        <strong>is_map</strong><span class="sign">(</span><a href="#robo4">Map</a><span class="sign">,</span> Key<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMap2fmap5ffrom5flist">
+</a><a name="robo79"></a><h2>Modules.Map/map_from_list [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>map_from_list</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>map_from_list</strong>( List, <a href="#robo4">Map</a> ).
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [<a href="#robo4">Map</a>] with the map formed of all the elements in [List].
+      Each element in [List] is a Key:Value pair.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List of Key:Value pairs used to create the map.
+      [<a href="#robo4">Map</a>] (o) -
+              Variable which will be unified to the map formed from all the
+              Key:Value pairs taken from [List].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>map_from_list</strong><span class="sign">(</span> List<span class="sign">,</span> <a href="#robo4">Map</a> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">sort</span><span class="sign">(</span>List<span class="sign">,</span> Sorted<span class="sign">)</span><span class="sign">,</span>
+        do_map_from_list<span class="sign">(</span> Sorted<span class="sign">,</span> <a href="#robo4">Map</a> <span class="sign">)</span><span class="sign">.</span>
+        
+do_map_from_list<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> map<span class="sign">)</span><span class="sign">.</span>
+
+do_map_from_list<span class="sign">(</span> <span class="sign">[</span>Key<span class="sign">:</span>Value <span class="sign">|</span> Tail<span class="sign">]</span><span class="sign">,</span> map<span class="sign">(</span>Key<span class="sign">,</span> Value<span class="sign">,</span> <a href="#robo4">Map</a><span class="sign">)</span> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        do_map_from_list<span class="sign">(</span>Tail<span class="sign">,</span> <a href="#robo4">Map</a><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMap2fmap5fprint">
+</a><a name="robo80"></a><h2>Modules.Map/map_print [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>map_print</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>map_print</strong>(<a href="#robo4">Map</a>)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      pretty prints the specified map.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [<a href="#robo4">Map</a>] (i) -
+              <a href="#robo4">Map</a> whose contents are to be printed. [<a href="#robo4">Map</a>] must either be the atom
+              &#39;map&#39; (an empty map) or a bound variable.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>map_print</strong><span class="sign">(</span> <a href="#robo4">Map</a> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">nonvar</span><span class="sign">(</span><a href="#robo4">Map</a><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span> <span class="squote">&#39;map&#39;</span> <span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span> <span class="squote">&#39;   {&#39;</span> <span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">,</span>
+        map_print_element<span class="sign">(</span> <a href="#robo4">Map</a> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span> <span class="squote">&#39;    }&#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">.</span>
+
+map_print_element<span class="sign">(</span> map<span class="sign">(</span>Key<span class="sign">,</span> Value<span class="sign">,</span> <a href="#robo4">Map</a><span class="sign">)</span> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">tab</span><span class="sign">(</span>7<span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span>Key<span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span> <span class="squote">&#39;-&gt; &#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span>Value<span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">,</span>
+        map_print_element<span class="sign">(</span> <a href="#robo4">Map</a> <span class="sign">)</span><span class="sign">.</span>
+map_print_element<span class="sign">(</span> map <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMap2fmap5fto5flist">
+</a><a name="robo81"></a><h2>Modules.Map/map_to_list [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>map_to_list</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>map_to_list</strong>( <a href="#robo4">Map</a>, List )
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Generates a <a href="./List_pro.html#robo3">list</a> of all the key:value pairs present in [<a href="#robo4">Map</a>].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [<a href="#robo4">Map</a>] (i) -
+              <a href="#robo4">Map</a> containing the elements to be converted into a <a href="./List_pro.html#robo3">list</a>.
+      [List] (o) -
+              Variable which will be unified with the key:value pairs defined
+              in [<a href="#robo4">Map</a>].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>map_to_list</strong><span class="sign">(</span> map<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span> <span class="sign">)</span><span class="sign">.</span>
+<strong>map_to_list</strong><span class="sign">(</span> map<span class="sign">(</span>Key<span class="sign">,</span> Value<span class="sign">,</span> <a href="#robo4">Map</a><span class="sign">)</span><span class="sign">,</span> <span class="sign">[</span>Key<span class="sign">:</span>Value <span class="sign">|</span> List<span class="sign">]</span> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>map_to_list</strong><span class="sign">(</span><a href="#robo4">Map</a><span class="sign">,</span> List<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMap2fmap5funion">
+</a><a name="robo82"></a><h2>Modules.Map/map_union [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>map_union</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>map_union</strong>( Map1, Map2, Result )
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Merges the maps [Map1] and [Map2] and unifies [Result] with the result.
+      The predicate will fail if [Map1] and [Map2] contain the same key but
+      with a different value.
+      The <a href="./Array_pro.html#robo28">merge</a> is performed according to the lexical order of each element.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Map1], [Map2] (i) -
+              Maps to be merged.
+
+      [Result] (o) -
+              Variable unified with the results of the <a href="./Array_pro.html#robo28">merge</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>map_union</strong><span class="sign">(</span> Map1<span class="sign">,</span>  map<span class="sign">,</span> Map1 <span class="sign">)</span><span class="sign">.</span>
+<strong>map_union</strong><span class="sign">(</span>  map<span class="sign">,</span> Map2<span class="sign">,</span> Map2 <span class="sign">)</span><span class="sign">.</span>
+<strong>map_union</strong><span class="sign">(</span>  map<span class="sign">,</span>  map<span class="sign">,</span>  map <span class="sign">)</span><span class="sign">.</span>
+
+<strong>map_union</strong><span class="sign">(</span> map<span class="sign">(</span>Key1<span class="sign">,</span> Value1<span class="sign">,</span> Map1<span class="sign">)</span><span class="sign">,</span> map<span class="sign">(</span>Key2<span class="sign">,</span> Value2<span class="sign">,</span> Map2<span class="sign">)</span><span class="sign">,</span> 
+                        map<span class="sign">(</span>Key1<span class="sign">,</span> Value1<span class="sign">,</span> Union<span class="sign">)</span> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Key1 <span class="sign">@</span><span class="sign">&lt;</span> Key2<span class="sign">,</span>
+        <strong>map_union</strong><span class="sign">(</span>Map1<span class="sign">,</span> map<span class="sign">(</span> Key2<span class="sign">,</span> Value2<span class="sign">,</span> Map2 <span class="sign">)</span><span class="sign">,</span> Union <span class="sign">)</span><span class="sign">.</span>
+
+<strong>map_union</strong><span class="sign">(</span> map<span class="sign">(</span>Key1<span class="sign">,</span> Value1<span class="sign">,</span> Map1<span class="sign">)</span><span class="sign">,</span> map<span class="sign">(</span>Key2<span class="sign">,</span> Value2<span class="sign">,</span> Map2<span class="sign">)</span><span class="sign">,</span> 
+                map<span class="sign">(</span>Key2<span class="sign">,</span> Value2<span class="sign">,</span> Union<span class="sign">)</span> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Key1 <span class="sign">@</span><span class="sign">&gt;</span> Key2<span class="sign">,</span>
+        <strong>map_union</strong><span class="sign">(</span> map<span class="sign">(</span> Key1<span class="sign">,</span> Value1<span class="sign">,</span> Map1 <span class="sign">)</span><span class="sign">,</span> Map2<span class="sign">,</span> Union<span class="sign">)</span><span class="sign">.</span>
+
+<strong>map_union</strong><span class="sign">(</span> map<span class="sign">(</span>Key<span class="sign">,</span> Value<span class="sign">,</span> Map1<span class="sign">)</span><span class="sign">,</span> map<span class="sign">(</span>Key<span class="sign">,</span> Value<span class="sign">,</span> Map2<span class="sign">)</span><span class="sign">,</span> 
+                map<span class="sign">(</span>Key<span class="sign">,</span> Value<span class="sign">,</span> Union<span class="sign">)</span> <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>map_union</strong><span class="sign">(</span> Map1<span class="sign">,</span> Map2<span class="sign">,</span> Union <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eMap2fmap5fvalue">
+</a><a name="robo83"></a><h2>Modules.Map/map_value [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>map_value</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>map_value</strong>( <a href="#robo4">Map</a>, Key, Result )
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Retrieves in [<a href="#robo4">Map</a>] the value of the element whose key is [Key]. [Result]
+      is instanciated with the corresponding value.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [<a href="#robo4">Map</a>] (i) -
+              <a href="#robo4">Map</a> to search in.
+      [Key] (i) -
+              Key to search for.
+      [Result] (o) -
+              Corresponding key value.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>map_value</strong><span class="sign">(</span> map<span class="sign">(</span>Key<span class="sign">,</span> Value<span class="sign">,</span> <a href="#robo4">Map</a><span class="sign">)</span><span class="sign">,</span> Key<span class="sign">,</span> Value <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>map_value</strong><span class="sign">(</span> map<span class="sign">(</span>  _<span class="sign">,</span>     _<span class="sign">,</span> <a href="#robo4">Map</a><span class="sign">)</span><span class="sign">,</span> Key<span class="sign">,</span> Value <span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>map_value</strong><span class="sign">(</span> <a href="#robo4">Map</a><span class="sign">,</span> Key<span class="sign">,</span> Value <span class="sign">)</span><span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Map.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:11
+</p>
+</div> <!-- footer -->
+</body>
+</html>

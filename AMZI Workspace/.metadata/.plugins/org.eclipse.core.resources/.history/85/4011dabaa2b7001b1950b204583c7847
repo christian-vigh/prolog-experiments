@@ -1,0 +1,85 @@
+% Meta predicates
+concept(X).
+
+link(X, Y) :-
+	belongs(X, Y).
+link(X, Y) :-
+	belongs(X, Temp),
+	link(Temp, Y).
+	
+	
+
+% Grammar
+sentence( [exit] )  		-->  kw_exit, kw_optional_dot.
+sentence( [help] ) 		-->  kw_help, kw_optional_dot.
+
+sentence( X )			-->  kw_list, list_object( X ), kw_optional_dot.
+
+	list_object( [list_concepts] ) -->  kw_concepts.
+
+kw_concepts	-->  ( [concepts] ; [concept] ).
+kw_exit  	-->  ( [exit] ; [bye] ; [quit] ; [q] ; [x] ).
+kw_help  	-->  ( [help] ; [h] ; ['?'] ).
+kw_list		-->  ( [list] ; [l] ).
+kw_optional_dot -->  ( ['.'] ; ['. '] ; [] ).
+
+
+% Command predicates : exit
+exit.
+
+% Command predicates : help
+help :-
+	write('Help for Expert System :'), nl,
+	write('----------------------'), nl,
+	write('     help             Shows command help.'), nl,
+	write('     quit             Leaves the expert system.'), nl,
+	nl.
+
+% Command predicates : list concepts
+list_concepts :-
+	write('Concepts : '), nl,
+	not(list_concept_value).
+
+list_concept_value :-
+	concept(X),
+	write('       '), write(X), nl.
+
+
+% Command loop	
+main :-
+   	write('Expert System Version 0.1'), nl,
+   	write('-------------------------'), nl, nl,
+   	read_database,
+	repeat,
+   	do_command.
+
+do_command :-
+   	write('Command> '),
+   	read_string(STRING),
+   	string_tokens(STRING, TOKENS),
+   	sentence(CLIST, TOKENS, []),
+   	COMMAND =.. CLIST,
+   	do_call(COMMAND),
+   	!,
+   	COMMAND == exit.
+
+ 
+ do_call(Command) :-
+ 	call(Command).
+ do_call(_) :-
+ 	write('incorrect command. Type ''Help'' for a list of available commands.'),
+ 	nl.
+ 	
+ rd :- read_database.
+ 
+ read_database :-
+ 	read_filename(Name),
+ 	open( Name, read, ID, [ alias(database) ] ),
+ 	repeat,
+ 		read( database, Fact ),
+ 		assert( Fact ),
+ 	Fact == end_of_file,
+ 	close( database ).
+ 	
+ 	
+ read_filename('Database.pro').

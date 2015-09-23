@@ -1,0 +1,23 @@
+/* UTIL
+
+Utilities for Focusing Program
+Alan Bundy, 28.11.84 */
+
+/* add up all the numbers in a list */
+sumlist([], 0).
+sumlist([N|Rest], Total) :- !,
+	sumlist(Rest,SubT), Total is SubT + N.
+
+/* Find Position of Node in Tree */
+node_at(Node,Tree,[]) :-
+	Tree =.. [Node|SubTrees].
+
+node_at(Node,Tree,[N|Posn]) :-
+	Tree =.. [Root|SubTrees],
+	nth_el(N,SubTrees,SubTree),
+	node_at(Node,SubTree,Posn).
+
+/* Add
+
+append, apply, checklist, gensym, maplist, perm, select, union, writef */
+

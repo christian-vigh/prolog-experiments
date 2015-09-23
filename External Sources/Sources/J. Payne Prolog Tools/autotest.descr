@@ -1,0 +1,43 @@
+                      PROLOG PREDICATE AUTO-TESTER
+                              Jocelyn Paine
+                  Shelved on the 21st of December 1987
+ 
+ 
+This program reads a  file or files of Prolog goals,  where each goal is
+accompanied by a  specification saying whether it  should succeed, fail,
+cause an error, or pass some tests on its bound variables.
+ 
+For  each  goal/specification pair,  the  program  calls the  goal,  and
+compares its  effect against the  specification. If they  differ, then a
+warning message is  displayed. This is useful  for automatically testing
+predicates against their expected outputs -  the test files can be kept,
+and re-run every time a predicate is changed.
+ 
+As an  example, a  test file for  'functor', and  good old  'append' and
+'member' might contain these lines:
+ 
+    append( [], [1,2,3], [1,2,3] ) :: succeeds.
+    append( [1,2,3], [], [1,2,3] ) :: succeeds.
+    append( [1,2], [3,4,5], [1,2,3,4,5] ) :: succeeds.
+ 
+    member( any, [] ) :: fails.
+    member( any, [a,b,c,d,e,any] ) :: succeeds.
+    member( any, [a,b,c,d,e] ) :: fails.
+ 
+    functor( f(1,2), F, A ) :: F = f, A = 2.
+ 
+ 
+SIZE : 17 kilobytes.
+ 
+ 
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : yes.
+ 
+ 
+PORTABILITY :
+ 
+    Easy, except possibly for trapping errors during testing.
+ 
+ 
+INTERNAL DOCUMENTATION :
+ 
+    Comments for each predicate, sample output.

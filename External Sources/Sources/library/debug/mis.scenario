@@ -1,0 +1,177 @@
+Prolog-10  version 3.3
+Copyright (C) 1981 by D. Warren, F. Pereira and L. Byrd
+
+| ?- [mis].
+?
+
+xref.def consulted   96 words      0.09 sec.
+
+misrg compiled: 936 words,     0.87 sec.
+
+dsutil compiled: 4167 words,     4.00 sec.
+
+pdsref compiled: 1398 words,     1.62 sec.
+
+type compiled: 1324 words,     1.47 sec.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+
+pdsini consulted   94 words      0.29 sec.
+
+pdsdc consulted   1784 words      0.79 sec.
+
+pdsdb consulted   1912 words      0.88 sec.
+
+missrc consulted   498 words      0.27 sec.
+
+mis consulted   14997 words     12.79 sec.
+
+yes
+| ?- mis.
+
+Next fact? concat(a,[b],[b,a]),true.
+Checking fact(s)...
+Error: missing solution concat(a,[b],[b,a]). diagnosing...
+Error diagnosed: concat(a,[b],[b,a]) is uncovered.
+
+Searching for a cover to concat(a,[b],[b,a])...
+Declare concat(X,Y,Z)? declare(concat(+x,+[x],-[x]),[total,determinate]).
+Refining: (concat(X,Y,Z):-true)
+Procedures called by concat(X,Y,Z)? concat(_,_,_).
+Refining: (concat(X,[Y|Z],U):-true)
+Refining: (concat(X,Y,[Z|U]):-true)
+Refining: (concat(X,[Y],Z):-true)
+Refining: (concat(X,[Y|Z],[U|V]):-true)
+Refining: (concat(X,[Y|Z],[U|V]):-true)
+Refining: (concat(X,Y,[Z,U|V]):-true)
+Refining: (concat(X,[Y],[Z|U]):-true)
+Refining: (concat(X,[Y],[Z|U]):-true)
+Refining: (concat(X,[Y|Z],[U,V|W]):-true)
+Checking: (concat(X,[Y|Z],[Y,X|Z]):-true)
+Found clause: (concat(X,[Y|Z],[Y,X|Z]):-true)
+    after searching 19 clauses.
+Listing of concat(X,Y,Z):
+    (concat(X,[Y|Z],[Y,X|Z]):-true).
+
+Checking fact(s)...no error found.
+
+Next fact? concat(a,[c,b],[c,b,a]),true.
+Checking fact(s)...
+Error: missing solution concat(a,[c,b],[c,b,a]). diagnosing...
+Error diagnosed: concat(a,[c,b],[c,b,a]) is uncovered.
+
+Searching for a cover to concat(a,[c,b],[c,b,a])...
+Refining: (concat(X,Y,Z):-true)
+Refining: (concat(X,[Y|Z],U):-true)
+Refining: (concat(X,Y,[Z|U]):-true)
+Refining: (concat(X,[Y,Z|U],V):-true)
+Refining: (concat(X,[Y|Z],[U|V]):-true)
+Refining: (concat(X,[Y|Z],U):-concat(X,Z,X1))
+Refining: (concat(X,[Y|Z],U):-concat(Y,Z,X1))
+Refining: (concat(X,[Y|Z],[U|V]):-true)
+Refining: (concat(X,Y,[Z,U|V]):-true)
+Refining: (concat(X,[Y,Z],U):-true)
+Refining: (concat(X,[Y,Z|U],[V|W]):-true)
+Refining: (concat(X,[Y,Z|U],[V|W]):-true)
+Refining: (concat(X,[Y|Z],[U,V|W]):-true)
+Refining: (concat(X,[Y|Z],[U|V]):-concat(X,Z,Y1))
+Checking: (concat(X,[Y|Z],[Y|V]):-concat(X,Z,V))
+Found clause: (concat(X,[Y|Z],[Y|V]):-concat(X,Z,V))
+    after searching 31 clauses.
+Listing of concat(X,Y,Z):
+    (concat(X,[Y|Z],[Y,X|Z]):-true).
+    (concat(X,[Y|Z],[Y|V]):-concat(X,Z,V)).
+
+Checking fact(s)...no error found.
+
+Next fact? break.
+
+[ Break  (level 1) ]
+| ?- concat(a,[c,b],X).
+
+X = [c,a,b] ;
+
+X = [c,b,a] ;
+
+[1] no
+| ?- [ End Break  (level 1) ]
+Next fact? concat(a,[c,b],[c,a,b]),false.
+Checking fact(s)...
+Error: wrong solution concat(a,[c,b],[c,a,b]). diagnosing...
+Error diagnosed: (concat(a,[c,b],[c,a,b]):-true) is false.
+Listing of concat(X,Y,Z):
+    (concat(X,[Y|Z],[Y|V]):-concat(X,Z,V)).
+
+Checking fact(s)...
+Error: missing solution concat(a,[b],[b,a]). diagnosing...
+
+Query: concat(a,[],[a])? y.
+Error diagnosed: concat(a,[],[a]) is uncovered.
+
+Searching for a cover to concat(a,[],[a])...
+Refining: (concat(X,Y,Z):-true)
+Refining: (concat(X,[],Y):-true)
+Refining: (concat(X,Y,[Z|U]):-true)
+Checking: (concat(X,Y,[X|Y]):-true)
+Found clause: (concat(X,Y,[X|Y]):-true)
+    after searching 7 clauses.
+Listing of concat(X,Y,Z):
+    (concat(X,[Y|Z],[Y|V]):-concat(X,Z,V)).
+    (concat(X,Y,[X|Y]):-true).
+
+Checking fact(s)...
+Error: wrong solution concat(a,[c,b],[c,a,b]). diagnosing...
+
+Query: concat(a,[b],[a,b])? n.
+Error diagnosed: (concat(a,[b],[a,b]):-true) is false.
+Listing of concat(X,Y,Z):
+    (concat(X,[Y|Z],[Y|V]):-concat(X,Z,V)).
+
+Checking fact(s)...
+Error: missing solution concat(a,[b],[b,a]). diagnosing...
+Error diagnosed: concat(a,[],[a]) is uncovered.
+
+Searching for a cover to concat(a,[],[a])...
+Refining: (concat(X,Y,Z):-true)
+Refining: (concat(X,[],Y):-true)
+Refining: (concat(X,Y,[Z|U]):-true)
+Checking: (concat(X,Y,[X|Y]):-true)
+Refuted: (concat(a,[b],[a,b]):-true)
+Refining: (concat(X,[],[Y|Z]):-true)
+Refining: (concat(X,Y,[X|Y]):-true)
+Checking: (concat(X,[],[X]):-true)
+Found clause: (concat(X,[],[X]):-true)
+    after searching 9 clauses.
+Listing of concat(X,Y,Z):
+    (concat(X,[Y|Z],[Y|V]):-concat(X,Z,V)).
+    (concat(X,[],[X]):-true).
+
+Checking fact(s)...no error found.
+
+Next fact? exit.
+!Illegal input
+
+Next fact? !Illegal input
+
+Next fact? [ Execution aborted ]
+
+| ?- core     84992  (39424 lo-seg + 45568 hi-seg)
+heap     22528 =  16520 in use +   6008 free
+global    1451 =     16 in use +   1435 free
+local     1024 =     16 in use +   1008 free
+trail      511 =      0 in use +    511 free
+    0.04 sec. for 2 GCs gaining 4009 words
+    0.05 sec. for 17 local shifts and 19 trail shifts
+   22.42 sec. runtime

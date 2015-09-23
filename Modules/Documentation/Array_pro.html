@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/Array_pro.html</title>
+<!-- Source: ./Array.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo0">Modules/Array</a></li>
+<li>2. <a href="#robo21">Modules.Array/array</a></li>
+<li>3. <a href="#robo22">Modules.Array/base</a></li>
+<li>4. <a href="#robo23">Modules.Array/delete</a></li>
+<li>5. <a href="#robo24">Modules.Array/firstthat</a></li>
+<li>6. <a href="#robo25">Modules.Array/grow</a></li>
+<li>7. <a href="#robo26">Modules.Array/growto</a></li>
+<li>8. <a href="#robo27">Modules.Array/lastthat</a></li>
+<li>9. <a href="#robo28">Modules.Array/merge</a></li>
+<li>10. <a href="#robo29">Modules.Array/operator :=</a></li>
+<li>11. <a href="#robo30">Modules.Array/operator =#=</a></li>
+<li>12. <a href="#robo31">Modules.Array/print</a></li>
+<li>13. <a href="#robo32">Modules.Array/shrink</a></li>
+<li>14. <a href="#robo33">Modules.Array/shrinkto</a></li>
+<li>15. <a href="#robo34">Modules.Array/size</a></li>
+<li>16. <a href="#robo35">Modules.Array/slice</a></li>
+<li>17. <a href="#robo36">Modules.Array/sortarray</a></li>
+</ul>
+<hr />
+<a name="Modules2fArray">
+</a><a name="robo0"></a><h2>Modules/Array [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>Array</strong> - <strong>Array</strong>-manipulation predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">Array.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Implements <a href="#robo21">array</a> as <a href="./Properties_pro.html#robo94">property</a> bags.
+</pre>
+<p class="item_name">USES</p>
+<pre>      <a href="./Properties_pro.html#robo7">Properties</a>.Pro, <a href="./List_pro.html#robo3">list</a>.Pro
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, July 2005.
+
+</pre>
+
+<hr />
+<a name="Modules2eArray2farray">
+</a><a name="robo21"></a><h2>Modules.Array/array [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>array</strong>/2, <strong>array</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>array</strong>(Name, List)
+      <strong>array</strong>(Name, Length, InitialValue)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      If [List] is a bound variable, <strong>array</strong>/2 creates the <strong>array</strong> called [Name].
+      Otherwise, <strong>array</strong>/2 unifies [List] with the <a href="./List_pro.html#robo3">list</a> of elements in <strong>array</strong>
+      [Name]. 
+      The <strong>array</strong>/3 predicate creates an <strong>array</strong> [Name] of <a href="#robo34">size</a> [Length], all
+      elements being initialized with [InitialValue].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      * [Name] (i) -
+              Name of the <strong>array</strong> to create or whose elements are to be retrieved.
+      * [List] (i,o) -
+              If bound : <a href="./List_pro.html#robo3">list</a> of elements used to initialize the <strong>array</strong>.
+              Otherwise : <a href="./List_pro.html#robo3">list</a> that is unified with the contents of <strong>array</strong> [Name].
+      * [Length] (i) -
+              Length of <strong>array</strong> to create.
+      * [InitialValue] (o) -
+              Initial value of <strong>array</strong> elements, in the <strong>array</strong>/3 version
+              of the predicate.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Arrays are created as <a href="./Properties_pro.html#robo94">property</a> bags ; in order to preserve the
+      name space, should other kind of objects be managed through
+      <a href="./Properties_pro.html#robo94">property</a> bags, the string &quot;arraybag:&quot; is prepended to [Name].
+              
+      The <a href="./Properties_pro.html#robo94">property</a> bag for an <strong>array</strong> holds the following properties:
+      - <a href="#robo22">base</a> 
+              <a href="#robo22">base</a> of the <strong>array</strong>, 1 by default (not used in the current
+              implementation).
+      - <a href="./List_pro.html#robo57">length</a>
+              Length of the <strong>array</strong>.
+      - element:x 
+              Holds the element at index &quot;x&quot;.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">% Version where [List] is not bound :</span>
+<span class="comment">%       retrieve the elements in <strong>array</strong> [Name].</span>
+<span class="comment">%</span>
+<strong>array</strong><span class="sign">(</span>Name<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">var</span><span class="sign">(</span>List<span class="sign">)</span><span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_get</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> <a href="./List_pro.html#robo57">length</a><span class="sign">,</span> Length<span class="sign">)</span><span class="sign">,</span>
+        array_get_elements<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> 0<span class="sign">,</span> Length<span class="sign">,</span> List<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+        
+<span class="comment">%</span>
+<span class="comment">% Version where [List] is bound :</span>
+<span class="comment">%       Creates an <strong>array</strong> [Name] and initialize it with [List].</span>
+<span class="comment">%</span>
+<strong>array</strong><span class="sign">(</span>Name<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./List_pro.html#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        array_create<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> L<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">,</span>
+        array_set_elements<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> List<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% Version where <a href="./List_pro.html#robo57">length</a> of <strong>array</strong> and initial values are provided.</span>
+<span class="comment">%</span>
+<strong>array</strong><span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">,</span> InitialValue<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        array_create<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> Length<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">,</span>
+        duplicateatom<span class="sign">(</span>InitialValue<span class="sign">,</span> Length<span class="sign">,</span> A<span class="sign">)</span><span class="sign">,</span>
+        array_set_elements<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> A<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fbase">
+</a><a name="robo22"></a><h2>Modules.Array/base [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>base</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>base</strong>(Name, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the start index of <a href="#robo21">array</a> [Name].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a>.
+      [Result] (o) -
+              Base (starting index) of the <a href="#robo21">array</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>base</strong><span class="sign">(</span>Name<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./Properties_pro.html#robo94">property_get</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> <strong>base</strong><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fdelete">
+</a><a name="robo23"></a><h2>Modules.Array/delete [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>delete</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>delete</strong>(Name).
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Deletes the <a href="#robo21">array</a> [Name].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to be deleted.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>delete</strong><span class="sign">(</span>Name<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./Properties_pro.html#robo96">property_bag_delete</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2ffirstthat">
+</a><a name="robo24"></a><h2>Modules.Array/firstthat [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>firstthat</strong>/3, <strong>firstthat</strong>/4
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>firstthat</strong>(Name, Value, Result)
+      <strong>firstthat</strong>(Name, Start, Value, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the index of the first element of <a href="#robo21">array</a> [Name] that 
+      is <a href="./List_pro.html#robo48">equal</a> to [Value].
+      The <strong>firstthat</strong>/3 version starts the search with the first element of [Name],
+      while <strong>firstthat</strong>/4 starts its search at position [Index].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to be searched.
+      [Start] (i) -
+              Starting position for the search.
+      [Value] (i) -
+              Value to search for.
+      [Result] (o) -
+              Index of the searched element.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The predicate fails if [Start] or [Index] is invalid, or if [Value] cannot
+      be found in <a href="#robo21">array</a> [Name].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>firstthat</strong><span class="sign">(</span>Name<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>firstthat</strong><span class="sign">(</span>Name<span class="sign">,</span> 1<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+<strong>firstthat</strong><span class="sign">(</span>Name<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        Start <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        Start <span class="sign">=</span><span class="sign">&lt;</span> L<span class="sign">,</span>
+        firstthat_process<span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+firstthat_process<span class="sign">(</span>_<span class="sign">,</span> Length<span class="sign">,</span> Start<span class="sign">,</span> _<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Start <span class="sign">&gt;</span> Length<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% Internal helper functions</span>
+<span class="comment">%</span>
+firstthat_process<span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">:</span><span class="sign">=</span> Name<span class="sign">#</span>Start<span class="sign">,</span>
+        Value <span class="sign">=</span> X<span class="sign">,</span>
+        Result <span class="keyword">is</span> Start<span class="sign">.</span>
+firstthat_process<span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewStart <span class="keyword">is</span> Start <span class="sign">+</span> 1<span class="sign">,</span>
+        firstthat_process<span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">,</span> NewStart<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fgrow">
+</a><a name="robo25"></a><h2>Modules.Array/grow [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>grow</strong>/2, <strong>grow</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>grow</strong>(Name, Count)
+      <strong>grow</strong>(Name, Count, InitialValue)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Adds [Count] elements to <a href="#robo21">array</a> [Name].
+      <strong>grow</strong>/3 initializes any new element to [InitialValue], whereas
+      <strong>grow</strong>/2 initializes any new element to &quot;&quot;.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to expand.
+      [Count] (i) -
+              Number of elements to add to <a href="#robo21">array</a> [Name].
+      [InitialValue] (i) -
+              Initial value for new elements.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <strong>grow</strong> fails if [Index] is less than 0, and does nothing if [Index] is 0.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>grow</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>grow</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> <span class="squote">&#39;&#39;</span><span class="sign">)</span><span class="sign">.</span>
+
+<strong>grow</strong><span class="sign">(</span>_<span class="sign">,</span> 0<span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>                          <span class="comment">% Do nothing if Count is zero</span>
+<strong>grow</strong><span class="sign">(</span>_<span class="sign">,</span> Count<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>                    <span class="comment">% Fails if Count is negative</span>
+        Count <span class="sign">&lt;</span> 0<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>        
+
+<strong>grow</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> InitialValue<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>      <span class="comment">% Does the real work</span>
+        <span class="comment">% Create a <a href="./List_pro.html#robo3">list</a> with the initial value repeat Count times</span>
+        duplicateatom<span class="sign">(</span>InitialValue<span class="sign">,</span> Count<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Get the <a href="#robo34">size</a> of <a href="#robo21">array</a> Name</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Set the new <a href="./List_pro.html#robo57">length</a> of the <a href="#robo21">array</a></span>
+        NewLength <span class="keyword">is</span> L<span class="sign">+</span> Count<span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_set</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> <a href="./List_pro.html#robo57">length</a><span class="sign">,</span> NewLength<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Append new <a href="./List_pro.html#robo3">list</a> to existing <a href="#robo21">array</a></span>
+        Start <span class="keyword">is</span> L <span class="sign">+</span> 1<span class="sign">,</span>
+        array_set_elements<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> X<span class="sign">,</span> Start<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fgrowto">
+</a><a name="robo26"></a><h2>Modules.Array/growto [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>growto</strong>/2, <strong>growto</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <a href="#robo25">grow</a>(Name, Upto)
+      <a href="#robo25">grow</a>(Name, Upto, InitialValue)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Expands <a href="#robo21">array</a> [Name] so that it contains [Upto] elements.
+      <strong>growto</strong>/3 initializes any new element to [InitialValue], whereas <strong>growto</strong>/2 
+      initializes any new element to &quot;&quot;.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to expand.
+      [Upto] (i) -
+              New <a href="#robo21">array</a> <a href="#robo34">size</a> for [Name].
+      [InitialValue] (i) -
+              Initial value for new elements.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <strong>growto</strong> fails if [Index] is less than 1, and calls <a href="#robo33">shrinkto</a> if [Index] is 
+      less than <a href="./List_pro.html#robo57">length</a> of <a href="#robo21">array</a> [Name].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>growto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>growto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> <span class="squote">&#39;&#39;</span><span class="sign">)</span><span class="sign">.</span>
+
+<strong>growto</strong><span class="sign">(</span>_<span class="sign">,</span> Index<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>                  <span class="comment">% Fails if Count is negative</span>
+        Index <span class="sign">&lt;</span> 1<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>        
+
+<strong>growto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> InitialValue<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>    <span class="comment">% Index &lt; <a href="#robo21">array</a> <a href="#robo34">size</a> : call <a href="#robo33">shrinkto</a></span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> S<span class="sign">)</span><span class="sign">,</span>
+        Index <span class="sign">&lt;</span> S<span class="sign">,</span>
+        <a href="#robo33">shrinkto</a><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> InitialValue<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+<strong>growto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> InitialValue<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>    <span class="comment">% Normal case</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        Count <span class="keyword">is</span> Index <span class="sign">-</span> L<span class="sign">,</span>
+        <a href="#robo25">grow</a><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> InitialValue<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2flastthat">
+</a><a name="robo27"></a><h2>Modules.Array/lastthat [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>lastthat</strong>/3, <strong>lastthat</strong>/4
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>lastthat</strong>(Name, Value, Result)
+      <strong>lastthat</strong>(Name, Start, Value, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the index of the <a href="./List_pro.html#robo55">last</a> element of <a href="#robo21">array</a> [Name] that
+      is <a href="./List_pro.html#robo48">equal</a> to [Value].
+      The <strong>lastthat</strong>/3 version starts the search with the <a href="./List_pro.html#robo55">last</a> element of
+      [Name], while <strong>lastthat</strong>/4 starts its search at position [Index].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to be searched.
+      [Start] (i) -
+              Starting position for the search.
+      [Value] (i) -
+              Value to search for.
+      [Result] (o) -
+              Index of the searched element.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The predicate fails if [Start] or [Index] is invalid, or if [Value] cannot
+      be found in <a href="#robo21">array</a> [Name].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>lastthat</strong><span class="sign">(</span>Name<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <strong>lastthat</strong><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+<strong>lastthat</strong><span class="sign">(</span>Name<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        Start <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        Start <span class="sign">=</span><span class="sign">&lt;</span> L<span class="sign">,</span>
+        lastthat_process<span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+lastthat_process<span class="sign">(</span>_<span class="sign">,</span> Length<span class="sign">,</span> 0<span class="sign">,</span> _<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>
+
+lastthat_process<span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">:</span><span class="sign">=</span> Name<span class="sign">#</span>Start<span class="sign">,</span>
+        Value <span class="sign">=</span> X<span class="sign">,</span>
+        Result <span class="keyword">is</span> Start<span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% Internal helper.</span>
+<span class="comment">%</span>
+lastthat_process<span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">,</span> Start<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewStart <span class="keyword">is</span> Start <span class="sign">-</span> 1<span class="sign">,</span>
+        lastthat_process<span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">,</span> NewStart<span class="sign">,</span> Value<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fmerge">
+</a><a name="robo28"></a><h2>Modules.Array/merge [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>merge</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>merge</strong>(A, B, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Merges the contents of arrays [A] and [B], creates a third <a href="#robo21">array</a> named 
+      [Result], containing the result of the <strong>merge</strong>.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [A], [B] (i) -
+              Arrays to <strong>merge</strong> together.
+      [Result] (i) -
+              Name of the resulting <a href="#robo21">array</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>merge</strong><span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo21">array</a><span class="sign">(</span>A<span class="sign">,</span> AValues<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo21">array</a><span class="sign">(</span>B<span class="sign">,</span> BValues<span class="sign">)</span><span class="sign">,</span>
+        <a href="./List_pro.html#robo51">flatten</a><span class="sign">(</span><span class="sign">[</span>AValues<span class="sign">,</span> BValues<span class="sign">]</span><span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo21">array</a><span class="sign">(</span>X<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2foperator203a3d">
+</a><a name="robo29"></a><h2>Modules.Array/operator := [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      :=/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      X := Y
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      The &quot;:=&quot; operator is used to perform assignments back and forth between
+      atoms and elements of an <a href="#robo21">array</a>.
+      [X] and [Y] can either be an atom, a <a href="./List_pro.html#robo3">list</a> or an expression of the form
+      &quot;a#x&quot; where &quot;a&quot; is an <a href="#robo21">array</a> name, and &quot;x&quot; the index of an element in 
+      <a href="#robo21">array</a> &quot;a&quot;. This allows for assignments such as :
+              
+      X := myarray#1.         % Unifies X with element 1 of <a href="#robo21">array</a> &quot;myarray&quot;
+      myarray#2 := hello.     % Sets element 2 of <a href="#robo21">array</a> &quot;myarray&quot; to &quot;hello&quot;
+      a#1 := b#2.             % Set element 1 of <a href="#robo21">array</a> &quot;a&quot; to element 2
+                              % of <a href="#robo21">array</a> &quot;b&quot;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      An atom, <a href="./List_pro.html#robo3">list</a> or expression of the form : <a href="#robo21">array</a>:index.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">% X := <a href="#robo21">array</a>:index.</span>
+<span class="comment">%</span>
+X <span class="sign">:</span><span class="sign">=</span> Name <span class="sign">#</span> Index <span class="sign">:</span><span class="sign">-</span>
+        <span class="comment">% X must be a variable</span>
+        <span class="keyword">var</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% preprocess Index</span>
+        array_preprocess_index<span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> NewIndex<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Check that Index is in the allowed range</span>
+        array_inbounds<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> NewIndex<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Get element</span>
+        <a href="./Properties_pro.html#robo94">property_get</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> element<span class="sign">:</span>NewIndex<span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Unify</span>
+        X <span class="sign">=</span> Y<span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% array1:index1 := array2:index2.</span>
+<span class="comment">%</span>
+Name1 <span class="sign">#</span> Index1 <span class="sign">:</span><span class="sign">=</span> Name2 <span class="sign">#</span> Index2 <span class="sign">:</span><span class="sign">-</span>
+        array_preprocess_index<span class="sign">(</span>Name<span class="sign">,</span> Index1<span class="sign">,</span> NewIndex1<span class="sign">)</span><span class="sign">,</span>
+        array_inbounds<span class="sign">(</span>arraybag<span class="sign">:</span>Name1<span class="sign">,</span> NewIndex1<span class="sign">)</span><span class="sign">,</span>
+        array_preprocess_index<span class="sign">(</span>Name<span class="sign">,</span> Index2<span class="sign">,</span> NewIndex2<span class="sign">)</span><span class="sign">,</span>
+        array_inbounds<span class="sign">(</span>arraybag<span class="sign">:</span>Name2<span class="sign">,</span> NewIndex2<span class="sign">)</span><span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_get</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name2<span class="sign">,</span> element<span class="sign">:</span>NewIndex2<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_set</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name1<span class="sign">,</span> element<span class="sign">:</span>NewIndex1<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% <a href="#robo21">array</a>:index = X.</span>
+<span class="comment">%</span>
+Name <span class="sign">#</span> Index <span class="sign">:</span><span class="sign">=</span> X <span class="sign">:</span><span class="sign">-</span>
+        array_preprocess_index<span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> NewIndex<span class="sign">)</span><span class="sign">,</span>
+        array_inbounds<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> NewIndex<span class="sign">)</span><span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_set</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> element<span class="sign">:</span>NewIndex<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2foperator203d233d">
+</a><a name="robo30"></a><h2>Modules.Array/operator =#=, operator &lt;#&gt; [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      =#=/2, &lt;#&gt;/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      A =#= B
+      A &lt;#&gt; B
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      The &quot;=#=&quot; operator succeeds if arrays A and B are <a href="./List_pro.html#robo48">equal</a>.
+      The &quot;&lt;#&gt;&quot; operator succeeds if arrays A and B are different.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [A], [B] (i) -
+              Arrays to compare.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">A <span class="sign">=</span><span class="sign">#</span><span class="sign">=</span> B <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo21">array</a><span class="sign">(</span>A<span class="sign">,</span> AE<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo21">array</a><span class="sign">(</span>B<span class="sign">,</span> BE<span class="sign">)</span><span class="sign">,</span>
+        AE <span class="sign">=</span> BE<span class="sign">.</span>
+        
+A <span class="sign">&lt;</span><span class="sign">#</span><span class="sign">&gt;</span> B <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo21">array</a><span class="sign">(</span>A<span class="sign">,</span> AE<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo21">array</a><span class="sign">(</span>B<span class="sign">,</span> BE<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">not</span><span class="sign">(</span>AE <span class="sign">=</span> BE<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fprint">
+</a><a name="robo31"></a><h2>Modules.Array/print, printall [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>print</strong>/1, <strong>printall</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>print</strong>(Name)
+      <strong>printall</strong>(Name)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      <strong>print</strong>/1 prints the elements of <a href="#robo21">array</a> [Name], as can do write/1 with a <a href="./List_pro.html#robo3">list</a>.
+      <strong>printall</strong>/1 prints all the attributes and values of <a href="#robo21">array</a> [Name].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to be printed.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>print</strong><span class="sign">(</span>Name<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo21">array</a><span class="sign">(</span>Name<span class="sign">,</span> List<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>List<span class="sign">)</span><span class="sign">.</span>
+
+<strong>printall</strong><span class="sign">(</span>Name<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">write</span><span class="sign">(</span><span class="squote">&#39;<a href="#robo0">Array</a> [&#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span><span class="squote">&#39;] :&#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_get</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> <a href="#robo22">base</a><span class="sign">,</span> B<span class="sign">)</span><span class="sign">,</span>
+                <span class="keyword">write</span><span class="sign">(</span><span class="squote">&#39;Base     : &#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span>B<span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_get</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> <a href="./List_pro.html#robo57">length</a><span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+                <span class="keyword">write</span><span class="sign">(</span><span class="squote">&#39;Length   : &#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span>L<span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span><span class="squote">&#39;Elements : &#39;</span><span class="sign">)</span><span class="sign">,</span> 
+        <strong>print</strong><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fshrink">
+</a><a name="robo32"></a><h2>Modules.Array/shrink [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>shrink</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>shrink</strong>(Name, Count).
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Removes [Count] elements from <a href="#robo21">array</a> [Name].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to expand.
+      [Count] (i) -
+              Number of elements to remove from <a href="#robo21">array</a> [Name].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>shrink</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>shrink</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> <span class="squote">&#39;&#39;</span><span class="sign">)</span><span class="sign">.</span>
+
+<strong>shrink</strong><span class="sign">(</span>_<span class="sign">,</span> 0<span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>                        <span class="comment">% Do nothing if Count is zero</span>
+<strong>shrink</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>               <span class="comment">% Fails if Count is negative</span>
+        Count <span class="sign">&lt;</span> 0<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>      
+<strong>shrink</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>               <span class="comment">% Fails if Count is &gt; <a href="./List_pro.html#robo57">length</a>(<a href="#robo0">Array</a>)</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        Count <span class="sign">&gt;</span><span class="sign">=</span> L<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+        
+<strong>shrink</strong><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> InitialValue<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="comment">% Get the <a href="#robo34">size</a> of <a href="#robo21">array</a> Name</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Set the new <a href="./List_pro.html#robo57">length</a> of the <a href="#robo21">array</a></span>
+        NewLength <span class="keyword">is</span> L <span class="sign">-</span> Count<span class="sign">,</span>
+        <a href="./Properties_pro.html#robo94">property_set</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> <a href="./List_pro.html#robo57">length</a><span class="sign">,</span> NewLength<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Append new <a href="./List_pro.html#robo3">list</a> to existing <a href="#robo21">array</a></span>
+        Start <span class="keyword">is</span> L <span class="sign">+</span> 1<span class="sign">,</span>
+        array_delete_elements<span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fshrinkto">
+</a><a name="robo33"></a><h2>Modules.Array/shrinkto [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>shrinkto</strong>/2, <strong>shrinkto</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <a href="#robo32">shrink</a>(Name, Upto)
+      <a href="#robo32">shrink</a>(Name, Upto, InitialValue)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Expands <a href="#robo21">array</a> [Name] so that it contains [Upto] elements.
+      <strong>shrinkto</strong>/3 initializes any new element to [InitialValue], whereas
+      <strong>shrinkto</strong>/2 initializes any new element to &quot;&quot;.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> to expand.
+      [Upto] (i) -
+              New <a href="#robo21">array</a> <a href="#robo34">size</a> for [Name].
+      [InitialValue] (i) -
+              Initial value for new elements.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <strong>shrinkto</strong> fails if [Index] is less than 1, and calls <strong>shrinkto</strong> if [Index]
+      is less than <a href="./List_pro.html#robo57">length</a> of <a href="#robo21">array</a> [Name].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>shrinkto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>shrinkto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> <span class="squote">&#39;&#39;</span><span class="sign">)</span><span class="sign">.</span>
+
+<strong>shrinkto</strong><span class="sign">(</span>_<span class="sign">,</span> Index<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>                <span class="comment">% Fails if Count is negative</span>
+        Index <span class="sign">&lt;</span> 1<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>      
+<strong>shrinkto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> InitialValue<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>  <span class="comment">% Index &gt;= <a href="#robo21">array</a> <a href="#robo34">size</a> : call <strong>shrinkto</strong></span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> S<span class="sign">)</span><span class="sign">,</span>
+        Index <span class="sign">&gt;</span><span class="sign">=</span> S<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+<strong>shrinkto</strong><span class="sign">(</span>Name<span class="sign">,</span> Index<span class="sign">,</span> InitialValue<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>  <span class="comment">% Normal case</span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        Count <span class="keyword">is</span> L <span class="sign">-</span> Index<span class="sign">,</span>
+        <a href="#robo32">shrink</a><span class="sign">(</span>Name<span class="sign">,</span> Count<span class="sign">,</span> InitialValue<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fsize">
+</a><a name="robo34"></a><h2>Modules.Array/size [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>size</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>size</strong>(Name, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <a href="./List_pro.html#robo57">length</a> of <a href="#robo21">array</a> [Name].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a>.
+      [Result] (o) -
+              Length of the <a href="#robo21">array</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>size</strong><span class="sign">(</span>Name<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./Properties_pro.html#robo94">property_get</a><span class="sign">(</span>arraybag<span class="sign">:</span>Name<span class="sign">,</span> <a href="./List_pro.html#robo57">length</a><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fslice">
+</a><a name="robo35"></a><h2>Modules.Array/slice, sliceto [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>slice</strong>/4, <strong>sliceto</strong>/4
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>slice</strong>(Name, Start, Count, ResultName)
+      <strong>sliceto</strong>(Name, Start, End, ResultName)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Builds an <a href="#robo21">array</a> [ResultName], based on a <strong>slice</strong> extracted from <a href="#robo21">array</a> [Name].
+      <strong>slice</strong>/4 takes a <strong>slice</strong> of [Count] elements, starting from position [Start].
+      <strong>sliceto</strong>/4 takes a <strong>slice</strong> from positions [Start] to [End].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i) -
+              Name of the <a href="#robo21">array</a> from which to extract the <strong>slice</strong>.
+      [Start] (i) -
+              Starting position.
+      [Count] (i) -
+              Number of elements in the <strong>slice</strong>.
+      [End] (i) -
+              Ending position of the <strong>slice</strong>.
+      [ResultName] (i) -
+              Name of the resulting <a href="#robo21">array</a>.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      if [Count] or [End] is uninstantiated, then the <strong>slice</strong> will be composed of
+      all the elements of the <a href="#robo21">array</a> [Name] starting at position [Start], until
+      the <a href="./List_pro.html#robo55">last</a> element of the <a href="#robo21">array</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>sliceto</strong><span class="sign">(</span>Name<span class="sign">,</span> Start<span class="sign">,</span> End<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="comment">% Get <a href="#robo21">array</a> <a href="#robo34">size</a></span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Start must be positive</span>
+        Start <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        <span class="comment">% Unify End with <a href="./List_pro.html#robo57">length</a> of <a href="#robo21">array</a> if End is a variable</span>
+        sliceto_adjust<span class="sign">(</span>Length<span class="sign">,</span> Start<span class="sign">,</span> End<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Check that End is not greater than <a href="#robo21">array</a> <a href="#robo34">size</a></span>
+        End <span class="sign">&gt;</span> 0<span class="sign">,</span> End <span class="sign">=</span><span class="sign">&lt;</span> Length<span class="sign">,</span>
+        <span class="comment">% Compute total number of elements in the <strong>slice</strong></span>
+        Count <span class="keyword">is</span> End <span class="sign">-</span> Start <span class="sign">+</span> 1<span class="sign">,</span>
+        <span class="comment">% Perform the slicing</span>
+        <strong>slice</strong><span class="sign">(</span>Name<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>      
+
+<span class="comment">%</span>
+<span class="comment">% sliceto_adjust -</span>
+<span class="comment">%       Sets End to the <a href="#robo34">size</a> of the <a href="#robo21">array</a> if End is a variable.</span>
+<span class="comment">%</span>
+sliceto_adjust<span class="sign">(</span>Length<span class="sign">,</span> Start<span class="sign">,</span> End<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">var</span><span class="sign">(</span>End<span class="sign">)</span><span class="sign">,</span>
+        End <span class="keyword">is</span> Length<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+sliceto_adjust<span class="sign">(</span>Length<span class="sign">,</span> Start<span class="sign">,</span> End<span class="sign">)</span><span class="sign">.</span>
+
+
+<strong>slice</strong><span class="sign">(</span>Name<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="comment">% Get the <a href="#robo34">size</a> of the <a href="#robo21">array</a></span>
+        <a href="#robo34">size</a><span class="sign">(</span>Name<span class="sign">,</span> Length<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Check that Start is a valid number</span>
+        Start <span class="sign">&gt;</span> 0<span class="sign">,</span> 
+        <span class="comment">% Set Count to the number of remaining elements if Count is </span>
+        <span class="comment">% a variable</span>
+        slice_adjust<span class="sign">(</span>Length<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Check that specified count is valid</span>
+        Count <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        <span class="comment">% Compute the ending position of the <strong>slice</strong> in <a href="#robo21">array</a> Name</span>
+        End <span class="keyword">is</span> Start <span class="sign">+</span> Count <span class="sign">-</span> 1<span class="sign">,</span>
+        <span class="comment">% Check that the ending position is valid</span>
+        End <span class="sign">&gt;</span> 0<span class="sign">,</span> End <span class="sign">=</span><span class="sign">&lt;</span> Length<span class="sign">,</span>
+        <span class="comment">% Get elements of the <a href="#robo21">array</a></span>
+        <a href="#robo21">array</a><span class="sign">(</span>Name<span class="sign">,</span> Elements<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% Extract the <strong>slice</strong></span>
+        <a href="./List_pro.html#robo60">middle</a><span class="sign">(</span>Elements<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">,</span> Slice<span class="sign">)</span><span class="sign">,</span>
+        <span class="comment">% and build the <a href="#robo21">array</a> Result</span>
+        <a href="#robo21">array</a><span class="sign">(</span>Result<span class="sign">,</span> Slice<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% slice_adjust -</span>
+<span class="comment">%       Sets Count to the number of remaining elements of the <a href="#robo21">array</a></span>
+<span class="comment">%       if Count is a variable.</span>
+<span class="comment">%</span>
+slice_adjust<span class="sign">(</span>Length<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">var</span><span class="sign">(</span>Count<span class="sign">)</span><span class="sign">,</span>
+        Count <span class="keyword">is</span> Length <span class="sign">-</span> Start <span class="sign">+</span> 1<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+
+slice_adjust<span class="sign">(</span>Length<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eArray2fsortarray">
+</a><a name="robo36"></a><h2>Modules.Array/sortarray [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>sortarray</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>sortarray</strong>(Name)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Sorts the elements of <a href="#robo21">array</a> [Name].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Name] (i,o) -
+              <a href="#robo0">Array</a> to sort.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>sortarray</strong><span class="sign">(</span>Name<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo21">array</a><span class="sign">(</span>Name<span class="sign">,</span> Values<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">sort</span><span class="sign">(</span>Values<span class="sign">,</span> SortedValues<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo23">delete</a><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo21">array</a><span class="sign">(</span>Name<span class="sign">,</span> SortedValues<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Array.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:11
+</p>
+</div> <!-- footer -->
+</body>
+</html>

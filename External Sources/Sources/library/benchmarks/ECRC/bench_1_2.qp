@@ -1,0 +1,58 @@
+
+Quintus Prolog Release 1.6 (Sun)
+Copyright (C) 1986, Quintus Computer Systems, Inc.  All rights reserved.
+
+[WARNING: Singleton variables, clause 2 of ccp1/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp2/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp3/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp4/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp5/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp6/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp7/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp8/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp9/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp10/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp11/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp12/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp13/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp14/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp15/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp16/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp17/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp18/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp19/3: X, Y, Z]
+[WARNING: Singleton variables, clause 1 of ccp20/3: X, Y, Z]
+[WARNING: Singleton variables, clause 2 of ccp20/3: X, Y, Z]
+[WARNING: Singleton variables, clause 21 of pd/3: X1, X2]
+[WARNING: Singleton variables, clause 1 of q/3: X1, X2]
+[/usr/ra/sicstus/V0.3/Bench/bench_1_2.pl compiled (7.016 sec 5172 bytes)]
+
+yes
+T overall loop:   333
+T compens loop:   34
+T net:            299
+KLips:            0.0668895
+
+
+yes
+T overall loop:   384
+T compens loop:   33
+T net:            351
+KLips:            0.05698
+
+
+yes
+T overall loop:   500
+T compens loop:   34
+T net:            466
+KLips:            0.0429184
+
+
+yes
+T overall loop:   434
+T compens loop:   33
+T net:            401
+KLips:            0.0498753
+
+
+yes

@@ -1,0 +1,77 @@
+ingredient([ail]			, masculin, singulier).
+	classe( assaisonnement,	[ail] ).
+ingredient([anchois]			, masculin, pluriel).
+	classe( poisson, 	[anchois]).
+ingredient([artichaut]			, masculin, singulier).
+	classe( legume, 	[artichaut]).
+ingredient([bacon]			, masculin, singulier).
+	classe( charcuterie, 	[bacon]).
+	classe( jambon, 	[bacon]).
+ingredient([capres]			, feminin , pluriel).
+	classe( assaisonnement, [capres]).
+ingredient([champignons]		, masculin, pluriel).
+	classe( assaisonnement, [champignons]).
+ingredient([chevre]			, masculin, singulier).
+	classe( fromage, 	[chevre]).
+ingredient([chorizo]			, masculin, singulier).
+	classe( charcuterie, 	[chorizo]).
+	classe( saucisson, 	[chorizo]).
+ingredient([creme, fraiche]		, feminin , singulier).
+	classe( assaisonnement, [creme, fraiche]).
+ingredient([edam]			, masculin, singulier).
+	classe( fromage, 	[edam]).
+ingredient([fromage, a, raclette]	, masculin, singulier).
+	classe( fromage, 	[fromage, a, raclette]).
+ingredient([fruits, de, mer]		, masculin, pluriel).
+	classe( fruitsdemer, 	[fruits, de, mer]).
+ingredient([gorgonzola]			, masculin, singulier).
+	classe( fromage, 	[gorgonzola]).
+ingredient([gruyere]			, masculin, singulier).
+	classe( fromage, 	[gruyere]).
+ingredient([jambon]			, masculin, singulier).
+	classe( charcuterie, 	[jambon]).
+	classe( jambon, 	[jambon]).
+ingredient([jambon, cru]		, masculin, singulier).
+	classe( charcuterie, 	[jambon, cru]).
+	classe( jambon, 	[jambon, cru]).
+ingredient([jambon, fume]		, masculin, singulier).
+	classe( charcuterie, 	[jambon, fume]).
+	classe( jambon, 	[jambon, fume]).
+ingredient([lardons]			, masculin, pluriel).
+	classe( charcuterie, 	[lardons]).
+	classe( assaisonnement, [lardons]).
+ingredient([merguez]			, masculin, pluriel).
+	classe( charcuterie, 	[merguez]).
+	classe( saucisse, 	[merguez]).
+ingredient([mozzarella]			, masculin, singulier).
+	classe( fromage, 	[mozarella]).
+ingredient([oeufs]			, masculin, pluriel).
+ingredient([oignons]			, masculin, pluriel).
+	classe( assaisonnement, [oignons]).
+ingredient([oignon]			, masculin, singulier).
+	classe( assaisonnement, [oignons]).
+ingredient([olives]			, feminin , pluriel).
+	classe( assaisonnement, [olives]).
+ingredient([origan]			, masculin, singulier).
+	classe( assaisonnement, [origan]).
+ingredient([poitrine]			, feminin , singulier).
+	classe( charcuterie, 	[poitrine]).
+ingredient([pommes, de, terre]		, feminin , pluriel).
+	classe( legume, 	[pommes, de, terre]).
+ingredient([poulet]			, masculin, singulier).
+	classe( volaille, 	[poulet]).
+ingredient([reblochon]			, masculin, singulier).
+	classe( fromage, 	[reblochon]).
+ingredient([salami]			, masculin, singulier).
+	classe( charcuterie, 	[salami]).
+ingredient([saumon, fume]		, masculin, singulier).
+	classe( poisson, 	[saumon, fume]).
+ingredient([snackis]			, masculin, pluriel).
+	classe( saucisse, 	[snackis]).
+ingredient([steack, hache]		, masculin, pluriel).
+	classe( viande, 	[steack, hache]).
+ingredient([tomates]			, feminin , pluriel).
+	classe( legume, 	[tomates]).
+ingredient([viande, hachee]		, feminin , singulier).
+	classe( viande, 	[viande, hachee]).
+

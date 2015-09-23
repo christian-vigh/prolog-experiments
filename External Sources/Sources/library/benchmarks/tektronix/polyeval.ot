@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN Polynomial BENCHMARK
+!**  Average cputime for 5 polys is 77.777832 msecs.
+!**  Average cputime for 8 polys is 188.888428 msecs.
+!**  Average cputime for 11 polys is 294.444824 msecs.
+!**  Average cputime for 14 polys is 411.109619 msecs.
+!**  Average cputime for 17 polys is 572.222168 msecs.
+!**  END Polynomial BENCHMARK

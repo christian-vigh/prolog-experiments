@@ -1,0 +1,34 @@
+
+
+:- op( 500, xfx, covers ).
+
+
+X covers A :-
+	write(A).
+	
+
+interval(X, Left, Low, High, Right) :-
+	interval_left(Left, Low, Op1, Value1),
+	interval_right(Right, High, Op2, Value2),
+	X = [Value1, Value2, Op1, Op2].
+	
+	
+interval_left(>, Keyword, Op1, Value1) :-
+	is_member(Keyword, 
+		['infinite', '-infinite', 'infinity', '-infinity', 'inf', '-inf']),
+	Op1 = '',
+	Value = -inf.
+
+interval_left(<, Value, '>=', Value) :-
+interval_left(>, Value, '>' , Value).
+	
+
+interval_right(>, Keyword, Op1, Value1) :-
+	is_member(Keyword, 
+		['infinite', '+infinite', 'infinity', '+infinity', 'inf', '+inf']),
+	Op1 = '',
+	Value = inf.
+
+interval_right(<, Value, '<' , Value) :-
+interval_right(>, Value, '=<', Value).
+	

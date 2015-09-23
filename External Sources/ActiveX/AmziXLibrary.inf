@@ -1,0 +1,9 @@
+;Fichier INF généré par Delphi pour AmziXLibrary.ocx
+[Add.Code]
+AmziXLibrary.ocx=AmziXLibrary.ocx
+
+[AmziXLibrary.ocx]
+file=http://pchec128-2c.unil.ch/people/tsteiner/amziX/AmziXLibrary.ocx
+clsid={B8828B03-8E95-11D2-B4F1-00805F5D29BA}
+RegisterServer=yes
+FileVersion=1,0,0,0

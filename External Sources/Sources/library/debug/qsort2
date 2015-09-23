@@ -1,0 +1,26 @@
+/* buggy QSORT program on page 147 */
+
+qsort([X|L],L0) :-
+  partition(L,X,L1,L2),
+  qsort(L1,L3),qsort(L2,L4),
+  app(L3,[X|L4],L0).
+
+:- declare(qsort(+[x],-[x]),[determinate,total]).
+:- declare_called(qsort(X,Y),
+       [qsort(_,_),partition(_,_,_,_),app(_,_,_)]).
+
+partition([X|L],Y,L1,[X|L2]) :- partition(L,Y,L1,L2),X<Y.
+partition([X|L],Y,[X|L1],L2) :- partition(L,Y,L1,L2),X =< Y.
+partition([],X,[],[]).
+
+:- declare(partition(+[x],+x,-[x],-[x]),[determinate,total]).
+:- declare_called(partition(X,Y,Z,U),
+       [partition(_,_,_,_),_<_,_=<_]).
+
+app([X|L1],L2,L3) :- app([X|L1],L2,[X|L3]).
+app([],L,L).
+
+:- declare(app(+[x],+[x],-[x]),[determinate,total]).
+:- declare_called(app(X,Y,Z),[app(_,_,_)]).
+
+:- end.

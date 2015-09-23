@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN MemoryFiller BENCHMARK
+!**  Average cputime for 10 memfill is 122.222229 msecs.
+!**  Average cputime for 250 memfill is 3205.552734 msecs.
+!**  Average cputime for 500 memfill is 6427.777344 msecs.
+!**  Average cputime for 1000 memfill is 12855.546875 msecs.
+!**  Average cputime for 2000 memfill is 24744.406250 msecs.
+!**  END MemoryFiller BENCHMARK

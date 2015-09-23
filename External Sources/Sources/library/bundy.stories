@@ -1,0 +1,644 @@
+@style(references STDalphabetic,spacing 1,linewidth 79,
+typewheel=elite 12)
+@make(article)
+@device(lpt)
+@modify(figure,above 2,below 2)
+@modify(subheading, below 0)
+@modify(example, leftmargin 0, rightmargin 0)
+@set(page=1)
+@define(romanize,use enumerate,numbered <(@i)>)
+@define(alphabetize,use enumerate,numbered <(@a)>)
+@modify(EquationCounter, numbered <(@i)>, referenced <(@i)>)
+@modify(FootnoteCounter, within page, numbered <@*>, referenced <@*>)
+@use(Bibliography = bibliography.bib)
+
+Note 198@>Alan Bundy@*
+@>@value(Date)@*
+
+@heading(What Stories should we tell Prolog Students?)
+
+	When teaching a programming language it is important to give
+the student some model of what the computer will do with
+his/her programs. The student must be able to anticipate
+the effect of running his/her program, otherwise he/she
+will be unable to design it, debug it, modify it, etc.
+Rather than leave the student to induce this model
+from examples, it is better to teach it explicitly.
+This will reduce the chances of the student inducing an
+incorrect model and will increase the chances that everybody
+is using the same model, and talking the same langauge.
+When teaching LOGO to school children, Tim O'Shea and Ben du Boulay
+found the provision of a suitable model to be 
+central to the design of the course and the language interface.
+
+	The technical term for this model used by Tim and Ben was @b(virtual
+machine).  However, 'Prolog virtual machine' has come to mean something
+different in the logic programming community, namely the socket into
+which a portable Prolog might be plugged.  In order to avoid confusion I
+shall call the models I am discussing,
+@b(Prolog stories).
+
+	A good Prolog story will have the following features:
+@begin(itemize)
+It will cover all the important aspects of Prolog behaviour,
+so that it can be safely used to predict the behaviour of Prolog programs.
+
+It will be simple to understand and use, even by people with
+no previous computing/mathematical experience.
+
+It will illuminate the tricky aspects of Prolog behaviour, e.g.
+recursion, backtracking and cut.
+
+It will be used universally by Prolog teachers, primers, trace messages,
+error messages, etc.
+@end(itemize)
+
+	The Prolog community has failed to agree on a Prolog story.  A
+survey of Prolog trace messages and books reveals a large number of
+different and conflicting stories.  The purpose of this note is to
+survey them, to discuss their weaknesses and strengths and to try
+to get the community to agree on one.
+
+	In order to compare them I will give their accounts of the running
+of a simple program which includes recursion, backtracking and cut.
+The  program in figure @ref(double) involves all three of these.
+The first 3 clauses define the predicate, double(X,List1,List2).
+The two lists should be lists of numbers and X should be a number.
+List 1 and List2 have the same length, corresponding numbers
+are doubled in List2 , except for the number X, which remains the same.
+The last clause is a request to Prolog to double each member
+of the list [1,94,3], except for the number 94, i.e. Ans should be [2,94,6].
+@begin(figure)
+@begin(example)
+1. double(X,[],[]).
+
+2. double(X,[X|Tl1],[X|Tl2]) :- !, double(X,Tl1,Tl2).
+
+3. double(X,[Hd1|Tl1],[Hd2|Tl2]) :- double(X,Tl1,Tl2), Hd2 is 2*Hd1.
+
+?- double(94,[1,94,3],Ans).
+@end(example)
+@caption(An Example Program and Goal)
+@tag(double)
+@end(figure)
+
+
+@section(Or Trees)
+	A standard story, which is inherited from resolution theorem
+proving, is the OR tree. This is the traditional way of describing
+linear resolution search spaces. Prolog is based on LUSH resolution, which
+is a linear resolution inference system.
+OR trees are described nicely in @cite(kowalskibook).
+Our example is given in figure @ref(ortree).
+@begin(figure)
+@begin(example)
+?- double(94,[1,94,3],Ans).
+
+  3	Ans=[Hd2|Tl2]
+
+?- double(94,[94,3],Tl2),
+   Hd2 is 2*1.
+
+  2	Tl2=[Hd3|Tl3]		  3	Tl2=[Hd3|Tl3]
+
+?- !, double(94,[3],Tl3),	?- double(94,[3],Tl3),
+   Hd2 is 2*1.			   Hd3 is 2*94, Hd2 is 2*1
+
+  !				  3	Tl3=[Hd4|Tl4]
+
+?- double(94,[3],Tl3),		?- double(94,[],Tl4),
+   Hd2 is 2*1.			   Hd4 is 2*3, Hd3 is 2*94,
+				   Hd2 is 2*1
+
+  3	Tl3=[Hd4|Tl4]		  1	Tl4=[]
+
+
+?- double(94,[],Tl4),		?- Hd4 is 2*3, Hd3 is 2*94,
+   Hd4 is 2*3, Hd2 is 2*1.	   Hd2 is 2*1
+
+  1	Tl4=[]			  is	Hd4=6
+
+?- Hd4 is 2*3			?- Hd3 is 2*94,
+   Hd2 is 2*1.			   Hd2 is 2*1
+
+  is	Hd4=6			  is	Hd3=188
+
+?-  Hd2 is 2*1.			?- Hd2 is 2*1
+
+  is	Hd2=2			  is	Hd2=2
+
+?-				?-
+@end(example)
+@caption(An OR Tree)
+@tag(ortree)
+@end(figure)
+
+	The nodes of the tree are labelled by all the outstanding
+subgoal literals.  The arcs are labelled by the number of the resolving
+clause and the most general unifier.  Prolog searches this tree in a
+depth first manner, choosing the left-most literal to resolve away at
+each stage.  The different environments of recursive calls are
+represented by different variables and different bindings for them.  The
+effect of cut is displayed by scribbling out the outstanding choice
+points and the trees they dominate, when the !  literal is satisfied.
+
+	The disadvantages are:
+@begin(itemize)
+The outstanding subgoal literals are carried along at each stage, unaltered.
+They tend to clutter up the tree, and make it expensive to draw.
+
+The output substitution is not clearly displayed, but must be 
+calculated by combining the unifiers along the winning branch.
+
+To keep the different environments of recursive calls clear,
+the variables have to be renamed, so their origins are not always
+clear, e.g. see Hd3, Hd4, etc above.
+
+In the general case, it is slightly complicated to see
+which parts of the tree are scribbled out by the cut.
+The above example is too simple to illustrate this problem
+in all its gory detail.
+@end(itemize)
+
+	A similar representation is the OR graph, where identically
+labelled nodes are only represented once.  Use of a graph, rather than a
+tree, usually indicates that a loop check is in operation.  Since this
+would be misleading as a description of Prolog, we have avoided graphs
+completely.
+
+@section(AND/OR Tree)
+	Another standard story from resolution theorem proving is the
+AND/OR Tree.  Again see @cite(kowalskibook) for full details.  This overcomes
+the first disadvantages of OR Trees, by not carrying around outstanding
+goals which are not currently being worked on.  In fact, each node of
+the tree is labelled only by a single literal.
+However, the AND/OR Tree introduces further problems.  The tree for the
+above example is given in figure @ref(andortree).
+@begin(figure)
+@begin(example)
+		double(94,[1,94,3],Ans)
+
+		  3	Ans=[Hd2|Tl2]
+
+double(94,[94,3],Tl2)	   			Hd2 is 2*1
+
+
+  2   Tl2=[Hd3|Tl3]		3   Tl2=[Hd3|Tl3]	is   Hd2=2
+
+
+
+!	double(94,[3],Tl3)	double(94,[3],Tl3),	Hd3 is 2*94
+
+
+  !	3   Tl3=[Hd4|Tl4]	3   Tl3=[Hd4|Tl4]	is	Hd3=188
+
+
+
+double(94,[],Tl4),	Hd4 is 2*3	double(94,[],Tl4),	Hd4 is 2*3
+	
+
+
+1	Tl4=[]		is	Hd4=6	1	Tl4=[]		is	Hd4=6
+
+
+@end(example)
+@caption(An AND/OR Tree)
+@tag(andortree)
+@end(figure)
+
+	Prolog searches this tree in a depth first manner, choosing the
+left-most, unexplored branch.  For OR choices this left-most choice
+reflects the top down ordering of clauses.  For AND choices it reflects
+the left/right ordering of literals.  Each node is labelled with the
+literal resolved away at that stage, and each arc is labelled with the
+number of the resolving clause and the most general unifier.  The effect
+of cut is displayed by scribbling out the outstanding OR choices and
+the trees they dominate, when the !  literal is satisfied.  
+
+	The disadvantages are:
+@begin(itemize)
+It is not immediately clear when a call has been successful, since
+this call will be represented by a subtree of the complete
+search tree, rather than just a branch.
+
+It is difficult to see what subgoals are outstanding at any
+moment.
+@end(itemize)
+and, just as with the OR tree story:
+@begin(itemize)
+The output substitution is not clearly displayed, but must be 
+calculated by combining the unifiers along the winning branch.
+
+To keep the different environments of recursive calls clear,
+the variables have to be renamed, so their origins are not always
+clear.
+
+In the general case, it is slightly complicated to see
+which parts of the tree are scribbled out by the cut.
+@end(itemize)
+
+	  The difference between the two sorts of trees is that the OR
+displays success and the outstanding subgoals in a more straightforward
+way at the cost of recording information redundantly.
+
+@section(The Byrd Box Model)
+	This is the story developed by Lawrence Byrd for the debugging
+aid he built for Prolog (see, for instance, @cite(primer) pp 170-176).
+It comes in two parts:  the boxes he draws in explanations; and the
+output you get during a Prolog session.  The first part consists of
+drawings like that in figure @ref(byrdbox).  The second part consists of
+a dialogue like that in figure @ref(spy).
+
+@begin(figure)
+@begin(example)
+CALL +----------------------------------+ EXIT
+ --> |	double(X,[],[]).		| -->
+     |					|
+     |	double(X,[X|Tl1],[X|Tl2]) :- !,	|
+     |		double(X,Tl1,Tl2).	|
+     |					|
+     |	double(X,[Hd1|Tl1],[Hd2|Tl2]) :-|
+     |		double(X,Tl1,Tl2),      |
+FAIL |		Hd2 is 2*Hd1.		| REDO
+ <-- +----------------------------------+ <--
+@end(example)
+@caption(A Byrd Box)
+@tag(byrdbox)
+@end(figure)
+
+	Each Byrd box contains all the clauses for a particular predicate.
+The arrows into and out of the box describe how these clauses can be
+entered (by CALLing and REDOing) and exited (by success (EXIT) and
+FAILure).
+More detail can be exhibited by putting the literals in the body of each
+clause in subboxes of their own (see @cite(primer) p172).
+The boxes complement the trace obtained by spying a predicate - they
+help the user understand what causes the subgoal literals
+displayed at the terminal to change. 
+
+@begin(figure)
+@begin(example)
+| ?- double(94,[1,94,3],Ans).
+
+** (1) 0 Call : double(94,[1,94,3],_56) ? 
+
+** (2) 1 Call : double(94,[94,3],_125) ? 
+
+** (3) 2 Call : double(94,[3],_136) ? 
+
+** (4) 3 Call : double(94,[],_149) ? 
+
+** (4) 3 Exit : double(94,[],[]) ? 
+   (5) 3 Call : _148 is 2*3 ? 
+   (5) 3 Exit : 6 is 2*3
+
+** (3) 2 Exit : double(94,[3],[6]) ? 
+
+** (2) 1 Exit : double(94,[94,3],[94,6]) ? 
+   (6) 1 Call : _124 is 2*1 ? 
+   (6) 1 Exit : 2 is 2*1
+
+** (1) 0 Exit : double(94,[1,94,3],[2,94,6]) ? 
+
+Ans = [2,94,6] 
+
+yes
+@end(example)
+@caption(A Spy Trace)
+@tag(spy)
+@end(figure)
+
+	The second part of the box model essentially steps arounds the
+AND/OR tree.  It steps down the tree with CALL and REDO messages, and up
+the tree with EXIT and FAIL messages.  It has all the disadvantages of
+the AND/OR tree representation, except that the EXIT messages tell you
+about the state of the goals after satisfaction and hence tell you
+about the output substitution.  In addition, two pieces of information
+present in our drawing of the AND/OR tree are absent from the Byrd
+trace messages, namely the clauses being resolved with and the overall
+shape of the tree.  The clauses are given in the boxes - the first part
+of the Byrd box model - but this information is not available on-line,
+and the clauses linked are not linked to the literals they satisfy.  An
+incomplete version of the tree information, namely the depth of the
+nodes, is given by the second lot of numbers at the right of the
+messages.  
+
+	In summary, the disadvantages are:
+@begin(itemize)
+It is not immediately clear when a call has been successful, since
+this call will be represented by a subtree of the complete
+search tree, rather than just a branch.
+
+It is difficult to see what subgoals are outstanding at any
+moment.
+
+There is no on-line record of the clause being resolved with.
+
+The only account of the search tree is the depth of resolution.
+
+The variables are renamed to funny numbers.  This seperates the
+different environments of recursive calls, but the origins of the
+variables are not clear.
+
+No information is given about
+which parts of the tree are deleted by cuts.
+@end(itemize)
+
+@section(Other Stories)
+	The Clocksin/Mellish book @cite(primer) is a rich source
+of Prolog stories. In fact, too rich. My major complaint about this,
+otherwise excellent, book
+is that instead of introducing a single story early on
+and sticking to it, they pull different stories out a hat as they go along
+to explain problems as they arise. I predict that non-computerate
+readers will get confused by this. The Byrd boxes story was described above.
+There follows a short account
+of the other stories.
+
+@subsection(The Arrows Story)
+	The first story is on pp 10-13 of @cite(primer).  This story
+tells, mainly in prose, of:  satisfaction of literals, left/right
+order of literals, top-bottom order of clauses, and backtracking.  The
+only diagrammatic aid is the arrow drawing which links the selected
+literal with the resolving clause.  A snapshot of an example is given
+in figure @ref(arrow).
+@begin(figure)
+@begin(example)
+	DATABASE				GOALS
+	--------				-----
+
+double(X,[],[]).		?- double(94,[],Tl4), Hd4 is 2*3, Hd2 is 2*1.
+				   -------------- --
+double(X,[X|Tl1],[X|Tl2]) :-			[]
+	!, double(X,Tl1,Tl2).					
+
+double(X,[Hd1|Tl1],[Hd2|Tl2]) :-
+	double(X,Tl1,Tl2),
+	Hd2 is 2*Hd1.
+				1.  The first goal succeeds.
+				2.  Tl4 is instantiated to [].
+				3.  Next, attempt to satisfy the second goal.
+@end(example)
+@caption(An Arrow Diagram)
+@tag(arrow)
+@end(figure)
+
+	Subsequent snapshots document the continuing process of satisfying
+this goal. 
+The detail of this presentation is good for a beginning student, especially
+the explicit linking of the selected literal with the resolving clauses
+and the display  of the alternative clauses in the format of the program.
+Unfortunately, Clocksin/Mellish never test the story in a setting more
+complex than satisfaction of a conjunction of literals against
+a set of ground units. Thus the complications of introducing new subgoal
+literals and of two way unification, are never explored.
+
+	The main drawback of the approach is that the search space is
+described as a sequence of snapshots, and its tree structure is not
+exhibited.  The passage of the arrow heads down the list of clauses
+provides an alternative explanation of backtracking and cut.  Note that
+in listing all the outstanding literals in each snapshot, this
+representation resembles an OR tree more than an AND/OR tree.
+
+	Since only a single copy of each clause is displayed, it is not
+clear how different instantiations of the same clause would be
+represented.  One possibility would be labelling the arrow with the
+unifier.
+	
+
+@subsection(The Flow  of Satisfaction)
+	On pp 35-37 a rather different story is told, mainly to explain
+resolution with non-unit clauses and
+backtracking. This story owes some alligence to the previous 'arrow'
+story, but more to tracing depth first search through an AND/OR
+tree, where the arcs of the tree have been omitted. The whole 'tree'
+is redrawn for each snapshot of the search process. An example is
+given in figure @ref(flow).
+@begin(figure)
+@begin(example)
+double(94,[1,94,3],Ans)
+
+
+double(94,[94,3],Tl2)	   			Hd2 is 2*1
+
+(M)						(no subgoals)
+
+!		double(94,[3],Tl3)
+
+(no subgoals)
+
+		double(94,[],Tl4),	Hd4 is 2*3
+	
+		(no subgoals)		(no subgoals)
+@end(example)
+@caption(The Flow of Satisfaction)
+@tag(flow)
+@end(figure)
+
+	The sequence of snapshots document the search of Prolog
+as it moves through the AND/OR tree satisfying literals and
+backs up the tree when a call has failed. On a blackboard/overhead
+the flow of satisfacation can be drawn dynamically, so it is
+not necessary to reproduce several snapshots, as it is in the book.
+This explicit representation of the flow of control complements
+the tree representations above, and should be included in them.
+
+	The omission of most of the scaffolding of the tree, e.g.  the
+arcs, and the accompanying text makes the story vague and hence hard to
+understand.  A further difficulty is that the conflict between this
+story and the arrow story about whether the underlying tree is an OR
+tree or an AND/OR tree.
+
+@subsection(Full Trace)
+	On pp 62-64 two new notations are introduced by example.
+The first is the full trace, similar to that given by trace in
+Prolog, and the second is a tree resentation arcs labelled by the
+resolving clauses,  but with no mention of the goals.
+Our example is described with a full trace in figure @ref(trace)
+and with a tree in figure @ref(tree).
+@begin(figure)
+@begin(example)
+|Goal is double(94,[1,94,3],Ans)		- decided to use rule 3
+|   |Goal is double(94,[94,3],Tl2)		- decided to use rule 2
+|   |Tl2 here is Tl2 in use of rule
+|   |   |!					- used built-in definition
+|   |   |Succeeds
+|   |   |Goal is double(94,[3],Tl3)		- decided to use rule 3
+|   |   |   |Goal is double(94,[],Tl4)		- decided to use rule 1
+|   |   |   |Succeeds with Tl4=[]
+|   |   |   |Goal is Hd4 is 2*3			- used built-in definition
+|   |   |   |Succeeds with Hd4=6
+|   |   |Succeeds with Tl3=[6]
+|   |Succeeds with Tl2=[94,6]
+|   |Goal is Hd2 is 2*1				- used built-in definition
+|   |Succeeds with Hd2=2
+|Succeeds with Ans=[2,94,6]
+@end(example)
+@caption(A Full Trace)
+@tag(trace)
+@end(figure)
+
+	The full trace in figure @ref(trace) essentially describes
+the flow of satisfaction around the AND/OR  tree. It is similar in content 
+to the Byrd boxes trace.
+The nesting indicates the depth of the literal being solved for.
+The vertical lines link up the original goal with its final outcome.
+
+	Because it consists of a sequence of events, this story
+is not very good at explaining backtracking and cut. The annotations
+give some help in linking literals with their resolving clauses,
+but not as good as the arrow story. The annotations also help
+indicate the unifier involved.
+
+	This story is used on p65 to describe the effect of cut.  This
+account is in terms of decisions frozen, rather than search tree
+pruned.  I predict that it will not work well on non-computerate users,
+since it is not immediately clear what the consequences of a 'frozen'
+decision are.  In fact, the p65 account implicitly recognises this
+difficultly by explaining the consequences with refererence to the
+arrow story.  In fact, the arrow story alone is capable of a much better
+account.
+
+	Clocksin and Mellish do not link this full trace story with the 
+arrow or flow of satisfaction stories. As an AND/OR tree based
+story it is more compatible with the flow of satisfaction
+one, although the graphic image it invokes is very different.
+
+@begin(figure)
+@begin(example)
+				|			
+				|			
+				?
+				|			
+			     rule 3
+				|			
+			/-------?-------\
+		       /		 \
+		   rule 2		rule 3
+		      |			  |
+		      |			  |
+		      ?			  ?
+		      |			  |
+		      |			  |
+		   rule 3		rule 3
+		      |			  |
+		      |			  |
+		      ?			  ?
+		      |			  |
+		      |			  |
+		   rule 1		rule 1
+@end(example)
+@caption(A Partial Tree Representation)
+@tag(tree)
+@end(figure)
+
+	It is not clear from the example or the text on p63 whether
+the tree is intended to be an OR or an AND/OR tree. All mention
+of the evaluable predicate 'is' has been omitted. Because of this
+omission no AND choices are left, hence the remaining tree leaves
+unstated how these choices would have been handled. In our example
+we have similarly omitted mention of the evaluable predicates 'is'
+and '!'. This leaves the main choices of the example more clearly
+emphasised. All mention of the clauses and literals being resolved
+on, i.e the goals, has been omitted also, leaving only the
+names of the resolving clauses.
+
+	This example is a good illustration of something
+advocated in the conclusion, namely the variation of the material
+in the story diagram, according to the needs of the moment.
+However, it is not handled well in @cite(primer).
+The story given  is not a modified version of the story used elsewhere,
+but yet another ad hoc story pulled from a hat, without adequate
+explanation.
+
+@section(Conclusion)
+	From the discussion above it seems that you get what you pay
+for, i.e.  that some stories contain more information than others, but
+that they are correspondingly complex.  For instance, in the OR tree it
+is easy to see what literals remain at any point, since they are
+precisely those labelling the current node.  This advantage is paid for
+at the cost of carrying unsatisfied literals forward in the current
+goal clause.  The AND/OR tree is less redundant, because each subgoal
+literal appears only once, but working out which are the unsatisfied
+literals is a more complex operation.
+
+	The most telling point against the AND/OR tree representation
+is the difficulty of spotting when you have succeeded.  The winning call
+is represented by a subtree in which each node has only one OR fan, but
+this fan is complete (i.e.  all its AND choices are present), and each
+tip is labelled by a box.  This is hard to pull out of the background.
+For this reason I have always preferred to use OR trees for teaching
+purposes, even though they carry a heavy overhead in redundant literals.
+
+	None of the  stories is very good about cut. This is not
+unexpected. If one could tell a nice clean story about cut then
+there would not be so many people struggling to replace it.
+The OR and AND/OR  trees tell a similar story, so nothing to choose here.
+
+	The ideal Prolog story would have the following properties:
+@begin(enumerate)
+the overall search space of the call would be conveyed, in particular,
+the backtracking points would be indicated, and it would be obvious
+when utimate success had been attained;
+
+the flow of control through the search space would be indicated;
+
+each subgoal literal would be displayed;
+
+the clauses that resolve it away would be displayed;
+
+the unifiers produced by these resolutions would be displayed
+
+the remaining literals would be displayed;
+
+the other clauses that could resolve with the selected literal
+would be displayed;
+
+the final instantiation of the original goal would be displayed;
+
+different instantiations of a clause would be distinguished;
+
+the effect of a cut, on the search space, would be indicated.
+@end(enumerate)
+
+	Modulo the remarks above about indicating success and the effect
+of the cut, all the stories discussed above can be extended to
+display the appropriate information. The drawback of doing this is that
+on anything other than a simple problem the story will be completely
+overwhelming. What is needed is a flexible story, i.e. we need
+to have a representation that can be adjusted by omitting non-vital
+information. In a particular account of a call of Prolog we might
+omit: the resolving clauses, the substitution, some
+of the branches, etc. Provided we could make it clear what
+the complete story would be like and that some bits were being
+deliberately omitted for the sake of clarity then I think this would work.
+
+	The corrollary is that the debugging aids built to reflect this
+story should be similarly flexible.  If the Byrd box were taken as a
+starting point, for instance (and I have reservations about this
+because it is based on the AND/OR tree), then facilities would have to
+be added for obtaining:  the resolving clauses, the current
+substitution, the remaining subgoal literals, etc, on demand.  Since we
+will also want @i(not) to have to look at the outstanding literals in
+the current clause, this is a point against the OR tree.  Give the
+hardware (e.g.  bit map displays) then we should try to display the
+search space.  This makes it even more important whether we use the OR
+or AND/OR tree story.
+
+	I now think I confused the issue by mixing up stories you tell
+in the classroom with those you display on the terminal.  Certainly,
+they have to agree, but some things are easier in one medium than
+another.  For instance, graphical representations are easy to achieve on
+the blackboard/overhead, but difficult on a glass teletype.  More
+significantly, we can rig up the Byrd debugging package to print out
+outstanding goals.  If we had better screens we could display the
+success subtree in a different colour, and we could model the deletion
+of the search tree by the cut.  However these might run fancy algorithms
+to calculate the relevant infomation, and the student might have
+difficulty reproducing this process in the classroom, e.g.  it does not
+help us solve the problem that locating the success subtree on a drawing
+of the AND/OR tree is still hard.
+
+@subheading(References)
+@bibliography
+

@@ -1,0 +1,300 @@
+
+Quintus Prolog Release 1.6 (Sun)
+Copyright (C) 1986, Quintus Computer Systems, Inc.  All rights reserved.
+
+[WARNING: Singleton variables, clause 1 of el/2: L]
+[WARNING: Singleton variables, clause 2 of el/2: Y]
+[WARNING: Singleton variables, clause 2 of fib_loop/1: Z]
+[WARNING: Singleton variables, clause 1 of mham_top/0: X]
+[WARNING: Singleton variables, clause 1 of theorem/2: Depth]
+[WARNING: Singleton variables, clause 2 of theorem/2: Depth]
+[WARNING: Singleton variables, clause 2 of qs_loop/2: Z]
+[WARNING: Singleton variables, clause 1 of qu_top/0: X]
+[WARNING: Singleton variables, clause 1 of safe/3: X, Y]
+[WARNING: Singleton variables, clause 1 of threatened/4: Y, J]
+[WARNING: Singleton variables, clause 2 of threatened/4: X, I]
+[WARNING: Singleton variables, clause 1 of que_top/0: X]
+[WARNING: Singleton variables, clause 1 of differen_top/0: D1, D2, D3, D4]
+[WARNING: Singleton variables, clause 10 of d/3: C, X]
+[WARNING: Singleton variables, clause 2 of difflistloop/2: Z]
+[/usr/ra/sicstus/MCV2/Bench/bench_2.pl compiled (18.550 sec 15488 bytes)]
+
+yes
+fibonacci(1).
+yes
+Net Time is: 234
+KLips are: 0.0210769
+
+yes
+map(200).
+yes
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+[b,r,b,w,r,b,g,b,r,g,r,b,w]
+Net Time is: 4966
+KLips are: 0.00273862
+
+yes
+mham(1).
+yes
+Net Time is: 23983
+KLips are: 0.0205906
+
+yes
+mutest(1).
+yes
+Net Time is: 67
+KLips are: 0.020388
+
+yes
+qs(10).
+yes
+Net Time is: 250
+KLips are: 0.02404
+
+yes
+qu(10).
+yes
+Net Time is: 183
+KLips are: 0.037377
+
+yes
+query(1).
+yes
+Net Time is: 250
+KLips are: 0.00917599
+
+yes
+differen(150).
+yes
+Net Time is: 783
+KLips are: 0.0136015
+
+yes
+diff(50).
+yes
+Net Time is: 1334
+KLips are: 0.0227886
+
+yes
+nrev - 10.
+yes
+list length: LIPS= 3.88235
+yes
+nrev - 30.
+yes
+list length: 
+no
+nrev - 50.
+yes
+list length: LIPS= 78.0
+yes
+nrev - 100.
+yes
+list length: LIPS= 38.7293
+yes
+nrev - 150.
+yes
+list length: LIPS= 38.2533
+yes
+nrev - 200.
+yes
+list length: LIPS= 45.1133
+yes

@@ -1,0 +1,34 @@
+                     PROLOG GRAPH-HANDLING ROUTINES
+                          Author: Paul Freedman
+                     Received on 15th December 1990
+                   Shelved on the 12th of January 1991
+
+
+This entry is two programs:  one for decomposing a non-weighted directed
+graph  into strongly  connected components;  and the  other for  finding
+simple and elementary cycles in a strongly connected component.
+
+
+The program is  written for SICStus Prolog, which  is Quintus compatible
+and hence  uses `standard' Edinburgh syntax.  The only non-portabilities
+are the I/O, which calls some non-standard Phigs stuff. I [JNP] have not
+yet changed these to make them portable.
+
+
+Although  the programs  are commented,  it would  probably help  to know
+something  about graph  theory. The  documentation file  gives the  most
+important references for the algorithms behind the programs. (of course,
+the algorithms as they appear in the programs don't correspond 100% with
+the references).  This file also contains  a Unix script  describing how
+the program is used (in SICStus Prolog running on a Sun-4).
+
+
+SIZE : 30 kilobytes.
+
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : no.
+
+PORTABILITY : OK, except that you'll need to change some of the I/O
+calls.
+
+INTERNAL DOCUMENTATION  : comments in the program source, plus
+literature references.

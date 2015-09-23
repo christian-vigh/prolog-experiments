@@ -1,0 +1,43 @@
+
+
+interval(Name) --> covers, 
+		   ranges(Min, Max, Op1, Op2),
+		   { Name = [Min, Max, Op1, Op2] }.
+
+covers --> [covers].
+covers --> [range].
+covers --> [interval].
+
+ranges(Min, Max, Op1, Op2) --> range(Min, Max, Op1, Op2).
+ranges(Min, Max, Op1, Op2) --> range(Min, Max, Op1, Op2), 
+			       range_assoc, 
+			       ranges(Min, Max, Op1, Op2).
+
+range_assoc  --> [','].
+range_assoc  --> ['+'].
+range_assoc  --> [and].
+range_assoc  --> [plus].
+
+range(Name, V1, V2, Left, Right) --> 
+	left(Left), 
+	value(V1), separator, 
+	value(V2), 
+	right(Right).
+
+
+left(X)  --> ['['], { X = '>=' }.
+left(X)  --> [']'], { X = '>'  }.
+right(X) --> ['['], { X = '<' }.
+right(X) --> [']'], { X = '=<' }.
+
+separator --> ['..'].
+separator --> ['--'].
+
+
+value(X) --> ['+infinite'], { X = inf }.
+value(X) --> ['-infinite'], { X = -inf }.
+value(X) --> ['+infinity'], { X = inf }.
+value(X) --> ['-infinity'], { X = -inf }.
+value(X) --> ['+inf'], { X = inf }.
+value(X) --> ['-inf'], { X = -inf }.
+value(X) --> [X].

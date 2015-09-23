@@ -1,0 +1,12 @@
+
+
+% Basic data type
+
+binary(0).		% Basic types
+binary(1).
+binary([H|T]) :-	% General predicate for binary vector
+	binary(H),
+	binary(T).
+binary([H]) :- 		%
+	binary(H), !.
+

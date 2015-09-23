@@ -1,0 +1,235 @@
+ %%%=======================================================================%%%
+ %%%                                                                       %%%
+ %%%                        A Grammar of Yaqui                             %%%
+ %%%                                                                       %%%
+ %%%             (Uto-Aztecan language from Mexico and Arizona)            %%%
+ %%%                                                                       %%%
+ %%%=======================================================================%%%
+
+ LANGUAGE = yaqui.
+
+ FG = head subj obj iobj comp xcomp bycomp.
+
+ %-----------------------------------------%
+ %    Feature onto (semantic ontology)     %
+ %-----------------------------------------%
+   
+ top     < abstr concr.
+ abstr   < event temp.
+ event   < activ stat.                          % activity, state
+ activ   < mov trans.                           % movement, transfer
+ concr   < animate thing.
+ animate < beast hum.
+ hum     < person instit.
+ thing   < plant bodypart place semiot physobj artifact force.
+ temp    < tseq tmeasure tmploc.
+
+ %-----------------------------------------%
+ %    Feature case (morphological case)    %
+ %-----------------------------------------%
+
+ top < nom dep.
+ dep < acc oblq.
+ oblq < gen pp.
+ 
+ %*****************************************%
+ %             Default features            %
+ %*****************************************%
+       
+ FV ==> U/aspect = nonperfect.
+ FV ==> U/cont = nonprogr.
+ 
+ %% The predicate of the null subject is 'pro'
+  
+ CLA  ==>  U/subj/head = NULL
+           U/subj/sem/anaphor=+.
+
+ % Every NP has a semantic index
+ 
+ NP ==> U/sem/index={INDEX}.
+
+ % Unmarked NPs are typically singular (exception: when accompanied by
+ % plural adjectives: Lindenfeld p. 50)
+ 
+ NP ==> U/num=sg.
+ 
+ % Empty NPs have a 'pro' head
+ 
+ NP ==> U/head=NULL
+        U/sem/anaphor=+.
+  
+ %*************************%
+ %      Macros             %
+ %*************************%
+
+ %% Subject Attachment
+ 
+ @Subject =
+        ( D/case=nom | U/sub =c + D/case=dep )
+        U/subj=D.
+        
+ %% PP adjunct attachment
+
+ @Adjunct = 
+        D in U/adjunct 
+        U/sem/{D/theta} = D/sem.
+
+ %% ADJ attachment
+ 
+ @Adjective = 
+        D in U/adjunct
+        U/sem/index = D/sem/arg1/index
+        D/sem in U/sem/restrictor.              
+  
+ %% Some NPs ('some day', etc) are to be handled as time adjuncts
+ 
+ @TimeAdjunct =
+        D/sem/onto =c temp
+        D in U/adjunct
+        U/sem/time=D/sem.
+
+ % Possessive Denominalization (Lindenfeld 42-44)
+
+ @PossDenom =   
+        U/subcat=<subj obj>
+        U/head=D
+        U/obj/head=NULL
+        U/sem/pred=tener
+        U/sem/arg1=U/subj/sem
+        U/sem/arg2=U/obj/sem
+        U/sem/arg2/pred=D/sem/pred.
+
+ % Relative attachment
+ 
+ @Relative =
+        D/ctype=relative
+        U/num = D/antec/num
+        U/sem/index = D/antec/sem/index
+        U/sem/onto = D/antec/sem/onto
+        D/sem/(arg1|arg2)=D/antec/sem
+        D in U/adjunct
+        U/sem/restr = D/sem.
+
+ % Negative Clauses (ej. 'bempo kaita bicak': nada ha visto)
+ 
+ @PreVerbNeg =
+        IF   D/protype =c neg
+        THEN U/sem/pol=neg.
+       
+         
+ %********************************%
+ %      Grammar Rules             %
+ %********************************%
+ 
+ S --> CLA.
+
+ CLA --> ADVP : @Adjunct
+         CLA.
+
+ CLA --> PP : ( U/comp=D | @Adjunct )
+         CLA.
+                    
+ CLA --> &NP : @Subject
+               @PreVerbNeg
+          VP.
+
+ VP --> &NEG
+         V1.
+
+ VP --> VP : U/xcomp=D            % For verbal clitics (examples 40-43)
+        CLV.
+                        
+ % Pre-verbal complements
+ 
+ V1 --> NP : ( U/obj=D | U/iobj=D | @TimeAdjunct )
+             @PreVerbNeg
+        V1.
+
+ V1 --> ADVP : @Adjunct
+        V1.
+                        
+ V1 --> PP : ( U/comp=D | U/bycomp=D | @Adjunct )
+        V1.
+
+ % Exceptional post-verbal applicative adjuncts (see sent. 30-31)
+ 
+ V1 --> V1
+        PP : D/head =c becibo
+             @Adjunct.
+                     
+ V1 --> FV.
+
+ % In possessive denominalization, a noun adopts verbal morphology (Lindenfeld 42-44)
+ % Note that at least the aspectual morpheme ASP1 is compulsory in the noun.
+ 
+ V1 -->  N   : @PossDenom
+         ASP1 
+        &ASP2.
+
+ % Adjetive as predicate
+ 
+ V1 --> ADJ.
+
+ % Noun phrases as predicates
+ 
+ V1 --> NP : U/head=D
+             U/sem/pred=EQUATION
+             U/sem/arg1=U/subj/sem
+             U/sem/arg2=D/sem.
+   
+ % Morphological definition of the verb form. 
+
+ FV --> V &ASP1 &ASP2.
+
+    %-----------------------------%
+    %      Noun Phrases           %       
+    %-----------------------------%
+
+ NP --> Q : D/predet=? U=D
+        NP.
+        
+ NP --> DET
+        &N2.
+        
+ NP --> N2.
+ 
+ N2 -->  Q
+        &N2.
+        
+ N2 -->  N1
+        &CP : @Relative.                         
+
+ N1 --> ADJ : D/num=U/num
+              @Adjective
+        N1.
+
+ N1 --> N
+        ADJ : D/num =c pl
+              @Adjective.
+
+ N1 --> NP : D/case =c dep 
+             D in U/adjunct
+             U/sem/possessor = D/sem
+        N1.
+                               
+ N1 --> FN.
+ N1 --> PRO.
+ 
+ % A morphological definition of the noun form. 
+
+ FN --> N &MC.
+
+ PP --> NP : U/comp=D
+        P
+       &ESP.                    % Post-PP Specifier, as in sent. 27
+
+ PP --> PAV.                    % Place Adverbs are PPs.
+  
+ ADVP --> &ADV : D/theta =c degree
+                 U/adjunct=D
+                 U/sem/degree=D/sem
+           ADV.
+
+ CP --> CLA
+        COMP.
+

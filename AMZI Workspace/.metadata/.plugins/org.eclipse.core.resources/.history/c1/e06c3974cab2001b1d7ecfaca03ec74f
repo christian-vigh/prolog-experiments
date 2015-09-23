@@ -1,0 +1,14 @@
+
+
+:- op( 500, xfx, covers ).
+
+:- op(1200,  fx, #<).
+:- op(1200,  fx, #>).
+:- op(1200,  xf, <#).
+:- op(1200,  xf, >#).
+:- op( 700, xfx, --).
+
+
+X covers #< A -- B ># :-
+	write(A), nl, write(B).
+	

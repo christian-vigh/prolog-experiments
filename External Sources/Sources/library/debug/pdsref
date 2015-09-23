@@ -1,0 +1,122 @@
+% General refinement operator for pds
+:- public
+	 refinement/2,
+	 create_io/2,
+	 derefine/2.
+
+refinement(((P:-Q),(Vi,Vo,Vf)),((P:-Q),(Vi,[],[]))) :-
+	% Close a clause
+	Vo\==[],
+	unisubset(Vo,Vi),
+	eqdifset(Vf,Vo,[]),
+	noduplicate_atom(P,Q).
+
+refinement(((P:-true),(Vi,Vo,[])),((P:-true),(Vi2,Vo,[]))) :-
+	% instantiate head, inputs.
+	dmember(Var,Vi,Vi1),
+	term_to_vars(Var,NewVars),
+	append(Vi1,NewVars,Vi2).
+
+refinement(((P:-true),(Vi,Vo,[])),((P:-true),(Vi,Vo2,[]))) :-
+	% instantiate head, outputs.
+	dmember(Var,Vo,Vo1),
+	term_to_vars(Var,NewVars),
+	append(Vo1,NewVars,Vo2).
+
+refinement(((P:-true),(Vi,Vo,[])),((P:-true),(Vi1,Vo,[]))) :-
+	% unify two input vars
+	dmember(Var1,Vi,Vi1),
+	member(Var2,Vi1),
+	Var1 @< Var2,  % not to create duplicates
+	Var1=Var2.
+refinement(((P:-Q1),(Vi,Vo,Vf)),((P:-Q2),(Vi1,Vo,Vf1))) :-
+	% add output producing goal
+	Vo\==[],
+	body_goal(P,Q,QVi,QVo),
+	QVo\==[],
+	unisubset(QVi,Vi),
+	noduplicate_atom(Q,(P,Q1)),
+	free_vars(Vf,QVi,QVo,Vf1),
+	append(Vi,QVo,Vi1),
+	qconc(Q,Q1,Q2).
+
+refinement(((P:-Q1),(Vi,[],[])),((P:-Q2),(Vi,[],[]))) :-
+	% add test predicate
+	body_goal(P,Q,QVi,[]),
+	unisubset(QVi,Vi),
+	noduplicate_atom(Q,(P,Q1)),
+	qconc(Q,Q1,Q2).
+
+body_goal(P,Q,QVi,QVo) :-
+	called(P,Q),
+	input_vars(Q,QVi), output_vars(Q,QVo).
+
+
+qconc(A,true,A) :- !.
+qconc(A,(B,X),(B,Y)) :- !, qconc(A,X,Y).
+qconc(A,B,(B,A)).
+
+% unisubset(V1,V2) :- V1 is a subset of V2
+unisubset([],_) :- !.
+unisubset([X|V1],V2) :-
+	dmember(X,V2,V3), unisubset(V1,V3).
+
+
+
+% dmember(X,L1,L2) :- the difference between list L1 and list L2 is X.
+dmember(X,[X|L],L).
+dmember(X,[Y|L1],[Y|L2]) :-
+	dmember(X,L1,L2).
+
+% check no goals with duplicate inputs
+noduplicate_atom(P1,(P2,Q)) :- !,
+	( same_goal(P1,P2), !,  fail ;  noduplicate_atom(P1,Q) ).
+noduplicate_atom(P1,P2) :-
+	same_goal(P1,P2), !, fail ; true.
+
+% eqdifset(V1,V2,V3) :-  variable set V1 - V2 is V3.
+eqdifset(V,[],V) :- !.
+eqdifset(V1,[X|V2],V3) :-
+	eqdelmember(X,V1,V4), !,
+	     eqdifset(V4,V2,V3) ;
+	     writel(['type conflict in ',eqdifset(V1,[X|V2],V3)]), break.
+
+
+% eqdelmember(X,L1,L2) :- the difference between list L1 and list L2 is X.
+eqdelmember(X1,[],[]) :- !.
+eqdelmember(X1,[X2|L],L) :- X1==X2, !.
+eqdelmember(X,[Y|L1],[Y|L2]) :-
+	eqdelmember(X,L1,L2).
+
+
+% create the input set Xi and output set Xo and free set Xf of variables
+% of a clause P:-Q.  does also typecheking.
+
+create_io((P:-Q),(Xi,Xo,Xf)) :-
+	atom_vartype(P,Vi,Vo),
+	create_io1(Vi,Xi,Vo,Xo,[],Xf,Q).
+
+% create_io1(Vi,Xi,Vo,Xo,Vf,Xf,Q) :- if Vi, Vo and Vf are given input
+% variable set, output variable set and free variable set, then together
+% with Q, Xi, Xo and Xf are the input, output and free variable sets.
+
+create_io1(Xi,Xi,Xo,Yo,Xf,Yf,true) :- !,
+	eqdifset(Xo,Xi,Yo),
+	eqdifset(Xo,Yo,Xf1),
+	eqdifset(Xf,Xf1,Yf).
+create_io1(Xi,Yi,Xo,Yo,Xf,Yf,(P,Q)) :- !,
+	atom_vartype(P,Vi,Vo),
+	eqdifset(Vi,Xi,Vdif),
+	( Vdif=[], !,
+	    append(Xi,Vo,Xi1),
+	    free_vars(Xf,Vi,Vo,Xf1),
+	    !, create_io1(Xi1,Yi,Xo,Yo,Xf1,Yf,Q) ;
+	    writel(['uninstantiated input variables ',Vdif,' in atom ',P]),
+	    fail ).
+create_io1(Xi,Yi,Xo,Yo,Xf,Yf,P) :-
+	create_io1(Xi,Yi,Xo,Yo,Xf,Yf,(P,true)).
+
+% free_vars(Vf,Vi,Vo,Vf1) :- remove from Vf Vi, and add Vo, getting Vf1.
+free_vars(Vf,Vi,Vo,Vf2) :-
+	eqdifset(Vf,Vi,Vf1),
+	append(Vf1,Vo,Vf2).

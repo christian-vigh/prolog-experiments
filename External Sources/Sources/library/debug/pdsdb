@@ -1,0 +1,170 @@
+% Data base for pds.
+
+% The base relation is solutions(P,S), which denotes that
+% the solutions of goal P are exactly S. This relation stores
+% results of existential queries.
+% On top of it, we compute the relation fact(P,V), which says P is known
+% to have truth value V, were 'known' is defined in the broadest way possible.
+% i.e., can contains any clauses that represent our current knowledge.
+% Using the 'fact' relation, we encode constratnts, etc.
+
+fact(P,V) :-
+	var(P) -> ( solutions(_,S), member(P,S), V=true ;
+		    solutions(P,[]), V=false ) ;
+	solutions(P,S), ( member(P,S), V=true ; \+member(P,S), V=false ).
+
+listfact(P) :-
+	fact(P,V), write(fact(P,V)), nl, fail ; true.
+
+is_instance(P1,P2) :-
+	% P1 is an instance of P2
+	verify(( numbervars(P1,0,_), P1=P2 )).
+
+assert_fact(P,V) :-
+	fact(P,V1) -> ( V=V1, !, true ; break(assert_fact(P,V)) ) ;
+	\+ground(P) -> break(assert_fact(P,V)) ;
+	% writelv(['Asserting: ',fact(P,V)]), nl,
+	( V=true -> assert(solutions(P,[P])) ;
+	  V=false -> assert(solutions(P,[])) ;
+	  break(assert_fact(P,V)) ).
+
+
+query(exists,P,V) :-
+	system(P) -> ( P -> V=true ; V=false ) ;
+	mgt(P,P1), solutions(P1,S), is_instance(P,P1) ->
+	    ( member(P,S), V=true ; \+member(P,S), V=false ) ;
+	fact(P,true), V=true ;
+	ask_for_solutions(P,S) ->
+	    ( S=[] -> V=false ; member(P,S), V=true ).
+query(forall,P,V) :-
+	ground(P) -> query(exists,P,V) ;
+	break(query(forall,P,V)).
+
+query(solvable,P,V) :-
+	system(P) -> ( P -> V=true ; V=false ) ;
+	fact(P,V1) -> V=V1 ;
+	ask_for(['Query: ',P],V1,(V1=true;V1=false)) -> V=V1.
+
+ask_for_solutions(P,S) :-
+	  bagof0(P,ask_for_solution(P),S),
+	  % writelv(['Asserting: ', solutions(P,S)]), nl,
+	  assert(solutions(P,S)).
+
+ask_for_solution(P) :-
+	nl, ask_for(['Query: ',P],V,(V=true;V=false)),
+	( V=false -> fail ;
+	  ground(P) -> true ;
+	  varand(P,Pvars),
+	  repeat,
+	    writelv(['Which ',Pvars,'? ']), ttyflush,
+	    reade(Answer),
+	    ( Answer=false, !, fail ;
+	      Answer=Pvars -> true ;
+	      write('does not unify; try again'), nl ),
+	    ( attribute(P,determinate), ! ; true ) ).
+
+
+
+query(legal_call,(P1,P2),V) :-
+	same_goal(P1,P2), !, V=false ;
+	legal_call((Q1,Q2),V1), same_goal(P1,Q1), same_goal(P2,Q2), !,
+	    V=V1 ;
+	confirm(['Is ',(P1,P2),' a legal call']), !,
+	    assert(legal_call((P1,P2),true)), V=true ;
+	assert(legal_call((P1,P2),false)), V=false.
+
+known_illegal_call(P1,P2) :-
+	same_goal(P1,P2), !, V=false ;
+	legal_call((Q1,Q2),false), same_goal(P1,Q1), same_goal(P2,Q2).
+
+
+same_goal(P,Q) :-
+	functor(P,F,N), functor(Q,F,N),
+	input_vars(P,Pi),  input_vars(Q,Qi), !, variants(Pi,Qi).
+
+satisfiable((P,Q)) :-!,
+	query(exists,P,true), satisfiable(Q).
+satisfiable(P) :-
+	query(exists,P,true).
+
+
+legal_calls(P,true) :-!.
+legal_calls(P,Q) :-
+	( Q=(Q1,Q2), !, true ; Q=Q1, Q2=true ),
+	( known_illegal_call(P,Q1), !, fail ;  true ),
+	( fact(Q1,true), !, legal_calls(P,Q2) ; true ).
+	    % for all true solutions to Q1, Q2 shouldn't loop.
+
+clear :-
+	abolish(solutions,2),
+	abolish(legal_call,2).
+
+clear(P) :-
+	( retract(solutions(P,_)), fail ; true ).
+
+edit_facts :-
+	solutions(P,S),
+	confirm(['Retract ',solutions(P,S)]),
+	retract(solutions(P,S)),
+	fail ; true.
+
+/* Information about a procedure:
+
+	:- declare(P,A), where
+	    P is, for example qs(+[x],-[x]), and
+	    A is, for example [determinate,total]
+
+This will create the resulting data:
+	declared(P,Inv,OutV,A), where InV (OutV) are pairs of input (output)
+	    variables and their types, and
+	    A is the list of attribute.
+
+*/
+
+declare(Pmode,Ps) :-
+	mgt(Pmode,P),
+	P=..[F|Pargs],
+	Pmode=..[F|Fargs],
+	varplusminus(Pargs,Fargs,InV,OutV),
+	( retract(declared1(P,_,_,_)), fail ; true ),
+
+	% writelv(['Declaring ',(P,InV,OutV,Ps)]), nl,
+	assert(declared1(P,InV,OutV,Ps)).
+
+varplusminus([V|Pargs],[+(T)|Fargs],[(V,T)|PlusV],MinusV) :-  !,
+	varplusminus(Pargs,Fargs,PlusV,MinusV).
+varplusminus([V|Pargs],[-(T)|Fargs],PlusV,[(V,T)|MinusV]) :-  !,
+	varplusminus(Pargs,Fargs,PlusV,MinusV).
+varplusminus([],[],[],[]) :- !.
+varplusminus(Pargs,Fargs,PlusV,MinusV) :-
+	break( varplusminus(Pargs,Fargs,PlusV,MinusV) ).
+
+declared(P,Pi,Po,[]) :-
+	nonterminal(P), P=..[_,Pi,Po].
+
+declared(P,Pi,Po,Pa) :-
+	declared1(P,Pi1,Po1,Pa1), !, Pi1=Pi, Po1=Po, Pa1=Pa ;
+	ask_for(['Declare ',P],declare(Pv,Pa)), declare(Pv,Pa),
+	declared(P,Pi,Po,Pa).
+
+attribute(X,Xa) :-
+	declared(X,_,_,Xas), !, member(Xa,Xas).
+
+input_vars(P,InV) :-
+	declared(P,InV,_,_).
+
+output_vars(P,OutV) :-
+	declared(P,_,OutV,_).
+
+atominfo(P,_,_,_) :- break( atominfo(P,_,_,_) ).
+
+declare_called(P,Ps) :-
+	( retract(called1(P,_)), fail ; true ),
+	assert(called1(P,Ps)).
+
+called(P,Q) :-
+	system(P), !, fail ;
+	called1(P,Qs), !, member(Q,Qs) ;
+	ask_for(['Procedures called by ',P],Ps),
+	and_to_list(Ps,Ps1),
+	declare_called(P,Ps1).

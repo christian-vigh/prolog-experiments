@@ -1,0 +1,71 @@
+/* focus1
+Rational Reconstruction of Winston Learning Program
+Alan Bundy 1.12.80
+Version for functions
+More Efficient Version 25.6.82 */
+
+/* Top Level Program - learn new concept */
+/* ------------------------------------- */
+
+/*First time only accept an example */
+focus(Concept) :-
+	abolish(definition,3),
+	writef('Please give me an example of a %t \n', [Concept]),
+	read(Ex), nl,
+	make_rec(Concept,Ex,CObjs,CRec,Pairs),
+	checklist(gensym(plato),CObjs),
+	writef('Idealizing objects as follows:\n\t%t\n',[Pairs]),
+	maplist(add_ups,CRec,CDefn),
+	assert(definition(Concept,CObjs,CDefn)), !,
+	continue(Concept).
+
+/* Is grey area in definition eliminated? */
+continue(Concept) :-
+	definition(Concept,CObjs,CDefn),
+	checklist(same,CDefn), !,
+	writef('I have learnt the concept of %t now. \n', [Concept]).
+
+/*Subsequently accept either examples or near misses */
+continue(Concept) :-
+	writef('Please give me an example or near miss of a %t. \n', [Concept]),
+	read(Ex), nl,
+	writef('Is this example (yes./no.)? \n',[]),
+	read(YesNo), nl,
+	learn(Concept,Ex,YesNo),
+	fail.
+
+continue(Concept) :- continue(Concept).		/* try again */
+
+
+/* add default upper bounds in concept record */
+add_ups(record(Args,Name,Posn), define(Args,Name,[],Posn)).
+
+
+
+/* are upper and lower bound of concept definition the same? */
+same(define(Args,Name,Posn,Posn)).
+
+/* learn from this example or near miss */
+learn(Concept, Example, YesNo) :- !,
+	definition(Concept,CObjs,CDefn),
+	make_rec(Concept,Example,VObjs,VRec,Pairs),
+	classify(CObjs,VObjs,CDefn,VRec,Diff,Verdict),
+	writef('Pairing objects as follows:\n\t%t\n',[Pairs]),
+	writef('I classify specimen as %t . \n', [Verdict]),
+	learn1(Concept,Diff,YesNo,Verdict), !.
+
+
+
+/* Find out what grey areas still exist in concept */
+grey(Concept) :- !,
+	writef('Grey areas in %t are:\n',[Concept]),
+	definition(Concept,CObjs,CDefn),
+	checklist(grey1,CDefn).
+
+grey1(define(Args,Name,Posn,Posn)) :- !.
+
+grey1(Defn) :- !,
+	write(Defn), nl.
+
+
+

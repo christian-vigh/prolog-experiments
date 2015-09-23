@@ -1,0 +1,84 @@
+UTIL:UTIL.HLP					Updated: 22 October 81
+
+
+This directory contains the Prolog utilities used by the Mecho Project.
+
+On the ERCC DEC10 in Edinburgh all this stuff is contained in [140,143,UTIL].
+The contents of this directory is now being thrown onto outgoing tapes
+containing the latest DEC10 Prolog system, on the offchance they might be
+of some use elsewhere.
+
+The following files are present:
+
+	UTIL.MIC
+	MUTIL.MIC	These are MIC command files for loading two standard
+			Utilities packages (a full one and a minimal one).
+			The EXE files produced are stored elsewhere in the
+			Mecho library ([400,444]). These MIC files are rather
+			hairy, their main purpose being to support an
+			automatic reloading hack I use (they will undoubtably
+			be useless elsewhere).  The interesting work is done in
+			the following files:
+
+	UTIL
+	MUTIL		These are Prolog files which contain the commands to
+			load (by compiling/consulting) the various sources
+			which make up the above packages. Either of these
+			files just needs consulting to do the loading.
+
+	UTIL.TXT	This file contains a list of all the predicates
+			provided by the Utilities package. The predicates
+			are listed first by module (source file) and then
+			alphabetically.
+
+	WRITEF.*	A short documentary note on the formatted write
+			utility (see WRITEF.PL).
+
+	UTIL.MSS	A rather old start to some documentation, It is
+			horribly incomplete and uses as yet undefined
+			SCRIBE macros so there is only the source form.
+
+	UTIL.OPS
+	ARITH.OPS	These files declare the (syntactic) operators used by
+			the packages.
+
+	*.PL		These are all the Prolog source files for the Utility
+			packages.
+
+
+Unfortunately there is no decent documentation for the utilities apart from
+the list of predicates in UTIL.TXT. This is a matter which I have been meaning
+to deal with for years. However most of the routines are pretty short and
+straightforward. I have not yet brought them all up to my current commenting
+standards though. Sorry about the mess.
+
+The real goody that you may enjoy is the rational arithmetic package which can
+be found in LONG.PL.  This provides all the standard arithmetic operations over
+arbitrary precision rational numbers, plus some more things like logs, square
+roots, and a poor mans trig function hack.  There is also a symbolic
+simplifier/evaluator which makes use of LONG in TIDY.PL.  Both these files are
+fairly substantial but they both contain documentation on whats going on.  The
+rational arithmetic package is pretty fast considing this was not a deliberate
+intention.  It needs compiling of course - try it and see!
+
+I hope these may be of some use to you,
+
+
+					Lawrence Byrd
+					Artificial Intelligence
+					Hope Park Square
+					University of Edinburgh
+					Edinburgh
+					SCOTLAND	UK
+
+
+	Network mail etc,
+
+		BYRD on the ERCC DEC10 (Edinburgh) (ppn = [400,441])
+			(If thats where you are, or you can get through)
+
+		BYRD@MIT-AI
+			(Regular ARPANET mailing address)
+
+
+

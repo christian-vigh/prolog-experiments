@@ -1,0 +1,36 @@
+%% An implementation of the search strategies
+
+
+covers(C,P) :-
+	( value(search_strategy,S), member(S,[eager,lazy,adaptive]) -> true ;
+	  break('Incorrect or missing search strategy') ),
+	covers(S,C,P).
+
+covers(eager,((P:-Q),(Vi,Vf,Vo)),P1) :-
+	( Q=true ; Vo=[] ) -> verify(( P=P1, satisfiable(Q) )) ;
+	verify(P=P1).
+covers(lazy,((P:-Q),_),P1) :-
+	verify(( P=P1,  fact_satisfiable(Q) )).
+covers(adaptive,((P:-Q),_),P1) :-
+	verify(( P=P1,  fact_solve(Q) )).
+
+fact_satisfiable((P,Q)) :-  !,
+	fact_satisfiable(P), fact_satisfiable(Q).
+fact_satisfiable(P) :-
+	system(P) -> P ; fact(P,true).
+
+fact_solve(P) :-
+	fact_solve(P,25,X),
+	( X=(overflow,S) -> stack_overflow(P,S), fact_solve(P) ; true ).
+
+fact_solve(A,0,(overflow,[])) :- !.
+fact_solve((A,B),D,S) :-  !,
+	fact_solve(A,D,Sa),
+	( Sa=true -> fact_solve(B,D,Sb), S=Sb ; S=Sa ).
+fact_solve(A,D,Sa) :-
+	system(A) -> A, Sa=true ;
+	fact(A,true) -> Sa=true ;
+	D1 is D-1,
+	clause(A,B), fact_solve(B,D1,Sb),
+	( Sb=true -> Sa=true ;
+	  Sb=(overflow,S) -> Sa=(overflow,[(A:-B)|S]) ).

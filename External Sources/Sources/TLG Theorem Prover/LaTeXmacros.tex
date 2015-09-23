@@ -1,0 +1,134 @@
+% LaTeX Macros for Natural Deduction Categorial Grammar
+% =====================================================
+% Bob Carpenter
+% May 5, 1994
+
+% This file contains the LaTeX macros necessary to generate
+% natural deduction style CG proofs.  All of them may be easily
+% modified to change the look of the output derivations.  They're
+% presented in this file top down from the highest level to the 
+% lowest
+
+% Derivations
+% ----------------------------------------------------------------------
+
+% axr{Result}{Rule}
+% ----------------------------------------------------------------------
+% sets axiomatic rule with no antecedent, result Result, and rule Rule
+% ----------------------------------------------------------------------
+\newcommand{\axr}[2]{\begin{array}[t]{c}
+                         \hrulefill\makebox[0pt][l]{$#2$}
+                         \\
+                         #1
+                       \end{array} }
+
+% \infr{Antecedent}{Result}{Rule}
+% ----------------------------------------------------------------------
+% sets inference scheme with antecedent Antecedent, result Result
+% and rule Rule
+% ----------------------------------------------------------------------
+\newcommand{\infr}[3]{
+  \begin{array}[t]{@{}c@{}}
+    #1
+    \\[-4.5pt]
+   \hrulefill\makebox[0pt][l]{$#3$} 
+    \\ 
+    #2
+\end{array}}
+
+
+% Categories
+% ----------------------------------------------------------------------
+
+% \synsem{Syn}{Sem}
+% ----------------------------------------------------------------------
+% sets category with syntax Syn and semantics Sem
+% ----------------------------------------------------------------------
+\newcommand{\synsem}[2]{#1\/\colon #2}
+
+
+% Semantic Terms -- Lambda Calculus
+% ----------------------------------------------------------------------
+
+% \lam{Var}{Scope}
+% ----------------------------------------------------------------------
+% sets lambda abstraction of Var over Scope
+% ----------------------------------------------------------------------
+\newcommand{\lam}[2]{\lambda #1 . #2}
+
+% \con{C}
+% ----------------------------------------------------------------------
+% sets semantic constant C
+% ----------------------------------------------------------------------
+\newcommand{\con}[1]{{\bf #1}}
+
+
+% Logic
+% ----------------------------------------------------------------------
+
+% \conj, \disj, \neg
+% ----------------------------------------------------------------------
+% sets logical operators of conjunction and disjunction and negation
+% (negation built in)
+% ----------------------------------------------------------------------
+\newcommand{\conj}{\wedge}
+\newcommand{\disj}{\vee}
+
+% \setlist{X}
+% ----------------------------------------------------------------------
+% sets X in set braces
+% ----------------------------------------------------------------------
+\newcommand{\setlist}[1]{\{ #1 \}}
+
+
+% Syntactic Terms - Categorial Grammar
+% ----------------------------------------------------------------------
+
+% \fd{A}{B}, \bk{A}{B}, \bang{A}{B}, \scop{A}{B}
+% ----------------------------------------------------------------------
+% sets A/B, A\B, A-B and scop(A,B) respectively
+% ----------------------------------------------------------------------
+\newcommand{\fd}[2]{#1 / #2}
+\newcommand{\bk}[2]{#1 \backslash #2}
+\newcommand{\bang}[2]{#1 {\uparrow} #2}
+\newcommand{\scop}[2]{#1{\Uparrow}#2}
+
+
+% Expressions
+% ----------------------------------------------------------------------
+
+% \men{W}
+% ----------------------------------------------------------------------
+% sets mention of word W
+% ----------------------------------------------------------------------
+\newcommand{\men}[1]{\mbox{{\sl #1}}}
+
+
+% Deduction Scheme Names
+% ----------------------------------------------------------------------
+% sets the various deduction scheme names
+% ----------------------------------------------------------------------
+\newcommand{\fel}{\elim{/}}
+\newcommand{\bel}{\elim{\backslash}}
+\newcommand{\fin}[1]{\introindex{/}{#1}}
+\newcommand{\bin}[1]{\introindex{\backslash}{#1}}
+\newcommand{\gin}[1]{\introindex{{\uparrow}}{#1}}
+\newcommand{\scopr}[1]{\elim{\Uparrow}^{#1}}
+\newcommand{\scin}{\intro{{\Uparrow}}}
+\newcommand{\coel}{\elim{c}}
+\newcommand{\qi}{\intro{{\Uparrow}}}
+\newcommand{\qpush}[1]{\scopr{#1}}
+\newcommand{\qpop}[1]{\scopr{#1}}
+\newcommand{\qqpush}[1]{\elim{\mbox{\small\it q}}^{#1}}
+\newcommand{\qqpop}[1]{\elim{\mbox{\small\it q}}^{#1}}
+\newcommand{\lexr}{l}
+\newcommand{\empr}{\mbox{$\nullstring$}}
+\newcommand{\id}{i}
+\newcommand{\cut}{c}
+\newcommand{\der}{d}
+\newcommand{\coor}{Co}
+\newcommand{\nbc}{nbc}
+\newcommand{\extr}{ex}
+\newcommand{\topc}{tp}
+
+

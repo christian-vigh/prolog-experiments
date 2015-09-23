@@ -1,0 +1,20 @@
+/*Program 4, Example on Page 40. */
+
+:-['xref.def',dsutil,pdsdb].
+
+fp((A,B),X) :- !,fp(A,Xa),(Xa=ok -> fp(B,X);X=Xa ).
+fp(A,X) :- system(A) -> A,X=ok;
+	   clause(A,B),fp(B,Xb),
+	   (Xb\==ok -> X=Xb;
+	    query(forall,A,true) -> X=ok; X=(A :- B) ).
+
+
+isort([X|Xs],Ys) :- isort(Xs,Zs),insert(X,Zs,Ys).
+isort([],[]).
+
+insert(X,[Y|Ys],[Y|Zs]) :- X < Y,insert(X,Ys,Zs).
+insert(X,[Y|Ys],[X,Y|Ys]) :- X =< Y.
+insert(X,[],[X]).
+
+
+:-end.

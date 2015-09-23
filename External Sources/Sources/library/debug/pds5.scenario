@@ -1,0 +1,180 @@
+Prolog-10  version 3.3
+Copyright (C) 1981 by D. Warren, F. Pereira and L. Byrd
+
+| ?- [pds5,qsort,pdsini].
+?
+
+xref.def consulted   96 words      0.10 sec.
+
+pdsdc consulted   1864 words      0.82 sec.
+
+pdsdb consulted   2084 words      0.96 sec.
+?
+?
+?
+?
+?
+?
+?
+?
+
+pdsini consulted   250 words      0.32 sec.
+
+dsutil compiled: 4125 words,     4.13 sec.
+
+type compiled: 1381 words,     1.62 sec.
+
+pds5 consulted   12251 words     10.14 sec.
+?
+
+qsort consulted   156 words      0.14 sec.
+
+pdsini consulted   376 words      0.37 sec.
+
+yes
+| ?- pds.
+
+@qsort([2,1,3],X).
+Error: stack overflow on qsort([2,1,3],X). diagnosing...
+qsort([2],X) is looping.
+
+Query: partition([],2,[2],[])? n.
+Error: wrong solution partition([],2,[2],[]). diagnosing...
+error diagnosed: (partition([],2,[2],[]):-true) is false.
+Listing of partition(X,Y,Z,U):
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W)).
+    (partition([X|Y],Z,[X|V],W):-X=<Z,partition(Y,Z,V,W)).
+    (partition([],X,[X],[]):-true).
+
+
+@exit.
+
+yes
+| ?- reconsult(temp).
+?
+
+temp reconsulted   -14 words      0.15 sec.
+
+yes
+| ?- pds.
+
+@qsort([2,1,3],X).
+no (more) solutions. ok? n.
+
+Query: qsort([2,1,3],X)? y.
+Which X? [1,2,3].
+Error: missing solution qsort([2,1,3],[1,2,3]). diagnosing...
+
+Query: partition([1,3],2,X,Y)? y.
+Which (X,Y)? [1],[3].
+
+Query: qsort([1],X)? y.
+Which X? [1].
+
+Query: partition([],1,X,Y)? y.
+Which (X,Y)? [],[].
+
+Query: qsort([],X)? y.
+Which X? [].
+error diagnosed: qsort([],[]) is uncovered.
+Listing of qsort(X,Y):
+    (qsort([X|Y],Z):-partition(Y,X,W,X1),qsort(W,Z1),qsort(X1,V1),append([X|Z1],V1,Z)).
+
+
+@exit.
+
+yes
+| ?- reconsult(temp).
+?
+
+temp reconsulted   6 words      0.15 sec.
+
+yes
+| ?- pds.
+
+@qsort([2,1,3],X).
+Error: missing solution qsort([2,1,3],[1,2,3]). diagnosing...
+
+Query: qsort([3],X)? y.
+Which X? [3].
+
+Query: append([2,1],[3],[1,2,3])? n.
+error diagnosed: qsort([2,1,3],[1,2,3]) is uncovered.
+Listing of qsort(X,Y):
+    (qsort([],[]):-true).
+    (qsort([X|Y],Z):-partition(Y,X,W,X1),qsort(W,Z1),qsort(X1,V1),append([X|Z1],V1,Z)).
+
+
+@exit.
+
+yes
+| ?- reconsult(temp).
+?
+
+temp reconsulted   0 words      0.15 sec.
+
+yes
+| ?- pds.
+
+@qsort([2,1,3],X).
+solution: qsort([2,1,3],[2,1,3]); ok? n.
+Error: wrong solution qsort([2,1,3],[2,1,3]). diagnosing...
+
+Query: partition([3],2,[],[3])? y.
+error diagnosed: (partition([1,3],2,[],[1,3]):-partition([3],2,[],[3])) is false.
+Listing of partition(X,Y,Z,U):
+    (partition([X|Y],Z,U,[X|W]):-partition(Y,Z,U,W)).
+    (partition([X|Y],Z,[X|V],W):-X=<Z,partition(Y,Z,V,W)).
+    (partition([],X,[],[]):-true).
+
+
+@exit.
+
+yes
+| ?- reconsult(temp).
+?
+
+temp reconsulted   8 words      0.14 sec.
+
+yes
+| ?- pds.
+
+@qsort([2,1,3],X).
+Error: missing solution qsort([2,1,3],[1,2,3]). diagnosing...
+error diagnosed: partition([3],2,[],[3]) is uncovered.
+Listing of partition(X,Y,Z,U):
+    (partition([X|Y],Z,U,[X|W]):-X<Z,partition(Y,Z,U,W)).
+    (partition([X|Y],Z,[X|V],W):-X=<Z,partition(Y,Z,V,W)).
+    (partition([],X,[],[]):-true).
+
+
+@exit.
+
+yes
+| ?- reconsult(temp).
+?
+
+temp reconsulted   0 words      0.15 sec.
+
+yes
+| ?- pds.
+
+@qsort([2,1,3],X).
+solution: qsort([2,1,3],[1,2,3]);
+no (more) solutions. ok? y.
+
+@qsort([2,1,4,3,66,2,477,4],X).
+solution: qsort([2,1,4,3,66,2,477,4],[1,2,2,3,4,4,66,477]); ok? y.
+no (more) solutions. ok? y.
+
+@exit.
+
+yes
+| ?- core     78848  (33280 lo-seg + 45568 hi-seg)
+heap     16384 =  14514 in use +   1870 free
+global    1451 =     16 in use +   1435 free
+local     1024 =     16 in use +   1008 free
+trail      511 =      0 in use +    511 free
+    0.02 sec. for 1 GCs gaining 723 words
+    0.20 sec. for 18 local shifts and 33 trail shifts
+   19.61 sec. runtime

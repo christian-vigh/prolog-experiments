@@ -1,0 +1,316 @@
+%   File   : IXREF.DEF
+%   Author : Richard A. O'Keefe.
+%   Updated: 14 August 1984
+%   Purpose: XREF definitions for IXREF (part of PP)
+
+
+system([_|_]).
+system(abolish(_,_)).
+system(revive(_,_)).
+system(incore(_)).
+system(asserta(_,_)).
+system(asserta(_)).
+system(assertz(_,_)).
+system(assertz(_)).
+system(retract(_)).
+system(clause(_,_,_)).
+system(clause(_,_)).
+system(record(_,_,_)).
+system(recorda(_,_,_)).
+system(recordz(_,_,_)).
+system(recorded(_,_,_)).
+system(instance(_,_)).
+system(erase(_)).
+system(true).
+system(length(_,_)).
+system(name(_,_)).
+system(op(_,_,_)).
+system(var(_)).
+system(atom(_)).
+system(!).
+system(statistics).
+system(statistics(_,_)).
+system(functor(_,_,_)).
+system((A,B)).			%  , ; and \+
+	applies((A,B), A).	%  have to be defined for when
+	applies((A,B), B).	%  they are "call"ed.
+system((A;B)).
+	applies((A;B), A).
+	applies((A;B), B).
+system(\+(A)).
+	applies(\+(A), A).
+system(call(_)).
+	applies(call(Goal), Goal).
+system(expand_term(_,_)).
+system(debug).
+system(debugging).
+system(display(_)).
+system(get(_)).
+system(get0(_)).
+system(leash(_)).
+system(nl).
+system(nodebug).
+system(print(_)).
+system(put(_)).
+system(skip(_)).
+system(tab(_)).
+system(trace).
+system(ttyflush).
+system(ttyget(_)).
+system(ttyget0(_)).
+system(ttynl).
+system(ttyput(_)).
+system(ttyskip(_)).
+system(ttytab(_)).
+system(write(_)).
+system(writeq(_)).
+system(ancestors(_)).
+system(depth(_)).
+system(maxdepth(_)).
+system(subgoal_of(_)).
+system(abort).
+system(arg(_,_,_)).
+system(assert(_)).
+system(atomic(_)).
+system(bagof(_,_,_)).
+	applies(bagof(Vars,Test,Ans), Test).
+system(break).
+system(close(_)).
+system(compare(_,_,_)).
+system(compile(_)).
+system(consult(_)).
+system(current_atom(_)).
+system(current_functor(_,_)).
+system(current_predicate(_,_)).
+system(current_op(_,_,_)).
+system(fail).
+system(fileerrors).
+system(gc).
+system(gcguide(_)).
+system(halt).
+system(integer(_)).
+system(keysort(_,_)).
+system(listing).
+system(listing(_)).
+system(log).
+system(nofileerrors).
+system(nogc).
+system(nolog).
+system(nonvar(_)).
+system(numbervars(_,_,_)).
+system(phrase(_,_)).
+system(prompt(_,_)).
+system(read(_)).
+system(reconsult(_)).
+system(rename(_,_)).
+system(repeat).
+system(restore(_)).
+system(save(_)).
+system(see(_)).
+system(seeing(_)).
+system(seen).
+system(setof(_,_,_)).
+	applies(setof(Vars,Test,Ans), Test).
+system(sort(_,_)).
+system(tell(_)).
+system(telling(_)).
+system(told).
+system(trimcore).
+system(plsys(_)).
+system('LC').
+system('NOLC').
+system(spy _).
+system(nospy _).
+system(\+_).
+	applies(\+ Goal, Goal).
+system((If->Then)).
+	applies((If->Then), If).
+	applies((If->Then), Then).
+system(_=_).
+system(_ is _).
+system(_==_).
+system(_\==_).
+system(_=.._).
+system(_<_).
+system(_>_).
+system(_=<_).
+system(_>=_).
+system(_@<_).
+system(_@=<_).
+system(_@>=_).
+system(_@>_).
+system(_^_).
+system(_=\=_).
+system(_=:=_).
+
+%	From here on belong to UTIL.
+
+% operators from UTIL.OPS
+
+op(1100, xfy, (\\)).
+op( 950, xfy, #).
+op( 850, xfy, &).
+op( 710,  fy, [not,thnot]).
+op( 700, xfx, \=).
+
+op( 300,  fx, edit).
+op( 300,  fx, redo).
+op( 300,  fx, tlim).
+op( 300,  fx, ton).
+op( 300,  fx, toff).
+
+% operators from ARITH.OPS
+
+op( 500, yfx, [++,--]).
+op( 400, yfx, [div,mod]).
+op( 300, xfy, [:,^]).
+
+
+% UTIL procedures
+
+known(     &(Goal1,Goal2),					utility ).
+  applies( &(Goal1,Goal2), Goal1 ).
+  applies( &(Goal1,Goal2), Goal2 ).
+known(     \=(X,Y),						utility ).
+known(     \\(Goal1,Goal2),					utility ).
+  applies( \\(Goal1,Goal2), Goal1 ).
+  applies( \\(Goal1,Goal2), Goal2 ).
+known(     add_element(Elem,S1,S2),				utility	).
+known(     any(Goallist),					utility ).
+  % Hairy applies...
+known(     append(File),					utility ).
+known(     append(List1,List2,List3),				utility ).
+known(     apply(Pred,Args),					utility ).
+  % Hairy applies...
+known(     binding(N,Goal),					utility ).
+  applies( binding(N,Goal), Goal ).
+known(     callable(Term),					utility	).
+known(     casserta(X),						utility ).
+known(     cassertz(X),						utility ).
+known(     cgensym(Prefix,PossVar),				utility ).
+known(     check_exists(File),					utility ).
+known(     checkand(Pred,Conj),					utility ).
+  applies( checkand(Pred,Conj), Pred+1 ).
+known(     checklist(Pred,List),				utility ).
+  applies( checklist(Pred,List), Pred+1 ).
+known(     clean,						utility ).
+known(     close(File,Old),					utility ).
+known(     concat(Atom1,Atom2,Atom3),				utility ).
+known(     contains(Kernel,Expr),				utility	).
+known(     continue,						utility ).
+known(     convlist(Pred,List1,List2),				utility ).
+  applies( convlist(Pred,List1,List2), Pred+2 ).
+known(     correspond(X,Xlist,Y,Ylist),				utility	).
+known(     del_element(Elem,S1,S2),				utility	).
+known(     delete(File),					utility ).
+known(     delete(List,X,Rest),					utility	).
+known(     diff(X,Y),						utility ).
+known(     disjoint(Sets),					utility ).
+known(     disjoint(S1,S2),					utility	).
+known(     edit(File),						utility ).
+known(     error(Format,List,Action),				utility ).
+  applies( error(Format,List,Action), Action ).
+known(	   eval(Command),					utility ).
+known(	   eval(Expr,Ans),					utility ).
+known(     file_exists(File),					utility ).
+known(     findall(Var,Goal,List),				utility ).
+  applies( findall(Var,Goal,List), Goal ).
+known(     flag(Flag,Old,New),					utility ).
+known(     for(N,Goal),						utility ).
+  applies( for(N,Goal), Goal ).
+known(     forall(Goal1,Goal2),					utility ).
+  applies( forall(Goal1,Goal2), Goal1 ).
+  applies( forall(Goal1,Goal2), Goal2 ).
+known(     freeof(Kernel,Expr),					utility	).
+known(     fwritef(File,Format),				utility	).
+known(     fwritef(File,Format,List),				utility	).
+known(     gcc(Goal),						utility ).
+  applies( gcc(Goal), Goal ).
+known(     gensym(Prefix,Var),					utility ).
+known(     intersect(S1,S2),					utility	).
+known(     intersect(Set1,Set2,ISet),				utility ).
+known(     keys_and_values(Pairs,Keys,Values),			utility	).
+known(     last(Element,List),					utility ).
+known(     listtoset(List,Set),					utility ).
+known(     mapand(Pred,Conj1,Conj2),				utility ).
+  applies( mapand(Pred,Conj1,Conj2), Pred+2 ).
+known(     maplist(Pred,List1,List2),				utility ).
+  applies( maplist(Pred,List1,List2), Pred+2 ).
+known(     member(Element,Set),					utility ).
+known(     memberchk(Element,Set),				utility ).
+known(     mlmaplist(Pred,Lists),				utility ).
+  applies( mlmaplist(Pred,Lists), Pred+1 ).
+known(     mlmaplist(Pred,Lists,Vin,Vout),			utility ).
+  applies( mlmaplist(Pred,Lists,Vin,Vout), Pred+3 ).
+known(     mlmaplist(Pred,Lists,V),				utility ).
+  applies( mlmaplist(Pred,Lists,V), Pred+2 ).
+known(     mlmember(Elements,Lists),				utility ).
+known(     mlselect(Elements,Lists,Rests),			utility ).
+known(     modify(OldPat,Xform,NewPat),				utility ).
+  applies( modify(OldPat,Xform,NewPat), OldPat ).
+  applies( modify(OldPat,Xform,NewPat), Xform  ).
+known(     nextto(X,Y,List),					utility ).
+known(     nmember(Element,Set,N),				utility ).
+known(     nobt(Goal),						utility ).
+  applies( nobt(Goal), Goal ).
+known(     nonmember(Elem,Set),					utility	).
+known(     not(Goal),						utility ).
+  applies( not(Goal), Goal ).
+known(     number(N),						utility ).
+known(     numlist(L,U,List),					utility ).
+known(     occ(X,Term,N),					utility ).
+known(     open(File),						utility ).
+known(     open(Old,File),					utility ).
+known(     pairfrom(List,A,B,Rest),				utility ).
+known(     patharg(Path,Expr,Arg),				utility	).
+known(     perm(List1,List2),					utility ).
+known(     perm2(X,Y,A,B),					utility ).
+known(     portray_number(N),					utility ).
+known(     position(Term,Expr,Path),				utility	).
+known(     prconj(Conj),					utility ).
+known(     prexpr(Expr),					utility ).
+known(     prlist(List),					utility ).
+known(     project(List1,N,List2),				utility	).
+known(     read_in(Sentence),					utility ).
+known(     redo(File),						utility ).
+known(     remove_dups(List,Set),				utility ).
+known(     replace(Path,Expr1,Arg,Expr2),			utility	).
+known(     rev(List1,List2),					utility ).
+known(     reverse(List,Rev),					utility	).
+known(     same_length(List1,List2),				utility	).
+known(     select(Element,List,Rest),				utility ).
+known(     seteq(Set1,Set2),					utility ).
+known(     shorter_list(Short,Long),				utility	).
+known(     some(Pred,List),					utility ).
+  applies( some(Pred,List), Pred+1 ).
+known(     somechk(Pred,List),					utility ).
+  applies( somechk(Pred,List), Pred+1 ).
+known(     subgoal(Exact,Goal),					utility ).
+known(     sublist(Pred,List1,List2),				utility ).
+  applies( sublist(Pred,List1,List2), Pred+1 ).
+known(     subseq(List,List1,List2),				utility	).
+known(     subseq0(List1,List2),				utility	).
+known(     subseq1(List1,List2),				utility	).
+known(     subset(Subset,Superset),				utility ).
+known(     subst(Substitution,Old,New),				utility ).
+known(     subtract(Set1,Set2,Subset),				utility ).
+known(     sumlist(NumList,Sum),				utility ).
+known(     symdiff(Set1,Set2,Diff),				utility	).
+known(     thnot(Goal),						utility ).
+  applies( thnot(Goal), Goal ).
+known(	   tidy(Expr,TidiedExpr),				utility ).
+known(	   tidy_withvars(Expr,TidiedExpr),			utility ).
+known(     tlim(Tlimit),					utility ).
+known(     ton(Name),						utility ).
+known(     toff,						utility ).
+known(     toff(Name),						utility ).
+known(     trace(Format,Condition),				utility ).
+known(     trace(Format,List,Condition),			utility ).
+known(     ttyprint(X),						utility ).
+known(     union(Set1,Set2,USet),				utility ).
+known(     update(Template,Generator),				utility ).
+  applies( update(Template,Generator), Template  ).
+  applies( update(Template,Generator), Generator ).
+known(     variables(Term,VarSet),				utility ).
+known(     writef(Format),					utility ).
+known(     writef(Format,List),					utility ).

@@ -1,0 +1,134 @@
+% logical predicates
+
+
+% true's or false's...
+true(1).	true(yes).	true(on).	true(true).	true(y).
+true(vrai).	true(oui).	true(o).
+
+false(0).	false(no).	false(off).	false(false).	false(n).
+false(faux).	false(non).
+
+
+
+% What is a boolean ?
+boolean(X) :-
+	true(X).
+boolean(X) :- 
+	false(X).
+
+
+% The NOT operation
+boolean_not(1,0).
+boolean_not(0,1).
+
+
+% The OR operation
+boolean_or(0, 0, 0).
+boolean_or(0, 1, 1).
+boolean_or(1, 0, 1).
+boolean_or(1, 1, 1).
+
+
+% The AND operation
+boolean_and(0, 0, 0).
+boolean_and(0, 1, 0).
+boolean_and(1, 0, 0).
+boolean_and(1, 1, 1).
+	
+
+% Value
+% for nonvar values, it unifies its second argument with either 0 or 1, depending
+% on the logical value specified in X.
+% For var values it simply acts as a placeholder and unifies its second argument
+% with the first.
+% This trick is to allow ANY element of a logical assignment (including the
+% left-hand side) to contain a variable.
+%
+% Examples:
+%	X <- not true.
+%	X <- not A.
+%	true <- not A.
+%
+boolean_value(X, X) :-		
+	var(X), 
+	!.
+/***
+boolean_value(X, 1) :-
+	nonvar(X),
+	true(X), !.
+boolean_value(X, 0) :-
+	nonvar(X),
+	false(X), !.
+***/
+boolean_value(1,1).
+boolean_value(0,0).	
+
+	
+% Assignment operator
+% Important !!!
+% - Unary operators must have the greatest priority
+% - then assignment operators
+% - then binary operators
+% binary operators must not have a priority higher than assignment, otherwise
+% prolog would arrange the expression grouping in a bizarre way...
+%
+:- op( 700, xfx,   <-).
+:- op( 900,  fx,  not).
+:- op( 500, xfx,   or).
+:- op( 500, xfx,  and).
+
+
+X <- not A :-				% NOT operator
+	boolean_value(A, Abis),
+	boolean_value(X, Xbis),
+	boolean_not(Abis, Xbis).
+	
+
+/*	
+X <- A or B :-				% OR operator
+	Xa <- A,
+		boolean_value(Xa, XaBis),
+	Xb <- B,
+		boolean_value(Xb, XbBis),
+	boolean_value(X, XBis),
+	boolean_or(XaBis, XbBis, XBis).
+*/
+
+
+X <-  Y :-				% Simple assignment, Y is a boolean constant
+	boolean_value(Y, Ybis),
+	boolean_value(X, Xbis),
+	Xbis is Ybis.
+
+
+
+/*X <*  A or B :-				% OR operator
+	Xa <* A,
+		boolean(Xa),
+		truthvalue(Xa, Xab),
+	Xb <* B,
+		boolean(Xb),
+		truthvalue(Xb, Xbb),
+	boolean_or(Xab, Xbb, X).
+
+
+X <*  A and B :-			% AND operator
+	Xa <* A,
+		boolean(Xa),
+		truthvalue(Xa, Xab),
+	Xb <* B,
+		boolean(Xb),
+		truthvalue(Xb, Xbb),
+	boolean_and(Xab, Xbb, X).
+
+
+X <*  F :- 				% For calling internal predicates in the
+   	F =.. [Pred|Args], 		% boolean formula
+   	P =.. [Pred, X|Args], 
+   	call(P). 
+
+
+X <*  Y :-				% Simple assignment, Y is a boolean constant
+	boolean(Y),
+	truthvalue(Y, Ya),
+	X is Ya.*/

@@ -1,0 +1,12 @@
+
+
+map_create([], map).
+
+map_create( [Key:Value | Tail], map(Key, Value, Map) ) :-
+	map_create(Tail, Map).
+	
+	
+map_union( Map1,  map, Map1 ).
+map_union(  map, Map2, Map2 ).
+map_union(  map,  map,  map ).
+

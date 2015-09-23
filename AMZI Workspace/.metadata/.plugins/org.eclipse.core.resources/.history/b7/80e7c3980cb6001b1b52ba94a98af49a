@@ -1,0 +1,356 @@
+:- import(map).
+
+% The </ etc. operators must have a lower precedence than mathematical operations
+% so that expression grouping will perform correctly.
+:- op( 700, xfx, covers ).
+:- op( 150, xfx, .. ).
+:- op( 210,  fx, </ ).
+:- op( 210,  fx, >/ ).
+:- op( 200,  xf, /> ).
+:- op( 200,  xf, /< ).
+
+
+:- op( 500, xfx, within ).		% Logical operators
+:- op( 500, xfx, outside ).
+:- op( 500, xfx, meets ).
+:- op( 500, xfx, joins ).
+
+:- op( 500, fxf, [/==/, /<>/, /<=/, /</, />=/, />/] ).
+
+:- op( 500, xfx, union ).		% Binary operators
+:- op( 500, xfx, intersect ).
+:- op( 500,  fx, negation ).
+:- op( 500, xfx, difference ).
+
+
+% Operations on intervals
+
+% Assignment
+X covers </ Low .. High /> :-		% Simple cases
+	interval_build(X, Low, High, 1, 1).
+X covers </ Low .. High /< :-
+	interval_build(X, Low, High, 1, 0).
+X covers >/ Low .. High /< :-
+	interval_build(X, Low, High, 0, 0).
+X covers >/ Low .. High /> :-
+	interval_build(X, Low, High, 0, 1).
+X covers interval(Low, High, Left, Right) :-
+	interval_build(X, Low, High, Left, Right).
+
+X covers A union B :-
+	XA covers A, 
+	XB covers B,
+	!, interval_union(X, XA, XB).
+
+X covers A intersect B :-
+	XA covers A, 
+	XB covers B,
+	!, interval_intersection(X, XA, XB).
+
+X covers A difference B :-
+	XA covers A, 
+	XB covers B,
+	!, interval_difference(X, XA, XB).
+
+X covers negation A :-
+	XA covers A,
+	!, interval_negation(X, XA).
+
+X covers FunctionCall :- 
+   FunctionCall =.. [Predicate | Args], 
+   Goal =.. [Predicate, X | Args], 
+   call(Goal). 
+
+
+% Checks if Y includes X
+X within Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_within(XA, YA).
+X within Y :-				% Allow for testing a single value
+	YA covers Y,
+	!, interval_within( interval(X, X, 1, 1), YA).
+
+% Checks if X and Y are disjoint
+X outside Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_outside(XA, YA).
+
+X meets Y :-
+	XA covers X,
+	YA covers Y,
+	!, not( interval_outside(XA, YA) ).
+
+% Check if intervals are coalescable
+X joins Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_coalescable(XA, YA).
+
+% Comparison operators
+X /==/ Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_comparison_eq( X, Y ).
+
+X /<=/ Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_comparison_le( X, Y ).
+
+X /</ Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_comparison_lt( X, Y ).
+
+X />=/ Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_comparison_ge( X, Y ).
+
+X />/ Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_comparison_gt( X, Y ).
+
+X /></ Y :-
+	X outside Y.
+	
+X /<>/ Y :-
+	X inside Y.	
+
+
+% Check if object is an interval
+is_interval( interval(_, _, _, _) ).
+is_interval( interval ).	% Empty interval
+	
+% Gives the length of an interval
+length( interval(-inf,    _, _, _), inf).
+length( interval(    , +inf, _, _), inf).
+length( interval(-inf, +inf, _, _), inf).
+length( interval( Low, High, _, _), X ) :-
+	X is High - Low.
+	
+% Gives the distance of 2 intervals :
+% distance = max( |a-c|, |b-d] )
+distance( interval(Low1, High1, _, _), interval(Low2, High2, _, _, X) :-
+	Low1 =\= -inf, Low2 =\= -inf, High1 =\= +inf, High2 =\= +inf,
+	A is Low1  - Low2 , AX is abs(A),
+	B is High1 - High2, BX is abs(A),
+	max(AX, BX, X).
+distance( interval(_, _, _, _), interval(_, _, _, _), inf).
+
+
+% Build an interval
+% Syntax : X covers Low..High
+interval_build( X, Low, High, Left, Right ) :-
+	interval_left(Low, Left, NewLow, NewLeft),
+	interval_right(High, Right, NewHigh, NewRight),
+	interval_check(NewLow, NewHigh, NewLeft, NewRight),
+	X = interval(NewLow, NewHigh, NewLeft, NewRight), !.
+
+	
+% Aliases for infinity
+infinity('inf').
+infinity('infinite').
+infinity('infinity').
+
+
+% Check exclusion/inclusion of low value
+% (allow inclusive range for infinity)
+interval_left(Keyword, _, -inf, 0) :-
+	infinity(Keyword).
+interval_left(-Keyword, _, -inf, 0) :-
+	infinity(Keyword).
+interval_left(Value, Left, Value, Left).
+
+interval_right(Keyword, _, +inf, 0) :-
+	infinity(Keyword).
+interval_right(+Keyword, _, +inf, 0) :-
+	infinity(Keyword).
+interval_right(Value, Left, Value, Left).
+
+
+% Checks the validity of an interval
+interval_check(A, B, 1, 1) :-
+	A =< B.
+interval_check(A, B, Left, Right) :-
+	A < B, ( Left =:= 0 ; Right =:= 0 ).
+interval_check(A, B, Left, Right) :-
+	portray_left(Left, SLeft),
+	portray_right(Right, SRight),
+	atomlist_concat( [SLeft, A, '..', B, SRight], I),
+	throw( interval_error('Invalid range', I) ).
+
+% interval inclusion
+interval_left_greater(V1, 1, V2, 1) :-
+	V1 >= V2.
+interval_left_greater(V1, 0, V2, 1) :-
+	V1 >= V2.
+interval_left_greater(V1, 0, V2, 0) :-
+	V1 > V2.
+interval_left_greater(V1, 1, V2, 0) :-
+	V1 > V2.
+	
+interval_right_less(V1, 1, V2, 1) :-
+	V1 =< V2.
+interval_right_less(V1, 0, V2, 1) :-
+	V1 =< V2.
+interval_right_less(V1, 0, V2, 0) :-
+	V1 < V2.
+interval_right_less(V1, 1, V2, 0) :-
+	V1 < V2.
+	
+interval_within( interval(Low1, High1, Left1, Right1),
+		 interval(Low2, High2, Left2, Right2) ) :-
+	interval_left_greater( Low1,  Left1,  Low2,  Left2),
+	interval_right_less(  High1, Right1, High2, Right2), !. 
+
+
+% Checks if intervals are disjoint
+interval_outside( interval(   _, High1,     _, Right1),
+		  interval(Low2,     _, Left2,      _) :-
+	interval_do_outside( High1, Low2, Right1, Left2 ).
+
+interval_outside( interval(Low1,     _, Left1,      _),
+		  interval(   _, High2,     _, Right2) :-
+	interval_do_outside( High2, Low1, Right2, Left1 ).
+	
+	
+interval_do_outside( High, High, 1, 0).
+interval_do_outside( High, High, 0, 0).
+interval_do_outside( High, High, 0, 1).
+interval_do_outside( High, Low , _, _) :-
+	High < Low.
+
+% Check if intervals are coalescable
+interval_coalescable( interval(    _, High1,    _ , Right1 ),
+		      interval( Low2,     _, Left2,      _ ) ) :-
+	interval_do_coalescable(High1, Low2, Right1, Left2).
+interval_coalescable( interval( Low1,     _, Left1,      _ ),
+		      interval(    _, High2,     _, Right2 ) ) :-
+	interval_do_coalescable(Low1, High2, Left1, Right2).
+
+interval_do_coalescable(High1, High1, 1, 1).
+interval_do_coalescable(High1, High1, 1, 0).
+interval_do_coalescable(High1, High1, 0, 1).
+interval_do_coalescable(High1,  Low2, _, _) :-
+	High1 > Low2.
+
+% Performs the union of two intervals
+interval_union( interval(NewLow, NewHigh, NewLeft, NewRight),
+		interval(Low1, High1, Left1, Right1),
+		interval(Low2, High2, Left2, Right2) ) :-
+	interval_coalescable( interval(Low1, High1, Left1, Right1),
+			      interval(Low2, High2, Left2, Right2) ),
+	interval_min( Low1,  Low2,  Left1,  Left2,  NewLow, NewLeft ),
+	interval_max(High1, High2, Right1, Right2, NewHigh, NewRight).
+
+% Performs the intersection of two intervals
+interval_intersection( interval(NewLow, NewHigh, NewLeft, NewRight),
+		       interval(Low1, High1, Left1, Right1),
+		       interval(Low2, High2, Left2, Right2) ) :-
+	interval_coalescable( interval(Low1, High1, Left1, Right1),
+			      interval(Low2, High2, Left2, Right2) ),
+	interval_max( Low1,  Low2,  Left1,  Left2,  NewLow, NewLeft ),
+	interval_min(High1, High2, Right1, Right2, NewHigh, NewRight).
+
+
+% min and max
+interval_min(Value ,  Value,     1,     _,  Value,     1).
+interval_min(Value ,  Value,     _,     1,  Value,     1).
+interval_min(Value1, Value2, Left1,     _, Value1, Left1) :-
+	Value1 < Value2.
+interval_min(     _, Value2,     _, Left2, Value2, Left2). 	% => Value1 > Value2
+
+interval_max(Value ,  Value,     1,     _,  Value,     1).
+interval_max(Value ,  Value,     _,     1,  Value,     1).
+interval_max(Value1, Value2, Left1,     _, Value1, Left1) :-
+	Value1 > Value2.
+interval_max(     _, Value2,     _, Left2, Value2, Left2). 	% => Value1 < Value2
+
+
+% Interval negation
+interval_negation( interval, 
+		   interval(-inf,  +inf, _, _) ).
+interval_negation( interval(High, +inf, NewRight, 0),
+		   interval(-inf, High, _, Right) ) :-
+	interval_negate_inclusion(Right, NewRight).
+interval_negation( interval(-inf, Low, 0, NewLeft),
+		   interval(Low , +inf, Left, _) ) :-
+	interval_negate_inclusion(Left, NewLeft).
+	
+interval_negation( [ interval(-inf, Low, 0, NewLeft),
+		     interval(High, +inf, NewRight, 0) ],
+		   interval(Low , High, Left, Right) ) :-
+	interval_negate_inclusion(Left , NewLeft),
+	interval_negate_inclusion(Right, NewRight).
+	
+interval_negate_inclusion(0, 1).
+interval_negate_inclusion(1, 0).
+
+
+% interval difference
+interval_difference( interval(Low1, High1, Left1, Right1 ),
+		     interval(Low1, High1, Left1, Right1 ),
+		     interval(Low2, High2, Left2, Right2 ) ) :-
+	interval_outside(
+	     interval(Low1, High1, Left1, Right1 ),
+	     interval(Low2, High2, Left2, Right2 ) ).
+
+interval_difference( [ interval(Low1, Low2, Left1, 0 ), interval(High2, High1, 0, Right1) ],
+		     interval(Low1, High1, Left1, Right1 ),
+		     interval(Low2, High2, Left2, Right2 ) ) :-
+	Low1 < Low2, High1 > High2.
+	     
+interval_difference( interval(Low1, Low2, Left1, 0 ),
+		     interval(Low1, High1, Left1, Right1 ),
+		     interval(Low2, High2, Left2, Right2 ) ) :-
+	Low1 < Low2, High1 =< High2.
+
+interval_difference( interval(High2, High1, 0, Right1 ),
+		     interval(Low1, High1, Left1, Right1 ),
+		     interval(Low2, High2, Left2, Right2 ) ) :-
+	Low1 >= Low2, High1 > High2.
+
+interval_difference( interval,
+		     interval(Low1, High1, Left1, Right1 ),
+		     interval(Low2, High2, Left2, Right2 ) ) :-
+	Low1 >= Low2, High1 =< High2.
+
+
+
+% Portray : prints an interval
+portray_left(0, ']').
+portray_left(1, '[').
+portray_right(0, '[').
+portray_right(1, ']').
+
+portray( interval(A, B, Left, Right) ) :-
+	portray_single(interval(A, B, Left, Right)),
+	nl.
+
+portray_single( interval(A, B, Left, Right) ) :-
+	portray_left(Left, XL), write(XL),
+	write(A), write('..'), write(B),
+	portray_right(Right, XR),
+	write(XR).
+portray(interval) :-
+	write('{empty}').
+
+portray( [Head | Tail] ) :-
+	write('( '),
+	portray_list( [Head | Tail] ),
+	write(' )'), nl.
+
+portray_list( [Head | Tail] ) :-
+	portray_single(Head),
+	portray_optional_comma(Tail),
+	portray_list(Tail).
+
+portray_list( [] ).
+
+portray_optional_comma( [] ).
+portray_optional_comma( _ ) :-
+	write(' , ').

@@ -1,0 +1,291 @@
+/* Utilities used in the debugging system */
+
+:- public
+	member/2,
+	append/3,
+	reverse/2,
+	rev/3,
+	set/2,
+	add1/2,
+	ask_for/2,
+	ask_for/3,
+	confirm/1,
+	writel/3,
+	write/2,
+	writelv/1,
+	writel/1,
+	read/2,
+	reade/1,
+	directive/1,
+	writev/1,
+	lettervars/1,
+	unify_vars/2,
+	break/1,
+	varand/2,
+	varlist/2,
+	mgt/2,
+	size/2,
+	verify/1,
+	ground/1,
+	variants/2,
+	list_to_and/2,
+	and_to_list/2,
+	and_member/2,
+	forall/3,
+	portray/1,
+	portray1/1,
+	bagof0/3,
+	setof0/3,
+	new/2,
+	plisting/1,
+	ask_then_do/2.
+
+:-mode(member(?,+)).
+member(X,[X|_]).
+member(X,[_|L]) :- member(X,L).
+
+append([],L,L).
+append([X|L1],L2,[X|L3]) :- append(L1,L2,L3).
+
+reverse(X,Y) :- rev(X,[],Y).
+rev([X|Xs],Ys,Zs) :- rev(Xs,[X|Ys],Zs).
+rev([],Xs,Xs).
+
+
+set(P,V) :-
+	retract(value(P,_)), !, set(P,V) ;
+	    assert(value(P,V)).
+
+add1(P,V1) :-
+	retract(value(P,V)) , integer(V), !,
+	    V1 is V+1, assert(value(P,V1)) ;
+	    writel(['no value for ',P,', initializing it to 1']), nl,
+	    set(P,0), V1=1.
+
+
+ask_for(Request,Answer,Test) :-
+	repeat,
+	    ask_for(Request,Answer), Test, !.
+
+ask_for(Request,Answer) :-
+	repeat,
+	    writel(Request), write('? '), ttyflush,
+	    reade(X),
+	    ( directive(X)  , !,
+		( X, ! ; write('?'), nl ),
+		ask_for(Request,Answer) ;
+		Answer=X ), !.
+
+confirm(P) :-
+	ask_for(P,V),
+	( V=true , !, true ;
+	  V=false, !, fail ;
+	  confirm(P) ).
+
+% writel(L,E,S) :- write list L, with list elements format E and
+% seperator S.
+
+writel(L,E,S) :-
+	var(L), !, write(E,L) ;
+	L=[], !, true ;
+	L=[X], !, write(E,X) ;
+	L=[X|L1], !, writel(X,E,nil), write(s,S), writel(L1,E,S) ;
+	write(E,L).
+
+write(w,X) :- write(X).
+write(v,X) :- writev(X).
+write(s,S) :-
+	S=nil, !, true ;
+	S=nl, !, nl ;
+	S=bl, !, write(' ') ;
+	S=comma, !, write(', ') ;
+	write(S).
+
+writelv(L) :-
+	writel(L,v,nil).
+writel(L) :-
+	writel(L,v,nil).
+
+read(P,X) :- prompt(P1,P), read(X), prompt(P,P1).
+
+reade(X) :-
+	read(X1),
+	( expand(X1,X), !, true ; X=X1 ).
+
+expand(t,true).
+expand(yes,true).
+expand(y,true).
+expand(f,false).
+expand(no,false).
+expand(n,false).
+expand(a,abort).
+expand(b,break).
+expand(push,exe).
+
+directive(abort).
+directive(trace).
+directive(break).
+directive(info).
+directive(X) :-
+
+	X=true, !, fail ;
+	X=(_=<_), !, fail ;
+	X=(_<_), !, fail ;
+	X=(_>_), !, fail ;
+	X=(_>=_), !, fail ;
+	system(X).
+
+
+writev(X) :-
+	lettervars(X), write(X), fail.
+writev(X).
+
+lettervars(X) :-
+	varlist(X,V1),
+	% sort(V1,V2),
+	V1=V2,
+	unify_vars(V2,
+	['X','Y','Z','U','V','W','X1','Y1','Z1','U1','V1','W1',
+	'X2','Y2','Z2','U2','V2','W2','X3','Y3','Z3','U3','V3','W3',
+	'X4','Y4','Z4','U4','V4','W4']), !.
+
+
+unify_vars([X|L1],[X|L2]) :-  !,
+	unify_vars(L1,L2).
+unify_vars([_|L1],[_|L2]) :-  !,
+	unify_vars(L1,L2).
+unify_vars(_,_).
+
+break(P) :- portray(P), nl, call(break).
+
+:- mode varlist(+,-).
+% varlist(T,L,[]) :- L is all occurances of distinct variables in term T
+varlist(X,L) :- varlist(X,L,[]), !.
+
+:- mode varlist(+,-,?).
+varlist(X,[X|L],L) :- var(X),!.
+varlist(T,L0,L) :- T =.. [F|A], !, varlist1(A,L0,L).
+
+varlist1([T|A],L0,L) :- varlist(T,L0,L1), !, varlist1(A,L1,L).
+varlist1([],L,L).
+
+:-mode mgt(+,-).
+mgt(P,P0) :-
+	functor(P,F,N),
+	functor(P0,F,N).
+
+
+verify(P) :- \+(\+(P)).
+
+ground(P) :- numbervars(P,0,0).
+
+variants(P,Q) :-
+	verify(( numbervars(P,0,N), numbervars(Q,0,N), P=Q )).
+
+varand(P,Vs1) :-
+	varlist(P,Vs),
+	list_to_and(Vs,Vs1).
+
+list_to_and([],true) :- !.
+list_to_and([X],X) :- !.
+list_to_and([X|Xs],(X,Ys)) :- !,
+	list_to_and(Xs,Ys).
+
+and_to_list((X,Y),[X|Z]) :- !,
+
+	and_to_list(Y,Z).
+and_to_list(true,[]) :- !.
+and_to_list(X,[X]) :- !.
+
+
+and_member(P,(P,Q)).
+and_member(P,(P1,Q)) :- !, and_member(P,Q).
+and_member(P,P).
+
+forall(X,P,Y) :-
+	setof(Y,X^P,S), forall1(S).
+
+forall1([]).
+forall1([X|S]) :- X, forall1(S).
+
+
+portray(X) :-
+	lettervars(X),
+	portray1(X,6),
+	fail.
+portray(X).
+
+
+portray1(X,N) :-
+	N1 is N-1,
+      ( var(X), !, write(X) ;
+	atomic(X), !, write(X) ;
+	N=0, !, write('#') ;
+	X=[_|_], !, write('['), portray_list(X,N1,5), write(']') ;
+	X=(_,_), !, write('('), portray_and(X,N1), write(')') ;
+	X=..[F|A], !, portray_term(F,A,N1) ;
+	break(portray1(X,N)) ).
+
+portray_args(X,N) :-
+	X=[], !, true ;
+	X=[Y], !, portray1(Y,N) ;
+	X=[Y|Ys], !, portray1(Y,N), write(','), !, portray_args(Ys,N).
+
+portray_list(X,N,D) :-
+	var(X), !, portray1(Y,N) ;
+	X=[], !, true ;
+	D=0, !, write('..#') ;
+	X=[Y1|Y2], Y2==[], !, portray1(Y1,N) ;
+	X=[Y1|Y2], var(Y2), !, portray1(Y1,N), write('|'), !, portray1(Y2,N) ;
+	X=[Y1,Y2|Ys], !,
+	    portray1(Y1,N), write(','), D1 is D-1, !,
+		portray_list([Y2|Ys],N,D1) ;
+	X=[Y1|Y2], !, portray1(Y1,N), write('|'), !, portray1(Y2,N).
+
+portray_and(X,N) :-
+	var(X), !, portray1(X,N);
+	X=(Y,Ys), !, portray1(Y,N), write(','), !, portray_and(Ys,N) ;
+	portray1(X,N).
+
+portray_term(F,[A],N) :-
+	     current_op(P,T,F), !,
+	     write(F), write(' '), portray1(A,N) .
+portray_term(F,[A,B],N) :-
+	     current_op(P,T,F), !,
+	     portray1(A,N), write(F), portray1(B,N).
+portray_term(F,A,N) :-
+	     write(F), write('('), portray_args(A,N), write(')').
+
+
+
+bagof0(X,P,S) :-
+	bagof(X,P,S), !, true ; S=[].
+
+setof0(X,P,S) :-
+	setof(X,P,S), !, true ; S=[].
+
+new(X,Y) :-  % Y is a fresh copy of X (with new variables)
+	abolish('gross hack',1),
+	assert('gross hack'(X)),
+	retract('gross hack'(Y)).
+
+
+plisting([]) :- !.
+plisting([P|Ps]) :- !,
+	plisting(P), nl, !, plisting(Ps).
+plisting(X) :-
+	( X=(P:-_), !, mgt(P,P1) ; mgt(X,P1) ),
+	writel(['Listing of ',P1,':']), nl,
+	( clause(P1,Q), tab(4), writev((P1:-Q)), write('.'), nl, fail ;
+	  true ), nl.
+
+
+ask_then_do(Question,Responses) :-
+	% display question. A response is a list of (Answer,Action) pairs;
+	% verify that the answer the user gives is in a pair;
+	% if so, perform the action associated with it.
+	ask_for(Question,Answer),
+	member((Answer,Action),Responses) -> Action ;
+	setof(Answer, Action^member((Answer,Action),Responses),Answers),
+	writel('legal answers are ',Answers), nl,
+	ask_then_do(Question,Responses).

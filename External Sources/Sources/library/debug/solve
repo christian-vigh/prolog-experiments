@@ -1,0 +1,10 @@
+/*Solve depth bounded interpreter example on page 64.*/
+
+:- [dsutil,pdsdb,pdsdc,pdsini].
+
+isort([X|Xs],Ys) :- isort(Xs,Zs),insert(X,Zs,Ys).
+isort([],[]).
+
+insert(X,[Y|Ys],[X,Y|Ys]) :- X =< Y.
+insert(X,[Y|Ys],Zs) :- insert(X,Ys,Ws),insert(Y,Ws,Zs).
+insert(X,[],[X]).

@@ -1,0 +1,61 @@
+bound(X) :-
+	nonvar(X), !.
+
+unbound(X) :-
+	var(X), !.
+
+undefined( Name, Value ) :-
+	atom_concat( 'kr$', Name, Func ),
+	Goal =.. [Func, Value],
+	call(Goal),
+	fail, !.
+undefined( _, _ ).
+
+defined( Name, Value ) :-
+	atom_concat( 'kr$', Name, Func ),
+	Goal =.. [Func, Value],
+	call(Goal), !.
+defined( _, _ ) :- !.
+
+
+object(Name) :-
+	bound(Name), undefined(object, Name),
+	create_object(Name).
+object(Name) :-
+	bound(Name), defined(object, Name),
+	write('error : the object '''), write(Name), write(''' is already defined.'),
+	nl, fail, !.
+object(Name) :-
+	kr$object(Name).
+
+
+create_object(Name, Template, ParmList) :-
+	atom_concat('kr$', Name, KRName),
+	repeat,
+		Func =.. [Template | ParmList],
+		clause( Func, Body ),
+		string_term(Str, Body),
+		string_tokens(Str, BodyList),
+		create_object_body(BodyList, Name, KRName, Result),
+		write(Result).
+	
+create_object_body([], _, _, []).
+create_object_body([Head|Tail], Name, KRName, [Name|Result]) :-
+	Name == Head,
+	create_object_body(Tail, Name, KRName, Result).
+create_object_body([Head|Tail], Name, KRName, [KRName|Result]) :-
+	KRName == Head,
+	create_object_body(Tail, Name, KRName, Result).
+create_object_body([Head|Tail], Name, KRName, [Head|Result]) :-
+	create_object_body(Tail, Name, KRName, Result).
+	
+
+kr$object_template(Word) :-
+	bound(Word), undefined(kX, Word),
+	assert( kX( Word ) ).
+kr$object_template(Word) :-
+	bound(Word), defined(kX, Word),
+	write('error : the '''), write(kr$object_template), write(''' is already defined.'),
+	nl, fail, !.
+kr$object_template(Word) :-
+	kX(Word).

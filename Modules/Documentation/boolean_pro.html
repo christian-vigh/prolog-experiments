@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/boolean_pro.html</title>
+<!-- Source: ./boolean.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo1">Modules/boolean</a></li>
+<li>2. <a href="#robo37">Modules.Boolean/assignment operator : &lt;-/2</a></li>
+<li>3. <a href="#robo38">Modules.Boolean/boolean</a></li>
+<li>4. <a href="#robo39">Modules.Boolean/boolean_value</a></li>
+<li>5. <a href="#robo40">Modules.Boolean/Truth tables</a></li>
+</ul>
+<hr />
+<a name="Modules2fboolean">
+</a><a name="robo1"></a><h2>Modules/boolean [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>boolean</strong> - <strong>boolean</strong> predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">boolean.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      The &#39;<strong>boolean</strong>&#39; module implements operations on booleans and is designed in
+      such a way that it can be used to generate truth tables, or go through the
+      possible solutions of a <strong>boolean</strong> equation.
+
+      A <strong>boolean</strong> value is either 0 or 1, but the <a href="#robo38">true</a>() and <a href="#robo38">false</a>() predicates
+      are provided to map some aliases to those values. Whatever the aliases
+      used, the result of a <strong>boolean</strong> expression is either 0 or 1.
+
+      A <strong>boolean</strong> expression takes the form of an assignment using the &#39;&lt;-&#39; operator,
+      like in the following example :
+
+              X &lt;- <a href="#robo38">true</a> or (A and not B).
+
+      which unifies &#39;X&#39; with the <strong>boolean</strong> expression &#39;<a href="#robo38">true</a> or (A and not B)&#39;.
+
+      Any element in a <strong>boolean</strong> expression can either be an atom or an unbound
+      variable. This allows for generating truth tables using the Prolog backtracking
+      mechanism, either at the command prompt or using the findall predicate :
+
+              X &lt;- A or (B and not C).
+
+      will find all the values of X, A, B and C for which the expression is <a href="#robo38">true</a>.
+     
+      The following <strong>boolean</strong> operators are defined :
+      * not   - logical not
+      * and   - logical and
+      * or    - logical or
+      * xor   - logical xor
+      * imp   - logical implication
+      * nand  - logical not-and
+      * nor   - logical nor
+
+      Each truth table is defined as a <a href="./List_pro.html#robo70">set</a> of predicates, thus allowing for this
+      unification/backtracking mechanism ; an example is given below for the &#39;and&#39;
+      logical operation :
+
+              boolean_and(0, 0, 0).   % <a href="#robo38">false</a> and <a href="#robo38">false</a> -&gt; <a href="#robo38">false</a>
+              boolean_and(0, 1, 0).   % <a href="#robo38">false</a> and <a href="#robo38">true</a>  -&gt; <a href="#robo38">false</a>
+              boolean_and(1, 0, 0).   % <a href="#robo38">true</a>  and <a href="#robo38">false</a> -&gt; <a href="#robo38">false</a>
+              boolean_and(1, 1, 1).   % <a href="#robo38">true</a>  and <a href="#robo38">true</a>  -&gt; <a href="#robo38">true</a>
+      
+</pre>
+<p class="item_name">TODO</p>
+<pre>      * Implement exception for out of domain values.
+      * Add the possibility to call internal predicates within a <strong>boolean</strong>
+        expression (the possibility already exist, is between comments, the only
+        problem being which kind of internal predicates could be used within a
+        <strong>boolean</strong> expression ?)
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, January 2007.
+
+</pre>
+
+<hr />
+<a name="Modules2eBoolean2fassignment20operator203a203c2d2f2">
+</a><a name="robo37"></a><h2>Modules.Boolean/assignment operator : &lt;-/2 [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      &lt;-/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      X &lt;- boolean_expression
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies X with the specified <a href="#robo38">boolean</a> expression ; for example :
+
+              X &lt;- <a href="#robo38">true</a> or (<a href="#robo38">false</a> and not <a href="#robo38">true</a>)
+
+      The supported <a href="#robo38">boolean</a> operators are : not, and, or, xor, imp, nand &amp; nor.
+      Parentheses can be used to facilitate expression grouping.
+
+      Every element of a <a href="#robo38">boolean</a> expression can be an unbound variable ; this 
+      allows for Prolog unification &amp; backtracking system to give all possible
+      solutions for the specified expression (either at the command prompt or
+      using the findall predicate) :
+
+              X &lt;- A or B.
+
+      will <a href="./List_pro.html#robo3">list</a> the truth table for the &#39;or&#39; <a href="#robo38">boolean</a> operation. A combination of
+      both can be used :
+
+              <a href="#robo38">true</a> &lt;- A or B.
+
+      will give all the values of [A] and [B] for which the <a href="#robo38">boolean</a> operation 
+      &#39;A or B&#39; is <a href="#robo38">true</a>.
+
+      More complex expressions can be used :
+
+              X &lt;- A or (B and ( not C nand D )).
+
+      The operator having the highest priority is &#39;not&#39;, then &#39;&lt;-&#39;, then the
+      other <a href="#robo38">boolean</a> operations.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">% Operators :</span>
+<span class="comment">%       Important !!!</span>
+<span class="comment">%       - Unary operators must have the greatest priority</span>
+<span class="comment">%       - then assignment operators</span>
+<span class="comment">%       - then binary operators</span>
+<span class="comment">%</span>
+<span class="comment">% Binary operators must not have a priority higher than assignment, otherwise</span>
+<span class="comment">% prolog would arrange the expression grouping in a bizarre way...</span>
+<span class="comment">%</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 700<span class="sign">,</span> xfx<span class="sign">,</span>   <span class="sign">&lt;</span><span class="sign">-</span><span class="sign">)</span><span class="sign">.</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 900<span class="sign">,</span>  fx<span class="sign">,</span>  <span class="keyword">not</span><span class="sign">)</span><span class="sign">.</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 500<span class="sign">,</span> xfx<span class="sign">,</span>   or<span class="sign">)</span><span class="sign">.</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 500<span class="sign">,</span> xfx<span class="sign">,</span>  and<span class="sign">)</span><span class="sign">.</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 500<span class="sign">,</span> xfx<span class="sign">,</span>  <span class="keyword">xor</span><span class="sign">)</span><span class="sign">.</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 500<span class="sign">,</span> xfx<span class="sign">,</span>  imp<span class="sign">)</span><span class="sign">.</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 500<span class="sign">,</span> xfx<span class="sign">,</span>  nand<span class="sign">)</span><span class="sign">.</span>
+<span class="sign">:</span><span class="sign">-</span> <span class="keyword">op</span><span class="sign">(</span> 500<span class="sign">,</span> xfx<span class="sign">,</span>  nor<span class="sign">)</span><span class="sign">.</span>
+
+
+
+<span class="comment">%</span>
+<span class="comment">% Various <a href="#robo38">boolean</a> expressions</span>
+<span class="comment">%</span>
+X <span class="sign">&lt;</span><span class="sign">-</span> <span class="keyword">not</span> A  <span class="sign">:</span><span class="sign">-</span>                          <span class="comment">% NOT operator</span>
+        structured_expression<span class="sign">(</span>A<span class="sign">,</span> Xa<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo39">boolean_value</a><span class="sign">(</span>Xa<span class="sign">,</span> Abis<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo39">boolean_value</a><span class="sign">(</span>X <span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        boolean_not<span class="sign">(</span>Abis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>
+
+
+X <span class="sign">&lt;</span><span class="sign">-</span> A or B  <span class="sign">:</span><span class="sign">-</span>                         <span class="comment">% OR operator</span>
+        binary_operator<span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">,</span> Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        boolean_or<span class="sign">(</span>Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>
+
+
+X <span class="sign">&lt;</span><span class="sign">-</span> A and B  <span class="sign">:</span><span class="sign">-</span>                        <span class="comment">% AND operator</span>
+        binary_operator<span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">,</span> Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        boolean_and<span class="sign">(</span>Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>
+
+
+X <span class="sign">&lt;</span><span class="sign">-</span> A <span class="keyword">xor</span> B  <span class="sign">:</span><span class="sign">-</span>                        <span class="comment">% XOR operator</span>
+        binary_operator<span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">,</span> Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        boolean_xor<span class="sign">(</span>Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>
+
+
+X <span class="sign">&lt;</span><span class="sign">-</span> A imp B  <span class="sign">:</span><span class="sign">-</span>                        <span class="comment">% IMP operator</span>
+        binary_operator<span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">,</span> Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        boolean_imp<span class="sign">(</span>Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>
+
+
+X <span class="sign">&lt;</span><span class="sign">-</span> A nand B  <span class="sign">:</span><span class="sign">-</span>                       <span class="comment">% NAND operator</span>
+        binary_operator<span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">,</span> Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        boolean_nand<span class="sign">(</span>Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>
+
+
+X <span class="sign">&lt;</span><span class="sign">-</span> A nor B  <span class="sign">:</span><span class="sign">-</span>                        <span class="comment">% NOR operator</span>
+        binary_operator<span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">,</span> Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        boolean_nor<span class="sign">(</span>Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>
+
+X <span class="sign">&lt;</span><span class="sign">-</span> Y <span class="sign">:</span><span class="sign">-</span>                               <span class="comment">% Simple assignment</span>
+        simple_expression<span class="sign">(</span>Y<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo39">boolean_value</a><span class="sign">(</span>X<span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo39">boolean_value</a><span class="sign">(</span>Y<span class="sign">,</span> Ybis<span class="sign">)</span><span class="sign">,</span>
+        boolean_identity<span class="sign">(</span>Xbis<span class="sign">,</span> Ybis<span class="sign">)</span><span class="sign">.</span>                   
+
+
+
+
+<span class="comment">%</span>
+<span class="comment">% Operations common to binary operators :</span>
+<span class="comment">%</span>
+binary_operator<span class="sign">(</span>A<span class="sign">,</span> B<span class="sign">,</span> X<span class="sign">,</span> Abis<span class="sign">,</span> Bbis<span class="sign">,</span> Xbis<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        structured_expression<span class="sign">(</span>A<span class="sign">,</span> Xa<span class="sign">)</span><span class="sign">,</span>   <span class="comment">% Check if A is a compound expression</span>
+        structured_expression<span class="sign">(</span>B<span class="sign">,</span> Xb<span class="sign">)</span><span class="sign">,</span>   <span class="comment">% same for B</span>
+        <a href="#robo39">boolean_value</a><span class="sign">(</span>Xa<span class="sign">,</span> Abis<span class="sign">)</span><span class="sign">,</span>        <span class="comment">% Convert A into either 0 or 1</span>
+        <a href="#robo39">boolean_value</a><span class="sign">(</span>Xb<span class="sign">,</span> Bbis<span class="sign">)</span><span class="sign">,</span>        <span class="sign">#</span> then B
+        <a href="#robo39">boolean_value</a><span class="sign">(</span>X <span class="sign">,</span> Xbis<span class="sign">)</span><span class="sign">.</span>        <span class="sign">#</span> then X
+
+
+
+<span class="comment">%</span>
+<span class="comment">% Since unification is heavily used, we must restrain Prolog from searching</span>
+<span class="comment">% into undesirable goals ; we thus has to do the distinction between structured</span>
+<span class="comment">% expressions (&#39;A or B&#39;) and simple ones (&#39;A&#39;).</span>
+<span class="comment">%</span>
+simple_expression<span class="sign">(</span>A<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>                 <span class="comment">% Expression is an atom</span>
+        <span class="keyword">not</span><span class="sign">(</span><span class="keyword">structure</span><span class="sign">(</span>A<span class="sign">)</span><span class="sign">)</span><span class="sign">.</span>
+        
+structured_expression<span class="sign">(</span>A<span class="sign">,</span> Xa<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>         <span class="comment">% Expression is a complex one (a structure)</span>
+        <span class="keyword">structure</span><span class="sign">(</span>A<span class="sign">)</span><span class="sign">,</span>
+        Xa <span class="sign">&lt;</span><span class="sign">-</span> A<span class="sign">.</span>
+structured_expression<span class="sign">(</span>A<span class="sign">,</span> A<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eBoolean2fboolean">
+</a><a name="robo38"></a><h2>Modules.Boolean/boolean, false,<br />true [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>false</strong>/1, <strong>true</strong>/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>boolean</strong>(B), <strong>false</strong>(B), <strong>true</strong>(B)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Boolean succeeds if [B] is a <strong>boolean</strong> value (either <strong>false</strong>(B) or <strong>true</strong>(B)).
+      A <strong>boolean</strong> value can be :
+      * <strong>true</strong>, 1, yes, on, y, vrai, oui or o
+      * <strong>false</strong>, 0, no, off, n, faux, non
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [B] (i) -
+              Boolean value to check.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">% <strong>true</strong>&#39;s or <strong>false</strong>&#39;s...</span>
+<strong>true</strong><span class="sign">(</span>1<span class="sign">)</span><span class="sign">.</span>        <strong>true</strong><span class="sign">(</span>yes<span class="sign">)</span><span class="sign">.</span>      <strong>true</strong><span class="sign">(</span>on<span class="sign">)</span><span class="sign">.</span>       <strong>true</strong><span class="sign">(</span><strong>true</strong><span class="sign">)</span><span class="sign">.</span>     <strong>true</strong><span class="sign">(</span>y<span class="sign">)</span><span class="sign">.</span>
+<strong>true</strong><span class="sign">(</span>vrai<span class="sign">)</span><span class="sign">.</span>     <strong>true</strong><span class="sign">(</span>oui<span class="sign">)</span><span class="sign">.</span>      <strong>true</strong><span class="sign">(</span>o<span class="sign">)</span><span class="sign">.</span>
+
+<strong>false</strong><span class="sign">(</span>0<span class="sign">)</span><span class="sign">.</span>       <strong>false</strong><span class="sign">(</span>no<span class="sign">)</span><span class="sign">.</span>      <strong>false</strong><span class="sign">(</span>off<span class="sign">)</span><span class="sign">.</span>     <strong>false</strong><span class="sign">(</span><strong>false</strong><span class="sign">)</span><span class="sign">.</span>   <strong>false</strong><span class="sign">(</span>n<span class="sign">)</span><span class="sign">.</span>
+<strong>false</strong><span class="sign">(</span>faux<span class="sign">)</span><span class="sign">.</span>    <strong>false</strong><span class="sign">(</span>non<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% What is a <strong>boolean</strong> ?</span>
+<strong>boolean</strong><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>true</strong><span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+<strong>boolean</strong><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> 
+        <strong>false</strong><span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eBoolean2fboolean5fvalue">
+</a><a name="robo39"></a><h2>Modules.Boolean/boolean_value [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>boolean_value</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>boolean_value</strong>(X, Y)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      <strong>boolean_value</strong> is what is used to associate <a href="#robo38">boolean</a> value aliases with either
+      the value 0 or 1. It adds the possibility of additional cosmetics in a 
+      <a href="#robo38">boolean</a> expression at the expense of a little bit more of complexity !
+      
+      The predicate behaves differently depending on whether [X] is an unbound
+      variable or not :
+      * if [X] is an atom, then [Y] is unified with either 0 or 1, depending on
+        the value of X.
+      * if not, <strong>boolean_value</strong> acts as a placeholder and simply unifies its second
+        argument with the first.
+
+      This trick is to allow ANY element of a logical assignment (including the
+      <a href="./List_pro.html#robo56">left</a>-hand side) to contain a variable.
+
+      Examples:
+              X &lt;- not <a href="#robo38">true</a>.
+              X &lt;- not A.
+              <a href="#robo38">true</a> &lt;- not A.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [X] (i) -
+              Boolean constant (see <a href="#robo38">boolean</a>()).
+      [Y] (o) -
+              Value of the constant (either 0 or 1).
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>boolean_value</strong><span class="sign">(</span>X<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>          
+        <span class="keyword">var</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span> 
+<strong>boolean_value</strong><span class="sign">(</span>X<span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">nonvar</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo38">true</a><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>boolean_value</strong><span class="sign">(</span>X<span class="sign">,</span> 0<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">nonvar</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo38">false</a><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eBoolean2fTruth20tables">
+</a><a name="robo40"></a><h2>Modules.Boolean/Truth tables [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PURPOSE</p>
+<pre>      The various <a href="#robo38">boolean</a> operations are described using truth tables that are
+      implemented with clauses :
+      
+      * boolean_identity(X,Y) -
+              Truth table for the identity <a href="#robo38">boolean</a> operation. Succeeds only if
+              [X] is the same <a href="#robo38">boolean</a> value as [Y].
+
+      * boolean_or(A, B, X) -
+              Truth table for the OR logical operation. Succeeds only if the <a href="#robo38">boolean</a>
+              expression :
+                      X = A or B
+              is <a href="#robo38">true</a>.
+
+      etc. Other truth tables are :
+      * boolean_xor
+      * boolean_and
+      * boolean_not
+      * boolean_imp
+      * boolean_nand
+      * boolean_nor
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">% Equality testing</span>
+boolean_identity<span class="sign">(</span>0<span class="sign">,</span>0<span class="sign">)</span><span class="sign">.</span>
+boolean_identity<span class="sign">(</span>1<span class="sign">,</span>1<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% The NOT operation</span>
+boolean_not<span class="sign">(</span>1<span class="sign">,</span>0<span class="sign">)</span><span class="sign">.</span>
+boolean_not<span class="sign">(</span>0<span class="sign">,</span>1<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% The OR operation</span>
+boolean_or<span class="sign">(</span>0<span class="sign">,</span> 0<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_or<span class="sign">(</span>0<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_or<span class="sign">(</span>1<span class="sign">,</span> 0<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_or<span class="sign">(</span>1<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% The AND operation</span>
+boolean_and<span class="sign">(</span>0<span class="sign">,</span> 0<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_and<span class="sign">(</span>0<span class="sign">,</span> 1<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_and<span class="sign">(</span>1<span class="sign">,</span> 0<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_and<span class="sign">(</span>1<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% The XOR operation</span>
+boolean_xor<span class="sign">(</span>0<span class="sign">,</span> 0<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_xor<span class="sign">(</span>0<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_xor<span class="sign">(</span>1<span class="sign">,</span> 0<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_xor<span class="sign">(</span>1<span class="sign">,</span> 1<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% The IMP operation</span>
+boolean_imp<span class="sign">(</span>0<span class="sign">,</span> 0<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_imp<span class="sign">(</span>0<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_imp<span class="sign">(</span>1<span class="sign">,</span> 0<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_imp<span class="sign">(</span>1<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% The NAND operation</span>
+boolean_nand<span class="sign">(</span>0<span class="sign">,</span> 0<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_nand<span class="sign">(</span>0<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_nand<span class="sign">(</span>1<span class="sign">,</span> 0<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_nand<span class="sign">(</span>1<span class="sign">,</span> 1<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">% The NOR operation</span>
+boolean_nor<span class="sign">(</span>0<span class="sign">,</span> 0<span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+boolean_nor<span class="sign">(</span>0<span class="sign">,</span> 1<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_nor<span class="sign">(</span>1<span class="sign">,</span> 0<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+boolean_nor<span class="sign">(</span>1<span class="sign">,</span> 1<span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./boolean.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:11
+</p>
+</div> <!-- footer -->
+</body>
+</html>

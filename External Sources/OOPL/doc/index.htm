@@ -1,0 +1,1300 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="AUTHOR" content="Erik Borgers">
+<meta name="Description"
+content="This manual describes OPL for Object oriented Programming with Logic.">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>OPL User manual</title>
+</head>
+
+<body background="back.jpg">
+
+<p align="center"><font size="6"><b>oopl&#153;</b></font> </p>
+
+<p align="center"><font size="6"><b><i>Object Oriented Programming with Logic</i></b></font>
+</p>
+
+<p align="center"><font size="6"><b>USER MANUAL</b></font> </p>
+
+<ol>
+  <li><a href="#intro"><font size="5"><b>Introduction to oopl</b></font></a></li>
+  <li><a href="#language"><font size="5"><b>The oopl language</b></font></a></li>
+  <li><a href="#writing opl"><font size="5"><b>Writing oopl programs</b></font></a></li>
+  <li><a href="#quick"><font size="5"><b>Quick reference</b></font></a></li>
+  <li><a href="#help"><font size="5"><b>Help Desk</b></font></a></li>
+  <li><a href="#license"><font size="5"><b>License Agreements</b></font></a></li>
+</ol>
+
+<p><font size="2">All right reserved by <br>
+<em>Erik Borgers<br>
+Salomeschouw 117, <br>
+2726 JR Zoetermeer, <br>
+The Netherlands. <br>
+</em><br>
+H.J. Borgers, 1998-2004</font> </p>
+
+<p><font size="2">Version : OOPL 3.* published&nbsp; under the GNU public license as Open
+Source<br>
+Author : Erik Borgers, <a href="mailto:info@tripletsoftware.com">borgers@bart.nl.</a></font>&nbsp;
+</p>
+
+<hr>
+
+<h1><a name="intro"></a>1. MOTIVATION</h1>
+
+<ol>
+  <li><a href="#why logic">Why Programming with Logic</a></li>
+  <li><a href="#why oo">Why Object Oriented programming</a></li>
+  <li><a href="#introduction to opl">Oopl : Object-oriented programming with Logic</a></li>
+</ol>
+
+<h2><a name="why logic"></a>Why programming with Logic?</h2>
+
+<p>Procedural languages like C, FORTRAN and Pascal, force the programmer to think in basic
+computer hardware terms like &quot;calculation&quot;, &quot;data&quot; and
+&quot;data-address&quot;. A conventional program can be seen as a sequential list of
+computer instructions. Much of the programming effort goes into organizing the sequence of
+this list, converting data formats and memory management. A costly burdun on software
+projects, prone to errors.</p>
+
+<p>Programming with a functional language as Prolog has many advantages. Procedural
+programming languages like Prolog do not make use of these hardware-instruction-related
+terms, but of logic definitions. In a logic programming language, a kind of procedural
+language (others are for example LISP), the problem to be solved is described using logic.
+A build-in logic problem solver resolves the described problem in a suitable order,
+thought of by the interpreter. The main advantages of this style are that these programs
+are relatively short, very flexible and therefore take far less time to build and debug,
+especially when used for complex problems. </p>
+
+<p>However, logic programming gets little attention in the programming community. I am a
+programmer myself, using Java most of the time at my office, because that is what we work
+with (period). I think there are a number of historical, technical and emotional reasons
+for this. The most important are/where: logic programs are slower, need more run-time
+memory, lack clarity (difficult to understand) and are not well known. With the current
+generation of processors and memory chips, the first two problems are history. DotNet and
+Java also use interpreters, so there will be not so much difference there. Most Prolog
+implementations will even be faster in typical fields like pattern matching, because
+Prolog is optimized for that. Memory is really a non issue today. The third and fouth
+problems are the real problem. More about these in the next two chapters.</p>
+
+<h2><a name="why oo"></a>Why Object Oriented programming?</h2>
+
+<p>In any programming language, it is possible to write 'spaghetti code' and logic
+programs are no exceptions. In such programs, code is very much intertwined. This
+increases maintenance cost and reduces reusability of the code. The functionality of the
+program can become a mystery to even the programmers themselves. Nobody dares to change
+it. Some languages have this 'feature' almost build in, like FORTRAN. </p>
+
+<p>Object-orientation is the perfect way to reduce this effect. This is done by
+structuring code into 'classes', an elegant and very powerful extension of the older
+concept of software modules. Object-oriented procedural languages like Smalltalk, Java and
+C++ and C# combine the ideas of procedural programming and object-orientation. Their
+success has already been proven and they become increasingly popular. </p>
+
+<p>Programming in &quot;just&quot; Prolog offers the programmer no evolved mechanism to
+hide data, encapsulate functionality etc. and can easily result in unmanagable code, just
+as with C, Pascal or Fortran.&nbsp; </p>
+
+<h2><a name="introduction to opl"></a>Oopl<b>&#153;</b> : Object-oriented programming with
+Logic</h2>
+
+<p>So what about clarity&nbsp; of code? For one part, this is a matter of education. It
+took me some time to understand how Prolog works. But after that, C++ and Java like
+languages, have always seem cumbersome to me, from a developers point of view. I would
+like the phrase of my daughets teacher: &quot;to learn something, you have to try&quot;. </p>
+
+<p>But I agree there is a problem: When Prolog programs get big, you will loose grip.
+Exactly what happended when you write large C programs or large Pascal programs. And why
+is that: no modularity, no OO! Prolog was invented in the same area as C and Pascal, so
+lacks modularity.&nbsp; However, object-oriented design is a language independent concept,
+so it can be used with Prolog! Adding object oriented software engineering principles to
+Prolog can be done and has been done for you with oopl! </p>
+
+<p>Prolog combined with Object-Oriented techniques, results in a very powerful programming
+language. This oopl&#153; (Object-oriented Programming with Logic) language is presented
+here. Some Prolog suppliers have done this, but always as a &quot;build-in&quot; feature
+of their Prolog engines, with syntaxes given to you. Oopl is Open Source, and therefore
+you can use it, and tailor it to any Prolog engine or even tailor the oopl language
+yourself.</p>
+
+<p>Oopl is a true Object-Oriented Prolog: PROLOG and Object-Orientation without
+compromise. To illustrate this, here is a list of build-in oopl paradigm's 
+
+<ul>
+  <li>Oopl defines Objects: either Classes, Meta Classes or Class Instances.</li>
+  <li>Objects (and Classes) have attributes, which can be set to contain any Prolog term.</li>
+  <li>Classes have services invoked by message passing, with the same power as predicates.</li>
+  <li>Classes can be part of an IS-A hierarchy. Classes inherit attributes and services from
+    one (or multiple) parent classes and can add or redefine properties.</li>
+  <li>Object- and class behavior can be modified at run time. </li>
+  <li>An object can change it class and a class can even change its place in a hierarchy. </li>
+  <li>Also, the code of object-services can be dynamically changed.</li>
+</ul>
+
+<p>But apart from all this, PROLOG's pattern-matching and backtracking mechanisms can be
+used in combination with these paradigms. For example for matching attributes,
+backtracking services etc. </p>
+
+<p>I am convinced that this solves pitfall three, the clarity, in combination with
+education.</p>
+
+<p>The last argument is about the installed base of Prolog programmers and Prolog
+programs. It seems that at some times in history, there occurs &quot;technology lock
+in&quot;. Maybe this has happened for programming too, so we keep using procedural
+languages not because they are the best, but because we use procedural languages. The same
+kind of thing that has happened to for example the gaugewidth of trains. I can only hope
+this is not the case with programming and I hope this code contributes to an ongoing
+discusion about the use of functional programming. This is my motivation to publish this
+code.</p>
+
+<hr>
+
+<h1><a name="language"></a>2. The oopl Language </h1>
+
+<ol>
+  <li><a href="#initilize">Initializing Oopl</a></li>
+  <li><a href="#objects">Objects</a></li>
+  <li><a href="#attributes">Attributes</a></li>
+  <li><a href="#services">Services</a></li>
+  <li><a href="#classes">Classes</a></li>
+  <li><a href="#Operator overloading">Operator overloading</a></li>
+  <li><a href="#predefined">Predefined attributes and objects</a></li>
+</ol>
+
+<p>This section will show you how the OO paradigms are implemented. If you are not
+familiar with Object Oriented programming, it is suggested to read some literature on it,
+since OO programming itself is not explained here. A good OO design is necessary for a
+successful implementation! </p>
+
+<h2><a name="initilize"></a>Initializing oopl</h2>
+
+<p>After loading or consulting the oopl kernel, the kernel is initialized with <font
+size="2"><b>oopl. </b></font>After this, new classes and objects may be created and the <font
+size="2"><b>&lt;-</b></font> (send) operator needed for object oriented programming with
+oopl is defined. </p>
+
+<p>You can check if oopl is already loaded with <font size="2"><b>ooplLoaded </b></font>which
+simply fails when not loaded. </p>
+
+<p>You can get version information with <font size="2"><b>ooplVersion( ?Name, ?VersionNr
+).</b></font> </p>
+
+<h2><a name="objects"></a>Oopl Objects</h2>
+
+<p>Code written in oopl is organized using objects, being either 
+
+<ul>
+  <li>classes (class objects) or</li>
+  <li>instances (instances of a class object) or</li>
+  <li>a meta class object (see the <a href="#opl object">oopl</a> meta class object).</li>
+</ul>
+
+<p>You can check the existence of any type of object with <font size="2"><b>isObject/1</b></font>
+</p>
+
+<p><font size="2"><b>isObject( ?Object ).</b></font></p>
+
+<h2><a name="attributes"></a>Oopl Attributes</h2>
+
+<p>Objects (either instances of classes or class objects) can have a (flexible) number of
+attributes, in which any PROLOG term (atom, string, list, clause, variable etc.) can be
+stored. Attributes can be added, deleted or changed. Object attributes are manipulated
+with the &lt;<font size="2"><b>-</b></font> (pronounced send) operator, defined by OPL.
+You could think of this operator as a kind of &quot;send to&quot; instruction. </p>
+
+<h3>Instance attributes</h3>
+
+<p>Instance attributes are created automatically when a new object instance is created
+(the number depending on it's class) or explicit with </p>
+
+<p><font size="2"><b>Object &lt;- Attribute = Value</b></font> </p>
+
+<p>When this attribute did not already exist, it will be created and the term <font
+size="2">Value</font> will be stored within it. If this attribute did already exist, it's
+previous instance(s) is (are) destroyed and created again with the new value. Attribute
+must be an atom. </p>
+
+<p>In oopl it is possible to have multiple instances of the same attribute. This is an
+alternative for storing lists of values in one attribute and can be used in combination
+with backtracking. An attribute can be added (without destroying previous instances) with </p>
+
+<p><font size="2"><b>Object &lt;- Attribute + Value</b></font> </p>
+
+<p>An attribute is recalled (matched) with </p>
+
+<p><font size="2"><b>Object &lt;- Attribute ? Value</b></font> </p>
+
+<p>This predicate can be used in combination with backtracking for objects, attributes and
+values. <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>:- myobject &lt;- a + 1, myobject &lt;- a + ' ,' , myobject &lt;- a + 2.</i>&nbsp; <br>
+    <i>:- myobject &lt;- a ? V, write( V ), fail. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% writes
+    &quot;1,2&quot;&nbsp; on backtracking, printing all attribute values </i><p><i>:- myobject
+    &lt;- a = 3.</i>&nbsp; <br>
+    <i>:- myobject &lt;- a ? V, write( V ), fail. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% writes only
+    &quot;3&quot; since previous values are wiped out</i></td>
+  </tr>
+</table>
+
+<p>All matching attributes are recalled in a list with </p>
+
+<p><font size="2"><b>Object &lt;- Attribute ?? [ValueList]</b></font> </p>
+
+<p>Finally, a single matching attribute can be deleted with </p>
+
+<p><font size="2"><b>Object &lt;- Attribute - Value</b></font> </p>
+
+<p>and all matching attributes are destroyed with </p>
+
+<p><font size="2"><b>Object &lt;- Attribute -- Value</b></font> <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>% clause to replace myAttribute containing value Old with value New&nbsp;</i>&nbsp;
+    <p><i>replaceValue( Object, Old, New ):-&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>isObject( Object ),&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>Object &lt;- myAttribute - Old,&nbsp;</i>&nbsp;
+    <br>
+    <img src="space.gif" width="100" height="5"><i>Object &lt;- myAttribute + New.</i></td>
+  </tr>
+</table>
+
+<h3><a name="class attributes"></a>Class attributes</h3>
+
+<p>Classes also have attributes. In fact, all operations on instance attributes as
+described above are also valid for class objects. Class attributes are rarely used but can
+be useful, for example when calculating the number of created instances of a class or when
+all objects of a class must share the same data. </p>
+
+<h2><a name="services"></a>Oopl Services</h2>
+
+<p>Objects have services which are invoked by message passing. Message are sent with the <font
+size="2"><b>&lt;- </b></font>(send) operator, defined by OPL. Sending a message invokes a
+service within the receiving object. </p>
+
+<p><font size="2"><b>Object &lt;- Service</b></font> </p>
+
+<p>Services may have an argument. The format of sending a message with an argument is </p>
+
+<p><font size="2"><b>Object &lt;- Service @ Argument</b></font> </p>
+
+<p>Service can be any bounded PROLOG term (i.e. Atom, String, List, Clause, Variable etc.)
+but for clarity an Atom is recommended. Argument can be any term (i.e. Atom, String, List,
+Clause, Variable etc.). Sending messages can be used in combination with backtracking. </p>
+
+<p>Object is the name of an existing object or it might be a list of existing objects. In
+the latter case, the message is passed to every object on the list, for as long as the
+messages succeed (comparable with <font size="2"><b>forall/2</b></font> behavior). <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>% example : invoke calculate method of Object (assuming this was defined)</i>&nbsp;
+    <p><i>calcObject( Object, Value ):- isInstance( Object ), Object &lt;- calculate @ Value.</i></td>
+  </tr>
+</table>
+
+<p>Service may even be a variable. Oopl then tries to find a service name that matches.
+This however, does not seem to be very useful, it might even be the result of an unwanted
+programming mistake. </p>
+
+<p>Upon receiving messages, oopl will try to invoke a method that does the inferencing for
+this message. For every service, there should be a matching predicate, a method, supplied
+by the user. When the message is sent with <font size="2"><b>&lt;-/2 </b></font>then </p>
+
+<p><font size="2"><b>classnameMethod( Service, Object )</b></font> </p>
+
+<p>is invoked, where &quot;classname&quot; is the actual name of the class of the object
+(!). When the message is sent with an argument then </p>
+
+<p><font size="2"><b>classnameMethod( Service, Object, Argument )</b></font> </p>
+
+<p>is invoked. These predicates are not part of OPL, but provided by the programmer. </p>
+
+<p><font size="2"><b>classnameMethod</b></font> is a predefined name used for a certain
+class. This name is determined by the class name (i.e. boxMethod for class box, listMethod
+for class list etc.). <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>% example of a method of an object of type myClass</i>&nbsp; <p><i>myClassMethod(
+    hello, Object ):- write( &quot;hello world&quot; ).&nbsp;</i>&nbsp; <br>
+    <i>myClassMethod( hello, Object, AnyMessage ):- write( AnyMessage ).</i>&nbsp; </p>
+    <p><i>test :-&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>% assuming myObject is an instance of
+    myClass&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>myObject &lt;- hello,&nbsp;&nbsp; % writes
+    &quot;hello world&quot; nl,&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>myObject &lt;- hello @ &quot;to
+    you&quot;,&nbsp;&nbsp; % writes &quot;to you&quot;&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>myObject &lt;- destroy.</i></td>
+  </tr>
+</table>
+
+<h2><a name="classes"></a>Oopl Classes and class hierarchy.</h2>
+
+<h3>Classes</h3>
+
+<p>All oopl instances are of a certain class (even the class objects themselves, which are
+of the meta class <font size="2"><b>opl</b>)</font>. All objects instances of a certain
+class use the same methods and have the same initial attributes after creation. </p>
+
+<h3>Class creation</h3>
+
+<p>A class is created by sending a <font size="2"><b>new</b></font> message to the meta
+object<b> <a href="#opl object"><font size="2">oopl</font></a></b> </p>
+
+<p><font size="2"><b>oopl &lt;- new( Class ) @ [ ListOfAttributeNames ]</b></font> </p>
+
+<p>Class is the name of the new class and ListOfAttributeNames are the names of the
+initial attributes. If the list is empty, it may be left away.</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>% create a counter class whose instances have attributes for storing a value and a
+    maximum</i>&nbsp; <p><i>oopl &lt;- new( counter ) @ [ value, maximum ].</i></td>
+  </tr>
+</table>
+
+<h3>Class instance creation and deletion</h3>
+
+<p>A class can create instances. An instance object is created by sending a <font size="2"><b>new</b></font>
+message to the class object<b> </b></p>
+
+<p><font size="2"><b>Class &lt;- new( Instance ) @ [ ListOfAttributeValues ]</b></font> </p>
+
+<p>Class is the name (atom) of the new class and ListOfAttributeValues are the values of
+the initial attributes, that must match with the class object definition. If the list is
+empty, it may be left away. Instance must be a atom or a variable. In case it is a
+variable, it will be grounded to a unique atom name by OPL.</p>
+
+<p>Instance objects can be destroyed by sending the message <font size="2"><b>destroy</b></font>.
+Class and meta objects cannot be destroyed.</p>
+
+<p><font size="2"><b>Object &lt;- destroy</b></font></p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>% create a counter object <br>
+    counter &lt;- new( mycounter ) @ [ 1, 10 ].</i> <p><i>% destroy it again<br>
+    mycounter &lt;- destroy. </i></td>
+  </tr>
+</table>
+
+<h3>Inheritance</h3>
+
+<p>Opl also handles inheritance (also known as specialization). Subclasses inherit 
+
+<ul>
+  <li>all service and attribute definitions of the parent class or</li>
+  <li>all services of a number of parent classes (multiple inheritance)</li>
+</ul>
+
+<p>A sub-class is defined by </p>
+
+<p><b><font size="2">oopl &lt;- new( SubClass, Parentclass ) @ [ AdditionalAttributeNames</font>
+]</b></p>
+
+<p>This class will have all the attributes of the parent class plus the additional
+attributes. </p>
+
+<p>An object of a subclass is created with </p>
+
+<p><font size="2"><b>SubClass &lt;- new( Object ) @ [ Value_parent_attribute, ...,
+Value_added_attribute, ... ]</b></font> </p>
+
+<p>A subclass with multiple parents (multiple inheritance) is defined with </p>
+
+<p><font size="2"><b>oopl &lt;- new( Subclass, [ Parent class 1, Parent class 2...] ) @
+[AdditionalAttributeNames]</b></font> <br>
+<font size="2"><b>SubClass &lt;- new( Object ) @ [ Value_parent1_attribute, ...
+Value_parent2_attribute, &#133; Value_added_attribute, ...]</b></font></p>
+
+<p>All methods and attributes of [parent class 1, ...] are inherited. It is the
+responsibility of the programmer that no attributes with the same name are inherited from
+multiple parents, since this results in undefined behavior. </p>
+
+<h3>Overloading services </h3>
+
+<p>Sometimes, a subclass will redefine a service already implemented in the parent class
+(i.e. see the string class example). In this case, oopl automatically calls the local
+service first, and then calls the parent class methods upon backtracking. This continues
+until the top level parent class is reached. <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>parentMethod( info, Self, &quot;Hello parent &quot; ).&nbsp;</i>&nbsp; <p><i>parentMethod(
+    hello, Self ):-&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>Self &lt;- info ? Info,&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>write( Info ).</i>&nbsp; </p>
+    <p><i>childMethod( info, Self, &quot;Hello child&quot; ).</i>&nbsp; </p>
+    <p><i>:- oopl &lt;- new( parent ), oopl &lt;- new( child, parent ), child &lt;- new(
+    childObject ).&nbsp;</i>&nbsp; <br>
+    <i>:- childObject &lt;- hello. &nbsp;&nbsp;&nbsp;&nbsp;% prints &quot;Hello child&quot;
+    not &quot;Hello parent&quot; since info was redefined for child</i></td>
+  </tr>
+</table>
+
+<p>The programmer should be aware that a service that is redefined does not destroy the
+definition of the parent (what is different from many OO programming languages), what is
+in fact consistent with the theory of Logic Programming ! Therefore, upon backtracking,
+the service of the parent will still be called. <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>:- object &lt;- hello, fail. % prints &quot;Hello child Hello parent&quot;</i></td>
+  </tr>
+</table>
+
+<p>and also <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>parentMethod( write, Self ):-&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>write( 'Write parent ' ).&nbsp;</i>&nbsp; <p><i>childMethod(
+    write, Self ):-&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="38" height="5"><i>write( 'Write child' ).</i>&nbsp; </p>
+    <p><i>:- oopl &lt;- new( parent ), oopl &lt;- new( child, parent ), child &lt;- new(
+    object ).&nbsp;</i>&nbsp; <br>
+    <i>:- object &lt;- write, fail. % prints &quot;Write child Write parent&quot;&nbsp;</i></td>
+  </tr>
+</table>
+
+<p>If this behavior is not wanted, one should check for the actual class of the instance,
+to prevent using the service. <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>parentMethod( write, Self ):- <br>
+    <img src="space.gif" width="38" height="5">isClass( parent ), write( 'Hello parent ' ).</i></td>
+  </tr>
+</table>
+
+<h3>Sending messages up the hierarchy</h3>
+
+<p>Sometimes it is useful to explicitly invoke the service of the parent class, not the
+overloaded service. In this case, the message can be sent with the <font size="2"><b>^-</b></font>
+(pronounced send up) operator. The up operator behaves as if a message was sent to the
+instance, but the overloaded service failed, and hence parent class methods are invoked
+upon backtracking. </p>
+
+<p><font size="2"><b>Object ^- Service</b></font> <br>
+<font size="2"><b>Object ^- +Service @ Arguments</b></font> <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>childMethod( hello, Self ):- write( &quot;no Hello&quot; ).</i>&nbsp; <p><i>:-
+    object &lt;- hello. % prints &quot;no Hello&quot;&nbsp;</i>&nbsp; <br>
+    <i>:- object ^- hello. % prints &quot;Hello child&quot; (!) since parentMethod hello is
+    invoked but info is still overloaded.&nbsp;</i></td>
+  </tr>
+</table>
+
+<p>See also the samples files. </p>
+
+<h3>Investigating the class hierarchy</h3>
+
+<p>There are a number of predicates to investigate the class hierarchy and instance
+existence. These are <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#00FFFF">
+  <tr>
+    <td><font size="2"><b>isClass( Class )&nbsp;</b></font></td>
+    <td>get class object</td>
+  </tr>
+  <tr>
+    <td><font size="2"><b>isParentclass( Class, Parentclass )</b></font></td>
+    <td>get parentclass of class</td>
+  </tr>
+  <tr>
+    <td><font size="2"><b>isInstance( Object )&nbsp;</b></font></td>
+    <td>get instance</td>
+  </tr>
+  <tr>
+    <td><font size="2"><b>isInstance( Object, Class )&nbsp;</b></font></td>
+    <td>get class of instance</td>
+  </tr>
+  <tr>
+    <td><font size="2"><b>isA( Object, Class )</b></font></td>
+    <td>get class of object, backtracks for parentclasses</td>
+  </tr>
+</table>
+
+<h3>Mutation</h3>
+
+<p>Oopl also offers the possibility to mutate instances. After an instance has been
+mutated, this object behaves as if it had been created by another class. </p>
+
+<p><font size="2"><b>mutateObject( Object, NewClass ).</b></font> </p>
+
+<p>One should be careful to mutate objects. The objects attributes are not affected by the
+mutation. Therefore, if the attributes of the former class do not match the attributes of
+the new class, the object might not behave as expected. </p>
+
+<h3>Specialization of new and destroy</h3>
+
+<p>A class can specialize the behavior of creation and deletion by defining the services <font
+size="2"><b>new</b></font> and <font size="2"><b>destroy</b></font>, which are called by
+oopl when creating and destroying objects. These services must use the following syntax <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>myclassMethod( new, Self ):- ... % code for initialisation&nbsp;</i>&nbsp; <p><i>myclassMethod(
+    destroy, Self ):- ... % code for destruction</i></td>
+  </tr>
+</table>
+
+<p>Note however, that you cannot send the message <font size="2"><b>new</b></font> to
+create the object itself, since the object does not exist at that moment! Instead, this
+calling will be done by the class object. If the <font size="2"><b>new/destroy</b></font>
+predicates are not provided by the programmer, oopl only uses the class method <font
+size="2"><b>new/destroy</b></font> behavior, which just creates/destroys the bare object. </p>
+
+<p>Just as with other services, it is also possible to inherit <font size="2"><b>new</b></font>
+and <font size="2"><b>destroy</b></font> from parent classes. </p>
+
+<p>When a subclass is defined, it is often useful to specialize the service <font size="2"><b>new
+</b></font>(the same is true for destroy). Instead of reinserting all the code of the
+parent class and adding some new statements, it is much more elegant to somehow reuse the
+parent class service. Again, the ^- operator can be used for this! </p>
+
+<p>If <font size="2"><b>new</b></font> is not defined for Parentclass, the parent of this
+class is tried etc. This type of coding makes specialization of code more reliable, since
+changes to the parent class constructor are automatically inherited by the child classes. <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>parentMethod( new, Self ):-&nbsp;<img src="space.gif" width="100" height="5"></i>&nbsp;
+    <br>
+    <img src="space.gif" width="100" height="5"><i>Self &lt;- counter = 1.&nbsp;</i>&nbsp; <p><i>childMethod(
+    new, Self ):-&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>Self ^- new, % do all the parent stuff for
+    new</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>Self &lt;- counter ? C, % valid, since
+    counter is set now&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>Cnew is C + 1,&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>Self &lt;- counter = Cnew.&nbsp;</i>&nbsp; </p>
+    <p><i>:- oopl &lt;- new( parent ).&nbsp;</i>&nbsp; <br>
+    <i>:- oopl &lt;- new( child, parent ).&nbsp;</i>&nbsp; <br>
+    <i>:- child &lt;- new( myObject ). &nbsp;&nbsp;&nbsp;% sets counter to two&nbsp;</i></td>
+  </tr>
+</table>
+
+<h2><a name="Operator overloading"></a>Oopl Operator Overloading</h2>
+
+<p>Oopl has the possibility to overload mathematical operators, much like OO languages
+like C++. Using operator overloading can simplify the code and reduce the amount of
+programming.</p>
+
+<p>In order to use operator overloading, the overloaded operator must be redefined for the
+class first. </p>
+
+<p>The <b>is,+,-,/ </b>and<b> *</b> operators can be overloaded. The overloaded operator
+must be preceded by the @ symbol. You can define multiple methods for the same operator,
+so for example a <font size="2"><b>string</b> </font>object <font size="2"><b>+</b></font>
+operator could be overloaded to add Prolog strings, character lists, atoms and other
+String objects, making it very flexible.</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>:- oopl &lt;- new( string ) @ [ buffer ].</i> <p><i>% normal definition for adding
+    a string to string object<br>
+    stringMethod( add, Self, String ):- <br>
+    <img src="space.gif" width="38" height="5">string( String ), <br>
+    <img src="space.gif" width="38" height="5">Self &lt;- buffer ? Old, <br>
+    <img src="space.gif" width="38" height="5">strcat( Old, String, New ), <br>
+    <img src="space.gif" width="38" height="5">Self &lt;- buffer = New.</i></p>
+    <p><i>% overloaded definitions for + operator<br>
+    stringMethod( '@+', Self, String ):- <br>
+    <img src="space.gif" width="38" height="5">string(String)<br>
+    <img src="space.gif" width="38" height="5">Self &lt;- add @ String.<br>
+    stringMethod( '@+', Self, Object ):- <br>
+    <img src="space.gif" width="38" height="5">isA( Object, string ),<br>
+    <img src="space.gif" width="38" height="5">Object &lt;- buffer ? String,<br>
+    <img src="space.gif" width="38" height="5">Self &lt;-add @ String.</i></td>
+  </tr>
+</table>
+
+<p>After specifying overloaded operators, these can be used in arithmic expressions in
+combination with the overloaded <b>is</b> operator, that is already implemented for all
+classes. Again, the overloaded <b>is</b> operator must be preceded by the @ symbol.</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>example:-<br>
+    <img src="space.gif" width="38" height="5">string &lt;- new( string1 ) @ [ $first part$ ],
+    <br>
+    <img src="space.gif" width="38" height="5">StringA '@is' string1 + $ second part$,<br>
+    <img src="space.gif" width="38" height="5">StringB '@is' StringA + $ and again $ +
+    string1.</i></td>
+  </tr>
+</table>
+
+<p>See also the samples for operator overloading.</p>
+
+<h2><a name="predefined"></a>Oopl Predefined attributes and objects.</h2>
+
+<h3>Predefined attributes</h3>
+
+<p>After creation all objects have the following attributes </p>
+
+<p><font size="2"><b>self </b></font>contains the name of the object <br>
+<font size="2"><b>class</b></font> contains the class name of the object <br>
+<font size="2"><b>method</b></font> contains the method name of the object </p>
+
+<p>Class objects have the following additional predefined attributes </p>
+
+<p><font size="2"><b>template</b></font> is an internal template as defined with <font
+size="2"><b>new</b></font> <br>
+<font size="2"><b>instance_method</b></font> is the method name for the instance of an
+object of this class <br>
+<font size="2"><b>isa</b></font> contains the parent name of this class <br>
+<font size="2"><b>instance</b></font> is the name of the instance (object) of this class </p>
+
+<h3>Predefined objects</h3>
+
+<h4><a name="base object"></a>The base class object</h4>
+
+<p>The predefined <font size="2"><b>base</b></font> object is a class object that just has
+the <font size="2"><b>baseMethod </b></font>implementing </p>
+
+<p><font size="2"><b>Object &lt;- list ? List</b></font> puts all attribute instances in a
+List of type [ Attributename( Attribute value),&nbsp; ... ] <br>
+<font size="2"><b>Object &lt;- print </b></font>writes all attributes contents to the user
+window (only to be used in the listener!) <br>
+&nbsp; </p>
+
+<table border="0" width="100%" bgcolor="#FFFF80">
+  <tr>
+    <td><i>example :-</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>newInstance( mybase, base ),</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>mybase &lt;- print. % write the attributes
+    to the listener window</i></td>
+  </tr>
+</table>
+
+<p>You can use these methods by inheriting them (although it is also possible to directly
+call <font size="2"><b>baseMethod/2</b></font> and <font size="2"><b>baseMethod/3</b> </font>)
+<br>
+&nbsp; </p>
+
+<table border="0" width="100%" bgcolor="#FFFF99" cols="1">
+  <tr>
+    <td><i>:- oopl &lt;- new( myclass, base ).</i></td>
+  </tr>
+</table>
+
+<h4>&nbsp; <a name="opl object"></a>The oopl meta class object</h4>
+
+<p>After initialization of the Oopl kernel, the meta class object <font size="2"><b>oopl</b></font>
+exists. This object can be seen as the root object of oopl and is also the class of class
+objects, hence the term &quot;meta class&quot;. This object also uses the <a
+href="#base object"><font size="2"><b>base</b></font></a> class services plus the
+following services of method oplMethod: </p>
+
+<p><font size="2"><b>oopl &lt;- init</b></font> (re)initialize the oopl kernel <br>
+<font size="2"><b>oopl &lt;- clear</b></font> destroy all classes and objects, including
+the oopl object. <br>
+<font size="2"><b>oopl &lt;- trace</b></font> trace message passing <br>
+<font size="2"><b>oopl &lt;- fulltrace</b></font> as trace, but also traces Method calls <br>
+<font size="2"><b>oopl &lt;- notrace</b></font> stop tracing (the default)<br>
+<font size="2"><b>oopl &lt;- saveState @ File</b></font> saves all object to File<br>
+<font size="2"><b>oopl &lt;- loadState @ File</b></font> restores all objects from File
+(current objects are removed from memory)</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>example:-&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>% initialize kernel&nbsp;&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>opl, % start oopl <br>
+    </i><img src="space.gif" width="100" height="5"><i>% create some classes and objects
+    now&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>...&nbsp;</i>&nbsp; <p><img
+    src="file:///D|/Data/SOURCE/Opl26/doc/space.gif" width="100" height="5"><i>oopl &lt;-
+    saveState @ 'C:\temp.pro',<br>
+    <img src="space.gif" width="100" height="5">oopl &lt;- clear, % everything destroyed now,
+    even the oopl object</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>oopl, % oopl object created again<br>
+    <img src="file:///D|/Data/SOURCE/Opl26/doc/space.gif" width="100" height="5">oopl &lt;-
+    loadState @ 'C:\temp.pro'. % all classes and instances restored </i><br>
+    </td>
+  </tr>
+</table>
+
+<p>&nbsp; <br>
+In order to use<b> <font size="2">trace</font></b> and <font size="2"><b>fulltrace</b></font>,
+the user should provide for a clause <font size="2"><b>oplTrace/1</b></font>, which will
+take a string as it's argument. For example, this could be a write to a window, to a file
+or to the listener. <br>
+&nbsp; </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>oplTrace( String ) :- write( String ), nl.</i>&nbsp; <p><i>example:-&nbsp;</i>&nbsp;
+    <br>
+    <img src="space.gif" width="100" height="5"><i>% initialize kernel&nbsp;&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>oopl, % start oopl</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>oopl &lt;- trace,<img src="space.gif"
+    width="100" height="5"></i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>% create some classes and objects now,
+    massages will be traced&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"><i>...&nbsp;</i>&nbsp; <br>
+    <img src="space.gif" width="100" height="5"></td>
+  </tr>
+</table>
+
+<h1>&nbsp; </h1>
+
+<hr>
+
+<h1><a name="writing opl"></a>3. Writing oopl Programs </h1>
+
+<ol>
+  <li><a href="index.htm#writing oo">Writing OO programs</a></li>
+  <li><a href="#error handling">Error Handling</a></li>
+  <li><a href="index.htm#compile OPL">Compiling &amp; Linking</a></li>
+  <li><a href="#alternative syntax">Alternative oopl syntax</a></li>
+</ol>
+
+<h2><a name="writing oo"></a>Writing an Object Oriented Logic Program</h2>
+
+<p>Writing an oopl program is not different from writing a Prolog program. The new
+operators define some additional functionality, but all old Prolog functionality remains.
+However, the new OO paradigm helps the programmer to think about the structure of the
+objects and program. In fact, that is why OO programming was introduced!</p>
+
+<p>Oopl offers the possibility to use object oriented design principles within Prolog. The
+price paid is more inefficient memory use and more processing overhead due to internal
+message passing done by oopl (though optimized for speed). To ensure a successful oopl
+implementation it is necessary to use the right object granularity: </p>
+
+<p>When using a very fine granularity (very small object), the overhead would be to much.
+For example, better not use classes for Strings, Integers, Lists etc. but rather use the
+built-in PROLOG facilities. When using a very coarse granularity, the objects would become
+very messy and complicated. Also, these objects will become rather difficult to reuse. So
+the trick is, to find a good balance. </p>
+
+<p>Use specialization wherever possible, it gives far more compact, understandable and
+maintainable code. </p>
+
+<p>The gain of using oopl should be that the so called &quot;spaghetti-code&quot;
+(everything calling everything) effect of Prolog is decreased. However, you can still
+build &quot;ravioli&quot; software by making all objects dependent on each other. To
+prevent this, objects should not better not directly manipulate attributes of other
+objects. If they do, this will make the change of implementation of objects difficult
+because of these dependencies. If objects need the value of an attribute of another class,
+better specify a service for this. </p>
+
+<p>Objects best should pass messages using a tree-like structure (master objects calling
+slave objects). No loops should occur (A calls B, B calls C, C calls A), otherwise all
+objects will again be dependent on each other and an object can then only be reused if the
+whole set of objects is reused. </p>
+
+<p>Mutation of objects may lead to unclear code. </p>
+
+<h2><a name="case"></a><a name="error handling"></a>Error Handling</h2>
+
+<p>There are some typical error situations when using Opl. For example: 
+
+<ul>
+  <li>sending a message to a Var</li>
+  <li>creating more objects than your key allows</li>
+</ul>
+
+<p>Opl detects this situation and calls the user supplied function <font size="2"><b>oplError(
+String )</b></font>. You can implement this function as you like. For example</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>ooplError( String ) :- write( &quot; An Opl Error : &quot; ), write(String ),
+    nl.&nbsp;</i>&nbsp; </td>
+  </tr>
+</table>
+
+<p>Or</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>ooplError( String ) :- w_msgbox( String ).&nbsp;</i></td>
+  </tr>
+</table>
+
+<p>Above examples will work fine in the listener. When writing mixed language programs,
+this will not work for obvious reasons. You can then implement <font size="2"><b>oplError</b></font>
+to call a function in the other language (e.g. Java, Visual Basic), or write the message
+to disk. Consult the Amzi! manual .</p>
+
+<p>If the user does not supply the <font size="2"><b>ooplError</b></font> clause, the
+error is ignored and oopl continues.</p>
+
+<h2><a name="compile OPL"></a>Compiling &amp; linking oopl using Amzi!</h2>
+
+<h3>Using oopl in the Listener</h3>
+
+<p>You can consult oopl in the listener, for simple non-interactive applications and
+testing.</p>
+
+<p>IConsult the Amzi! documentation for information on this.</p>
+
+<p>Oopl itself ships as a source file (.PRO). This file can be loaded with the Amzi!
+supplied <font size="2"><b>consult/1</b></font>. After initializing oopl, the operators
+are defined and oopl depended code can be consulted. With <font size="2"><b>ooplLoaded</b></font>
+is can be checked if oopl is already loaded. For example </p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><em>:- \+ ooplLoaded, consult( 'lib/ooplops.pro' ), consult( 'lib/oopl.pro' ).<br>
+    :- oopl. % start oopl&nbsp; </em><p><em>% now put your oopl dependent code below&nbsp; <br>
+    ...</em></td>
+  </tr>
+</table>
+
+<h3>Building projects with oopl</h3>
+
+<p>Apart from consulting oopl in the listener, you can of course use oopl with other
+languages, just as is the intention of the Amzi! Logic Server.</p>
+
+<p>In this case, you will create a project and you might want to compile the oopl kernel
+to speed things up. Your project should at least include 
+
+<ul>
+  <li>The compiled lib\oopl.pro file</li>
+  <li>The operator definition file: the file lib\ooplops.pro with oopl operators</li>
+</ul>
+
+<p>After creating this project, you can build it. Consult the Amzi! manual for more
+details.</p>
+
+<p>Of course your program using the compiled oopl kernel must still call <font size="2"><b>oopl/0</b></font>
+before you can create objecs etc.&nbsp; </p>
+
+<p>If you have more operators defined in your project, you can glue them with the supplied
+operators, to build your own operator file.</p>
+
+<h2><a name="alternative syntax"></a>Alternative Syntax</h2>
+
+<p>For those who do not like to work with the extra oopl operators, it is possible to work
+with &quot;plain&quot; Prolog clauses. E.g, instead of</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>myObject &lt;- add @ 25</i></td>
+  </tr>
+</table>
+
+<p>one could also write</p>
+
+<table border="0" bgcolor="#FFFF80">
+  <tr>
+    <td><i>send( myObject, add, 25 )</i></td>
+  </tr>
+</table>
+
+<p>The Quick reference contains a complete list of alternative clauses.</p>
+
+<hr>
+
+<p><a name="quick"></a></p>
+
+<p>4. Quick Reference </p>
+
+<p><b>Symbols</b> <br>
+<b>+V</b> : variable <b>V</b> must be grounded when calling <br>
+<b>-V</b> : variable <b>V</b> will be bound by the clause <br>
+<b>?V</b> : variable <b>V</b> may be grounded or not grounded. </p>
+
+<h2>instance objects</h2>
+
+<table border="0" width="100%" bgcolor="#C0C0C0">
+  <tr>
+    <td><i>what</i></td>
+    <td><i>syntax</i></td>
+    <td><i>alternative</i></td>
+  </tr>
+  <tr>
+    <td><font size="2">create instance object</font></td>
+    <td><font size="2"><b>+Class &lt;-new( ?Object ) @ [ +ValueList ]</b></font></td>
+    <td><font size="2"><b>newInstance( ?Object, +Class( +Value1, Value2, ... ) )&nbsp;</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">destroy instance object</font></td>
+    <td><font size="2"><b>+Instance &lt;- destroy&nbsp;</b></font></td>
+    <td><font size="2"><b>destroyInstance( +Instance )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">mutate object</font></td>
+    <td><font size="2"><b>mutateInstance( +Object, +NewClass )&nbsp;</b></font></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><font size="2">match instance</font></td>
+    <td><font size="2"><b>isInstance( ?Object )</b></font></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><font size="2">match instance of a certain class<b>&nbsp;</b></font></td>
+    <td><font size="2"><b>isInstance( ?Object, ?Class )&nbsp;</b></font></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><font size="2">match instance object parent hierarchy</font></td>
+    <td><font size="2"><b>isA( ?Object, ?Class )</b></font></td>
+    <td></td>
+  </tr>
+</table>
+
+<h2>class objects</h2>
+
+<table border="0" width="100%" bgcolor="#C0C0C0">
+  <tr>
+    <td><i>what</i></td>
+    <td><i>syntax</i></td>
+    <td><i>alternative</i></td>
+  </tr>
+  <tr>
+    <td><font size="2">create class</font></td>
+    <td><font size="2"><b>oopl &lt;- new( +Class ) @ [ +AttributeList ]</b></font></td>
+    <td><font size="2"><b>newClass( +Class( +Attr1, +Attr2, ... ) )&nbsp;</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">create subclass</font></td>
+    <td><font size="2"><b>oopl &lt;- new( +Class, +Parentclass ) @ [ +ExtraAttrList ]</b></font></td>
+    <td><font size="2"><b>newSubclass( +Class( +ExtraAttr1, ... ), +Parentclass )&nbsp;</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">multiple inheritance</font></td>
+    <td><font size="2"><b>oopl &lt;- new( +Class, [+ParentclassList] ) @ [+ExtraAttrList ]</b></font></td>
+    <td><font size="2"><b>newSubclass( +Class( +ExtraAttr1, ... ), +[ ParenclassList ] )&nbsp;</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">get parent class </font></td>
+    <td><font size="2"><b>isParentclass( ?Class, ?Parent )</b></font></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><font size="2">match a class object</font></td>
+    <td><font size="2"><b>isClass( ?Class )</b></font></td>
+    <td></td>
+  </tr>
+</table>
+
+<h2>message passing</h2>
+
+<table border="0" width="100%" bgcolor="#C0C0C0">
+  <tr>
+    <td><i>what</i></td>
+    <td><i>syntax</i></td>
+    <td><i>alternative</i></td>
+  </tr>
+  <tr>
+    <td><font size="2">send message</font></td>
+    <td><font size="2"><b>+Object &lt;- +Service</b></font></td>
+    <td><font size="2"><b>send( +Object, +Service )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">send message plus argument</font></td>
+    <td><font size="2"><b>+Object &lt;- +Service @ ?Argument</b></font></td>
+    <td><font size="2"><b>send( +Object, +Service, ?Argument )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">send multiple message</font></td>
+    <td><font size="2"><b>+[ Object, ...] &lt;- +Service&nbsp;</b></font></td>
+    <td><font size="2"><b>send( [ +Object, ...], +Service )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">send multiple message plus argument</font></td>
+    <td><font size="2"><b>+[ Object, ...] &lt;- +Service @ ?Argument&nbsp;</b></font></td>
+    <td><font size="2"><b>send( [ +Object, ...], +Service, ?Argument)</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">send message up</font></td>
+    <td><font size="2"><b>+Object ^- +Service&nbsp;</b></font></td>
+    <td><font size="2"><b>sendUp( +Object, +Service )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">send message up plus argument</font></td>
+    <td><font size="2"><b>+Object ^- +Service @ ?Argument</b></font></td>
+    <td><font size="2"><b>sendUp( +Object, +Service, ?Argument )</b></font></td>
+  </tr>
+</table>
+
+<h2>attributes</h2>
+
+<table border="0" width="100%" bgcolor="#C0C0C0">
+  <tr>
+    <td><i>what</i></td>
+    <td><i>syntax&nbsp;</i></td>
+    <td><i>alternative</i></td>
+  </tr>
+  <tr>
+    <td>s<font size="2">et attribute (create or overwrite)</font></td>
+    <td><font size="2"><b>+Object &lt;- +Attribute = +Value</b></font></td>
+    <td><font size="2"><b>set( +Object, +Attribute, +Value )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">add attribute</font></td>
+    <td><font size="2"><b>+Object &lt;- +Attribute + +Value</b></font></td>
+    <td><font size="2"><b>add( +Object, +Attribute, +Value )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">query an attribute</font></td>
+    <td><font size="2"><b>+Object &lt;- ?Attribute ? ?Value</b></font></td>
+    <td><font size="2"><b>attribute( +Object, ?Attribute, ?Value )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">query all attributes that match</font></td>
+    <td><font size="2"><b>+Object &lt;- ?Attribute ?? [-Value,...]&nbsp;</b></font></td>
+    <td><font size="2"><b>attributes( +Object, ?Attribute, -Value )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">erase one attribute</font></td>
+    <td><font size="2"><b>+Object &lt;- ?Attribute - ?Value&nbsp;</b></font></td>
+    <td><font size="2"><b>erase( +Object, ?Attribute, ?Value )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">destroy all matching attributes</font></td>
+    <td><font size="2"><b>+Object &lt;- ?Attribute -- +Value.</b></font></td>
+    <td><font size="2"><b>clear( +Object, ?Attribute, +Value )</b></font></td>
+  </tr>
+</table>
+
+<h2>predicates</h2>
+
+<table border="0" width="100%" bgcolor="#C0C0C0">
+  <tr>
+    <td><i>what</i></td>
+    <td><i>syntax</i></td>
+  </tr>
+  <tr>
+    <td><font size="2">initiate kernel oopl with LicenceKey (0 for demo version)</font></td>
+    <td><font size="2"><b>oopl</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">match any object for existence</font></td>
+    <td><font size="2"><b>isObject( ?Object )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">check if oopl is loaded</font></td>
+    <td><font size="2"><b>ooplLoaded&nbsp;</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">oopl version information</font></td>
+    <td><font size="2"><b>ooplVersion( -Info, -Number )&nbsp;</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">predefined services of <a href="#base object">base</a> class</font></td>
+    <td><font size="2"><b>print, list&nbsp;</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">predefined additional services of <a href="#opl object">oopl</a> meta
+    class</font></td>
+    <td><font size="2"><b>trace, fulltrace, notrace,saveState,loadState</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">optional user supplied predicate for tracing</font></td>
+    <td><font size="2"><b>ooplTrace( +String )</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="2">optional user supplied predicate for catching oopl errors</font></td>
+    <td><font size="2"><b>ooplError( +String )</b></font></td>
+  </tr>
+</table>
+
+<hr>
+
+<h1><a name="help"></a>5. The oopl Help Desk </h1>
+
+<p><img src="bug.gif" align="left" hspace="0" width="64" height="64">Do you have questions
+or did you find <font color="#000000">bugs</font><font color="#FF0000"> </font>in oopl? </p>
+
+<p>Or do you have special requests for <font color="#000000">enhancements or improvements</font>?
+<br>
+If you do, please send your E-mail to <a href="mailto:borgers@bart.nl">borgers@bart.nl</a>
+</p>
+
+<hr>
+
+<h1><a name="license"></a>6. Oopl License Agreements</h1>
+
+<table border="1">
+  <tr>
+    <td><strong>TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION</strong><p><strong>0</strong>.
+    This License applies to any program or other work which contains a notice placed by the
+    copyright holder saying it may be distributed under the terms of this General Public
+    License. The &quot;Program&quot;, below, refers to any such program or work, and a
+    &quot;work based on the Program&quot; means either the Program or any derivative work
+    under copyright law: that is to say, a work containing the Program or a portion of it,
+    either verbatim or with modifications and/or translated into another language.
+    (Hereinafter, translation is included without limitation in the term
+    &quot;modification&quot;.) Each licensee is addressed as &quot;you&quot;.</p>
+    <p>Activities other than copying, distribution and modification are not covered by this
+    License; they are outside its scope. The act of running the Program is not restricted, and
+    the output from the Program is covered only if its contents constitute a work based on the
+    Program (independent of having been made by running the Program). Whether that is true
+    depends on what the Program does.</p>
+    <p><strong>1</strong>. You may copy and distribute verbatim copies of the Program's source
+    code as you receive it, in any medium, provided that you conspicuously and appropriately
+    publish on each copy an appropriate copyright notice and disclaimer of warranty; keep
+    intact all the notices that refer to this License and to the absence of any warranty; and
+    give any other recipients of the Program a copy of this License along with the Program.</p>
+    <p>You may charge a fee for the physical act of transferring a copy, and you may at your
+    option offer warranty protection in exchange for a fee.</p>
+    <p><strong>2</strong>. You may modify your copy or copies of the Program or any portion of
+    it, thus forming a work based on the Program, and copy and distribute such modifications
+    or work under the terms of Section 1 above, provided that you also meet all of these
+    conditions:</p>
+    <blockquote>
+      <p>a) You must cause the modified files to carry prominent notices stating that you
+      changed the files and the date of any change.</p>
+      <p>b) You must cause any work that you distribute or publish, that in whole or in part
+      contains or is derived from the Program or any part thereof, to be licensed as a whole at
+      no charge to all third parties under the terms of this License.</p>
+      <p>c) If the modified program normally reads commands interactively when run, you must
+      cause it, when started running for such interactive use in the most ordinary way, to print
+      or display an announcement including an appropriate copyright notice and a notice that
+      there is no warranty (or else, saying that you provide a warranty) and that users may
+      redistribute the program under these conditions, and telling the user how to view a copy
+      of this License. (Exception: if the Program itself is interactive but does not normally
+      print such an announcement, your work based on the Program is not required to print an
+      announcement.)</p>
+    </blockquote>
+    <p>These requirements apply to the modified work as a whole. If identifiable sections of
+    that work are not derived from the Program, and can be reasonably considered independent
+    and separate works in themselves, then this License, and its terms, do not apply to those
+    sections when you distribute them as separate works. But when you distribute the same
+    sections as part of a whole which is a work based on the Program, the distribution of the
+    whole must be on the terms of this License, whose permissions for other licensees extend
+    to the entire whole, and thus to each and every part regardless of who wrote it.</p>
+    <p>Thus, it is not the intent of this section to claim rights or contest your rights to
+    work written entirely by you; rather, the intent is to exercise the right to control the
+    distribution of derivative or collective works based on the Program.</p>
+    <p>In addition, mere aggregation of another work not based on the Program with the Program
+    (or with a work based on the Program) on a volume of a storage or distribution medium does
+    not bring the other work under the scope of this License.</p>
+    <p><strong>3</strong>. You may copy and distribute the Program (or a work based on it,
+    under Section 2) in object code or executable form under the terms of Sections 1 and 2
+    above provided that you also do one of the following:</p>
+    <blockquote>
+      <p>a) Accompany it with the complete corresponding machine-readable source code, which
+      must be distributed under the terms of Sections 1 and 2 above on a medium customarily used
+      for software interchange; or,</p>
+      <p>b) Accompany it with a written offer, valid for at least three years, to give any third
+      party, for a charge no more than your cost of physically performing source distribution, a
+      complete machine-readable copy of the corresponding source code, to be distributed under
+      the terms of Sections 1 and 2 above on a medium customarily used for software interchange;
+      or,</p>
+      <p>c) Accompany it with the information you received as to the offer to distribute
+      corresponding source code. (This alternative is allowed only for noncommercial
+      distribution and only if you received the program in object code or executable form with
+      such an offer, in accord with Subsection b above.)</p>
+    </blockquote>
+    <p>The source code for a work means the preferred form of the work for making
+    modifications to it. For an executable work, complete source code means all the source
+    code for all modules it contains, plus any associated interface definition files, plus the
+    scripts used to control compilation and installation of the executable. However, as a
+    special exception, the source code distributed need not include anything that is normally
+    distributed (in either source or binary form) with the major components (compiler, kernel,
+    and so on) of the operating system on which the executable runs, unless that component
+    itself accompanies the executable.</p>
+    <p>If distribution of executable or object code is made by offering access to copy from a
+    designated place, then offering equivalent access to copy the source code from the same
+    place counts as distribution of the source code, even though third parties are not
+    compelled to copy the source along with the object code.</p>
+    <p><strong>4</strong>. You may not copy, modify, sublicense, or distribute the Program
+    except as expressly provided under this License. Any attempt otherwise to copy, modify,
+    sublicense or distribute the Program is void, and will automatically terminate your rights
+    under this License. However, parties who have received copies, or rights, from you under
+    this License will not have their licenses terminated so long as such parties remain in
+    full compliance.</p>
+    <p><strong>5</strong>. You are not required to accept this License, since you have not
+    signed it. However, nothing else grants you permission to modify or distribute the Program
+    or its derivative works. These actions are prohibited by law if you do not accept this
+    License. Therefore, by modifying or distributing the Program (or any work based on the
+    Program), you indicate your acceptance of this License to do so, and all its terms and
+    conditions for copying, distributing or modifying the Program or works based on it.</p>
+    <p><strong>6</strong>. Each time you redistribute the Program (or any work based on the
+    Program), the recipient automatically receives a license from the original licensor to
+    copy, distribute or modify the Program subject to these terms and conditions. You may not
+    impose any further restrictions on the recipients' exercise of the rights granted herein.
+    You are not responsible for enforcing compliance by third parties to this License.</p>
+    <p><strong>7</strong>. If, as a consequence of a court judgment or allegation of patent
+    infringement or for any other reason (not limited to patent issues), conditions are
+    imposed on you (whether by court order, agreement or otherwise) that contradict the
+    conditions of this License, they do not excuse you from the conditions of this License. If
+    you cannot distribute so as to satisfy simultaneously your obligations under this License
+    and any other pertinent obligations, then as a consequence you may not distribute the
+    Program at all. For example, if a patent license would not permit royalty-free
+    redistribution of the Program by all those who receive copies directly or indirectly
+    through you, then the only way you could satisfy both it and this License would be to
+    refrain entirely from distribution of the Program.</p>
+    <p>If any portion of this section is held invalid or unenforceable under any particular
+    circumstance, the balance of the section is intended to apply and the section as a whole
+    is intended to apply in other circumstances.</p>
+    <p>It is not the purpose of this section to induce you to infringe any patents or other
+    property right claims or to contest validity of any such claims; this section has the sole
+    purpose of protecting the integrity of the free software distribution system, which is
+    implemented by public license practices. Many people have made generous contributions to
+    the wide range of software distributed through that system in reliance on consistent
+    application of that system; it is up to the author/donor to decide if he or she is willing
+    to distribute software through any other system and a licensee cannot impose that choice.</p>
+    <p>This section is intended to make thoroughly clear what is believed to be a consequence
+    of the rest of this License.</p>
+    <p><strong>8</strong>. If the distribution and/or use of the Program is restricted in
+    certain countries either by patents or by copyrighted interfaces, the original copyright
+    holder who places the Program under this License may add an explicit geographical
+    distribution limitation excluding those countries, so that distribution is permitted only
+    in or among countries not thus excluded. In such case, this License incorporates the
+    limitation as if written in the body of this License.</p>
+    <p><strong>9</strong>. The Free Software Foundation may publish revised and/or new
+    versions of the General Public License from time to time. Such new versions will be
+    similar in spirit to the present version, but may differ in detail to address new problems
+    or concerns.</p>
+    <p>Each version is given a distinguishing version number. If the Program specifies a
+    version number of this License which applies to it and &quot;any later version&quot;, you
+    have the option of following the terms and conditions either of that version or of any
+    later version published by the Free Software Foundation. If the Program does not specify a
+    version number of this License, you may choose any version ever published by the Free
+    Software Foundation.</p>
+    <p><strong>10</strong>. If you wish to incorporate parts of the Program into other free
+    programs whose distribution conditions are different, write to the author to ask for
+    permission. For software which is copyrighted by the Free Software Foundation, write to
+    the Free Software Foundation; we sometimes make exceptions for this. Our decision will be
+    guided by the two goals of preserving the free status of all derivatives of our free
+    software and of promoting the sharing and reuse of software generally.</p>
+    <p><strong>NO WARRANTY</strong></p>
+    <p><strong>11</strong>. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO
+    WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE
+    STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM &quot;AS
+    IS&quot; WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.
+    SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR
+    OR CORRECTION.</p>
+    <p><strong>12</strong>. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN
+    WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE
+    THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL,
+    SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE
+    THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE
+    OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH
+    ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+    POSSIBILITY OF SUCH DAMAGES.</p>
+    <p>END OF TERMS AND CONDITIONS<!-- START OF 'HOW TO APPLY' SECTION --></td>
+  </tr>
+</table>
+</body>
+</html>

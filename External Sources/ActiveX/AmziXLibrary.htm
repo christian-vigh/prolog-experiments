@@ -1,0 +1,189 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>AmziX Library</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+<H1>AmziX Library</H1>
+<U><P>Version</U>: 1.0 beta (written with Delphi 3.0 C/S for LS Engine 4.1)</P>
+<U><P>Author</U>: Thomas Steiner, University of Lausanne, BFSH1 / Inforge, 1015 Lausanne, Switzerland.</P>
+<P><A HREF="mailto:thomas.steiner@hec.unil.ch">thomas.steiner@hec.unil.ch</A></P>
+<P><A HREF="http://www.hec.unil.ch/people/tsteiner">http://www.hec.unil.ch/people/tsteiner</A> </P>
+<P>The AmziX Library is an ActiveX component around the <A HREF="http://www.amzi.com/">Amzi!Prolog</A> Logic Server. The approach outlined below requires MS <A HREF="http://www.microsoft.com/">Internet Explorer</A> 3.X or higher.</P>
+<P>The subject of Embedding and extending Amzi!Prolog has been treated <A HREF="../Publications/Amzi/AMZI.htm">here</A>. Early in 1999, my <A HREF="../../../DATIS/DATIS.htm">PhD thesis</A> will be available, which introduces and implements mid-level software agents with this ActiveX- version of Amzi!Prolog. I am convinced that linking the functionality of real-world software objects to a meta-level (Prolog) program - expressing the stable part of the engineer's knowledge - is a very inspiring philosophical subject and an elegant way to AOP which addresses the problem of legacy software - more about this in my PhD thesis!</P>
+<U><P><A NAME="contents">Contents</A></U> of this HTML page: <A HREF="#supported">supported methods</A>, <A HREF="#use">use of the AmziX component</A>, <A HREF="#comment">comment for LSX developers</A>, <A HREF="#needed">required file</A>, <A HREF="#samplefiles">sample files</A>, <A HREF="#example1">example 1</A>, <A HREF="#example2">example 2</A>, <A HREF="#disclaim">disclaimer of warranty</A>.</P>
+<P><A NAME="supported"><A HREF="#contents">^</A><U> Supported methods</A></U> are:</P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=637>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XInitLS(xplname:WideString)</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Initializes the Logic Server (LS). xplname must be a valid .XPL file.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XAddLSX(lsxname:WideString)</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Loads a LSX-file (special-purpose DLL with extended predicates).</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XLoadXPL(xplname:WideString)</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Loads a .XPL file.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XReset</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Resets the LS.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XCloseLS</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Closes the LS.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XGetStrArg(n:integer):WideString</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Returns argument n <I>of the actual term.</I></TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XExecStr(s:WideString):WordBool;</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Executes the Prolog expression in s. Returns True if successful, False if not.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XCallStr(s:WideString):WordBool;</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Calls the LS with s. Returns True if successful, False if not.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XRedo</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Repeats the last LS call.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XClearCall</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Clears the effects of the last LS call.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XAssertaStr(s:WideString)</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Asserta of s to the LS.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XAssertzStr(s:WideString)</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Assertz of s to the LS.</TD>
+</TR>
+<TR><TD WIDTH="42%" VALIGN="TOP">
+<P>XRetractStr(s:WideString)</TD>
+<TD WIDTH="58%" VALIGN="TOP">
+<P>Retract of s from the LS.</TD>
+</TR>
+</TABLE>
+
+<P>Other methods to follow...&nbsp;</P>
+<P><A NAME="use"><A HREF="#contents">^</A><U> Use of the AmziX</U> </A>component within HTML pages:</P>
+<P>You may script the component with any scripting language supporting ActiveXs (VBScript, JavaScript, etc.). We have used Microsoft's ActiveX control pad in order to insert an AmziX into this demo page and VBScript to script it. Displays the source of this page to see how the component can be sripted.</P>
+<P><A NAME="comment"><A HREF="#contents">^</A><U> Comment</A> for LSX developpers</U>:</P>
+<P>You can develop LSXs as DLLs in any third-party language that supports function pointers. However, if you develop with Delphi, you might want to avoid whenever possible to make use of ShareMem in the uses clause of your DLL project: ShareMem requires delphimm.dll in your &lt;WIN&gt;\system directory!</P>
+<P>A sample code for a LSX written in Delphi3 that works with LSEngine4.1 can be found <A HREF="../Publications/Amzi/AMZI4.htm">here</A>.</P>
+<P>You will need the following <A NAME="needed"><A HREF="#contents">^</A><U> file</A></U> in your <FONT COLOR="#ff0000">&lt;WIN&gt;\system directory</FONT>:</P>
+<P><A HREF="amzi4.dll">amzi4.dll</A></P>
+<P>If you want to run the examples below, you also need to <A HREF="#contents">^</A><U> download the files</P>
+</U><P><A HREF="Extend.lsx">Extend.LSX</A></P>
+<P><A HREF="hello.xpl">Hello.XPL</A><A NAME="samplefiles"></A></P>
+<I><FONT COLOR="#ff0000"><P>to the directory C:\AmziXDemo</P>
+</I></FONT><P><HR></P>
+<P><A NAME="example1"><A HREF="#contents">^</A><U> Example 1</A></U>:</P>
+<P>Click the button below to</P>
+<OL>
+
+<LI>Initialize the AmziX LS.</LI>
+<LI>Load the Extend.LSX file.</LI>
+<LI>Load the Hello.XPL file.</LI>
+<LI>Asserta the following expression: sayHello(Name):-showMsg(Name).</LI>
+<LI>Execute the expression: sayHello(thomas).</LI>
+<LI>Close the AmziX LS.</LI></OL>
+
+showMsg/1 is uploaded by Extend.LSX
+<P>
+    <SCRIPT LANGUAGE="VBScript">
+<!--
+Sub cmbExample1_Click()
+AmziX1.XInitLS "c:\AmziXDemo\Hello.XPL"
+AmziX1.XAddLSX "c:\AmziXDemo\Extend.LSX"
+AmziX1.XLoadXPL "c:\AmziXDemo\Hello.XPL" 
+AmziX1.XAssertaStr "sayHello(Name):-showMsg(Name)."
+MyResult = AmziX1.XExecStr("sayHello(thomas).")
+AmziX1.XCloseLS
+end sub
+-->
+    </SCRIPT>
+    <OBJECT ID="cmbExample1" WIDTH=96 HEIGHT=32
+     CLASSID="CLSID:D7053240-CE69-11CD-A777-00DD01143C57">
+        <PARAM NAME="Caption" VALUE="Example1">
+        <PARAM NAME="Size" VALUE="2540;847">
+        <PARAM NAME="FontCharSet" VALUE="0">
+        <PARAM NAME="FontPitchAndFamily" VALUE="2">
+        <PARAM NAME="ParagraphAlign" VALUE="3">
+        <PARAM NAME="FontWeight" VALUE="0">
+    </OBJECT>
+<P><HR></P>
+<P><A NAME="example2"><A HREF="#contents">^</A><U> Example 2</A></U>:</P>
+<P>Click the button below to</P>
+<OL>
+
+<LI>Initialize the AmziX LS.</LI>
+<LI>Load the Hello.XPL file.</LI>
+<LI>Assertz the following expression: whoWroteThis(Dummy,Name,Dummy):-copyright(Name).</LI>
+<LI>Execute the expression: whoWroteThis(Dummy,Name,Dummy).</LI>
+<LI>Use XGetStrParm(2) to extract the Name into a local variable.</LI>
+<LI>Show the contents of Name in a message box.</LI>
+<LI>Close the AmziX LS.</LI></OL>
+
+copyright/1 is contained in Hello.XPL
+<P>
+    <SCRIPT LANGUAGE="VBScript">
+<!--
+Sub cmbExample2_Click()
+AmziX1.XInitLS "c:\AmziXDemo\Hello.XPL"
+AmziX1.XLoadXPL "c:\AmziXDemo\Hello.XPL" 
+AmziX1.XAssertzStr "whoWroteThis(Dummy,Name,Dummy):-copyright(Name)."
+MyResult = AmziX1.XExecStr("whoWroteThis(Dummy,Name,Dummy).")
+If MyResult Then MsgBox(AmziX1.XGetStrArg(2)) Else MsgBox("No.") End If
+AmziX1.XCloseLS
+
+end sub
+-->
+    </SCRIPT>
+    <OBJECT ID="cmbExample2" WIDTH=96 HEIGHT=32
+     CLASSID="CLSID:D7053240-CE69-11CD-A777-00DD01143C57">
+        <PARAM NAME="Caption" VALUE="Click here!">
+        <PARAM NAME="Size" VALUE="2540;846">
+        <PARAM NAME="FontCharSet" VALUE="0">
+        <PARAM NAME="FontPitchAndFamily" VALUE="2">
+        <PARAM NAME="ParagraphAlign" VALUE="3">
+        <PARAM NAME="FontWeight" VALUE="0">
+    </OBJECT>
+<P><HR></P>
+<P>
+    <SCRIPT LANGUAGE="VBScript">
+<!--
+Sub AmziX1_OnClick()
+AmziX1.AboutBox
+end sub
+-->
+    </SCRIPT>
+    <OBJECT ID="AmziX1" WIDTH=93 HEIGHT=39
+ CLASSID="CLSID:B8828B03-8E95-11D2-B4F1-00805F5D29BA"
+ CODEBASE="http://pchec128-2c.unil.ch/people/tsteiner/amzix/amzixlibrary.ocx"
+ DATA="DATA:application/x-oleobject;BASE64,A4uCuJWO0hG08QCAX10pulRQRjAHVEJ1dHRvbgAETGVmdAIAA1RvcAIABVdp
+ZHRoAl0GSGVpZ2h0AicHQ2FwdGlvbgYOQW16aVggMS4wIGJldGEAAAAAAA==
+
+">
+</OBJECT>
+<P>The component is provided as is. We <A NAME="disclaim"><A HREF="#contents">^</A><U> disclaim</A></U> any responsibility for any damages or misbehavior resulting from the use of the AmziX library. By using the component, users accept this disclaimer of responsibility.</P>
+</BODY>
+</HTML>

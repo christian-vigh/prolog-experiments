@@ -1,0 +1,77 @@
+/* learn1
+
+Adjust definition  appropriately
+Alan Bundy 7.7.82  */
+
+/* if new example found */
+learn1(Concept,Diff,yes,grey) :- !,
+	writef('This is a new sort of %t. \n', [Concept]),
+	maplist(lub,Diff,New),
+	retract(definition(Concept,CObjs,Old)),
+	assert(definition(Concept,CObjs,New)).
+
+/* if near miss found */
+learn1(Concept,Diff,no,grey) :- !,
+	writef('This limits my idea of %t. \n', [Concept]),
+	one_of(discriminate,Diff,Diff1),
+	maplist(diff_to_defn,Diff1,New),
+	retract(definition(Concept,CObjs,Old)),
+	assert(definition(Concept,CObjs,New)).
+
+/* if nothing new is discovered */
+learn1(Concept,Diff,Agree,Agree) :- !,
+	writef('I have seen one of these before. \n',[]).
+
+/* or if contradiction is discovered */
+learn1(Concept,Diff,Agree,Disagree) :- !,
+	writef('Uh Oh, somethings gone wrong. I will think again.\n',[]),
+	fail.
+
+/* Move lower definition up a bit to include new example */
+lub(differ(Args,Name,UpPosn,ExPosn,Old,anything(notno(grey))),
+    define(Args,Name,UpPosn,New)) :- !,
+	common(ExPosn,Old,New),
+	generalize_mess(Args,Name,Old,New).
+
+/* Lower definition already includes new example */
+lub(differ(Args,Name,UpPosn,ExPosn,LowPosn,anything(notno(yes))),
+    define(Args,Name,UpPosn,LowPosn)) :- !.
+
+/* Move upper definition down a bit to exclude near miss */
+discriminate(differ(Args,Name,Old,ExPosn,LowPosn,anything(notno(grey))),
+    differ(Args,Name,New,ExPosn,LowPosn,anything(notno(grey)))) :- !,
+	common(ExPosn,LowPosn,Comm), append(Comm,[N|_],LowPosn),
+	append(Comm,[N],New),
+	discriminate_mess(Args,Name,Old,New).
+
+/* Take unnecessary bits out of difference  */
+diff_to_defn(differ(Args,Name,UpPosn,ExPosn,LowPosn,Verdict),
+             define(Args,Name,UpPosn,LowPosn)).
+
+
+/* Find common initial sublist of two lists */
+common([N|Rest1], [N|Rest2], [N|Rest]) :- !,
+	common(Rest1,Rest2,Rest).
+
+common(List1,List2,[]) :- !.
+
+/* change just one member of list */
+one_of(Prop, [Old|Tl], [New|Tl]) :- apply(Prop,[Old,New]).
+one_of(Prop, [Hd|Old], [Hd|New]) :- one_of(Prop,Old,New).
+
+
+/* Messages */
+
+generalize_mess(Args,Name,Old,New) :-
+	tree(Name,_,Tree),
+	node_at(OldP,Tree,Old), OldR =.. [OldP|Args],
+	node_at(NewP,Tree,New), NewR =.. [NewP|Args],
+	writef('Moving lower mark from %t to %t. \n', [OldR,NewR]).
+
+discriminate_mess(Args,Name,Old,New) :-
+	tree(Name,_,Tree),
+	node_at(OldP,Tree,Old), OldR =.. [OldP|Args],
+	node_at(NewP,Tree,New), NewR =.. [NewP|Args],
+	writef('Moving upper mark from %t to %t. \n', [OldR,NewR]).
+
+

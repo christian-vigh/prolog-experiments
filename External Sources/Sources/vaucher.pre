@@ -1,0 +1,27 @@
+                          STRUCTURES IN PROLOG
+                           By Jean G. Vaucher,
+     De'partement d' informatique et R.O., Universite' de Montre'al
+                   Shelved on the 15th of August 1989
+
+
+The entry comes  as this file, VAUCHER.PRE; the  source, VAUCHER.PL; some
+documentation, VAUCHER.DOC; and a test program VAUCHERTEST.PL
+
+
+VAUCHER.PL is  a set  of structure-handling predicates.  See VAUCHER.DOC
+for documentation.
+
+
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : yes.
+
+
+PORTABILITY :
+
+    Change  the  precedence  of  '..'   for  Prolog's  that  use  DEC-10
+    precedences.
+
+INTERNAL DOCUMENTATION :
+
+    See VAUCHER.DOC. Long description of  how to use the predicates, and
+    a  brief  description  of  how   they  work:  adequate  given  their
+    simplicity.

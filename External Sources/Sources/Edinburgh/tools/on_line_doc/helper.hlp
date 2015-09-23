@@ -1,0 +1,127 @@
+File: Mec:Helper.Hlp	    Author: R.A.O'Keefe		Updated: 27 July 82
+
+#help.
+    Call give_help(helper) for a list of topics.
+
+#source.
+    The source file for Helper is Mec:Helper.Pl.
+    It should be compiled, as typing out the help will be slowish if it
+    is not.  The only utility used is append(+,+,-), and it (re)defines
+    that itself.  This help file is Mec:Helper.Hlp.
+
+#predicates,commands.
+    Helper defines four predicates: give_help/0, give_help/1, give_help/2,
+    and try_hard_to_see.  Some of the other kit might be useful: have a look.
+    It requires you to define one predicate: help_file.
+    'give_help' and 'try_hard_to_see' are topics in Helper's help file.
+
+#give_help.
+
+    There are three versions of this predicate/command.
+
+give_help 
+	lists the Areas for which help is available (i.e. those Areas
+	for which help_file(Area, File, Delim) is known) and also tells
+	you about give_help/1 and give_help/2.
+
+give_help(Area)
+	reads through the help file for a given Area and lists the Topics
+	in it.  (These are the terms following the delimiter characters.)
+	You may also call give_help(Area, _) for the same effect.
+
+give_help(Area, Topic)
+	looks for a topic in Area's help file whose heading (the Prolog
+	term following the Delimiter) unifies with Topic.  As a special
+	case, if Topic is a variable, all the headings are listed, with
+	no text.  Normally, the first note whose heading unifies with
+	Topic is selected, its heading is ignored, and all its text is
+	displayed.
+
+#help_file.
+    You must supply at least one fact of the form
+
+	help_file(Area, FileName, Delimiter).
+
+    if you are to use Helper.  For example, there should be a clause
+
+	help_file(helper, 'mec:helper.hlp', 35).	% 35=
+
+    if you want to get help about Helper itself.  Helper uses its own
+    predicate try_hard_to_see/3 to find help files, so if the device is
+    one of Dsk:, Mec:, Util:, or Pll: you may omit it, and if the extension
+    is empty, .Hlp, or .Txt you may omit that too.  Dec-10 Prolog cannot
+    handle ppns, or paths, so Dev:Name.Ext is as much as you can say.
+
+    (As a special convenience, help_file(Atom,Atom,35) :- atom(Atom) is
+    virtually present.  Thus a Prolog program FooBaz.Pl can call give_help
+    as if help_file(foobaz, foobaz, 35) were present, which will find the
+    help file or the source file itself.)
+
+    The point of the Area argument is to let you have several help files;
+    if you want help about Helper, Util, Mbase, and something you have built
+    using Mbase, you can have a help file for each.
+
+    A Help File consists of a sequence of Notes, possibly preceded by a header
+    and time stamp which is ignored.  A Note begins with the Delimiter (a
+    single character), a Prolog term, and a full stop.  Since this term will
+    be read(), the full stop must be followed by a space or new line.  The Note
+    is terminated by the next Delimiter character or by the end of the file.
+    The Delimiter character may not appear in the body of a Note, but there is
+    nothing to stop it being a strange character such as ^Q.
+
+    A note about 'end_of_file' will terminate a help file as far as Helper
+    is concerned.  No test beyond that point will be examined.  See the
+    'prolog' topic in this file for an example of its use.  Note that the
+    word 'end_of_file' must appear on its own; 'get0,get,end_of_file' will
+    not terminate the file.  This may possibly be useful.
+
+#prolog.
+    A good way of providing help for a Prolog program is to include the help
+    information in the source file.  This is quite a help to someone reading
+    the program, as well as to someone running it.  The suggested "standard
+    header" is as follows (where @ is the Delimiter):
+
+	/*  File: Dev:FooBaz.Pl   Author: Bickerstaff   Updated: 30 Feb 82
+
+	@purpose.
+		<describe what the program is for>
+	@source.
+		<where the program lives and why>
+	@needs.
+		<the files predicates &c the program needs>
+	@predicates.
+		<the predicates defined by the program>
+	@commands.
+		<the user-level commands supplied by the program>
+	@database.
+		<the facts entered/needed in the data base and what they mean>
+	@predicate-1. ...
+	@command-1. ...
+	@database-1. ...
+		<help about specific items>
+	@end_of_file.
+
+	@fixes.		%  this isn't real help information
+	[31 Nov 81	Johnson]		
+		<description of a correction/update> ...
+
+	------------------------------------------------------------*/
+	:- op ...
+	:- public ...
+	:- mode ...
+
+#try_hard_to_see.
+    try_hard_to_see(FileName, DeviceDefaults, ExtensionDefaults) takes
+	- a string or atom FileName, being intnded as the name of a file
+	- a possibly empty list of atoms or strings DeviceDefaults, being
+	  the device names to be tried if the FileName contains no device
+	  (note that they should NOT have a colon at the end)
+	- a possibly empty list of atoms or strings ExtensionDefaults,
+	being the extensions to be tried if the FileName contains no
+	extension (note that they should NOT start with a period).
+    It backtracks through all combinations of the file name as given and the
+    defaults (where applicable), and succeeds as soon as it manages to 'see'
+    the file.  Once it has succeeded, it will not backtrack any further.
+    For example, Helper calls
+	try_hard_to_see(HelpFile, [mec,util,pll], [hlp,txt])
+    to open a Help File.

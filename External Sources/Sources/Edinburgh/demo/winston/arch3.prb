@@ -1,0 +1,64 @@
+/* arch2.prb
+Winston arch domain 
+Alan Bundy 5.12.80
+use with winston */
+
+/* space of description trees */
+space(arch,[shapetree,touchtree,orienttree,directiontree,supporttree]).
+
+
+/* description tree */
+
+tree(shapetree,1,shape(prism(wedge,block),pyramid)).
+
+tree(touchtree,2,touchrel(separate,touch(marries,abuts))).
+default(touchtree,separate).  /* default predicate */
+
+tree(orienttree,1,orientation(lying,standing)).
+
+tree(directiontree,2,direction(leftof,rightof)).
+
+tree(supporttree,2,undef(supports,unsupports)).
+
+
+/* Examples */
+
+specimen(arch1, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	marries(a,c), marries(c,a), marries(b,c), marries(c,b)]).
+
+specimen(arch2, [block(a), block(b), wedge(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	marries(a,c), marries(c,a), marries(b,c), marries(c,b)]).
+
+specimen(arch3, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	abuts(a,c), abuts(c,a), abuts(b,c), abuts(c,b)]).
+
+
+/* Near Misses */
+
+specimen(archn1, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	marries(a,c), marries(c,a), marries(b,c), marries(c,b),
+	marries(a,b), marries(b,a)]).
+
+specimen(archn2, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	marries(a,c), marries(c,a), marries(b,c), marries(c,b)]).
+
+specimen(archn3, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b)]).
+
+
+

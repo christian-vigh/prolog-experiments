@@ -1,0 +1,17 @@
+% logical predicates
+
+
+% true's or false's...
+true(1).	true(yes).	true(on).	true(true).	true(y).	true(vrai).
+false(0).	false(no).	false(off).	false(false).	false(n).	false(faux).
+
+
+% What is a boolean ?
+boolean(X) :-
+	true(X).
+boolean(X) :- 
+	false(X).
+boolean(X) :-
+	throw( domainerror(boolean, X) ).
+	
+

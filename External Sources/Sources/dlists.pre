@@ -1,0 +1,55 @@
+                    PROLOG DOUBLY-LINKED LIST PACKAGE
+            Contributed by Philip Dart, Melbourne University
+                  Received on the 14th of November 1987
+                   Shelved on the 6th of December 1987
+
+
+The entry comes as this file, DLISTS.PRE; the source, DLISTS.PL (after
+I've changed it for Edinburgh Prolog); and the original, DLISTS.OLD.
+
+
+This is my revised version of a doubly-linked list-handling package sent
+to the Prolog Digest on 14th of November 1987 by Philip Dart, Melbourne
+University. I've changed the syntax slightly so it fits Edinburgh
+Prolog: otherwise, the predicates are the same.
+
+Be warned that Philip did send the original package as a joke...
+    Following the comments [on the bulletin board] about Fortran as an
+    AI language, Melbourne University Department of Artificial
+    Intelligence has decided to convert all of its Fortran AI programs
+    to NU-Prolog. This package has been written as an aid to this
+    conversion.
+
+    Doubly-linked list package: Why use boring old single-linked lists
+    when doubly-linked list could make your list processing applications
+    run as never before.
+
+    P.S. Don't forget to turn off the occur-check in your version of
+    Prolog!
+
+However, it seems to me that the package might be useful in those few
+cases where you really _do_ need circular structures (rather than using,
+e.g. edge-sets to represent graphs), and Philip has agreed to let me
+redistribute his package on this basis. [JNP]
+
+To use the program: consult it, and call the predicates described in the
+comments at the top of DLISTS.PL.
+
+
+Note that the program won't work if you have an occurs-check (very
+rare). Also, since these doubly-linked lists are cyclic, they will
+probably make 'write' loop indefinitely.
+
+
+CHECKED ON EDINBURGH-COMPATIBLE (POPLOG) PROLOG : yes.
+
+
+PORTABILITY :
+
+    No problems, as long as your Prolog doesn't implement the occurs
+    check.               
+
+
+INTERNAL DOCUMENTATION :
+
+    One-line description of each predicate's specification.

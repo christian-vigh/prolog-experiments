@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/Utilities_pro.html</title>
+<!-- Source: ./Utilities.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo9">Modules/Utilities</a></li>
+<li>2. <a href="#robo110">Modules.Utilities/dup</a></li>
+<li>3. <a href="#robo111">Modules.Utilities/print</a></li>
+<li>4. <a href="#robo112">Modules.Utilities/subatom</a></li>
+</ul>
+<hr />
+<a name="Modules2fUtilities">
+</a><a name="robo9"></a><h2>Modules/Utilities [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>Utilities</strong> - Various utility predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">Utilities.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Implements various utility predicates.
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, July 2005.
+
+</pre>
+
+<hr />
+<a name="Modules2eUtilities2fdup">
+</a><a name="robo110"></a><h2>Modules.Utilities/dup [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>dup</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>dup</strong>(Atom, Count, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      [Result] is unified with an atom resulting from [Count] duplications of [Atom].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Atom] (i) -
+              Atom to <a href="./List_pro.html#robo47">duplicate</a>.
+      [Count] (i) -
+              Number of times to <a href="./List_pro.html#robo47">duplicate</a> [Atom].
+      [Result] (o) -
+              Result of the duplication.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>dup</strong><span class="sign">(</span>Atom<span class="sign">,</span> Count<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>          <span class="comment">% Don&#39;t allow for negative counts</span>
+        Count <span class="sign">&lt;</span> 0<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>                <span class="comment">% The cut is needed, otherwise Prolog would go </span>
+                                <span class="comment">% through other <strong>dup</strong>() clauses after the fail</span>
+
+<strong>dup</strong><span class="sign">(</span>Atom<span class="sign">,</span> 0<span class="sign">,</span> <span class="squote">&#39;&#39;</span><span class="sign">)</span><span class="sign">.</span>               <span class="comment">% A count of zero will yield to an empty atom</span>
+<strong>dup</strong><span class="sign">(</span>Atom<span class="sign">,</span> 1<span class="sign">,</span> Atom<span class="sign">)</span><span class="sign">.</span>             <span class="comment">% End of recursion</span>
+
+<strong>dup</strong><span class="sign">(</span>Atom<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>     <span class="comment">% Normal case</span>
+        NewCount <span class="keyword">is</span> Count <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>dup</strong><span class="sign">(</span>Atom<span class="sign">,</span> NewCount<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">atom_concat</span><span class="sign">(</span>Atom<span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eUtilities2fprint">
+</a><a name="robo111"></a><h2>Modules.Utilities/print [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>print</strong>
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>print</strong>(Expression)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Prints the given expression. [Expression] can be one of the following :
+
+      <strong>print</strong> E1 + E2 / <strong>print</strong> (E1, E2) -
+              prints the given expressions with separation. [E1] and [E2] can be
+              complex expressions.
+      
+      <strong>print</strong> spaces(N) / <strong>print</strong> space -
+              Prints [N] spaces (&#39;spaces&#39; version), or one single space (&#39;space&#39;
+              version).
+              &#39;spaces&#39; and &#39;space&#39; can be abbreviated into &#39;sp&#39;.
+
+      <strong>print</strong> [<a href="./List_pro.html#robo3">list</a>] -
+              Prints the values in [<a href="./List_pro.html#robo3">list</a>], without any separation.
+
+      <strong>print</strong> nl(X) / <strong>print</strong> nl -
+              Prints the specified number of newlines.
+
+      <strong>print</strong> tab(X) / <strong>print</strong> tab
+              Prints the specified number of tabs.
+
+      <strong>print</strong> <a href="./List_pro.html#robo76">upper</a>(X) / <strong>print</strong> <a href="./List_pro.html#robo59">lower</a>(X) -
+              Prints [X] in uppercase/lowercase. &#39;<a href="./List_pro.html#robo76">upper</a>&#39; can be abbreviated into
+              &#39;up&#39;, and &#39;<a href="./List_pro.html#robo59">lower</a>&#39; to &#39;low&#39;.
+
+      <strong>print</strong> Name:X[/C] / <strong>print</strong> Name/C[:X] -
+              Prints &#39;Name&#39; not exceeding [X] characters in width. If <a href="./List_pro.html#robo57">length</a> of
+              [Name] is less than [X] characters, then extra spaces will be 
+              inserted. If [C] is specified, then it will be used as the padding
+              character instead of space.
+
+      <strong>print</strong> header(Name) / <strong>print</strong> attribute(Name, Value) / 
+                           <strong>print</strong> attribute(Indent, Name, Value) -
+              Formatted output for printing data structures (for debugging
+              purposes, for example).
+              <strong>print</strong> header(Name) prints the header for a structure [Name].
+              <strong>print</strong> attribute() prints an attribute of the structure [Name], 
+              whose value is [Value]. [Indent] specifies the indentation level
+              for the printing (ie, number of tabs to write before writing the
+              attribute value).
+              &#39;attribute&#39; can be abbreviated into &#39;attr&#39;.
+
+      <strong>print</strong> <a href="./List_pro.html#robo56">left</a>(Name, Width) / <strong>print</strong> <a href="./List_pro.html#robo56">left</a>(Name, Width, Pad) -
+              prints [Name], <a href="./List_pro.html#robo56">left</a> justified on [Width] characters. 
+              If [Name] is less than [Width] characters, then extra spaces will
+              be added (or the character [Pad]).
+
+      <strong>print</strong> <a href="./List_pro.html#robo68">right</a>(Name, Width) / <strong>print</strong> <a href="./List_pro.html#robo68">right</a>(Name, Width, Pad) -
+              prints [Name], <a href="./List_pro.html#robo68">right</a>-justified on [Width] characters.
+
+      <strong>print</strong> center(Name, Width) / <strong>print</strong> center(Name, Width, Pad) -
+              prints [Name], centered on [Width] characters.
+
+      <strong>print</strong> <a href="#robo110">dup</a>(Char, Count) -
+              prints the character [Char] <a href="./List_pro.html#robo66">repeated</a> [Count] times.
+
+      <strong>print</strong> count(List) -
+              Prints the number of elements in [List]. [List] can be an atom,
+              in that case it will <strong>print</strong> &#39;1&#39;.
+
+      <strong>print</strong> sorted(List) -
+              Prints [List] in sorted order.
+
+      <strong>print</strong> <a href="./List_pro.html#robo57">length</a>(X) -
+              Prints the <a href="./List_pro.html#robo57">length</a> of atom [X].
+
+      <strong>print</strong> <a href="./List_pro.html#robo3">list</a>(X) -
+              Prints [X] as a <a href="./List_pro.html#robo3">list</a>, enclosed in brackets and using commas to 
+              separate individual elements.
+
+      <strong>print</strong> Expr -
+              Prints the result of mathematical expression [Expr], after evaluation/
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Expression] (i) -
+              Expression to <strong>print</strong>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">% <strong>print</strong> E1 + E2 :</span>
+<span class="comment">%       allows to <strong>print</strong> several arguments.</span>
+<strong>print</strong> E1 <span class="sign">+</span> E2 <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> E1<span class="sign">,</span>
+        <strong>print</strong> E2<span class="sign">.</span>
+<strong>print</strong> <span class="sign">(</span>E1<span class="sign">,</span> E2<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>       <span class="comment">% Same, enclosed in parentheses</span>
+        <strong>print</strong> E1<span class="sign">,</span> 
+        <strong>print</strong> E2<span class="sign">.</span>
+<strong>print</strong> <span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span> <span class="sign">:</span><span class="sign">-</span>          <span class="comment">% Same, as a <a href="./List_pro.html#robo3">list</a>.</span>
+        <strong>print</strong> H<span class="sign">,</span>
+        <strong>print</strong> T<span class="sign">.</span>
+<strong>print</strong> <span class="sign">[</span><span class="sign">]</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% keyword : spaces(N) or sp(N) or sp or space</span>
+<span class="comment">%       Writes the specified number of space (1, for sp and space).</span>
+<span class="comment">%</span>
+<strong>print</strong> spaces<span class="sign">(</span>N<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo110">dup</a><span class="sign">(</span><span class="squote">&#39; &#39;</span><span class="sign">,</span> N<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> sp<span class="sign">(</span>N<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> spaces<span class="sign">(</span>N<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> space <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> spaces<span class="sign">(</span>1<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> sp <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> spaces<span class="sign">(</span>1<span class="sign">)</span><span class="sign">.</span>
+        
+<span class="comment">%</span>
+<span class="comment">% keyword : nl(X) or nl -</span>
+<span class="comment">%       writes the specified number of newlines (1 for nl).</span>
+<span class="comment">%</span>
+<strong>print</strong> <span class="keyword">nl</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">nl</span><span class="sign">.</span>
+<strong>print</strong> <span class="keyword">nl</span><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        NewX <span class="keyword">is</span> X <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>print</strong> <span class="keyword">nl</span><span class="sign">,</span>
+        <strong>print</strong> <span class="keyword">nl</span><span class="sign">(</span>NewX<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <span class="keyword">nl</span><span class="sign">(</span>0<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% tab(X) or tab -</span>
+<span class="comment">%       Writes the specified number of tabs (1 for tab).</span>
+<span class="comment">%</span>
+<strong>print</strong> <span class="keyword">tab</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">write</span><span class="sign">(</span><span class="squote">&#39; &#39;</span><span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <span class="keyword">tab</span><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        NewX <span class="keyword">is</span> X <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>print</strong> <span class="keyword">tab</span><span class="sign">,</span>
+        <strong>print</strong> <span class="keyword">tab</span><span class="sign">(</span>NewX<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <span class="keyword">tab</span><span class="sign">(</span>0<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% <a href="./List_pro.html#robo76">upper</a> X, <a href="./List_pro.html#robo59">lower</a> X :</span>
+<span class="comment">%       Sets X to <a href="./List_pro.html#robo76">upper</a>-/lowercase.</span>
+<span class="comment">%</span>
+<strong>print</strong> <a href="./List_pro.html#robo76">upper</a><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> up<span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> up<span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./List_pro.html#robo76">upper</a><span class="sign">(</span>X<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> L<span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo59">lower</a><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> low<span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> low<span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./List_pro.html#robo59">lower</a><span class="sign">(</span>X<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> L<span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% Name:X -</span>
+<span class="comment">%       writes atom Name, not exceeding X characters. If <a href="./List_pro.html#robo57">length</a> of atom is less</span>
+<span class="comment">%       than X, then extra spaces are added.</span>
+<span class="comment">% Name:X/C or Name/C:X -</span>
+<span class="comment">%       Same as Name:X, except that padding characters are C&#39;s instead of spaces.</span>
+<span class="comment">%</span>
+<strong>print</strong> Name<span class="sign">:</span>X <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> <span class="squote">&#39; &#39;</span><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> Name<span class="sign">:</span>X<span class="sign">/</span>C <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> C<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> Name<span class="sign">/</span>C<span class="sign">:</span>X <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> Name<span class="sign">:</span>X<span class="sign">/</span>C<span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% header, attribute :</span>
+<span class="comment">%       Formatted output for printing structures.</span>
+<span class="comment">%</span>
+<strong>print</strong> header<span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> X <span class="sign">+</span> <span class="squote">&#39; : &#39;</span> <span class="sign">+</span> <span class="keyword">nl</span><span class="sign">,</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>X<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo110">dup</a><span class="sign">(</span><span class="squote">&#39;~&#39;</span><span class="sign">,</span> L<span class="sign">,</span> S<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> S <span class="sign">+</span> <span class="keyword">nl</span><span class="sign">.</span>
+        
+<strong>print</strong> attribute<span class="sign">(</span>Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> attr<span class="sign">(</span>Name<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> attribute<span class="sign">(</span>Indent<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> attr<span class="sign">(</span>Indent<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">.</span>
+
+<strong>print</strong> attr<span class="sign">(</span>Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> attr<span class="sign">(</span>0<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">.</span>
+
+        
+<strong>print</strong> attr<span class="sign">(</span>Count<span class="sign">,</span> Name<span class="sign">,</span> <span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> <span class="keyword">tab</span><span class="sign">(</span>Count<span class="sign">)</span> <span class="sign">+</span> Name <span class="sign">+</span> <span class="squote">&#39; : &#39;</span><span class="sign">,</span>
+        do_print_attr<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+        
+do_print_attr<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> H<span class="sign">,</span>
+        optional_comma<span class="sign">(</span>T<span class="sign">)</span><span class="sign">,</span>
+        do_print_attr<span class="sign">(</span>T<span class="sign">)</span><span class="sign">.</span>
+do_print_attr<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+
+<strong>print</strong> attr<span class="sign">(</span>Count<span class="sign">,</span> Name<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> <span class="keyword">tab</span><span class="sign">(</span>Count<span class="sign">)</span> <span class="sign">+</span> Name <span class="sign">+</span> <span class="squote">&#39; : &#39;</span> <span class="sign">+</span> value<span class="sign">.</span>
+
+optional_comma<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+optional_comma<span class="sign">(</span>List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> <span class="squote">&#39;, &#39;</span><span class="sign">.</span>
+optional_comma<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>
+optional_comma<span class="sign">(</span>List<span class="sign">,</span> C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> C<span class="sign">.</span>
+        
+<span class="comment">%</span>
+<span class="comment">% justification</span>
+<span class="comment">%</span>
+<strong>print</strong> <a href="./List_pro.html#robo56">left</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> <a href="./List_pro.html#robo56">left</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> <span class="squote">&#39; &#39;</span><span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo56">left</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">,</span> <a href="./List_pro.html#robo56">left</a><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo56">left</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">number</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">string_number</span><span class="sign">(</span>SName<span class="sign">,</span> Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">string_atom</span><span class="sign">(</span>SName<span class="sign">,</span> AName<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>AName<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">,</span> <a href="./List_pro.html#robo56">left</a><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+
+<strong>print</strong> <a href="./List_pro.html#robo68">right</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> <a href="./List_pro.html#robo68">right</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> <span class="squote">&#39; &#39;</span><span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo68">right</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">,</span> <a href="./List_pro.html#robo68">right</a><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo68">right</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">number</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">string_number</span><span class="sign">(</span>SName<span class="sign">,</span> Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">string_atom</span><span class="sign">(</span>SName<span class="sign">,</span> AName<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>AName<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">,</span> <a href="./List_pro.html#robo68">right</a><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+
+
+<strong>print</strong> center<span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> center<span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> <span class="squote">&#39; &#39;</span><span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> center<span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">,</span> center<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> center<span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">number</span><span class="sign">(</span>Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">string_number</span><span class="sign">(</span>SName<span class="sign">,</span> Name<span class="sign">)</span><span class="sign">,</span> <span class="keyword">string_atom</span><span class="sign">(</span>SName<span class="sign">,</span> AName<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo112">subatom</a><span class="sign">(</span>Name<span class="sign">,</span> X<span class="sign">,</span> Char<span class="sign">,</span> center<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>Result<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">%</span>
+<span class="comment">% <a href="#robo110">dup</a>(C, Count) -</span>
+<span class="comment">%       Write character C Count times.</span>
+<span class="comment">%</span>
+<strong>print</strong> <a href="#robo110">dup</a><span class="sign">(</span>Char<span class="sign">,</span> Count<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo110">dup</a><span class="sign">(</span>Char<span class="sign">,</span> Count<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+
+
+<span class="comment">%</span>
+<span class="comment">% count(X) -</span>
+<span class="comment">%       Writes the number of elements in X.</span>
+<span class="comment">%</span>
+<strong>print</strong> count<span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> 1<span class="sign">.</span>
+<strong>print</strong> count<span class="sign">(</span>List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./List_pro.html#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> L<span class="sign">.</span>
+
+
+<span class="comment">%</span>
+<span class="comment">% sorted(X) -</span>
+<span class="comment">%       writes X as a sorted <a href="./List_pro.html#robo3">list</a>.</span>
+<span class="comment">%</span>
+<strong>print</strong> <span class="keyword">sorted</span><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> X<span class="sign">.</span>
+<strong>print</strong> <span class="keyword">sorted</span><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">sort</span><span class="sign">(</span>X<span class="sign">,</span> List<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> List<span class="sign">.</span>     
+
+
+<span class="comment">%</span>
+<span class="comment">% <a href="./List_pro.html#robo57">length</a>(X) -</span>
+<span class="comment">%       Writes <a href="./List_pro.html#robo57">length</a> of expression x.</span>
+<strong>print</strong> <a href="./List_pro.html#robo57">length</a><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>X<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> L<span class="sign">.</span>
+
+
+<span class="comment">%</span>
+<span class="comment">% <a href="./List_pro.html#robo3">list</a>(X), <a href="./List_pro.html#robo3">list</a>(X, Sep) -</span>
+<span class="comment">%       Prints a <a href="./List_pro.html#robo3">list</a>   </span>
+<span class="comment">%</span>
+<strong>print</strong> <a href="./List_pro.html#robo3">list</a><span class="sign">(</span>X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> <a href="./List_pro.html#robo3">list</a><span class="sign">(</span>X<span class="sign">,</span> <span class="squote">&#39;, &#39;</span><span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo3">list</a><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo3">list</a><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> C<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> H<span class="sign">,</span>
+        optional_comma<span class="sign">(</span>T<span class="sign">,</span> C<span class="sign">)</span><span class="sign">,</span>
+        <strong>print</strong> <a href="./List_pro.html#robo3">list</a><span class="sign">(</span>T<span class="sign">,</span> C<span class="sign">)</span><span class="sign">.</span>
+<strong>print</strong> <a href="./List_pro.html#robo3">list</a><span class="sign">(</span>Atom<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>print</strong> Atom<span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% mathematical expression</span>
+<span class="comment">%</span>
+<strong>print</strong> Exp <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">structure</span><span class="sign">(</span>Exp<span class="sign">)</span><span class="sign">,</span>
+        F <span class="sign">=</span><span class="sign">.</span><span class="sign">.</span> <span class="sign">[</span><span class="keyword">is</span><span class="sign">,</span> X<span class="sign">,</span> Exp<span class="sign">]</span><span class="sign">,</span>
+        <span class="keyword">call</span><span class="sign">(</span>F<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+        
+
+<strong>print</strong> Exp <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">write</span><span class="sign">(</span>Exp<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eUtilities2fsubatom">
+</a><a name="robo112"></a><h2>Modules.Utilities/subatom [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>subatom</strong>/4, <strong>subatom</strong>/5
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>subatom</strong>(Atom, Length, Pad, Justify, Result)
+      <strong>subatom</strong>(Atom, Length, Pad, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with a subtring of [Atom], of <a href="./List_pro.html#robo57">length</a> [Length].
+      If <a href="./List_pro.html#robo57">length</a> of [Atom] is shorter than [Length], then [Pad] is used as a 
+      padding character.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Atom] (i) -
+              Atom to process.
+      [Length] (i) -
+              Length to be <a href="./List_pro.html#robo70">set</a> for [Result].
+      [Pad] (i) -
+              Padding character.
+      [Justify] (i) -
+              Can be either &#39;<a href="./List_pro.html#robo56">left</a>&#39;, &#39;center&#39; or &#39;<a href="./List_pro.html#robo68">right</a>&#39;.
+      [Result] (o) -
+              Resulting string/
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <strong>subatom</strong>/4 calls <strong>subatom</strong>/5 using &#39;<a href="./List_pro.html#robo56">left</a>&#39; as the value for the [justify]
+      argument.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>subatom</strong><span class="sign">(</span>Atom<span class="sign">,</span> Length<span class="sign">,</span> Pad<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>subatom</strong><span class="sign">(</span>Atom<span class="sign">,</span> Length<span class="sign">,</span> Pad<span class="sign">,</span> <a href="./List_pro.html#robo56">left</a><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+<strong>subatom</strong><span class="sign">(</span>Atom<span class="sign">,</span> Length<span class="sign">,</span> Pad<span class="sign">,</span> <a href="./List_pro.html#robo56">left</a><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>Atom<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        X <span class="sign">=</span><span class="sign">&lt;</span> Length<span class="sign">,</span>
+        PadCount <span class="keyword">is</span> Length <span class="sign">-</span> X<span class="sign">,</span>
+        <a href="#robo110">dup</a><span class="sign">(</span>Pad<span class="sign">,</span> PadCount<span class="sign">,</span> PadChars<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">atom_concat</span><span class="sign">(</span>Atom<span class="sign">,</span> PadChars<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+<strong>subatom</strong><span class="sign">(</span>Atom<span class="sign">,</span> Length<span class="sign">,</span> Pad<span class="sign">,</span> <a href="./List_pro.html#robo68">right</a><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>Atom<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        X <span class="sign">=</span><span class="sign">&lt;</span> Length<span class="sign">,</span>
+        PadCount <span class="keyword">is</span> Length <span class="sign">-</span> X<span class="sign">,</span>
+        <a href="#robo110">dup</a><span class="sign">(</span>Pad<span class="sign">,</span> PadCount<span class="sign">,</span> PadChars<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">atom_concat</span><span class="sign">(</span>PadChars<span class="sign">,</span> Atom<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+<strong>subatom</strong><span class="sign">(</span>Atom<span class="sign">,</span> Length<span class="sign">,</span> Pad<span class="sign">,</span> center<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>Atom<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        X <span class="sign">=</span><span class="sign">&lt;</span> Length<span class="sign">,</span>
+        PadCount <span class="keyword">is</span> Length <span class="sign">-</span> X<span class="sign">,</span>
+        PadLeft <span class="keyword">is</span> PadCount <span class="sign">/</span><span class="sign">/</span> 2<span class="sign">,</span>
+        PadRight <span class="keyword">is</span> PadLeft <span class="sign">+</span> <span class="sign">(</span> PadCount <span class="keyword">mod</span> 2<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo110">dup</a><span class="sign">(</span>Pad<span class="sign">,</span> PadLeft<span class="sign">,</span> PadLeftChars<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo110">dup</a><span class="sign">(</span>Pad<span class="sign">,</span> PadRight<span class="sign">,</span> PadRightChars<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">atom_concat</span><span class="sign">(</span>PadLeftChars<span class="sign">,</span> Atom<span class="sign">,</span> R1<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">atom_concat</span><span class="sign">(</span>R1<span class="sign">,</span> PadRightChars<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+<strong>subatom</strong><span class="sign">(</span>Atom<span class="sign">,</span> Length<span class="sign">,</span> _<span class="sign">,</span> _<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">sub_atom</span><span class="sign">(</span>Atom<span class="sign">,</span> 1<span class="sign">,</span> Length<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Utilities.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:10
+</p>
+</div> <!-- footer -->
+</body>
+</html>

@@ -1,0 +1,77 @@
+/*arch1.prb
+
+Winston arch domain. Inference version.
+Alan Bundy 5.12.80
+use with winston */
+
+/* space of description trees */
+space(arch,[shapetree,touchtree,orienttree,directiontree,supporttree]).
+
+
+/* description tree */
+
+tree(shapetree,1,shape(prism(wedge,block),pyramid)).
+
+tree(touchtree,2,touchrel(separate,touch(marries,abuts))).
+default(touchtree,separate). /* default predicate */
+
+tree(orienttree,1,orientation(lying,standing)).
+
+tree(directiontree,2,direction(leftof,rightof)).
+
+tree(supporttree,2,undef(supports,unsupports)).
+
+
+/* Examples */
+
+specimen(arch1, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	marries(a,c), marries(b,c)]).
+
+specimen(arch2, [block(a), block(b), wedge(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	marries(a,c), marries(b,c)]).
+
+specimen(arch3, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	abuts(a,c), abuts(b,c)]).
+
+
+/* Near Misses */
+
+specimen(archn1, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	supports(a,c), supports(b,c),
+	marries(a,c), marries(b,c),
+	marries(a,b)]).
+
+specimen(archn2, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b),
+	marries(a,c), marries(b,c)]).
+
+specimen(archn3, [block(a), block(b), block(c),
+	standing(a), standing(b), lying(c),
+	leftof(a,b)]).
+
+
+/* Inference Rules */
+
+implies(marries(X,Y), marries(Y,X)).
+
+implies(abuts(X,Y), abuts(Y,X)).
+
+implies(supports(X,Y), touch(X,Y)).
+
+implies(pyramid(X), unsupports(X,Y)).
+
+implies(leftof(X,Y), rightof(Y,X)).
+
+implies(rightof(X,Y), leftof(Y,X)).

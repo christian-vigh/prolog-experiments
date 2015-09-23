@@ -1,0 +1,136 @@
+1. References.
+==============
+
+Although the programs are commented, it would probably help to know
+something about graph theory. Here are the most important references for
+the algorithms behind the programs. (of course, the algorithms as they
+appear in the programs don't correspond 100% with the references).
+
+[Aho, Hopcroft, and Ullman 74]
+    @book{AHO-74a,
+    author = "A. Aho and J. Hopcroft and J. Ullman",
+    title = "The Design and Analysis of Computer Algorithms",
+    publisher = "Addison-Wesley",
+    year = 1974 }
+
+[Read and Tarjan 75]:
+    @article{READ-75a,
+    author =  "R. Read and R. Tarjan",
+    title =  "Bounds on Backtrack Algorithms for Listing Cycles,
+    Paths, and Spanning Trees",
+    journal = "Networks",
+    volume = 5,
+    pages = "237--252",
+    year = 1975     }
+
+[Tarjan 72]:
+    @article{TARJAN-72a,
+    author =  "R. Tarjan",
+    title =  "Depth First Search and Linear Graph Algorithms",
+    journal = "SIAM Journal of Computing",
+    volume = 1,
+    number = 2,
+    pages = "146--160",
+    month = "June",
+    year = 1972     }
+
+
+2. Example of use.
+==================
+
+Here is a Unix script describing how the program is used (in SICStus
+prolog version 0.6 running on a Sun-4 Sparcstation).
+
+The first program, "dfs_scc", accepts as input a directed graph called
+"eg" and creates an output file called "eg_scc".
+
+The second program, "cycles", accepts as input the file called "eg_scc"
+(you just type the "eg" part, and it adds the rest) and creates an
+output file called "eg_cy".
+
+    Script started on Fri Dec 14 15:37:22 1990
+
+    paul< sicstus
+    SICStus 0.6 #18: Thu Aug 16 16:59:28 MET DST 1990
+    Copyright (C) 1987, Swedish Institute of Computer Science.
+    All rights reserved.
+    {consulting /RIA/vega/users/paul/prolog.ini...}
+    {/RIA/vega/users/paul/prolog.ini consulted, 10 msec 76 bytes}
+    | ?- [dfs_scc].
+    {consulting /tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/dfs_scc...}
+    {compiling /tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/utilities.pl...}
+    {/tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/utilities.pl compiled, 1000 msec 8272 bytes}
+    {/tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/dfs_scc consulted, 1500 msec 18215 bytes}
+
+    yes
+    | ?- start.
+     File with user description: eg.
+    {consulting /tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/eg...}
+    {/tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/eg consulted, 40 msec 1294 bytes}
+
+    yes
+    | ?- halt.
+
+    { End of SICStus execution, user time 1.710 }
+    paul< more eg_scc
+    :- dynamic scc/1.
+
+    scc([arc(n5,n4,cross),
+    arc(n4,n2,back),
+    arc(n3,n1,back),
+    arc(n3,n5,tree),
+    arc(n3,n4,tree),
+    arc(n2,n5,forward),
+    arc(n2,n3,tree),
+    arc(n1,n2,tree)],
+    [node(n1,1,1),
+    node(n2,2,2),
+    node(n3,3,3),
+    node(n4,4,4),
+    node(n5,5,4)]).
+
+
+
+    runtime_1710msec.
+    paul< sicstus
+    SICStus 0.6 #18: Thu Aug 16 16:59:28 MET DST 1990
+    Copyright (C) 1987, Swedish Institute of Computer Science.
+    All rights reserved.
+    {consulting /RIA/vega/users/paul/prolog.ini...}
+    {/RIA/vega/users/paul/prolog.ini consulted, 0 msec 76 bytes}
+    | ?- [cycles].
+    {consulting /tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/cycles...}
+    {compiling /tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/utilities.pl...}
+    {/tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/utilities.pl compiled, 1040 msec 8272 bytes}
+    {/tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/cycles consulted, 1520 msec 17173 bytes}
+
+    yes
+    | ?- start.
+     Filename base: eg.
+    {consulting /tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/eg_scc...}
+    {/tmp_mnt/RIA/vega/users/paul/prolog/sage/temp/eg_scc consulted, 51 msec 1246 bytes}
+    processing a new back
+    processing a new back
+
+    yes
+    | ?- halt.
+
+    { End of SICStus execution, user time 1.710 }
+    paul< more eg_cy
+    cycle([n2,n5,n4]).
+    cycle([n2,n3,n5,n4]).
+    cycle([n2,n3,n4]).
+    cycle([n1,n2,n3]).
+
+
+    runtime_1700msec.
+    paul< exit
+
+
+3. Note on the code.
+====================
+
+The code does use `cuts' in order to make the garbage collect work
+properly, since big graphs (hundreds of nodes) often take hours of CPU
+time. On the other hand, little graphs (tens of nodes) are treated in a
+matter of seconds.

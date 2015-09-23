@@ -1,0 +1,323 @@
+1. INTRODUCTION
+---------------
+
+This package is taken from
+
+    "Record manipulation in Prolog" (Short Communication),
+    Jean G. Vaucher,
+    De'partement d' informatique et R.O., Universite' de Montre'al.
+
+    in
+
+    "Software - Practice and Experience",
+    Vol _19_(8),
+    pp. 801-807,
+    (August 1989).
+
+
+It provides a  set of primitive predicates and operators  that allow the
+arguments  of Prolog  structures  to  be accessed  by  name rather  than
+position, and  that implement Lisp-style  property lists. These  make it
+more  convenient  to  write  programs that  are  easily  understood  and
+modified.
+
+
+The text below is my [JNP] summary of the published communication.
+
+
+2. DATA STRUCTURES IMPLEMENTED BY THIS PACKAGE: RECORDS
+-------------------------------------------------------
+
+These are any  Prolog structure. A record is represented  by a structure
+whose functor is its name, and whose arguments are its fields.
+
+Normally  in  Prolog,  arguments  of  structures  must  be  accessed  by
+position.  This  is  non-mnemonic  and  hard  to  read.  The  predicates
+described below allow arguments to be accessed by name instead.
+
+One  starts by  declaring  a  record using  'def_record'  (see the  next
+section for a more detailed description of the predicates):
+
+    ?- def_record( person(name,age,address) ).
+
+This  creates  a template  for  'person',  and associates  the  argument
+positions with field names.
+
+One can then create a 'person' record by calling 'inst':
+
+    ?- inst( person, P ).
+
+will unify P with the structure 'person(_,_,)'.
+
+The 'field' predicate allows one to update and access fields by name:
+
+    ?- inst( person, P ),
+       field( P..name, 'Matthew Latner Linton' ),
+       field( P..name, Z ).
+
+will make P = person('Matthew Latner Linton',_,_), and then unify Z with
+the name 'Matthew Latner Linton'.
+
+Note that 'field' is reversible:  it can either extract or instantiate a
+field. As the next section describes, it can also be called resatifiably
+to access more than one field.
+
+Records can be nested within one another, and accessed accordingly:
+
+    ?- def_record( address(number,street,town) ).
+
+defines an  'address' record with  fields called 'number',  'street' and
+'town'. Then,
+
+    ?- inst( address, A ),
+       inst( person, P ),
+       field( P..address, A ),
+       field( P..age, 25 ),
+       field( P..address..street, 'St. Peter's Street' ).
+       field( P..address..town, 'Hanningtown' ).
+
+will unify P with
+
+    person(_,25,address(_,'St. Peter's Street','Hanningtown')).
+
+The 'update' predicate creates new  copies of records, rather than (like
+'field') instantiating fields of existing copies.
+
+    ?- inst( person, P ),
+       field( P..name, 'Fred' ), field( P..age, 25 ),
+       update( P..name, 'Bert', P2 ).
+
+will  put into  P the  record person('Fred',25,_).  It will  then copy a
+changed version into P2, which will become person('Bert',25,_).
+
+
+3. DATA STRUCTURES IMPLEMENTED BY THIS PACKAGE: PROPERTY LISTS
+--------------------------------------------------------------
+
+This term "property list" is taken from Lisp. Each element of a property
+list consists of a  "key", naming a property, and a  value for that key.
+As implemented  by this package, a  property list is a  list of elements
+each of the form Key-Value.
+
+For example:
+
+    [ language-danish, hair-blond, build-stout ].
+    [ language-prolog, computer-vax11780, speed-very_slow, reliable-no ].
+
+The predicates 'field' and 'update' work on property lists as well as on
+records.
+
+For example:
+
+    ?- L = [ language-danish, hair-blond, build-stout ],
+       field( L..hair, F ).
+
+will unify F with 'blond'.
+
+    ?- L = [ language-danish, hair-blond, build-stout ],
+       update( L..hair, dark, L2 ).
+
+will unify L2 with
+
+    [ language-danish, hair-dark, build-stout ].
+
+
+4. DESCRIPTION OF PREDICATES
+----------------------------
+
+There   are  four   user-callable  predicates:   def_record/1,  field/2,
+update/3, and inst/2. (As is conventional, the number following the slash
+indicates their arity or number of arguments.)
+
+
+def_record( Prototype )
+-----------------------
+
+This  defines record  types and  field  names. The  prototype must  be a
+structure whose  functor is  the name  of the  record being  defined and
+whose arguments are the field names.
+
+Examples
+--------
+
+    ?- def_record( point(x,y) ).
+    Defines a 'point' record with fields called 'x' and 'y'.
+
+    ?- def_record( line(p1,p2) ).
+    Defines a 'line' record with fields called 'p1' and 'p2'.
+
+    ?- def_record( address(number,street,town) ).
+    Defines an  'address' record  with fields called  'number', 'street'
+    and 'town'.
+
+    ?- def_record( person(name,age,address) ).
+    Defines  a 'person'  record with  fields called  'name', 'age',  and
+    'address'.
+
+Notes
+-----
+
+'def_record'  does  not  check  the  format  of  its  argument,  or  the
+uniqueness of the field names.
+
+'def_record' works  by asserting  a number of  clauses that  specify the
+mapping  between  field  name  and  argument  position.  You  must  call
+'def_record' before you can use any  of the other predicates on your new
+record type.
+
+
+inst( Record_name, Record_instance )
+------------------------------------
+
+The  first argument  must be  the same  as the  functor used  in one  of
+'def_record's prototypes. The second  argument will be instantiated to a
+term  representing  a   new  record  of  that  name,   with  all  fields
+uninstantiated.
+
+Examples
+--------
+
+    ?- inst( point, X ).
+    Will instantiate X to point(_,_).
+
+    ?- inst( address, Y ).
+    Will instantiate Y to address(_,_,_).
+
+Notes
+-----
+
+The clauses for 'inst' are asserted dynamically by 'def_record'.
+
+
+field( Record..Selector, Field )
+--------------------------------
+
+
+The first argument consists of two  parts joined by '..'. The first part
+is a record structure or Prolog variable. The second part is a "selector
+expression" composed of field names separated by '..'.
+
+Valid first arguments are, for example,
+
+    point(1,2)..y
+    Address..street
+    line(point(1,2),point(3,4))..p1..y
+    Line..p1..y
+
+In the 3rd and 4th examples, the intent is to select the 'p1' field from
+a 'line'  record; the  'p1' field  itself holds  a 'point'  record, from
+which the 'y' field is to be selected.
+
+The  second argument  to  'field'  will be  unified  with  the value  or
+variable specified  by the first argument.  Usually, 'field' is  used to
+extract fields; but it can also be used to instantiate them.
+
+Examples
+--------
+
+    ?- field( P1..y, Out ).
+    If P1 = point(111,222), then Out becomes 222.
+
+    ?- field( Fred..address, Z ).
+    If Fred = person('Fred',25,address(56,'High Street','Trebont')),
+    then Z becomes address(56,'High Street','Trebont').
+
+    ?- field( Fred..address..town, Z ).
+    If Fred = person('Fred',25,address(56,'High Street','Trebont')),
+    then Z becomes 'Trebont'.
+
+    ?- inst( point, P ),
+       field( P..x, 19.4 ).
+    P becomes point(19.4,_). I.e., this binds the 'x' field of P.
+
+    ?- field( [starters-wireworm_soup,
+               main-haunch_of_young_pony,
+               dessert-candied_dogfish ]..dessert, D ).
+    This will unify D with 'candied_dogfish'.
+
+    ?- field( point( 1, [a1-blue,a2-1] )..Selector, 1 ).
+    This demonstrates the resatisfiability of 'field'.
+    Successive satisfactions will unify
+    Selector = x;
+    Selector = y..a2.
+
+
+
+update( OldRecord..Selector, NewValue, NewRecord )
+--------------------------------------------------
+
+This creates  modified copies of records.  The first argument  must have
+the  same syntax  as  for  the first  argument  of  'field'. The  second
+argument gives the new value for  that field. The third argument will be
+unified with the new record.
+
+Examples
+--------
+
+    ?- inst( point, P ),
+       field( P..x, 19.4 ),
+       update( P..x, 23, P1 ).
+    P becomes  point(19.4,_),  and P2 becomes a modified  copy with  the
+    value point(23,_).
+
+    ?- L = [ language-danish, hair-blond, build-stout ],
+       update( L..hair, dark, L2 ).
+    L2 becomes [ language-danish, hair-dark, build-stout ].
+
+
+update( OldRecord..Selector, NewValue/OldValue, NewRecord )
+-----------------------------------------------------------
+
+This works like the first form of 'update', but it also unifies OldValue
+with the original value of OldRecord's field.
+
+Examples
+--------
+
+    ?- inst( point, P ),
+       field( P..x, 19.4 ),
+       update( P..x, 23/OldX, P1 ).
+    P becomes  point(19.4,_),  and P2 becomes a modified  copy with  the
+    value point(23,_). OldX becomes 19.4
+
+    ?- update( point(1,point(2,[f1-3)).._, Old/New, Out ),
+       integer( Old ), New is Old*10, write(Out), nl, fail.
+    This will modify each integral field of the main record and its sub-
+    records in turn, through backtracking.
+
+
+5. IMPLEMENTATION
+-----------------
+
+The  implementation  is  based  upon  auxiliary  predicates  created  by
+'def_record'. For  each field  in a  record, two  are asserted:  one for
+access and one  for modification. 'mergeparams' is called  to create the
+parameter patterns for them. The predicates 'field' and 'update' use the
+auxiliary predicates to interpret field selector expressions.
+
+The source is in VAUCHER.PL.
+
+
+6. EXAMPLE
+----------
+
+TEST.PL  contains a  program that  accepts  a sequence  of integers  and
+writes them  in sorted  order, using a  binary tree.  This tree  has its
+fringe uninstantiated (much as difference lists), so that new leaves can
+be added easily.
+
+To demonstrate the  program, call 'go', and type a  sequence of numbers,
+terminating with 999.
+
+
+7. PORTABILITY AND NECESSARY PREDICATES
+---------------------------------------
+
+You will  need to change  the precedence of  '..' for Prologs   that use
+DEC-10 precedences.  (In the original  article it  was set for  a DEC-10
+system, but  I changed it because  my system has maximum  precedences of
+255.)
+
+At the  end of the source,  there are definitions of  'for' (for looping
+over a range  of integers); 'member' (as ever); and  'list' (for testing
+list-ness). You may prefer to consult these from elsewhere.

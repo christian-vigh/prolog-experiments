@@ -1,0 +1,143 @@
+File: UTIL:PP.HLP	Author: R.A.O'Keefe	Updated: 21 August 84
+
+#source.
+    The source code for the Prolog pretty-printer may be found in the file
+    UTIL:PP.Pl.  This help file is UTIL:PP.Hlp.
+
+#needs.
+    To get help, UTIL:Helper.Pl must be compiled.
+    To work with unloaded files, UTIL:Ixref.Pl must be compiled, or
+    at least suitable '$defn'(MostGeneralTerm, File) facts must be
+    put in the database.  No utilities are used, and the program will
+    run on its own if it has to.
+
+#purpose.
+    PP is a pretty-printer for Prolog programs.  The Prolog system has a
+    built in predicate 'listing' already, but it is relatively inflexible.
+    The original idea of PP was to have variable names printed as words
+    rather than as numbers with a prefixed underscore.  The routine which
+    did that has now been commented out, as Prolog versions 3.45 and later
+    will print terms $VAR(N) in a suitable format.  'listing' benefits from
+    that too.  Another thing that PP does is to display clauses in what I
+    consider to be a more attractive form.  Others may disagree, but it is
+    easy to make a copy of PP and change it to do what you like; there is
+    no easy way to change 'listing'.  PP can also find partially specified
+    predicates, e.g. pp "pp_*" will display all the predicates whose names
+    start with "pp_".  Finally, PP can make use of IXREF's database to
+    locate predicates which are compiled or not loaded, or to report on
+    all the predicates defined in a given file.
+
+#commands.
+    ca, ca Pattern, ca(Pattern, List)	-- see ca.  Current Atoms
+    cf, cf Fn/Arit, cf(Fn/Arit, List)	-- see cf.  Current Functors
+    co, co Pattern, co(Pattern, List)	-- see co.  Current Operators
+    cp, cp Pattern, cp(Pattern, List)	-- see cp.  Current Predicates
+    Command on File			-- see on.  output goes to File
+    pp, pp Pattern.			-- see pp.  Print Predicate
+    pp help				-- display list of topics
+
+#ca,atoms,current_atom.
+    ca			- display all Current Atoms
+    ca Pattern		- display all Current Atoms whose names match Pattern
+    ca(Pattern,List)	- return a list of all selected atoms.
+
+The pattern in this case is an AtomPattern, which is one of
+	an atom		- matches itself
+	a variable	- matches any atom
+	a string	- match on name with "wild cards" "*" and "?"
+	a list		- matches anything matched by any element of the list
+Thus (ca "*") and (ca _) both find all the atoms.  Note that a variable used
+as a pattern will NOT be bound.  There isn't much point in asking (ca fred),
+as it must always be true.
+
+#cf,functors,current_functor.
+    cf			- display all current functors
+    cf Pattern		- display all matching functors
+    cf(Pattern,List)	- return all matching functors
+
+The result is a list of functors represented as Functor/Arity, sorted into
+increasing alphabetic order of Functor then increasing numeric order of
+Arity.  The Pattern here is a TermPattern, which is one of
+	AtomPat/Range	- matches F/A if AtomPat matches F and A is in Range
+	AtomPat		- matches F/A if AtomPat matches F
+	a list		- matches anything matched by an element of the list
+	F(_1,..,_N)	- matches F/N
+See the topic 'ranges' for a description of ranges.  Briefly, to see all
+the genuine functors,  cf "*" / >(0) will exclude F/0.  E.g. if you know
+that the bag utilities use a functor 'bag' with arity somewhere between
+2 and 4, cf bag/(2-4) will check which arities are used.
+
+#co,operators,current_op.
+    co			- display all operator definitions
+    co Pattern		- display selected operators
+    co(Pattern,List)	- return selected operators
+    co(Prec,Type,Name)	- same as co(op(Pred,Type,Name)).
+
+An operator pattern is
+	op(Range, AtomPat, AtomPat)
+or	AtomPat		- same as op(_,_,AtomPat)
+All operators whose names and types match the respective patterns, and
+whose priorities are in the given range.  The result is a list of
+op(P,T,A) terms ordered by numeric priority P, then by type T where
+fx < fy < xf < xfx < xfy < yf < yfx < yfy, then finally by name A.  That
+is the ordering provided by Prolog, and it would be too hard to change.
+
+#cp,predicates,current_predicate.
+    cp			- display all current predicates
+    cp Patt		- display all predicates matching Patt
+    cp(Patt,Preds)	- return all Preds matching Patt.
+
+cp locates current predicates (those which have at least one interpreted
+clause) and returns a list of Functor/Arity specifications.  The pattern
+is a TermPattern as for cf (q.v.) but may also be "from(File)".  This is
+only useful when you have used IXREF to find out which files predicates
+come from, this will tell you which predicates come from that file.  E.g.
+cref('UTIL:pp.pl', '$defn'), cp from('UTIL:pp.pl').
+
+#on,redirection,files.
+    You can redirect the output of any Pretty-Print command <Command> by
+    writing "<Command> on <File>", where File is an atom of the sort that
+    Prolog usually uses for file names.  The File will be selected for 
+    output, the Command will be called, and the original output file selected
+    again.  Note that File is NOT closed.  Thus you can say
+	pp op on foobaz.
+	pp "pp_*" on foobaz.
+	pp "cp_*" on foobaz.
+	close(foobaz).
+    Beware, you have to close the file yourself sometime.  
+    This feature is not restricted to pp commands; any goal which writes to
+    a file may have its output redirected this way.
+
+#pp,print,listing.
+    pp				-- pretty-print entire program (with operators)
+    pp help			-- display list of topics
+    pp Pattern			-- pretty-print selected predicates
+
+    A bare "pp" pretty-prints the entire program (though not things in the
+    data base).  With a Pattern argument, all the Predicates matching the
+    pattern are pretty-printed.  The predicates are displayed in alphabetic
+    order.  If the pattern is a specific Functor/Arity specification, pp
+    will do something extra.  Normally, if a predicate is compiled or not
+    loaded, pp just won't notice it.  But if you ask for it specifically,
+    and if IXREF (q.v.) has noticed which file the predicate is defined in,
+    pp will read that file and print the relevant clauses.  Note that the
+    file will NOT be loaded.  Also, pp from(File) will display predicates
+    from that file in alphabetic order, even ones which have been abolished
+    or compiled.  (It will look at interpreted clauses if they exist,
+    otherwise it will go to the file.)
+
+#ranges.
+    A range is 
+	a variable			-  _ matches any number
+	a number			-  N matches N
+	a pair L-U			-  L-U matches N if L<=N<=U
+	a relational op and argument	-  R(L) matches N if N R L
+	[ Range1 | Range2]		-  alternatives
+
+    For example, [<(2), 4-6, 9, >(10)] will match 0, 1, 4, 5, 6, 9, and
+    11, 12, 13,...  This is useful for specifying arities or priorities.
+
+#see_also.
+    IXREF.PL (help in IXREF.HLP) is parasitic on PP.PL.
+    The pa (Print Advice) command of the ADVICE.PL (help in ADVICE.HLP)
+    package is also parasitic on PP.PL.

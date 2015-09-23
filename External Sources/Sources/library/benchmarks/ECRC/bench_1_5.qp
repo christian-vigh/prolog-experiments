@@ -1,0 +1,48 @@
+
+Quintus Prolog Release 1.6 (Sun)
+Copyright (C) 1986, Quintus Computer Systems, Inc.  All rights reserved.
+
+[WARNING: Singleton variables, clause 2 of do_construct_list/1: Z1, Z2, Z3]
+[WARNING: Singleton variables, clause 1 of do_match_list/2: Z]
+[WARNING: Singleton variables, clause 2 of do_construct_structure/1: Z1, Z2, Z3]
+[WARNING: Singleton variables, clause 1 of do_match_structure/2: Z]
+[WARNING: Singleton variables, clause 1 of do_match_nested_structure/2: Z]
+[WARNING: Singleton variables, clause 1 of do_general_unification/3: A, B]
+[/usr/ra/sicstus/V0.3/Bench/bench_1_5.pl compiled (31.516 sec 33068 bytes)]
+
+yes
+T overall loop: 517
+T compens loop: 0
+T benchmark:    517
+KLips:          0.0193423
+
+
+yes
+T overall loop: 284
+T compens loop: 0
+T benchmark:    284
+KLips:          0.0352112
+
+
+yes
+T overall loop: 500
+T compens loop: 0
+T benchmark:    500
+KLips:          0.02
+
+
+yes
+T overall loop: 400
+T compens loop: 0
+T benchmark:    400
+KLips:          0.025
+
+
+yes
+T overall loop: 100
+T compens loop: 16
+T benchmark:    84
+KLips:          0.00119047
+
+
+yes

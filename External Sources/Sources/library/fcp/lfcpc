@@ -1,0 +1,31 @@
+:-  ( loaded_fcpc ;
+       ['directory/toplevel.pl',
+	'directory/compile.pl',
+	'directory/runtime.pl',
+	'directory/kernel.pl',
+	'directory/trace.pl',
+	'directory/unify.pl'],
+	fcpc('directory/util.pl'),
+	assert(loaded_fcpc) ).
+
+lfcpc :-  [-'directory/toplevel.pl',
+	 -'directory/compile.pl',
+	 -'directory/runtime.pl',
+	 -'directory/kernel.pl',
+	 -'directory/trace.pl',
+	 -'directory/unify.pl'],
+	fcpc('directory/util.pl').
+
+
+lc :-  [-'directory/compile.pl'].
+lrt :-  [-'directory/runtime.pl'].
+ltl :-  [-'directory/toplevel.pl'].
+ltr :-  [-'directory/trace.pl'].
+lu :-  [-'directory/unify.pl'].
+lk :-  [-'directory/kernel.pl'].
+cut :-  fcpc('directory/util.pl').
+
+save :-
+	save('directory/save'),
+	write(' Flat  Concurrent Prolog Compiler '),nl,
+	nl.

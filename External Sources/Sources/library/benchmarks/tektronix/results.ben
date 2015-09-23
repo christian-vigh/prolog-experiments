@@ -1,0 +1,115 @@
+!** Start Benchmark Run.
+!** Mon Jul  1 13:27:01 PDT 1985
+!**  VAX 750
+!**  BEGIN BinaryTree BENCHMARK
+!**  Average cputime for 10 bintree is 177.777466 msecs.
+!**  Average cputime for 20 bintree is 311.111328 msecs.
+!**  Average cputime for 30 bintree is 611.111328 msecs.
+!**  Average cputime for 40 bintree is 833.330566 msecs.
+!**  Average cputime for 50 bintree is 1150.000977 msecs.
+!**  END BinaryTree BENCHMARK
+!**  VAX 750
+!**  BEGIN BuiltinSort BENCHMARK
+!**  Average cputime for 10 sort is 150.000122 msecs.
+!**  Average cputime for 20 sort is 388.888184 msecs.
+!**  Average cputime for 30 sort is 566.666016 msecs.
+!**  Average cputime for 40 sort is 849.999512 msecs.
+!**  Average cputime for 50 sort is 1094.443359 msecs.
+!**  END BuiltinSort BENCHMARK
+!**  VAX 750
+!**  BEGIN CountDown BENCHMARK
+!**  Average cputime for 100 cd is 183.333252 msecs.
+!**  Average cputime for 200 cd is 355.555420 msecs.
+!**  Average cputime for 300 cd is 499.999756 msecs.
+!**  Average cputime for 400 cd is 744.444336 msecs.
+!**  Average cputime for 500 cd is 844.443848 msecs.
+!**  END CountDown BENCHMARK
+!**  VAX 750
+!**  BEGIN DbaseSearch BENCHMARK
+!**  Average cputime for 500 dsearch is 55.552155 msecs.
+!**  Average cputime for 1000 dsearch is 105.550110 msecs.
+!**  Average cputime for 1500 dsearch is 149.993896 msecs.
+!**  Average cputime for 2000 dsearch is 216.674805 msecs.
+!**  Average cputime for 2500 dsearch is 266.662598 msecs.
+!**  END DbaseSearch BENCHMARK
+!**  VAX 750
+!**  BEGIN GenList BENCHMARK
+!**  Average cputime for 20 genlist is 255.555420 msecs.
+!**  Average cputime for 40 genlist is 522.221680 msecs.
+!**  Average cputime for 60 genlist is 794.443359 msecs.
+!**  Average cputime for 80 genlist is 1016.664551 msecs.
+!**  Average cputime for 100 genlist is 1272.223633 msecs.
+!**  END GenList BENCHMARK
+!**  VAX 750
+!**  BEGIN Hanoi BENCHMARK
+!**  Average cputime for 2 hanoi is 0 msecs.
+!**  Average cputime for 4 hanoi is 44.444702 msecs.
+!**  Average cputime for 6 hanoi is 161.111084 msecs.
+!**  Average cputime for 8 hanoi is 583.332520 msecs.
+!**  Average cputime for 10 hanoi is 2344.441406 msecs.
+!**  END Hanoi BENCHMARK
+!**  VAX 750
+!**  BEGIN Loop BENCHMARK
+!**  Average cputime for 200 loops is 1927.777344 msecs.
+!**  Average cputime for 400 loops is 3905.554688 msecs.
+!**  Average cputime for 600 loops is 5933.332031 msecs.
+!**  Average cputime for 800 loops is 7888.882813 msecs.
+!**  Average cputime for 1000 loops is 9633.328125 msecs.
+!**  END Loop BENCHMARK
+!**  VAX 750
+!**  BEGIN MemoryFiller BENCHMARK
+!**  Average cputime for 10 memfill is 122.222229 msecs.
+!**  Average cputime for 250 memfill is 3205.552734 msecs.
+!**  Average cputime for 500 memfill is 6427.777344 msecs.
+!**  Average cputime for 1000 memfill is 12855.546875 msecs.
+!**  Average cputime for 2000 memfill is 24744.406250 msecs.
+!**  END MemoryFiller BENCHMARK
+!**  VAX 750
+!**  BEGIN NaiveReverse BENCHMARK
+!**  Average cputime for 10 nairev is 44.444702 msecs.
+!**  Average cputime for 15 nairev is 83.333313 msecs.
+!**  Average cputime for 20 nairev is 172.222412 msecs.
+!**  Average cputime for 25 nairev is 183.333008 msecs.
+!**  Average cputime for 30 nairev is 294.444336 msecs.
+!**  END NaiveReverse BENCHMARK
+!**  VAX 750
+!**  BEGIN Polynomial BENCHMARK
+!**  Average cputime for 5 polys is 77.777832 msecs.
+!**  Average cputime for 8 polys is 188.888428 msecs.
+!**  Average cputime for 11 polys is 294.444824 msecs.
+!**  Average cputime for 14 polys is 411.109619 msecs.
+!**  Average cputime for 17 polys is 572.222168 msecs.
+!**  END Polynomial BENCHMARK
+!**  VAX 750
+!**  BEGIN Primes BENCHMARK
+!**  Average cputime for 10 primes is 66.666565 msecs.
+!**  Average cputime for 20 primes is 211.110718 msecs.
+!**  Average cputime for 40 primes is 522.221680 msecs.
+!**  Average cputime for 60 primes is 777.776855 msecs.
+!**  Average cputime for 80 primes is 1277.776367 msecs.
+!**  END Primes BENCHMARK
+!**  VAX 750
+!**  BEGIN ReadNumber BENCHMARK
+!**  Average cputime for 200 readnums is 2644.441406 msecs.
+!**  Average cputime for 400 readnums is 5172.218750 msecs.
+!**  Average cputime for 600 readnums is 7927.773438 msecs.
+!**  Average cputime for 800 readnums is 10522.210938 msecs.
+!**  Average cputime for 1000 readnums is 12744.437500 msecs.
+!**  END ReadNumber BENCHMARK
+!**  VAX 750
+!**  BEGIN QuickSort BENCHMARK
+!**  Average cputime for 5 quicksorts is 111.110962 msecs.
+!**  Average cputime for 10 quicksorts is 233.332886 msecs.
+!**  Average cputime for 15 quicksorts is 372.221436 msecs.
+!**  Average cputime for 20 quicksorts is 505.554688 msecs.
+!**  Average cputime for 25 quicksorts is 644.444336 msecs.
+!**  END QuickSort BENCHMARK
+!**  VAX 750
+!**  BEGIN WriteNumber BENCHMARK
+!**  Average cputime for 200 writenums is 2249.998047 msecs.
+!**  Average cputime for 400 writenums is 4394.441406 msecs.
+!**  Average cputime for 600 writenums is 6605.550781 msecs.
+!**  Average cputime for 800 writenums is 8838.875000 msecs.
+!**  Average cputime for 1000 writenums is 11038.898438 msecs.
+!**  END WriteNumber BENCHMARK
+!** Finish Benchmark Run.

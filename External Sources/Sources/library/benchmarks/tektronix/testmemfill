@@ -1,0 +1,41 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/*  Get an average cpu time for 5 different parameters  */
+
+test_memfill :-
+nl, write('!**  BEGIN MemoryFiller BENCHMARK'), nl,
+ave_memfill(10),
+ave_memfill(250),
+ave_memfill(500),
+ave_memfill(1000),
+ave_memfill(2000),
+nl, write('!**  END MemoryFiller BENCHMARK'), nl.
+
+/*  call the benchmark 3 times and calculate the average  */
+
+ave_memfill(P) :-
+call_memfill(P,T1),
+call_memfill(P,T2),
+call_memfill(P,T3),
+calc_ave_memfill(P,T1,T2,T3).
+
+/*  call benchmark and return cputime in msecs.  */
+
+call_memfill(P,T) :-
+T1 is cputime,
+memfill(P),
+T2 is cputime,
+T is 1000*(T2-T1).
+
+/*  calculate average of 3 times for parameter P  */
+
+calc_ave_memfill(P,T1,T2,T3) :-
+Ave is (T1+T2+T3)/3,
+nl, write('!**  Average cputime for '),
+write(P), write(' memfill is '),
+write(Ave), write(' msecs.'), nl.
+
+:- test_memfill.
+

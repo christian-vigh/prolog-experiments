@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- File written by Update manager 2.0 -->
+<!-- comments in this file are not preserved -->
+
+<configuration date="1075836456875" timeline="1075836456875" >
+   <site url="file:C:/Program Files/amzi/eclipse/"
+      platformURL="platform:/base/"
+      enable="true"
+      policy="1" >
+      <feature configured = "true" url="features/com.amzi.prolog_1.0.3/" />
+      <feature configured = "true" url="features/org.eclipse.platform.win32_2.1.2/" />
+      <feature configured = "true" url="features/org.eclipse.platform_2.1.2/" />
+   </site>
+
+   <site url="file:C:/Program Files/amzi/amzi_7-0-11/docs/eclipse/"
+      platformURL="file:C:/Program Files/amzi/amzi_7-0-11/docs/eclipse/"
+      enable="true"
+      policy="1" >
+   </site>
+
+   <activity action="3" 
+      label="file:C:/Program Files/amzi/eclipse/" 
+      date="1075836457140" 
+      status="0">
+   </activity>
+
+   <activity action="3" 
+      label="file:C:/Program Files/amzi/amzi_7-0-11/docs/eclipse/" 
+      date="1075836457140" 
+      status="0">
+   </activity>
+
+   <activity action="8" 
+      label="file:C:/Documents and Settings/erik/My Documents/My Projects/Opl/Opl7/workspace/.metadata/.config/platform.cfg.metadata/v2LocalSite.xml" 
+      date="1075836457140" 
+      status="0">
+   </activity>
+
+</configuration>
+

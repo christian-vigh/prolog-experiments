@@ -1,0 +1,76 @@
+Version 1.5 released Tue Feb 23 21:30:08 MST 1993
+This directory contains an integer interval arithmetic package designed
+on top of Sepia Prolog.  It uses the meta_term features of Sepia extensively
+to provide a constraint handling system for integers.
+It deals correctly with non-linear constraints and is very suitable for 
+solving diophantine equations.
+
+This version has been fully tested on Version 3.1.3 of Sepia.
+It has been modified to take note of some known incompatibilities with
+Eclipse 3.2 and 3.3 and may run correctly with them.  However, it has not
+been fully tested on those systems.
+
+The following files are included:
+
+Top level files for loading system (each is to be used on its own
+to load different flavors of the system):
+	ii.pl		loads the complete system
+	iidebug.pl      same as ii.pl except that is loads a version that
+			is traceable by the standard Sepia trace facilities
+			and also includes a special system for tracing the 
+			interval arithmetic
+	iisimple.pl	loads an abbreviated version of the system that does
+			not redefine builtin predicates such as 'is/2'
+
+
+Source code for system:
+	arith.pl	redefines the builtin Sepia arithmetic routines
+	copyright.pl    Prints copyright notice when system loaded
+	debug.pl	routines for tracing the interval arithmetic
+	intdef.pl	definition of routines that understand the details of
+			how intervals are represented as meta terms
+	                (there is  small amount of machine dependency in here)
+	interval.pl	code for the high level routines called by ii and 
+			directly by users if they want 
+	mach_dep.pl
+			a small set of routines that depend directly on the
+			underlying machine representation of integers 
+			(this version is 32 bit twos-complement)
+	macros.pl       used to conditionally insert code that depends on the
+	                version of the Prolog system being used
+	neg.pl          routines particular to interval arithmetic for the
+	                constructive negation system (warning this is still
+			experimental and not yet fully tested)
+	nodebug.pl      macros that remove the tracing code from other files
+	simple.pl       a simple constructive negation system that defines
+			the call neg/1 (warning this is still
+                        experimental and not yet fully tested).
+	utilities.pl	Some generally useful routines that have nothing
+			in particular to do with constrained arithmetic.
+	xinterval.pl	lower level code which is aware of the internal 
+			representation of upper and lower bounds
+
+Other files:
+	.sepiarc        commands to set up environment for execution
+			A user is likely to want to incorporate this with their
+		        own .sepiarc
+	sample.pl	some example code using the ii system and demonstration
+			calls to them
+	manual		a (brief) manual explaining the features available
+
+
+There are no known functional bugs in this system.
+
+The arithmetic functions abs, min, max, mod, ^(power) would all make sense 
+but have not yet been implemented.
+It is also intended to implement a metacall that will find the minimum
+integer satisfying some constraint.
+
+Anyone who is seriously considering modifying this code should contact the
+author as an extensive automatic testing system is available.
+
+Advertisement:
+	a floating point version of the system will be made available sometime.
+
+John G. Cleary
+cleary@cpsc.ucalgary.ca

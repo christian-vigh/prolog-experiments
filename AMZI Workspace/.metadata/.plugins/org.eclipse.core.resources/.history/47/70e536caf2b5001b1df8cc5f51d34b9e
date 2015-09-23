@@ -1,0 +1,265 @@
+:- import(map).
+
+% The </ etc. operators must have a lower precedence than mathematical operations
+% so that expression grouping will perform correctly.
+:- op( 700, xfx, covers ).
+:- op( 150, xfx, .. ).
+:- op( 210,  fx, </ ).
+:- op( 210,  fx, >/ ).
+:- op( 200,  xf, /> ).
+:- op( 200,  xf, /< ).
+:- op( 500, xfx, within ).
+:- op( 500, xfx, outside ).
+:- op( 500, xfx, meets ).
+:- op( 500, xfx, joins ).
+:- op( 500, xfx, union ).
+
+
+% Operations on intervals
+
+% Assignment
+X covers </ Low .. High /> :-		% Simple cases
+	interval_build(X, Low, High, 1, 1).
+X covers </ Low .. High /< :-
+	interval_build(X, Low, High, 1, 0).
+X covers >/ Low .. High /< :-
+	interval_build(X, Low, High, 0, 0).
+X covers >/ Low .. High /> :-
+	interval_build(X, Low, High, 0, 1).
+X covers interval(Low, High, Left, Right) :-
+	interval_build(X, Low, High, Left, Right).
+
+X covers FunctionCall :- 
+   FunctionCall =.. [Predicate | Args], 
+   Goal =.. [Predicate, X | Args], 
+   call(Goal). 
+
+
+% Checks if Y includes X
+X within Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_within(XA, YA).
+X within Y :-				% Allow for testing a single value
+	YA covers Y,
+	!, interval_within( interval(X, X, 1, 1), YA).
+
+% Checks if X and Y are disjoint
+X outside Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_outside(XA, YA).
+
+X meets Y :-
+	XA covers X,
+	YA covers Y,
+	!, not( interval_outside(XA, YA) ).
+
+% Check if intervals are coalescable
+X joins Y :-
+	XA covers X,
+	YA covers Y,
+	!, interval_coalescable(XA, YA).
+
+
+
+% Check if object is an interval
+is_interval( interval(_, _, _, _) ).
+	
+% Build an interval
+% Syntax : X covers Low..High
+interval_build( X, Low, High, Left, Right ) :-
+	interval_left(Low, Left, NewLow, NewLeft),
+	interval_right(High, Right, NewHigh, NewRight),
+	interval_check(NewLow, NewHigh, NewLeft, NewRight),
+	X = interval(NewLow, NewHigh, NewLeft, NewRight), !.
+
+	
+% Aliases for infinity
+infinity('inf').
+infinity('infinite').
+infinity('infinity').
+
+
+% Check exclusion/inclusion of low value
+% (allow inclusive range for infinity)
+interval_left(Keyword, _, -inf, 0) :-
+	infinity(Keyword).
+interval_left(-Keyword, _, -inf, 0) :-
+	infinity(Keyword).
+interval_left(Value, Left, Value, Left).
+
+interval_right(Keyword, _, +inf, 0) :-
+	infinity(Keyword).
+interval_right(+Keyword, _, +inf, 0) :-
+	infinity(Keyword).
+interval_right(Value, Left, Value, Left).
+
+
+% Checks the validity of an interval
+interval_check(A, B, 1, 1) :-
+	A =< B.
+interval_check(A, B, Left, Right) :-
+	A < B, ( Left =:= 0 ; Right =:= 0 ).
+interval_check(A, B, Left, Right) :-
+	portray_left(Left, SLeft),
+	portray_right(Right, SRight),
+	atomlist_concat( [SLeft, A, '..', B, SRight], I),
+	throw( interval_error('Invalid range', I) ).
+
+% interval inclusion
+interval_left_greater(V1, 1, V2, 1) :-
+	V1 >= V2.
+interval_left_greater(V1, 0, V2, 1) :-
+	V1 >= V2.
+interval_left_greater(V1, 0, V2, 0) :-
+	V1 > V2.
+interval_left_greater(V1, 1, V2, 0) :-
+	V1 > V2.
+	
+interval_right_less(V1, 1, V2, 1) :-
+	V1 =< V2.
+interval_right_less(V1, 0, V2, 1) :-
+	V1 =< V2.
+interval_right_less(V1, 0, V2, 0) :-
+	V1 < V2.
+interval_right_less(V1, 1, V2, 0) :-
+	V1 < V2.
+	
+interval_within( interval(Low1, High1, Left1, Right1),
+		 interval(Low2, High2, Left2, Right2) ) :-
+	interval_left_greater( Low1,  Left1,  Low2,  Left2),
+	interval_right_less(  High1, Right1, High2, Right2), !. 
+
+
+% Checks if intervals are disjoint
+interval_outside( interval(   _, High1,     _, Right1),
+		  interval(Low2,     _, Left2,      _) :-
+	interval_do_outside( High1, Low2, Right1, Left2 ).
+
+interval_outside( interval(Low1,     _, Left1,      _),
+		  interval(   _, High2,     _, Right2) :-
+	interval_do_outside( High2, Low1, Right2, Left1 ).
+	
+	
+interval_do_outside( High, High, 1, 0).
+interval_do_outside( High, High, 0, 0).
+interval_do_outside( High, High, 0, 1).
+interval_do_outside( High, Low , _, _) :-
+	High < Low.
+
+% Check if intervals are coalescable
+interval_coalescable( interval(    _, High1,    _ , Right1 ),
+		      interval( Low2,     _, Left2,      _ ) ) :-
+	interval_do_coalescable(High1, Low2, Right1, Left2).
+interval_coalescable( interval( Low1,     _, Left1,      _ ),
+		      interval(    _, High2,     _, Right2 ) ) :-
+	interval_do_coalescable(Low1, High2, Left1, Right2).
+
+interval_do_coalescable(High1, High1, 1, 1).
+interval_do_coalescable(High1, High1, 1, 0).
+interval_do_coalescable(High1, High1, 0, 1).
+interval_do_coalescable(High1,  Low2, _, _) :-
+	High1 > Low2.
+
+
+
+% Portray : prints an interval
+portray_left(0, ']').
+portray_left(1, '[').
+portray_right(0, '[').
+portray_right(1, ']').
+
+portray( interval(A, B, Left, Right) ) :-
+	portray_left(Left, XL), write(XL),
+	write(A), write('..'), write(B),
+	portray_right(Right, XR),
+	write(XR),
+	nl.
+	
+
+
+/***
+:- op( 500, xfx, covers ).
+:- op( 700, xfx, ..).
+:- op( 700, xfx, within).
+:- op( 700, xfx, outside).
+:- op( 700, xfx, disjoints).
+:- op( 700, xfx, intersects).
+:- op( 700, xfx, contains ).
+
+
+
+% Performs a comparision between a value and an interval boundary
+interval_apply(Op, V1, V2) :-
+	X =.. [Op, V1, V2],
+	call(X), !.
+
+
+
+% Within operator : checks if the specified value is within the interval
+% (used on sets of intervals or single intervals)
+Value within [H|T] :-				% Complex intervals
+	interval_within(Value, H), !.
+Value within [_|T] :-
+	Value within T, !.
+Value within [] :- 
+	fail, !.
+
+interval_within(Value, Map) :-
+	is_map(Map),
+	map_value(Map, low, Low),		% Get low and high
+	map_value(Map, high, High),
+	map_value(Map, lgt_operator, LGT),	% Get comparision operators
+	map_value(Map, rlt_operator, RLT),
+	interval_apply(LGT, Value, Low),	% Perform comparisons
+	interval_apply(RLT, Value, High), !.
+
+
+% Outside operator
+Value outside Something :-
+	not( Value within Something ).
+	
+
+% Disjoints : succeeds if two intervals are disjoint
+% (used on single intervals, no solution yet for sets of intervals)
+[X | _]  disjoints  [Y | _] :-
+	is_map(X),
+		map_value(X,  low,  XLow),
+		map_value(X, high, XHigh),
+	is_map(Y),
+		map_value(Y,  low,  YLow),
+		map_value(Y, high, YHigh),
+	(XHigh < YLow ; YHigh < XLow).
+
+% intersects : reverse of disjoints
+X intersects Y :-
+	not(X disjoints Y).
+
+
+% contains : checks if I2 is contained in I1
+I1 contains I2 :-
+	is_map(I1), 
+		map_value(I1,  left, I1Left ),
+		map_value(I1, right, I1Right),
+		map_value(I1,   low, I1Low  ),
+		map_value(I1,  high, I1High ),
+	is_map(I2), 
+		map_value(I2,  left, I2Left ),
+		map_value(I2, right, I2Right),
+		map_value(I2,   low, I2Low  ),
+		map_value(I2,  high, I2High ),
+	interval_contains_left(I1Low, I2Low, I1Left, I2Left),
+	interval
+	I1Low =< I2Low, I1High > I2High.				
+
+interval_contains_left(Low1, Low2, '<', '<') :-
+	Low1 =< Low2.
+interval_contains_left(Low1, Low2, '<', '>') :-
+	Low1 =< Low2.
+interval_contains_left(Low1, Low2, '>', '<') :-
+	Low1 < Low2.
+interval_contains_left(Low1, Low2, '>', '>') :-
+	Low1 < Low2.
+
+*/

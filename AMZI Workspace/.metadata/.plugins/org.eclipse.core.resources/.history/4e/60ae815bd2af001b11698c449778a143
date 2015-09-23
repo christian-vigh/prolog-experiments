@@ -1,0 +1,28 @@
+% logical predicates
+
+
+% A boolean is...
+boolean(0).
+boolean(1).
+
+% Just to test which are authorized combinations of operators
+junk([ 
+ 	./\.		,
+ 	.\/.		,
+ 	.~.		,
+ 	.\~/.		,
+	.->.		,
+ 	*=
+ 	]).
+
+% NOT operator 
+:- op(500, fx, .~.).
+ 
+.~. 0 :- !.		% not(0) is true (succeeds) and .~. 1 fails.
+
+
+% OR operator
+:- op(500, xfx, .\/.).
+
+
+ 

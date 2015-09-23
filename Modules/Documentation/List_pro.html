@@ -1,0 +1,1541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/List_pro.html</title>
+<!-- Source: ./List.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo3">Modules/list</a></li>
+<li>2. <a href="#robo41">Modules.List/append</a></li>
+<li>3. <a href="#robo42">Modules.List/belongs</a></li>
+<li>4. <a href="#robo43">Modules.List/countoccurrences</a></li>
+<li>5. <a href="#robo44">Modules.List/countoccurrences (3 parameters)</a></li>
+<li>6. <a href="#robo45">Modules.List/difference</a></li>
+<li>7. <a href="#robo46">Modules.List/drop</a></li>
+<li>8. <a href="#robo47">Modules.List/duplicate</a></li>
+<li>9. <a href="#robo48">Modules.List/equal</a></li>
+<li>10. <a href="#robo49">Modules.List/explode</a></li>
+<li>11. <a href="#robo50">Modules.List/filtermin</a></li>
+<li>12. <a href="#robo51">Modules.List/flatten</a></li>
+<li>13. <a href="#robo52">Modules.List/implode</a></li>
+<li>14. <a href="#robo53">Modules.List/insert</a></li>
+<li>15. <a href="#robo54">Modules.List/intersection</a></li>
+<li>16. <a href="#robo55">Modules.List/last</a></li>
+<li>17. <a href="#robo56">Modules.List/left</a></li>
+<li>18. <a href="#robo57">Modules.List/length</a></li>
+<li>19. <a href="#robo58">Modules.List/lengthofshortest</a></li>
+<li>20. <a href="#robo59">Modules.List/lower</a></li>
+<li>21. <a href="#robo60">Modules.List/middle</a></li>
+<li>22. <a href="#robo61">Modules.List/nummin</a></li>
+<li>23. <a href="#robo62">Modules.List/nummin_of_list</a></li>
+<li>24. <a href="#robo63">Modules.List/partition</a></li>
+<li>25. <a href="#robo64">Modules.List/removedups</a></li>
+<li>26. <a href="#robo65">Modules.List/removeoccurrences</a></li>
+<li>27. <a href="#robo66">Modules.List/repeated</a></li>
+<li>28. <a href="#robo67">Modules.List/reverse</a></li>
+<li>29. <a href="#robo68">Modules.List/right</a></li>
+<li>30. <a href="#robo69">Modules.List/rotate</a></li>
+<li>31. <a href="#robo70">Modules.List/set</a></li>
+<li>32. <a href="#robo71">Modules.List/slice</a></li>
+<li>33. <a href="#robo72">Modules.List/strmin</a></li>
+<li>34. <a href="#robo73">Modules.List/strmin_of_list</a></li>
+<li>35. <a href="#robo74">Modules.List/take</a></li>
+<li>36. <a href="#robo75">Modules.List/union</a></li>
+<li>37. <a href="#robo76">Modules.List/upper</a></li>
+<li>38. <a href="#robo77">Modules.List/wholelength</a></li>
+</ul>
+<hr />
+<a name="Modules2flist">
+</a><a name="robo3"></a><h2>Modules/list [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>list</strong> - List-manipulation predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<strong>list</strong>.pro
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      Contains a <a href="#robo70">set</a> of <strong>list</strong>-manipulation predicates.
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, July 2005.
+
+</pre>
+
+<hr />
+<a name="Modules2eList2fappend">
+</a><a name="robo41"></a><h2>Modules.List/append [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>append</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>append</strong>(List1, List2, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      concatenates [List1] and [List2] to unify [Result].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List1], [List2] (i,o) -
+              Lists to bre concatenated.
+      [Result] (i,o) -
+              Result <a href="#robo3">list</a>.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>              The predicate is constructed in such a way that any argument
+              can be an unbound variable.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>append</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> X<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>append</strong><span class="sign">(</span><span class="sign">[</span>A<span class="sign">|</span>X<span class="sign">]</span><span class="sign">,</span> Y<span class="sign">,</span> <span class="sign">[</span>A<span class="sign">|</span>Z<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>append</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Z<span class="sign">)</span><span class="sign">.</span>
+<strong>append</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Z<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Z <span class="sign">=</span> <span class="sign">[</span>X<span class="sign">,</span> Y<span class="sign">]</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fbelongs">
+</a><a name="robo42"></a><h2>Modules.List/belongs [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>belongs</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>belongs</strong>(Element, List)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Satisfies if [Element] <strong>belongs</strong> to [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be searched for inclusion of [Element].
+      [Element] (o) -
+              Element whose presence is to be searched in [List].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>belongs</strong><span class="sign">(</span>Element<span class="sign">,</span> <span class="sign">[</span>Element<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="sign">!</span><span class="sign">.</span>
+<strong>belongs</strong><span class="sign">(</span>Element<span class="sign">,</span> <span class="sign">[</span>_<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>belongs</strong><span class="sign">(</span>Element<span class="sign">,</span> Tail<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fcountoccurrences">
+</a><a name="robo43"></a><h2>Modules.List/countoccurrences [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>countoccurrences</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>countoccurrences</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with a <a href="#robo3">list</a> of 2-elements <a href="#robo3">list</a>, where the first element of
+      the pair is an element of [List], and the second element is the number of
+      times it appears within[List]. Individual elements appear in sorted order
+      in [Result].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to process.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>.
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>      <strong>countoccurrences</strong>([a,b,<a href="./Maths_pro.html#robo85">c</a>,a,b,b,b,d,f], Result).
+      Result = [ [a, 2], [b, 4], [<a href="./Maths_pro.html#robo85">c</a>, 1], [d, 1], [f, 1] ]
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>countoccurrences</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>countoccurrences</strong><span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">sort</span><span class="sign">(</span>List<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">,</span>
+        docountoccurrences<span class="sign">(</span>NewList<span class="sign">,</span> 1<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+docountoccurrences<span class="sign">(</span><span class="sign">[</span>X<span class="sign">,</span> X <span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Counter<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewCounter <span class="keyword">is</span> Counter <span class="sign">+</span> 1<span class="sign">,</span>
+        docountoccurrences<span class="sign">(</span><span class="sign">[</span>X <span class="sign">|</span> Tail<span class="sign">]</span><span class="sign">,</span> NewCounter<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+docountoccurrences<span class="sign">(</span><span class="sign">[</span>X<span class="sign">,</span> Y<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Counter<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">\</span><span class="sign">=</span><span class="sign">=</span> Y<span class="sign">,</span>
+        docountoccurrences<span class="sign">(</span><span class="sign">[</span>Y <span class="sign">|</span> Tail<span class="sign">]</span><span class="sign">,</span> 1<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span><span class="sign">[</span>X<span class="sign">,</span> Counter<span class="sign">]</span><span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+docountoccurrences<span class="sign">(</span><span class="sign">[</span>Atom<span class="sign">]</span><span class="sign">,</span> Counter<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>Atom<span class="sign">)</span><span class="sign">,</span>
+        Result <span class="sign">=</span> <span class="sign">[</span> <span class="sign">[</span>Atom<span class="sign">,</span> Counter<span class="sign">]</span> <span class="sign">]</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fcountoccurrences2028320parameters29">
+</a><a name="robo44"></a><h2>Modules.List/countoccurrences (3 parameters) [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <a href="#robo43">countoccurrences</a>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <a href="#robo43">countoccurrences</a>(Atom, List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the number of times that [Atom] has been found in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Atom] (i,o) -
+              Element to search for.
+      [List] (i) -
+              List to be searched.
+      [Result] (i,o) -
+              Number of times[Atom] has been found in [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <a href="#robo43">countoccurrences</a> has been written so that [Atom] and [Result] can be unbound :
+              <a href="#robo43">countoccurrences</a>(a, [a,b,<a href="./Maths_pro.html#robo85">c</a>], X) -&gt; X = 1
+              <a href="#robo43">countoccurrences</a>(X, [a,b,a], 2) -&gt; X = a
+              <a href="#robo43">countoccurrences</a>(a, [a,b,a], 1) -&gt; no
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><a href="#robo43">countoccurrences</a><span class="sign">(</span>Atom<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+<a href="#robo43">countoccurrences</a><span class="sign">(</span>Atom<span class="sign">,</span> <span class="sign">[</span>Atom<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo43">countoccurrences</a><span class="sign">(</span>Atom<span class="sign">,</span> Tail<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        Result <span class="keyword">is</span> TempResult <span class="sign">+</span> 1<span class="sign">.</span>
+<a href="#robo43">countoccurrences</a><span class="sign">(</span>Atom<span class="sign">,</span> <span class="sign">[</span>AnyElement<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Atom <span class="sign">\</span><span class="sign">=</span><span class="sign">=</span> AnyElement<span class="sign">,</span>    <span class="comment">% This test is important otherwise prolog would backtrack through this rule</span>
+        <a href="#robo43">countoccurrences</a><span class="sign">(</span>Atom<span class="sign">,</span> Tail<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fdifference">
+</a><a name="robo45"></a><h2>Modules.List/difference [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>difference</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>difference</strong>(List1, List2, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <strong>difference</strong> of [List1] and [List2], ie with all 
+      the elements :
+      - contained in [List1] but not in [List2] and
+      - contained in [List2] but not in [List1]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List1], [List2] (i) -
+              Lists on which to <a href="./Meta_pro.html#robo92">apply</a> the <strong>difference</strong>.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>.
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>      <strong>difference</strong>([a,b,<a href="./Maths_pro.html#robo85">c</a>], [<a href="./Maths_pro.html#robo85">c</a>,d,e]) -&gt; [a,b,d,e]
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>difference</strong><span class="sign">(</span>List1<span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo64">removedups</a><span class="sign">(</span>List1<span class="sign">,</span> X1<span class="sign">)</span><span class="sign">,</span> 
+        <a href="#robo64">removedups</a><span class="sign">(</span>List2<span class="sign">,</span> X2<span class="sign">)</span><span class="sign">,</span>
+        dodifference<span class="sign">(</span>X1<span class="sign">,</span> X2<span class="sign">,</span> R1<span class="sign">)</span><span class="sign">,</span>
+        dodifference<span class="sign">(</span>X2<span class="sign">,</span> X1<span class="sign">,</span> R2<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo75">union</a><span class="sign">(</span>R1<span class="sign">,</span> R2<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+dodifference<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>        
+dodifference<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">not</span><span class="sign">(</span><a href="#robo42">belongs</a><span class="sign">(</span>List2<span class="sign">,</span> H<span class="sign">)</span><span class="sign">)</span><span class="sign">,</span>
+        dodifference<span class="sign">(</span>T<span class="sign">,</span> List2<span class="sign">,</span> TempList<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>H<span class="sign">]</span><span class="sign">,</span> TempList<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+dodifference<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo42">belongs</a><span class="sign">(</span>List2<span class="sign">,</span> H<span class="sign">)</span><span class="sign">,</span>
+        dodifference<span class="sign">(</span>T<span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fdrop">
+</a><a name="robo46"></a><h2>Modules.List/drop [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>drop</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>drop</strong>(List, Count, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with [List], after removing [Count] elements from [List] head.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be processed.
+      [Count] (i) -
+              Number of elements to remove from beginning of [List].
+      [Result] (o) -
+              Unified to [List] withouth the [Count] first elements.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Calling <strong>drop</strong> with a [Count] of zero unifies [Result] with [List].
+      Calling <strong>drop</strong> with an empty <a href="#robo3">list</a> unifies [Result] with an empty <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>drop</strong><span class="sign">(</span>List<span class="sign">,</span> 0<span class="sign">,</span> List<span class="sign">)</span><span class="sign">.</span>
+<strong>drop</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>drop</strong><span class="sign">(</span><span class="sign">[</span>_<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Index<span class="sign">,</span> NewList<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Index <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        NewIndex <span class="keyword">is</span> Index <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>drop</strong><span class="sign">(</span>Tail<span class="sign">,</span> NewIndex<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fduplicate">
+</a><a name="robo47"></a><h2>Modules.List/duplicate [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>duplicate</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>duplicate</strong>(List, Count, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Duplicates [Count] times the elements of [List] and unifies [Result] with
+      the resulting <a href="#robo3">list</a>. Duplicate elements are put in an adjacent way.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose elements are to be duplicated.
+      [Count] (i) -
+              Number of duplications to perform on each element of <a href="#robo3">list</a>.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Duplicating an empty <a href="#robo3">list</a> unifies [Result] with an empty <a href="#robo3">list</a>.
+      Calling <strong>duplicate</strong> with a duplication [Count] less than or <a href="#robo48">equal</a> to zero
+      unifies [Result] with [List].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>duplicate</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>duplicate</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Count <span class="sign">=</span><span class="sign">&lt;</span> 0<span class="sign">.</span>
+<strong>duplicate</strong><span class="sign">(</span><span class="sign">[</span>Head<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        duplicateatom<span class="sign">(</span>Head<span class="sign">,</span> Count<span class="sign">,</span> DuplicatedElement<span class="sign">)</span><span class="sign">,</span>
+        <strong>duplicate</strong><span class="sign">(</span>Tail<span class="sign">,</span> Count<span class="sign">,</span> TempList<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>DuplicatedElement<span class="sign">,</span> TempList<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+duplicateatom<span class="sign">(</span>_<span class="sign">,</span> 0<span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>
+duplicateatom<span class="sign">(</span>Atom<span class="sign">,</span> 1<span class="sign">,</span> <span class="sign">[</span>Atom<span class="sign">,</span> Atom<span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+duplicateatom<span class="sign">(</span>Atom<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Count <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        NewCount <span class="keyword">is</span> Count <span class="sign">-</span> 1<span class="sign">,</span>
+        duplicateatom<span class="sign">(</span>Atom<span class="sign">,</span> NewCount<span class="sign">,</span> NewResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>Atom<span class="sign">]</span><span class="sign">,</span> NewResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fequal">
+</a><a name="robo48"></a><h2>Modules.List/equal [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>equal</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>equal</strong>(List1, List2)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Succeeds if [List1] has the same content as [List2].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List1], [List2] (i) -
+              Lists to be compared.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>equal</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>equal</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T1<span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span>H<span class="sign">|</span>T2<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>equal</strong><span class="sign">(</span>T1<span class="sign">,</span> T2<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fexplode">
+</a><a name="robo49"></a><h2>Modules.List/explode [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>explode</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>explode</strong>(Atom, List)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Sets [List] to the <a href="#robo3">list</a> of characters of [Atom].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Atom] (i) -
+              Atom to split.
+      [List] (o) -
+              List built from the individual characters of [Atom].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      This predicate has been written because the standard atom_list predicate
+       does not work (it does not return a <a href="#robo3">list</a> of character codes).
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>explode</strong><span class="sign">(</span>Atom<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>Atom<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        L <span class="sign">=</span><span class="sign">:</span><span class="sign">=</span> 0<span class="sign">.</span>
+<strong>explode</strong><span class="sign">(</span>Atom<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">sub_atom</span><span class="sign">(</span>Atom<span class="sign">,</span> 1<span class="sign">,</span> 1<span class="sign">,</span> C<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">string_term</span><span class="sign">(</span>Term<span class="sign">,</span> C<span class="sign">)</span><span class="sign">,</span>           <span class="comment">% Needed because Atom(&#39;2&#39;, 1, 1) returns &#39;2&#39;, not 2</span>
+        <span class="keyword">sub_atom</span><span class="sign">(</span>Atom<span class="sign">,</span> 2<span class="sign">,</span> _<span class="sign">,</span> R<span class="sign">)</span><span class="sign">,</span>
+        <strong>explode</strong><span class="sign">(</span>R<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">string_term</span><span class="sign">(</span>Term<span class="sign">,</span> V<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>V<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>        
+</pre>
+
+<hr />
+<a name="Modules2eList2ffiltermin">
+</a><a name="robo50"></a><h2>Modules.List/filtermin, filtermax [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>filtermin</strong>/3, <strong>filtermax</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<p class="item_name">PURPOSE</p>
+<pre>      <strong>filtermin</strong> unifies [Result] with all values in [List] greater than or <a href="#robo48">equal</a>
+      to [Min].
+      <strong>filtermax</strong> unifies [Result] with all values in [List] less than or <a href="#robo48">equal</a> 
+      to [Max].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be filtered.
+      [Min] (i) -
+              For <strong>filtermin</strong>, minimum value to keep.
+      [Max] (i) -
+              For <strong>filtermax</strong>, maximum value to keep.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>filtermin</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>filtermin</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Min<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        H <span class="sign">&lt;</span> Min<span class="sign">,</span>
+        <strong>filtermin</strong><span class="sign">(</span>T<span class="sign">,</span> Min<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>filtermin</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Min<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>filtermin</strong><span class="sign">(</span>T<span class="sign">,</span> Min<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>H<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+<strong>filtermax</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>filtermax</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Max<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        H <span class="sign">&gt;</span> Max<span class="sign">,</span>
+        <strong>filtermax</strong><span class="sign">(</span>T<span class="sign">,</span> Max<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>filtermax</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Max<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>filtermax</strong><span class="sign">(</span>T<span class="sign">,</span> Max<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>H<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fflatten">
+</a><a name="robo51"></a><h2>Modules.List/flatten [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>flatten</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>flatten</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Flattens [List] into [Result]. Every sublist in [List] is expanded.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be flattened.
+      [Result] (o) -
+              Unified to a <a href="#robo3">list</a> corresponding to [List], with all sublists
+              expanded.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>flatten</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+
+<strong>flatten</strong><span class="sign">(</span>X<span class="sign">,</span> <span class="sign">[</span>X<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">not</span><span class="sign">(</span><span class="keyword">is_list</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">)</span><span class="sign">.</span>
+
+<strong>flatten</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>flatten</strong><span class="sign">(</span>H<span class="sign">,</span> L1<span class="sign">)</span><span class="sign">,</span>
+        <strong>flatten</strong><span class="sign">(</span>T<span class="sign">,</span> L2<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>L1<span class="sign">,</span> L2<span class="sign">,</span> List<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fimplode">
+</a><a name="robo52"></a><h2>Modules.List/implode [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>implode</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>implode</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Concatenates all elements from [List] into a single atom, [Result].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose elements are to be concatenated.
+      [Result] (o) -
+              Resulting atom.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      This predicate can be viewed as the counterpart of <a href="#robo49">explode</a>/2.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>implode</strong><span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atomlist_concat</span><span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2finsert">
+</a><a name="robo53"></a><h2>Modules.List/insert [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>insert</strong>/4
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>insert</strong>(List, Position, Sublist, Newlist)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Newlist] with a <a href="#robo3">list</a> formed with [Sublist] inserted at [Position]
+      within [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List where [Sublist] is to be inserted.
+      [Position] (i) -
+              Index of the element in [List] before which [Sublist] is to be
+              inserted. The elements are numbered starting from 1.
+      [Sublist] (i) -
+              List to <strong>insert</strong>.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Inserting an empty <a href="#robo3">list</a> will unify [Result] with [List].
+      Inserting a [Sublist] into an empty <a href="#robo3">list</a> will unify [Result] with [Sublist].
+      If [Position] is less than 1, then [Sublist] is simply prepended to [List].
+      If [Position] if greater than <a href="#robo57">length</a> of [List], then [Sublist] is simply
+      appended to [List].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>insert</strong><span class="sign">(</span>List<span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> List<span class="sign">)</span><span class="sign">.</span>
+<strong>insert</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> X<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+
+<strong>insert</strong><span class="sign">(</span>List<span class="sign">,</span> Position<span class="sign">,</span> Sublist<span class="sign">,</span> Newlist<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Position <span class="sign">&lt;</span> 1<span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>Sublist<span class="sign">,</span> List<span class="sign">,</span> Newlist<span class="sign">)</span><span class="sign">.</span>
+
+<strong>insert</strong><span class="sign">(</span>List<span class="sign">,</span> Position<span class="sign">,</span> Sublist<span class="sign">,</span> Newlist<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        Position <span class="sign">&gt;</span> L<span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>List<span class="sign">,</span> Sublist<span class="sign">,</span> Newlist<span class="sign">)</span><span class="sign">.</span>
+        
+<strong>insert</strong><span class="sign">(</span>List<span class="sign">,</span> Position<span class="sign">,</span> Sublist<span class="sign">,</span> Newlist<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Until <span class="keyword">is</span> Position <span class="sign">-</span> 1<span class="sign">,</span>
+        <a href="#robo56">left</a><span class="sign">(</span>List<span class="sign">,</span> Until<span class="sign">,</span> LeftPart<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo46">drop</a><span class="sign">(</span>List<span class="sign">,</span> Until<span class="sign">,</span> RightPart<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>LeftPart<span class="sign">,</span> Sublist<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>X<span class="sign">,</span> RightPart<span class="sign">,</span> Newlist<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fintersection">
+</a><a name="robo54"></a><h2>Modules.List/intersection [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>intersection</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>intersection</strong>(List1, List2, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <strong>intersection</strong> of [List1] and [List2], ie all
+      elements present in both [List1] and [List2].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List1], [List2] (i) -
+              Lists to be intersected.
+      [Result] (o) -
+              Intersection of [List1] and [List2].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      <strong>intersection</strong>([d,a,b,<a href="./Maths_pro.html#robo85">c</a>],[x,y,a]) -&gt; [a].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>intersection</strong><span class="sign">(</span>List1<span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo64">removedups</a><span class="sign">(</span>List1<span class="sign">,</span> X1<span class="sign">)</span><span class="sign">,</span> 
+        <a href="#robo64">removedups</a><span class="sign">(</span>List2<span class="sign">,</span> X2<span class="sign">)</span><span class="sign">,</span>
+        dointersection<span class="sign">(</span>X1<span class="sign">,</span> X2<span class="sign">,</span> R1<span class="sign">)</span><span class="sign">,</span>
+        dointersection<span class="sign">(</span>X2<span class="sign">,</span> X1<span class="sign">,</span> R2<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo75">union</a><span class="sign">(</span>R1<span class="sign">,</span> R2<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+dointersection<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>      
+dointersection<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo42">belongs</a><span class="sign">(</span>List2<span class="sign">,</span> H<span class="sign">)</span><span class="sign">,</span>
+        dointersection<span class="sign">(</span>T<span class="sign">,</span> List2<span class="sign">,</span> TempList<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>H<span class="sign">]</span><span class="sign">,</span> TempList<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+dointersection<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">not</span><span class="sign">(</span><a href="#robo42">belongs</a><span class="sign">(</span>List2<span class="sign">,</span> H<span class="sign">)</span><span class="sign">)</span><span class="sign">,</span>
+        dointersection<span class="sign">(</span>T<span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2flast">
+</a><a name="robo55"></a><h2>Modules.List/last [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>last</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>last</strong>(List, Element)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Element] with the <strong>last</strong> element of [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose <strong>last</strong> element is to be extracted.
+      [Element] (o) -
+              Last element of [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The <strong>last</strong> element of an empty <a href="#robo3">list</a> is the empty <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>last</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span><span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>last</strong><span class="sign">(</span>X<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo57">length</a><span class="sign">(</span>X<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span> L <span class="sign">=</span> 1<span class="sign">,</span> 
+        <span class="sign">!</span><span class="sign">.</span>
+<strong>last</strong><span class="sign">(</span><span class="sign">[</span>_<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>last</strong><span class="sign">(</span>Tail<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fleft">
+</a><a name="robo56"></a><h2>Modules.List/left [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>left</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>left</strong>(List, Count, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the [Count] first elements taken from [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose first elements are to be taken.
+      [Count] (i) -
+              Number of elements to <a href="#robo74">take</a>.
+      [Result] (o) -
+              Unified with the [Count] first elements taken from [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Calling <strong>left</strong> on an empty <a href="#robo3">list</a> unifies [Result] with an empty <a href="#robo3">list</a>.
+      Calling <strong>left</strong> with a [Count] of zero unifies [Result] with an empty <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>left</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>                <span class="comment">% Any empty <a href="#robo3">list</a> returns the empty <a href="#robo3">list</a>.</span>
+                                <span class="comment">% (useful also when Count is greater than</span>
+                                <span class="comment">% <a href="#robo3">list</a> <a href="#robo57">length</a>).</span>
+<strong>left</strong><span class="sign">(</span>X<span class="sign">,</span> 0<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>                <span class="comment">% We reach here the <a href="#robo55">last</a> element to extract</span>
+        <span class="keyword">atom</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">.</span>
+<strong>left</strong><span class="sign">(</span>X<span class="sign">,</span> 0<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>                 <span class="comment">% For other case, stop when we have extracted</span>
+                                <span class="comment">% Count elements</span>
+<strong>left</strong><span class="sign">(</span><span class="sign">[</span>Head<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Count <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        NewCount <span class="keyword">is</span> Count <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>left</strong><span class="sign">(</span>Tail<span class="sign">,</span> NewCount<span class="sign">,</span> NewResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>Head<span class="sign">]</span><span class="sign">,</span> NewResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2flength">
+</a><a name="robo57"></a><h2>Modules.List/length [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>length</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>length</strong>( List, Result )
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the number of elements in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose number of elements is to be counted.
+      [Result] (o) -
+              Unified to the number of elements of [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The <strong>length</strong> of an empty <a href="#robo3">list</a> is 0. 
+      The <strong>length</strong> of an atom is 1.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>length</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> L<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        L <span class="sign">=</span> 0<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>length</strong><span class="sign">(</span><span class="sign">[</span>_<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> L<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>length</strong><span class="sign">(</span>Tail<span class="sign">,</span> TailLength<span class="sign">)</span><span class="sign">,</span>
+        L <span class="keyword">is</span> TailLength <span class="sign">+</span> 1<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>length</strong><span class="sign">(</span>X<span class="sign">,</span> L<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span>
+        L <span class="sign">=</span> 1<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2flengthofshortest">
+</a><a name="robo58"></a><h2>Modules.List/lengthofshortest, lengthoflongest [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>lengthoflongest</strong>/2, <strong>lengthofshortest</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>lengthoflongest</strong>(List, Result)
+      <strong>lengthofshortest</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <a href="#robo57">length</a> of the shortest (<strong>lengthofshortest</strong>) or
+      longest (<strong>lengthoflongest</strong>) atom in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i,o) -
+              List to be searched for.
+      [Result] (i,o) -
+              List of the shortest (<strong>lengthofshortest</strong>) or longest (<strong>lengthoflongest</strong>)
+              atom found in [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The predicate is written so that X can be bound or not ; for
+      example :
+              <strong>lengthoflongest</strong>([a,ab], X) 
+      will unify X to 2 (<a href="#robo57">length</a> of longest element, &#39;ab&#39;) ; whereas
+              <strong>lengthoflongest</strong>([a,ab], 1)
+      will fail.      
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>lengthoflongest</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+<strong>lengthoflongest</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>lengthoflongest</strong><span class="sign">(</span>T<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>H<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        lengthofcurrentlongest<span class="sign">(</span>X<span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">%</span>
+<span class="comment">% We have to handle either an bound or unbound Result argument. It is not</span>
+<span class="comment">% possible in this case to use constructs such as :</span>
+<span class="comment">%       X &gt; Result,</span>
+<span class="comment">%       Result is X.</span>
+<span class="comment">% (since Result can be bound or not). For this reason, we use unification to</span>
+<span class="comment">% retain the longest atom seen so far. This is the job of lengthofcurrent, </span>
+<span class="comment">% which unifies Result with max(CurrentAtomLength, PreviousMax).</span>
+<span class="comment">%</span>
+lengthofcurrentlongest<span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">&gt;</span> Y<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+lengthofcurrentlongest<span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Y<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> <span class="sign">!</span><span class="sign">.</span>
+        
+
+<span class="comment">%</span>
+<span class="comment">% <a href="#robo57">length</a> of shortest element.</span>
+<span class="comment">%</span>
+<strong>lengthofshortest</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> 0<span class="sign">)</span><span class="sign">.</span>
+<strong>lengthofshortest</strong><span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        dolengthofshortest<span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+dolengthofshortest<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> 32767<span class="sign">)</span><span class="sign">.</span>
+dolengthofshortest<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        dolengthofshortest<span class="sign">(</span>T<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">atom_length</span><span class="sign">(</span>H<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        dolengthofcurrentshortest<span class="sign">(</span>X<span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+dolengthofcurrentshortest<span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">&lt;</span> Y<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+dolengthofcurrentshortest<span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Y<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span> <span class="sign">!</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2flower">
+</a><a name="robo59"></a><h2>Modules.List/lower [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>lower</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>lower</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with all the lowercased elements of [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose elements are to be lowercased.
+      [Result] (o) -
+              Resulting (lowercased) <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>lower</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>lower</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_uplow</span><span class="sign">(</span>H<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <strong>lower</strong><span class="sign">(</span>T<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>lower</strong><span class="sign">(</span>Atom<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_uplow</span><span class="sign">(</span>Atom<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fmiddle">
+</a><a name="robo60"></a><h2>Modules.List/middle [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>middle</strong>/4
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>middle</strong>(List, Start, Count, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with [Count] elements of [List] taken at position [Start].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be extracted.
+      [Start] (i) -
+              Index of the first element to <a href="#robo74">take</a> from [List].
+      [Count] (i) -
+              Number of elements to <a href="#robo74">take</a> from [List].
+      [Result] (o) -
+              Unified with a sublist of [Count] elements taken from [List], 
+              starting at position [Start].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The first element of a <a href="#robo3">list</a> is numbered 1.
+      Calling <strong>middle</strong> with an empty <a href="#robo3">list</a> unifies [Result] with the empty <a href="#robo3">list</a>.
+      If [Start] or [Count] are less than 1, or if [Start] is greater than the
+      number of elements in [List], then [Result] is unified with the empty <a href="#robo3">list</a>.
+      If [Start] + [Count] - 1 are greater than the <a href="#robo57">length</a> of [List], then [Result]
+      is unified with all the elements of [List], starting at position [Start].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"> <strong>middle</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+ 
+ <strong>middle</strong><span class="sign">(</span>List<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Start <span class="sign">&lt;</span> 1<span class="sign">.</span>
+ <strong>middle</strong><span class="sign">(</span>List<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Count <span class="sign">&lt;</span> 1<span class="sign">.</span>
+ <strong>middle</strong><span class="sign">(</span>List<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        Start <span class="sign">&gt;</span> L<span class="sign">.</span>
+        
+ <strong>middle</strong><span class="sign">(</span>List<span class="sign">,</span> Start<span class="sign">,</span> Count<span class="sign">,</span> NewList<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewStart <span class="keyword">is</span> Start <span class="sign">-</span> 1<span class="sign">,</span>
+        <a href="#robo46">drop</a><span class="sign">(</span>List<span class="sign">,</span> NewStart<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo56">left</a><span class="sign">(</span>X<span class="sign">,</span> Count<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fnummin">
+</a><a name="robo61"></a><h2>Modules.List/nummin, nummax [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>nummin</strong>/3, <strong>nummax</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>nummin</strong>(X, Y, R), <strong>nummax</strong>(X, Y,R)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [R] with the minimum/maximum value of [X] and [Y].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [X], [Y] (i) -
+              Values to be compared.
+      [R] (o) -
+              Unified with the minimum/maximum value of [X] and [Y].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The comparison is performed numerically.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>nummin</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Y<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>              <span class="comment">% Minimum value of two elements</span>
+        Y <span class="sign">=</span><span class="sign">&lt;</span> X<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>nummin</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+
+<strong>nummax</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Y<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>              <span class="comment">% Maximum value of two elements</span>
+        Y <span class="sign">&gt;</span><span class="sign">=</span> X<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>nummax</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fnummin5fof5flist">
+</a><a name="robo62"></a><h2>Modules.List/nummin_of_list, nummin_of_max [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>nummin_of_list</strong>/2, nummax_of_list/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>nummin_of_list</strong>(List, Result), 
+      nummax_of_list(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the minimum/maximum value that can be found in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose minimum/maximum value is to be searched.
+      [Result] (o) -
+              Unified with the minimum/maximum value found in [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Comparisons are performed numerically.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>nummin_of_list</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>nummin_of_list</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>nummin_of_list</strong><span class="sign">(</span>T<span class="sign">,</span> XBis<span class="sign">)</span><span class="sign">,</span> <a href="#robo61">nummin</a><span class="sign">(</span>H<span class="sign">,</span> XBis<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+        
+nummax_of_list<span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+nummax_of_list<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        nummax_of_list<span class="sign">(</span>T<span class="sign">,</span> XBis<span class="sign">)</span><span class="sign">,</span> <a href="#robo61">nummax</a><span class="sign">(</span>H<span class="sign">,</span> XBis<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>    
+</pre>
+
+<hr />
+<a name="Modules2eList2fpartition">
+</a><a name="robo63"></a><h2>Modules.List/partition [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>partition</strong>/4
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>partition</strong>(List, Pivot, ListBelow, ListAbove)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Partition/4 processes all elements from [List]. It adds in [ListBelow] the
+      elements that are less than the value [Pivot], and in [ListAbove] the
+      elements thar are greater than or <a href="#robo48">equal</a> to [Pivot].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be processed.
+      [Pivot] (i) -
+              Pivot value.
+      [ListBelow] (o) -
+              Unified to all the elements of [List] that are less than [Pivot].
+      [ListAbove] (o) -
+              Unified to all the elements of [List] that are greater or <a href="#robo48">equal</a> 
+              to [Pivot].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>partition</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>partition</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Pivot<span class="sign">,</span> ListBelow<span class="sign">,</span> ListAbove<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        H <span class="sign">&lt;</span> Pivot<span class="sign">,</span>
+        <strong>partition</strong><span class="sign">(</span>T<span class="sign">,</span> Pivot<span class="sign">,</span> TempBelow<span class="sign">,</span> ListAbove<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>H<span class="sign">]</span><span class="sign">,</span> TempBelow<span class="sign">,</span> ListBelow<span class="sign">)</span><span class="sign">.</span>
+<strong>partition</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Pivot<span class="sign">,</span> ListBelow<span class="sign">,</span> ListAbove<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>partition</strong><span class="sign">(</span>T<span class="sign">,</span> Pivot<span class="sign">,</span> ListBelow<span class="sign">,</span> TempAbove<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>H<span class="sign">]</span><span class="sign">,</span> TempAbove<span class="sign">,</span> ListAbove<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fremovedups">
+</a><a name="robo64"></a><h2>Modules.List/removedups [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>removedups</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>removedups</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Removes any adjacent elements from [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be processed.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>, where all the adjacent elements of [List] have
+              been removed.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Calling <strong>removedups</strong> on an atom or empty <a href="#robo3">list</a> will unify [Result] with the
+      atom or the empty <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>removedups</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">,</span> X<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>removedups</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+<strong>removedups</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">,</span> Y<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>removedups</strong><span class="sign">(</span><span class="sign">[</span>Y<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Newlist<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> Newlist<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>removedups</strong><span class="sign">(</span>X<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>removedups</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fremoveoccurrences">
+</a><a name="robo65"></a><h2>Modules.List/removeoccurrences [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>removeoccurrences</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>removeoccurrences</strong>(Atom, List, Result).
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with [List] after having removed everyoccurrence of
+      [Atom] within [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [Atom] (i) -
+              Element to remove.
+      [List] (i) -
+              List to be processed.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>removeoccurrences</strong><span class="sign">(</span>Atom<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>removeoccurrences</strong><span class="sign">(</span>Atom<span class="sign">,</span> <span class="sign">[</span>Atom<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>removeoccurrences</strong><span class="sign">(</span>Atom<span class="sign">,</span> Tail<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>removeoccurrences</strong><span class="sign">(</span>Atom<span class="sign">,</span> <span class="sign">[</span>AnyElement<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Atom <span class="sign">\</span><span class="sign">=</span><span class="sign">=</span> AnyElement<span class="sign">,</span>
+        <strong>removeoccurrences</strong><span class="sign">(</span>Atom<span class="sign">,</span> Tail<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>AnyElement<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2frepeated">
+</a><a name="robo66"></a><h2>Modules.List/repeated [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>repeated</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>repeated</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <a href="#robo3">list</a> of elements from [List] that appear more
+      than one time.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be processed.
+      [Result] (o) -
+              Unified to the <a href="#robo3">list</a> of elements that appear more than one time in
+              [List].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>repeated</strong><span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">:</span><span class="sign">-</span>
+        dorepeated<span class="sign">(</span>List<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>       <span class="comment">% Use an accumulator</span>
+        <span class="keyword">sort</span><span class="sign">(</span>TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+dorepeated<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> BuildingList<span class="sign">,</span> BuildingList<span class="sign">)</span><span class="sign">.</span>     <span class="comment">% All elements processed : Result is bind to BuildingList</span>
+dorepeated<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> BuildingList<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>      <span class="comment">% Add every element pr&#233;sent in T but not yet in BuildingList</span>
+        <a href="#robo42">belongs</a><span class="sign">(</span>H<span class="sign">,</span> T<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">not</span><span class="sign">(</span><a href="#robo42">belongs</a><span class="sign">(</span>H<span class="sign">,</span> BuildingList<span class="sign">)</span><span class="sign">)</span><span class="sign">,</span>
+        dorepeated<span class="sign">(</span>T<span class="sign">,</span> <span class="sign">[</span>H <span class="sign">|</span> BuildingList<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+dorepeated<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> BuildingList<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>      <span class="comment">% Other cases : ignore 1st element of <a href="#robo3">list</a> since not present in tail</span>
+        dorepeated<span class="sign">(</span>T<span class="sign">,</span> BuildingList<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2freverse">
+</a><a name="robo67"></a><h2>Modules.List/reverse [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>reverse</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>reverse</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Puts all elements of [List] in <strong>reverse</strong> order, and unifies resulting <a href="#robo3">list</a>
+      to [Result].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be reversed.
+      [Result] (o) -
+              Reversed <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>reverse</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>reverse</strong><span class="sign">(</span><span class="sign">[</span>Head<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Newlist<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>reverse</strong><span class="sign">(</span>Tail<span class="sign">,</span> L1<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span> L1<span class="sign">,</span> <span class="sign">[</span>Head<span class="sign">]</span><span class="sign">,</span> Newlist<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fright">
+</a><a name="robo68"></a><h2>Modules.List/right [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>right</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>right</strong>(List, Count, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the [Count] <a href="#robo55">last</a> elements of [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose <a href="#robo55">last</a> elements are to be taken.
+      [Count] (i) -
+              Number of elements to <a href="#robo74">take</a> from the <strong>right</strong> of [List].
+      [Result] (o) -
+              Unified with the [Count] <a href="#robo55">last</a> elements of [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Calling <strong>right</strong> with a [Count] greater than the number of elements of [List]
+      will unify [Result] with [List].
+      Calling <strong>right</strong> with an empty <a href="#robo3">list</a> will unify [Result] with the empty <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"> <strong>right</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span> 
+        Count <span class="sign">&gt;</span><span class="sign">=</span> L<span class="sign">.</span>
+ <strong>right</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+ <strong>right</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> NewList<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> L<span class="sign">)</span><span class="sign">,</span>
+        NewCount <span class="keyword">is</span> L <span class="sign">-</span> Count<span class="sign">,</span>
+        <a href="#robo46">drop</a><span class="sign">(</span>List<span class="sign">,</span> NewCount<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2frotate">
+</a><a name="robo69"></a><h2>Modules.List/rotate, rotateleft,<br />rotateright [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>rotate</strong>/3, <strong>rotateleft</strong>/3, <strong>rotateright</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>rotate</strong>(List, Count, Result)
+      <strong>rotateleft</strong>(List, Count, Result)
+      <strong>rotateright</strong>(List, Count, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Rotates [List] by the number of times specified by [Count], and unifies
+      [Result] with the new <a href="#robo3">list</a>. <strong>rotate</strong>/3 calls <strong>rotateright</strong>/3 if [Count] is
+      negative, and <strong>rotateleft</strong>/3 if [Count] is positive.
+      Rotating one time to the <a href="#robo56">left</a> the <a href="#robo3">list</a> [a,b,<a href="./Maths_pro.html#robo85">c</a>,d] gives [b,<a href="./Maths_pro.html#robo85">c</a>,d,a]. 
+      Rotating it one time to the <a href="#robo68">right</a> gives [d,a,b,<a href="./Maths_pro.html#robo85">c</a>].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to be rotated.
+      [Count] (i) -
+              Rotation count.
+      [Result] (o) -
+              Unified with the rotated <a href="#robo3">list</a>.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Calling <strong>rotate</strong> with a rotation count of zero unifies [Result] with <a href="#robo3">list</a>.
+      Calling <strong>rotate</strong> on the empty <a href="#robo3">list</a> unifies [Result] with an empty <a href="#robo3">list</a>.
+      The number of rotations is adjusted to modulo <a href="#robo57">length</a> of [List].         
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>rotate</strong><span class="sign">(</span>List<span class="sign">,</span> 0<span class="sign">,</span> List<span class="sign">)</span><span class="sign">.</span>
+<strong>rotate</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>rotate</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Count <span class="sign">&lt;</span> 0<span class="sign">,</span>
+        NewCount <span class="keyword">is</span> <span class="sign">-</span>Count<span class="sign">,</span>
+        <strong>rotateright</strong><span class="sign">(</span>List<span class="sign">,</span> NewCount<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>rotate</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>rotateleft</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+rotate_adjust<span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> NewCount<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>         <span class="comment">% For big values of <strong>rotate</strong> count,</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>                        <span class="comment">% adjust it to modulo <a href="#robo57">length</a> of <a href="#robo3">list</a></span>
+        NewCount <span class="keyword">is</span> Count <span class="keyword">mod</span> X<span class="sign">.</span>        
+        
+<strong>rotateleft</strong><span class="sign">(</span>X<span class="sign">,</span> 0<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>rotateleft</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>rotateleft</strong><span class="sign">(</span>List<span class="sign">,</span> X<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>                    <span class="comment">% negative rotation counts not allowed</span>
+        X <span class="sign">&lt;</span> 0<span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>
+<strong>rotateleft</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        rotate_adjust<span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        dorotateleft<span class="sign">(</span>List<span class="sign">,</span> X<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+dorotateleft<span class="sign">(</span>X<span class="sign">,</span> 0<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>                          <span class="comment">% this does the real work</span>
+dorotateleft<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+dorotateleft<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewCount <span class="keyword">is</span> Count <span class="sign">-</span> 1<span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>T<span class="sign">,</span> <span class="sign">[</span>H<span class="sign">]</span><span class="sign">,</span> Newlist<span class="sign">)</span><span class="sign">,</span>
+        dorotateleft<span class="sign">(</span>Newlist<span class="sign">,</span> NewCount<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+
+<strong>rotateright</strong><span class="sign">(</span>X<span class="sign">,</span> 0<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>rotateright</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>rotateright</strong><span class="sign">(</span>List<span class="sign">,</span> X<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        X <span class="sign">&lt;</span> 0<span class="sign">,</span> <span class="keyword">fail</span><span class="sign">.</span>
+<strong>rotateright</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        rotate_adjust<span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> RealCount<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> ListLength<span class="sign">)</span><span class="sign">,</span>
+        dorotateright<span class="sign">(</span>List<span class="sign">,</span> ListLength<span class="sign">,</span> RealCount<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+        
+dorotateright<span class="sign">(</span>X<span class="sign">,</span> _<span class="sign">,</span> 0<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+dorotateright<span class="sign">(</span>List<span class="sign">,</span> ListLength<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        TakeLeft <span class="keyword">is</span> ListLength <span class="sign">-</span> 1<span class="sign">,</span>
+        <a href="#robo68">right</a><span class="sign">(</span>List<span class="sign">,</span> 1<span class="sign">,</span> LastElement<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo56">left</a><span class="sign">(</span>List<span class="sign">,</span> TakeLeft<span class="sign">,</span> LeftPart<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span>LastElement<span class="sign">,</span> LeftPart<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">,</span>
+        NewCount <span class="keyword">is</span> Count <span class="sign">-</span> 1<span class="sign">,</span>
+        dorotateright<span class="sign">(</span>NewList<span class="sign">,</span> ListLength<span class="sign">,</span> NewCount<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fset">
+</a><a name="robo70"></a><h2>Modules.List/set [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>set</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>set</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Transforms [List] into a <strong>set</strong>, ie all <a href="#robo47">duplicate</a> elements are removed, and
+      the <a href="#robo3">list</a> is sorted.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to transform into a <strong>set</strong>.
+      [Result] (o) -
+              Resulting <strong>set</strong>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>set</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>set</strong><span class="sign">(</span>List<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">sort</span><span class="sign">(</span>List<span class="sign">,</span> Sorted<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo64">removedups</a><span class="sign">(</span>Sorted<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fslice">
+</a><a name="robo71"></a><h2>Modules.List/slice [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>slice</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>slice</strong>(List, Count, NewList)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      <strong>slice</strong>/3 divides [List] in slices of [Count] elements and sets [NewList]
+      to this <a href="#robo3">list</a> of slices.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List to process.
+      [Count] (i) -
+              Size of a <strong>slice</strong>.
+      [NewList] (o) -
+              List containing the slices.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>slice</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> _<span class="sign">,</span> <span class="sign">[</span><span class="sign">[</span><span class="sign">]</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>                     <span class="comment">% Case of an empty <a href="#robo3">list</a></span>
+<strong>slice</strong><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> NewList<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>          <span class="comment">% Count must be greater than zero</span>
+        Count <span class="sign">&gt;</span> 0<span class="sign">,</span>
+        slice_perform<span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">.</span>
+        
+slice_perform<span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> <span class="sign">[</span>List<span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>   <span class="comment">% Final case : <a href="#robo57">length</a> of <a href="#robo3">list</a> is less than Count</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> Size<span class="sign">)</span><span class="sign">,</span>
+        Size <span class="sign">=</span><span class="sign">&lt;</span> Count<span class="sign">,</span>
+        <span class="sign">!</span><span class="sign">.</span>
+
+slice_perform<span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>   <span class="comment">% Normal case</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> Size<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo56">left</a><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Left<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo46">drop</a><span class="sign">(</span>List<span class="sign">,</span> Count<span class="sign">,</span> Right<span class="sign">)</span><span class="sign">,</span>
+        slice_perform<span class="sign">(</span>Right<span class="sign">,</span> Count<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>Left<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fstrmin">
+</a><a name="robo72"></a><h2>Modules.List/strmin, strmax [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>strmin</strong>/3, <strong>strmax</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>strmin</strong>(X, Y, R), <strong>strmax</strong>(X, Y,R)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [R] with the minimum/maximum value of [X] and [Y].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [X], [Y] (i) -
+              Values to be compared.
+      [R] (o) -
+              Unified with the minimum/maximum value of [X] and [Y].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The comparison is performed lexically.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>strmin</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Y<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>              <span class="comment">% Minimum value of two elements</span>
+        Y <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> X<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>strmin</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+
+<strong>strmax</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> Y<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>              <span class="comment">% Maximum value of two elements</span>
+        Y <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> X<span class="sign">,</span> <span class="sign">!</span><span class="sign">.</span>
+<strong>strmax</strong><span class="sign">(</span>X<span class="sign">,</span> Y<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fstrmin5fof5flist">
+</a><a name="robo73"></a><h2>Modules.List/strmin_of_list, strmax_of_list [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>strmin_of_list</strong>/2, <strong>strmax_of_list</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>strmin_of_list</strong>(List, Result), 
+      <strong>strmax_of_list</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the minimum/maximum value that can be found in [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose minimum/maximum value is to be searched.
+      [Result] (o) -
+              Unified with the minimum/maximum value found in [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      Comparisons are performed lexically.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>strmin_of_list</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>strmin_of_list</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>strmin_of_list</strong><span class="sign">(</span>T<span class="sign">,</span> XBis<span class="sign">)</span><span class="sign">,</span> <a href="#robo72">strmin</a><span class="sign">(</span>H<span class="sign">,</span> XBis<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+        
+<strong>strmax_of_list</strong><span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>
+<strong>strmax_of_list</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> X<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>strmax_of_list</strong><span class="sign">(</span>T<span class="sign">,</span> XBis<span class="sign">)</span><span class="sign">,</span> <a href="#robo72">strmax</a><span class="sign">(</span>H<span class="sign">,</span> XBis<span class="sign">,</span> X<span class="sign">)</span><span class="sign">.</span>    
+</pre>
+
+<hr />
+<a name="Modules2eList2ftake">
+</a><a name="robo74"></a><h2>Modules.List/take [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>take</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>take</strong>(List, Index, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the element of [List] taken at position [Index].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List where to look for element to be taken.
+      [Index] (i) -
+              Index of element to extract.
+      [Result] (o) -
+              Element at position [Index] taken from <a href="#robo3">list</a> [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The predicate fails if [Index] is less than 1 or greater than <a href="#robo57">length</a> of [List].
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>take</strong><span class="sign">(</span>List<span class="sign">,</span> Index<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Index <span class="sign">&lt;</span> 1<span class="sign">.</span>
+<strong>take</strong><span class="sign">(</span>List<span class="sign">,</span> Index<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> ListLength<span class="sign">)</span><span class="sign">,</span>
+        Index <span class="sign">&gt;</span> ListLength<span class="sign">.</span>
+<strong>take</strong><span class="sign">(</span><span class="sign">[</span>Head<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Index<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        Index <span class="sign">=</span><span class="sign">:</span><span class="sign">=</span> 1<span class="sign">,</span>
+        Result <span class="sign">=</span> Head<span class="sign">,</span> 
+        <span class="sign">!</span><span class="sign">.</span>      
+<strong>take</strong><span class="sign">(</span><span class="sign">[</span>Head<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> Index<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        NewIndex <span class="keyword">is</span> Index <span class="sign">-</span> 1<span class="sign">,</span>
+        <strong>take</strong><span class="sign">(</span>Tail<span class="sign">,</span> NewIndex<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>   
+</pre>
+
+<hr />
+<a name="Modules2eList2funion">
+</a><a name="robo75"></a><h2>Modules.List/union [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>union</strong>/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>union</strong>(List1, List2, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the <strong>union</strong> of [List1] and [List2].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List1], [List2] (i) - 
+              Lists on which to <a href="./Meta_pro.html#robo92">apply</a> the <strong>union</strong>.
+      [Result] (o) -
+              Resulting <a href="#robo3">list</a>. Result is sorted, and all <a href="#robo47">duplicate</a> elements
+              are removed.
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>      <strong>union</strong> ([a,d,b,d], [b,<a href="./Maths_pro.html#robo85">c</a>,d]) -&gt; [a,b,<a href="./Maths_pro.html#robo85">c</a>,d]
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>union</strong><span class="sign">(</span>List1<span class="sign">,</span> List2<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="#robo41">append</a><span class="sign">(</span>List1<span class="sign">,</span> List2<span class="sign">,</span> X1<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">sort</span><span class="sign">(</span>X1<span class="sign">,</span> X2<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo64">removedups</a><span class="sign">(</span>X2<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fupper">
+</a><a name="robo76"></a><h2>Modules.List/upper [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>upper</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>upper</strong>(List, Result)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with all the uppercased elements of [List].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose elements are to be uppercased.
+      [Result] (o) -
+              Resulting (uppercased) <a href="#robo3">list</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>upper</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+<strong>upper</strong><span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_uplow</span><span class="sign">(</span>X<span class="sign">,</span> H<span class="sign">)</span><span class="sign">,</span>
+        <strong>upper</strong><span class="sign">(</span>T<span class="sign">,</span> TempResult<span class="sign">)</span><span class="sign">,</span>
+        <a href="#robo41">append</a><span class="sign">(</span><span class="sign">[</span>X<span class="sign">]</span><span class="sign">,</span> TempResult<span class="sign">,</span> Result<span class="sign">)</span><span class="sign">.</span>
+<strong>upper</strong><span class="sign">(</span>Atom<span class="sign">,</span> Result<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom_uplow</span><span class="sign">(</span>Result<span class="sign">,</span> Atom<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eList2fwholelength">
+</a><a name="robo77"></a><h2>Modules.List/wholelength [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <strong>wholelength</strong>/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <strong>wholelength</strong>( List, Result )
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Unifies [Result] with the number of elements in [List]. All sublists
+      are expanded.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [List] (i) -
+              List whose number of elements is to be counted.
+      [Result] (o) -
+              Unified to the number of elements of [List].
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      The <a href="#robo57">length</a> of an empty <a href="#robo3">list</a> is 0. 
+      The <a href="#robo57">length</a> of an atom is 1.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><strong>wholelength</strong><span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> L<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        L <span class="sign">=</span> 0<span class="sign">.</span>
+<strong>wholelength</strong><span class="sign">(</span><span class="sign">[</span>Head<span class="sign">|</span>Tail<span class="sign">]</span><span class="sign">,</span> L<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <strong>wholelength</strong><span class="sign">(</span>Head<span class="sign">,</span> L1<span class="sign">)</span><span class="sign">,</span>
+        <strong>wholelength</strong><span class="sign">(</span>Tail<span class="sign">,</span> L2<span class="sign">)</span><span class="sign">,</span>
+        L <span class="keyword">is</span> L1 <span class="sign">+</span> L2<span class="sign">.</span>
+<strong>wholelength</strong><span class="sign">(</span>X<span class="sign">,</span> L<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">atom</span><span class="sign">(</span>X<span class="sign">)</span><span class="sign">,</span>
+        L <span class="sign">=</span> 1<span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./List.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:11
+</p>
+</div> <!-- footer -->
+</body>
+</html>

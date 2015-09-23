@@ -1,0 +1,8 @@
+/* CONN.
+
+Operator Declarations for Logical Connectives
+Alan Bundy 27.8.82 */
+
+:- op(980,xfy,['->','<->']).	/* implication and equivalence */
+:- op(850,xfy,v).		/* disjunction */
+:- op(710,fy,~).		/* negation */

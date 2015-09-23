@@ -1,0 +1,17 @@
+
+Quintus Prolog Release 1.6 (Sun)
+Copyright (C) 1986, Quintus Computer Systems, Inc.  All rights reserved.
+
+[WARNING: Singleton variables, clause 1 of bind_backward/1: X]
+[WARNING: Singleton variables, clause 1 of make_list/3: X]
+[WARNING: Singleton variables, clause 2 of make_list/3: X]
+[/usr/ra/sicstus/MCV2/Bench/bench_1_6.pl compiled (1.666 sec 1512 bytes)]
+
+yes
+T first loop:    133
+T second loop:   15767
+T net:           15634
+KLips:           7.6756e-04
+
+
+yes

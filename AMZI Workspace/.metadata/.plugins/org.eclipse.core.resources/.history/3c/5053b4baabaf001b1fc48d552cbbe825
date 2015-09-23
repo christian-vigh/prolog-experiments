@@ -1,0 +1,15 @@
+
+
+% Basic data type
+
+binary(0).
+binary(1).
+binary([H|T]) :-
+	binary(H),
+	is_list(T),
+	binary(T).
+
+binary_list([]).
+binary_list([H|T]) :-
+	binary(H),
+	binary_list(T).

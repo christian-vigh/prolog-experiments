@@ -1,0 +1,104 @@
+The following describes the Prolog programs available on directory
+<PROLOG> at SRI-AI. They are all accessible to an anonymous FTP login.
+This file is PROLOG-LIBRARY.LIST in that directory.
+
+The programs have been tested on DEC-10s and DEC-20s with the
+Edinburgh Prolog system. They might need minor changes to run under
+other Prolog systems, such as C-Prolog.
+
+Copy and enjoy!
+
+Fernando Pereira
+
+======================================================================
+
+* The utilities package from the Department of Artificial Intelligence,
+  University of Endinburgh. Contributors include Alan Bundy, Lawrence
+  Byrd and Richard O'Keefe.
+
+util		The top level file, which loads all the others
+	
+util.hlp	A minimal (and outdated) help file
+
+writef.pl	Formatted write (writef)
+trace.pl	Tracing routines
+readin.pl	Read in a sentence
+listro.pl	List routines
+setrou.pl	Set routines
+applic.pl	Application routines
+multil.pl	Multi list routines
+flagro.pl	Flag handling
+struct.pl	Structure crunching
+cmisce.pl	Miscellaneous
+long.pl		Rational arithmatic package
+tidy.pl		Expression tidy/evaluator
+invoca.pl	Invocation routines
+imisce.pl	Miscellaneous (interpreted)
+
+writef.hlp	Documentation for the formatted write
+
+* Pretty printer and utilities from Harry Barrow, Fairchild.
+
+pp		Pretty printer
+utils		Utilities
+
+* Tutorial programs and text by Ernie Davis and Udi Shapiro, Yale and
+  Weizmann Institute.
+
+tutori.pl	Programs
+tutori.lpt	Text
+
+* Teach-yourself Prolog program, by William Wong, Rutgers.
+  To run it, load it into Prolog and then call the predicate 'hi'.
+
+cai.pl
+
+* Prolog cross-reference program from Edinburgh
+
+xref.hlp	Documentation (ignore the installation-specific stuff)
+xref.pl		The cross-referencer (compile it, otherwise it will
+		run out of space very quickly)
+xref.mic	MIC command file to create a runnable XREF image
+		(installation-specific)
+xref.tec	TEC124 macros to update Prolog sources with public
+		declarations
+
+* Richard O'Keefe's Prolog ToolKit.
+  Richard has started to develop an integrated Prolog toolkit. A nice
+  feature is a general help facility that allows interactive perusal of
+  keyword-indexed help files from inside Prolog. I have made some minor
+  modifications to make the toolkit behave better with TOPS-20 filenames,
+  but there might be other installation dependencies. In my version,
+  all files mentioned in the code come from directory <prolog>.
+
+toolkit.hlp	The basic help file for the ToolKit distribution
+toolkit.pl	Compiles and sets up the toolkit. It should be loaded
+		on top of the Edinburgh UTIL package (you can avoid this
+		if you scan the "imports" comments to find which UTIL
+		predicates are used, and load just those).
+toolkit.exe	Created by calling 'save_toolkit' after loading the above.
+		Due to excessive cleverness in the 'save' evaluable predicate,
+		saved images are installation-dependent, so this is irrelevant
+		outside SRI-AI; rebuild it locally as described above.
+
+helper.pl	Prolog help facilities, hacked for TOPS-20.
+helper-10.pl	The original TOPS-10 version of the same.
+helper.hlp	Help for help.
+
+pp.pl		Program pretty-printer and browser (has a nice partial match
+		facility for predicate and functor names). Do not confuse with
+		pp., Harry Barrow's term pretty-printer
+pp.hlp		Help for the same.
+
+ixref.pl	Interactive cross-referencer (based on XREF above, but nicer).
+ixref-10.pl	The original version, with one Edinburgh-specific file name.
+ixref.def	Initial knowledge for the cross-referencer.
+ixref.hlp	Help.
+
+count.pl	Counts the number of clauses in Prolog files (for the "largest
+		Prolog program" award).
+count.hlp	Help.
+
+vcheck.pl	Checks Prolog files for nonanonymous variables occurring only
+		once in a clause; invaluable!
+vcheck.hlp	Help.

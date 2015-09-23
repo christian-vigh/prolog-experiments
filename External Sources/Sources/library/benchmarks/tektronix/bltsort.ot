@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN BuiltinSort BENCHMARK
+!**  Average cputime for 10 sort is 150.000122 msecs.
+!**  Average cputime for 20 sort is 388.888184 msecs.
+!**  Average cputime for 30 sort is 566.666016 msecs.
+!**  Average cputime for 40 sort is 849.999512 msecs.
+!**  Average cputime for 50 sort is 1094.443359 msecs.
+!**  END BuiltinSort BENCHMARK

@@ -1,0 +1,56 @@
+Shapiro's Prolog Debugging System
+
+   These are the files being sent below.   They use TOPS-20 file syntax.
+All examples  run  on  Prolog-10  version  3.3  on  a DEC 2060, and some
+modifications may be necessary to get them to run on other Prologs  [for
+example when loaded into Quintus Prolog the code did not run].
+
+File Descriptions
+-----------------
+
+A description of how to run  examples and scenarios from Shapiro's  book
+Algorithmic Program Debugging, along with  problems in getting the  code
+to run and slight deviations from scenarios in the book.
+
+EXAMPLES..0
+
+The FP and IP programs  and scenarios mentioned on  pages 40, and 55  of
+the book.
+
+FP..0
+IP..0
+
+Files mentioned and described on page 185 and 186 of the book.
+
+DCGREF..0
+DSUTIL..0
+MIS..0
+MISRG..0
+MISSRC..0
+PDS5..0
+PDS6..0
+PDSDB..0
+PDSDC..0
+PDSINI..0
+PDSREF..0
+PDSRG..0
+SOLVE..0
+TYPE..0
+XREF.DEF.0
+
+Buggy QuickSort Programs Used in the Scenarios:
+
+QSORT..0
+QSORT2..0
+
+Some Scenarios Running Different Systems from the Book:
+
+INFER-ISORT.SCENARIO.0
+MIS.SCENARIO.0
+PDS5.SCENARIO.0
+PDS6.SCENARIO.0
+
+Unsuccessful Attempts to Run the Scenario to Infer a Context Free Grammar:
+
+CFREE..0
+CFREE.BUG.0

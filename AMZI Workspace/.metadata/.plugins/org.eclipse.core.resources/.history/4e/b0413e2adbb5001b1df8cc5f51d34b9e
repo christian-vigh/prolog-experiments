@@ -1,0 +1,200 @@
+#
+# An unexpected error has been detected by HotSpot Virtual Machine:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x08079735, pid=3380, tid=3560
+#
+# Java VM: Java HotSpot(TM) Client VM (1.4.2_09-b05 mixed mode)
+# Problematic frame:
+# V  [jvm.dll+0x79735]
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x05bc25e0):  JavaThread "Listener" [_thread_in_native, id=3560]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x00000000
+
+Registers:
+EAX=0x00000000, EBX=0x00000001, ECX=0x0000deab, EDX=0x00000000
+ESP=0x0752f744, EBP=0x0752f754, ESI=0x05bc267c, EDI=0x00000000
+EIP=0x08079735, EFLAGS=0x00010246
+
+Top of Stack: (sp=0x0752f744)
+0x0752f744:   00000000 05bc267c 00000001 05bc25e0
+0x0752f754:   0752f8a8 03d7118a 05bc267c 00000000
+0x0752f764:   00000000 080eab98 03f4b668 0752f8a8
+0x0752f774:   00000001 03d73cc1 05bc267c 00000000
+0x0752f784:   04a36da8 04591a70 68057933 03f4b668
+0x0752f794:   04a36da8 04591a70 00000001 04591a70
+0x0752f7a4:   68058612 0491e758 6802c295 05a87298
+0x0752f7b4:   0000c350 0491e758 6802c9f6 04a36da8 
+
+Instructions: (pc=0x08079735)
+0x08079725:   83 c4 10 85 c0 74 03 c6 00 01 8b 45 0c 53 56 57
+0x08079735:   8b 30 56 e8 6d 8a ff ff 56 8b d8 e8 81 8a ff ff 
+
+
+Stack: [0x074f0000,0x07530000),  sp=0x0752f744,  free space=253k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x79735]
+C  [amzijni.dll+0x118a]
+C  [AMZI.dll+0x63793]
+C  0x00004000
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  amzi.ls.LogicServer.ExecStr(Ljava/lang/String;)J+0
+j  com.amzi.prolog.ui.internal.Listener.run()V+40
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+=>0x05bc25e0 JavaThread "Listener" [_thread_in_native, id=3560]
+  0x05bd0660 JavaThread "Worker-23" [_thread_blocked, id=2524]
+  0x02db5c28 JavaThread "Worker-22" [_thread_blocked, id=1148]
+  0x05bc9550 JavaThread "Listener" [_thread_blocked, id=496]
+  0x02d76008 JavaThread "Listener" [_thread_blocked, id=2340]
+  0x033ae260 JavaThread "Worker-21" [_thread_blocked, id=2116]
+  0x0335e310 JavaThread "Worker-20" [_thread_blocked, id=896]
+  0x05cc67b0 JavaThread "Worker-19" [_thread_blocked, id=3116]
+  0x0343f750 JavaThread "TP-Processor8" daemon [_thread_blocked, id=1040]
+  0x0313f270 JavaThread "TP-Processor7" daemon [_thread_blocked, id=2772]
+  0x033b0640 JavaThread "TP-Processor6" daemon [_thread_in_native, id=3324]
+  0x05c3bdf0 JavaThread "TP-Processor5" daemon [_thread_blocked, id=3588]
+  0x05c4cb78 JavaThread "StandardManager[/help]" daemon [_thread_blocked, id=3532]
+  0x02e41218 JavaThread "TP-Monitor" daemon [_thread_blocked, id=2816]
+  0x031384b8 JavaThread "TP-Processor4" daemon [_thread_blocked, id=3608]
+  0x033c7788 JavaThread "TP-Processor3" daemon [_thread_blocked, id=2080]
+  0x03404e58 JavaThread "TP-Processor2" daemon [_thread_blocked, id=1700]
+  0x0339cdb8 JavaThread "TP-Processor1" daemon [_thread_blocked, id=2548]
+  0x033caab0 JavaThread "StandardManager[]" daemon [_thread_blocked, id=856]
+  0x00a0b1e0 JavaThread "Start Level Event Dispatcher" daemon [_thread_blocked, id=3708]
+  0x00a156e8 JavaThread "Framework Event Dispatcher" daemon [_thread_blocked, id=2956]
+  0x00a08ad0 JavaThread "State Data Manager" daemon [_thread_blocked, id=2148]
+  0x00991288 JavaThread "CompilerThread0" daemon [_thread_blocked, id=3928]
+  0x00990588 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=3408]
+  0x0098dac0 JavaThread "Finalizer" daemon [_thread_blocked, id=1740]
+  0x0098c738 JavaThread "Reference Handler" daemon [_thread_blocked, id=3056]
+  0x00356038 JavaThread "main" [_thread_in_native, id=2656]
+
+Other Threads:
+  0x009cb628 VMThread [id=1284]
+  0x009ccdd8 WatcherThread [id=1924]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 2880K, used 392K [0x10010000, 0x10330000, 0x113c0000)
+  eden space 2560K,  15% used [0x10010000, 0x10072290, 0x10290000)
+  from space 320K,   0% used [0x10290000, 0x10290000, 0x102e0000)
+  to   space 320K,   0% used [0x102e0000, 0x102e0000, 0x10330000)
+ tenured generation   total 37824K, used 9682K [0x113c0000, 0x138b0000, 0x20010000)
+   the space 37824K,  25% used [0x113c0000, 0x11d349c0, 0x11d34a00, 0x138b0000)
+ compacting perm gen  total 23296K, used 23226K [0x20010000, 0x216d0000, 0x24010000)
+   the space 23296K,  99% used [0x20010000, 0x216be908, 0x216bea00, 0x216d0000)
+
+Dynamic libraries:
+0x00400000 - 0x0040b000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\javaw.exe
+0x7c910000 - 0x7c9c7000 	C:\WINDOWS\system32\ntdll.dll
+0x7c800000 - 0x7c904000 	C:\WINDOWS\system32\kernel32.dll
+0x77da0000 - 0x77e4c000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77e50000 - 0x77ee1000 	C:\WINDOWS\system32\RPCRT4.dll
+0x77d10000 - 0x77da0000 	C:\WINDOWS\system32\USER32.dll
+0x77ef0000 - 0x77f37000 	C:\WINDOWS\system32\GDI32.dll
+0x77be0000 - 0x77c38000 	C:\WINDOWS\system32\MSVCRT.dll
+0x08000000 - 0x0813d000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\client\jvm.dll
+0x76ae0000 - 0x76b0f000 	C:\WINDOWS\system32\WINMM.dll
+0x10000000 - 0x10007000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\hpi.dll
+0x76ba0000 - 0x76bab000 	C:\WINDOWS\system32\PSAPI.DLL
+0x00820000 - 0x0082e000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\verify.dll
+0x00830000 - 0x00849000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\java.dll
+0x00850000 - 0x0085e000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\zip.dll
+0x77b50000 - 0x77b72000 	C:\WINDOWS\system32\Apphelp.dll
+0x00930000 - 0x0093f000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\net.dll
+0x719f0000 - 0x71a07000 	C:\WINDOWS\system32\WS2_32.dll
+0x719e0000 - 0x719e8000 	C:\WINDOWS\system32\WS2HELP.dll
+0x02f70000 - 0x02f78000 	C:\Program Files\amzi\eclipse_3-2\jre\bin\nio.dll
+0x03440000 - 0x03492000 	C:\Program Files\amzi\eclipse_3-2\configuration\org.eclipse.osgi\bundles\95\1\.cp\swt-win32-3235.dll
+0x774a0000 - 0x775dc000 	C:\WINDOWS\system32\ole32.dll
+0x77390000 - 0x77492000 	C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2180_x-ww_a84f1ff9\COMCTL32.dll
+0x77f40000 - 0x77fb6000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x76340000 - 0x7638a000 	C:\WINDOWS\system32\comdlg32.dll
+0x7c9d0000 - 0x7d1f3000 	C:\WINDOWS\system32\SHELL32.dll
+0x770e0000 - 0x7716c000 	C:\WINDOWS\system32\OLEAUT32.dll
+0x76320000 - 0x7633d000 	C:\WINDOWS\system32\IMM32.dll
+0x753c0000 - 0x7542b000 	C:\WINDOWS\system32\USP10.dll
+0x77aa0000 - 0x77b4a000 	C:\WINDOWS\system32\WININET.dll
+0x779e0000 - 0x77a76000 	C:\WINDOWS\system32\CRYPT32.dll
+0x77a80000 - 0x77a92000 	C:\WINDOWS\system32\MSASN1.dll
+0x75ba0000 - 0x75bc1000 	C:\WINDOWS\system32\MSVFW32.dll
+0x58b50000 - 0x58be7000 	C:\WINDOWS\system32\comctl32.dll
+0x5b090000 - 0x5b0c8000 	C:\WINDOWS\system32\uxtheme.dll
+0x03560000 - 0x03564000 	C:\Program Files\Unlocker\UnlockerHook.dll
+0x03580000 - 0x03588000 	C:\Program Files\amzi\eclipse_3-2\configuration\org.eclipse.osgi\bundles\19\1\.cp\os\win32\x86\localfile_1_0_0.dll
+0x74bf0000 - 0x74c1c000 	C:\WINDOWS\system32\oleacc.dll
+0x76010000 - 0x76075000 	C:\WINDOWS\system32\MSVCP60.dll
+0x03830000 - 0x03843000 	C:\Program Files\amzi\eclipse_3-2\configuration\org.eclipse.osgi\bundles\95\1\.cp\swt-gdip-win32-3235.dll
+0x4eb80000 - 0x4ed23000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.2600.2180_x-ww_522f9f82\gdiplus.dll
+0x03a10000 - 0x03cea000 	C:\WINDOWS\system32\xpsp2res.dll
+0x03d70000 - 0x03de9000 	C:\Program Files\amzi\amzi_7-6-3\bin\amzijni.dll
+0x68000000 - 0x6824f000 	C:\Program Files\amzi\amzi_7-6-3\bin\AMZI.dll
+0x76d10000 - 0x76d29000 	C:\WINDOWS\system32\iphlpapi.dll
+0x66b20000 - 0x66b2b000 	C:\WINDOWS\system32\inetmib1.dll
+0x71ed0000 - 0x71ed8000 	C:\WINDOWS\system32\snmpapi.dll
+0x71a10000 - 0x71a1a000 	C:\WINDOWS\system32\WSOCK32.dll
+0x76cf0000 - 0x76d08000 	C:\WINDOWS\system32\MPRAPI.dll
+0x77c90000 - 0x77cc2000 	C:\WINDOWS\system32\ACTIVEDS.dll
+0x76dc0000 - 0x76de5000 	C:\WINDOWS\system32\adsldpc.dll
+0x6fee0000 - 0x6ff34000 	C:\WINDOWS\system32\NETAPI32.dll
+0x76f10000 - 0x76f3d000 	C:\WINDOWS\system32\WLDAP32.dll
+0x76ac0000 - 0x76ad1000 	C:\WINDOWS\system32\ATL.DLL
+0x76e30000 - 0x76e3e000 	C:\WINDOWS\system32\rtutils.dll
+0x71b50000 - 0x71b63000 	C:\WINDOWS\system32\SAMLIB.dll
+0x778e0000 - 0x779d8000 	C:\WINDOWS\system32\SETUPAPI.dll
+0x04720000 - 0x04754000 	C:\Program Files\amzi\amzi_7-6-3\bin\aosutils.lsx
+0x72f50000 - 0x72f76000 	C:\WINDOWS\system32\WINSPOOL.DRV
+0x76f80000 - 0x76fff000 	C:\WINDOWS\system32\CLBCATQ.DLL
+0x77000000 - 0x770d4000 	C:\WINDOWS\system32\COMRes.dll
+0x77bd0000 - 0x77bd8000 	C:\WINDOWS\system32\VERSION.dll
+0x75d30000 - 0x75dc1000 	C:\WINDOWS\system32\mlang.dll
+0x76310000 - 0x76315000 	C:\WINDOWS\system32\msimg32.dll
+0x04c50000 - 0x04c57000 	C:\Program Files\Copernic Desktop Search 2\DesktopSearchSystem2526.dll
+0x04df0000 - 0x04dfd000 	C:\Program Files\Kerio\Personal Firewall 4\gkh.dll
+0x71990000 - 0x719d0000 	C:\WINDOWS\System32\mswsock.dll
+0x76ed0000 - 0x76ef7000 	C:\WINDOWS\system32\DNSAPI.dll
+0x76f60000 - 0x76f68000 	C:\WINDOWS\System32\winrnr.dll
+0x76f70000 - 0x76f76000 	C:\WINDOWS\system32\rasadhlp.dll
+0x62e40000 - 0x62e99000 	C:\WINDOWS\system32\hnetcfg.dll
+0x719d0000 - 0x719d8000 	C:\WINDOWS\System32\wshtcpip.dll
+0x77720000 - 0x77890000 	C:\WINDOWS\system32\shdocvw.dll
+0x76610000 - 0x76694000 	C:\WINDOWS\system32\CRYPTUI.dll
+0x76be0000 - 0x76c0e000 	C:\WINDOWS\system32\WINTRUST.dll
+0x76c40000 - 0x76c68000 	C:\WINDOWS\system32\IMAGEHLP.dll
+0x77fc0000 - 0x77fd1000 	C:\WINDOWS\system32\Secur32.dll
+0x77210000 - 0x772c1000 	C:\WINDOWS\system32\SXS.DLL
+0x745e0000 - 0x748a6000 	C:\WINDOWS\system32\msi.dll
+
+VM Arguments:
+jvm_args: -Xms40m -Xmx256m
+java_command: C:\Program Files\amzi\eclipse_3-2\startup.jar -os win32 -ws win32 -arch x86 -launcher C:\Program Files\amzi\eclipse_3-2\eclipse.exe -name Eclipse -showsplash 600 -exitdata ba4_50 -vm C:\Program Files\amzi\eclipse_3-2\jre\bin\javaw.exe -vmargs -Xms40m -Xmx256m -jar C:\Program Files\amzi\eclipse_3-2\startup.jar
+
+Environment Variables:
+CLASSPATH=C:\Program Files\amzi\amzi_7-6-3\lsapis\java20
+PATH=C:\Program Files\amzi\amzi_7-6-3\bin;C:\Progra~1\Perl\bin\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Fichiers communs\GTK\2.0\bin;C:\Program Files\IDM Computer Solutions\UltraEdit-32;C:\Program Files\IDM Computer Solutions\UEStudio '06;C:\Program Files\Microsoft SQL Server\80\Tools\Binn\;C:\Program Files\doxygen\bin;C:\Program Files\Robodoc
+USERNAME=Christian
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 6, GenuineIntel
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 2
+
+CPU:total 2 family 6, cmov, cx8, fxsr, mmx, sse, sse2
+
+Memory: 4k page, physical 2095480k(1334644k free), swap 4033636k(3345200k free)
+
+vm_info: Java HotSpot(TM) Client VM (1.4.2_09-b05) for windows-x86, built on Jul 25 2005 22:44:22 by "java_re" with MS VC++ 6.0
+

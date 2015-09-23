@@ -1,0 +1,27 @@
+% logical predicates
+
+
+% A boolean is...
+boolean(0).
+boolean(1).
+boolean(X) :-
+	throw( domainerror(boolean, X) ).
+	
+
+% Just to test which are authorized combinations of operators
+junk([ 
+ 	./\.		,
+ 	.\/.		,
+ 	.~.		,
+ 	.\~/.		,
+	.->.		,
+ 	*=
+ 	]).
+
+% NOT operator 
+:- op(500, fx, .~.).
+ 
+.~. 0.
+.~. 1 :- fail.
+.~. _ :- throw(
+	

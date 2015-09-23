@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="com.amzi.prolog.ui.launch.prologFileListener">
+<stringAttribute key="lsxList" value=""/>
+<stringAttribute key="consultList" value="'Stack.pro', '../Modules/list.pro'"/>
+<stringAttribute key="cfgPathname" value=""/>
+<stringAttribute key="projectPathname" value="D:\Development\Prolog\Working"/>
+<stringAttribute key="xplPathname" value="C:\Program Files\amzi\amzi_7-6-3\abin\alis.xpl"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="loadList" value=""/>
+<stringAttribute key="projectName" value="Working"/>
+</launchConfiguration>

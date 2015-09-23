@@ -1,0 +1,44 @@
+Date:       Tuesday, 1-Nov-83  16:52:21-GMT
+From:       Bundy HPS (on ERCC DEC-10) <Bundy@EDXA>
+To:         Restivo <Restivo%SU-SCORE@UCL-CS>
+Reply-To:   Bundy@Rutgers
+Subject:    Story Figures
+
+Chuck,
+
+Here are some brief comments about the things to be drawn in diagrams:
+
+Fig 1-1
+	Lines of the form:
+  ?- double(94,[1,94,3],Ans) 
+are clauses labelling nodes, and should have arcs connecting them with
+clauses below them, and passing through lines of the form:
+  3 Ans=[Hd2|Tl2]
+which are clause numbers plus unifiers.  The bit of the tree deleted by
+the cut should be scribbled out.
+
+Fig 2-1
+	Lines of the form:
+		 double(94,[1,94,3],Ans)
+are literals labelling nodes, and should have bundles of arcs
+connecting them with literals below them, and passing through lines of
+the form:
+		  3     Ans=[Hd2|Tl2]
+which are clause numbers plus unifiers.  Each bundle should be linked
+with a circle segment.  The bit of the tree deleted by the operation of
+cut should be scribbled out.
+
+Figure 4-1
+There should be an arrow from the underlined literal to the
+matching literal in the clause definition. The should be a short 
+arrow from Tl4 to the [] below it.
+
+Figure 4-2
+There should be a long wiggly arrow connecting all the literals
+in a depth first search trace.
+
+The address for hard copy is:  Alan Bundy, Dept of AI, Univ of
+Edinburgh, Hope Park Square, Edinburgh, EH9 2JG, UK.
+
+-- Alan
+

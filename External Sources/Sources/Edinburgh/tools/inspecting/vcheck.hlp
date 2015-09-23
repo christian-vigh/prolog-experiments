@@ -1,0 +1,24 @@
+File:   Mec:Vcheck.Hlp	 Author:  R.A.O'Keefe   Updated: 7 December 82
+
+#purpose.
+
+The purpose of this program is to help me (and others) debug Prolog programs.
+It reads a Prolog source file clause by clause, and reports each clause that
+contains a unique variable.  Vcheck worries about variables that only appear
+once in a clause, unlike Wlist which only notices if a variable doesn't occur
+elsewhere in the whole file.
+
+#commands.
+
+Vcheck is now part of the Prolog ToolKit.  To run any of the Tools,
+you type either of the Monitor commands
+		.ToolKit		- if part of the DAI HPS group
+		.ru ToolKit[400,444]	- otherwise
+
+There are two Prolog commands available:
+		?- vcheck(File).	- check a particular file
+		?- vcheck.		- enter a command loop like COUNT
+
+#files.
+
+call give_help(count,files) for details.

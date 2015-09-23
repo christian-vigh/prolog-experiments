@@ -1,0 +1,41 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/*  Get an average cpu time for 5 different parameters  */
+
+test_genlist :-
+nl, write('!**  BEGIN GenList BENCHMARK'), nl,
+ave_genlist(20),
+ave_genlist(40),
+ave_genlist(60),
+ave_genlist(80),
+ave_genlist(100),
+nl, write('!**  END GenList BENCHMARK'), nl.
+
+/*  call the benchmark 3 times and calculate the average  */
+
+ave_genlist(P) :-
+call_genlist(P,T1),
+call_genlist(P,T2),
+call_genlist(P,T3),
+calc_ave_genlist(P,T1,T2,T3).
+
+/*  call benchmark and return cputime in msecs.  */
+
+call_genlist(P,T) :-
+T1 is cputime,
+make_list(P,_),
+T2 is cputime,
+T is 1000*(T2-T1).
+
+/*  calculate average of 3 times for parameter P  */
+
+calc_ave_genlist(P,T1,T2,T3) :-
+Ave is (T1+T2+T3)/3,
+nl, write('!**  Average cputime for '),
+write(P), write(' genlist is '),
+write(Ave), write(' msecs.'), nl.
+
+:- test_genlist.
+

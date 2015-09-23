@@ -1,0 +1,88 @@
+/* an interactive debugging system based on the programs in the thesis
+(and file pdsdc) */
+
+:- initialized -> true ;
+   ['xref.def'], compile([dsutil,type,misrg,pdsref]), [pdsdc,pdsdb,pdsini],
+   [missrc,pdsrg,pdsref],
+   assert(initialized).
+
+pds :-
+	nl, read('@',P), ( P=exit ; solve_and_check(P), pds ).
+
+solve_and_check(P) :-
+	writelv(['Solving ',P,'...']), nl,
+	bagof0((P,X),msolve(P,X),S), confirm_solutions(P,S).
+
+confirm_solutions(P,[(P1,(overflow,S))]) :- !,
+	stack_overflow(P1,S),
+	solve_and_check(P).
+confirm_solutions(P,[(P1,false)]) :- !,
+	solve_and_check(P).
+confirm_solutions(P,[(P1,X)|S]) :-
+	writelv(['solution: ',P1, ';']),
+	( ( system(P1) ; fact(P1,true) ) -> nl, confirm_solutions(P,S) ;
+	  confirm(' ok') -> assert_fact(P1,true), confirm_solutions(P,S) ;
+	  assert_fact(P1,false),
+	  false_solution(P1), solve_and_check(P) ).
+confirm_solutions(P,[]) :-
+	write('no (more) solutions.'),
+	( system(P) -> nl ;
+	  confirm(' ok') -> true ;
+	  missing_solution(P), solve_and_check(P) ).
+
+handle_error('false clause',X) :-  !,
+	writelv(['Error diagnosed: ',X,' is false.']), nl,
+	X=(P:-Q),
+	ask_then_do(
+	    ['retract (y), (m)odify, or (r)eplace it'],
+	    [(false, true),
+	     (true, retract(X)),
+	     (r, ( ask_for(['with what'],C),
+		   retract(X), assert(C) ) ),
+	     (m, (mgt(P,P1), clause(P1,Q1,_), verify(((P:-Q)=(P1:-Q1))),
+		  % can't use Ref because of a Prolog bug.
+		  modify((P1:-Q1),Y), retract(X), assert(Y) ) )
+	     ] ),
+	plisting(P), !.
+handle_error('uncovered atom',P) :- !,
+	writelv(['Error diagnosed: ',P,' is uncovered.']), nl,
+	ask_then_do(
+	['add (y) or (m)odify a clause'],
+	[(false, true),
+	 (true, ( ask_for('which',C), assert(C) ) ),
+	 (m, ( ask_for('which',C1),
+		 ( C1=(_:-_), !, retract(C1), C=C1 ;
+		   C1=any, !, mgt(P,P1), C=(P1:-true) ;
+		   C=(C1:-true), retract(C1) ),
+		  modify(C,P,Y), assert(Y) ) )
+	 ] ),
+	plisting(P), !.
+
+handle_error('diverging clause',(P:-Q)) :- !,
+	writelv(['Error diagnosed: ',(P:-Q),' is diverging.']), nl,
+	X=(P:-Q),
+	ask_then_do(
+
+	    ['retract (y), (m)odify, or (r)eplace it'],
+	    [(false, true),
+	     (true, retract(X)),
+	     (r, ( ask_for(['with what'],C),
+		   retract(X), assert(C) ) ),
+	     (m, (mgt(P,P1), clause(P1,Q1,_), verify(((P:-Q)=(P1:-Q1))),
+		  % can't use Ref because of a Prolog bug.
+		  modify((P1:-Q1),Y), retract(X), assert(Y) ) )
+	     ] ),
+	plisting(P), !.
+
+modify(X,Y) :-
+	reason(P,X), modify(X,P,Y).
+
+modify(X,P,Y) :-
+	search_rg(X,P,Y), confirm(ok), ! ; break(modify(X,P,Y)).
+
+reason(P,X) :-
+	reason1(P,X) -> true ;
+	ask_for(['What is a reason for ',X],P) ->
+	    assert(reason1(X,P)).
+
+:- assert(value(search_strategy,eager)).

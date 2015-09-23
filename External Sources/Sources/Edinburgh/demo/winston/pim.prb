@@ -1,0 +1,33 @@
+/* pim_prb
+
+Artificial Inference testing example for focussing
+Alan Bundy 8.7.82 */
+
+/* space of description trees */
+space(pim,[pqrtree,ijtree,mntree]).
+
+
+/* description trees */
+
+tree(pqrtree,1,pqr(pq(p,q),r) ).
+
+tree(ijtree,1,ij(i,j) ).
+
+tree(mntree,1,mn(m,n) ).
+
+
+/* Examples */
+specimen(pim, [ p(a), i(a), m(a) ] ).
+
+/* Near Misses */
+specimen(pjm, [ p(a), j(a), m(a) ] ).
+
+specimen(pin, [ p(a), i(a), n(a) ] ).
+
+
+/* Inference Rules */
+rule(	~record([X],ijtree,[1]) v
+	~record([X],mntree,[1]) v
+	~ record([X],pqrtree,[1,2]) ).
+
+

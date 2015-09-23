@@ -1,0 +1,42 @@
+/*  VAX C-Prolog Benchmark Package  /*
+/*  Copyright 1985 by Tektronix, Inc., and Portland State University  /*
+
+
+/*  Get an average cpu time for 5 different parameters  */
+
+test_rev :-
+nl, write('!**  BEGIN NaiveReverse BENCHMARK'), nl,
+ave_rev(10),
+ave_rev(15),
+ave_rev(20),
+ave_rev(25),
+ave_rev(30),
+nl, write('!**  END NaiveReverse BENCHMARK'), nl.
+
+/*  call the benchmark 3 times and calculate the average  */
+
+ave_rev(P) :-
+call_rev(P,T1),
+call_rev(P,T2),
+call_rev(P,T3),
+calc_ave_rev(P,T1,T2,T3).
+
+/*  call benchmark and return cputime in msecs.  */
+
+call_rev(P,T) :-
+mk_list(P,L),
+T1 is cputime,
+rev(L,_),
+T2 is cputime,
+T is 1000*(T2-T1).
+
+/*  calculate average of 3 times for parameter P  */
+
+calc_ave_rev(P,T1,T2,T3) :-
+Ave is (T1+T2+T3)/3,
+nl, write('!**  Average cputime for '),
+write(P), write(' nairev is '),
+write(Ave), write(' msecs.'), nl.
+
+:- test_rev.
+

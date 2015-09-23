@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./Documentation/Stack_pro.html</title>
+<!-- Source: ./Stack.pro -->
+<!-- Generated with ROBODoc Version 4.99.28 (Jan 29 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Prolog Utility Modules</a>
+</div> <!-- logo -->
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo8">Modules/Stack</a></li>
+<li>2. <a href="#robo99">Modules.Stack/bitwise stack operations</a></li>
+<li>3. <a href="#robo100">Modules.Stack/boolean operations on stack (numbers)</a></li>
+<li>4. <a href="#robo101">Modules.Stack/boolean operations on stack (strings)</a></li>
+<li>5. <a href="#robo102">Modules.Stack/mathematical operations on stack</a></li>
+<li>6. <a href="#robo103">Modules.Stack/other stack operations</a></li>
+<li>7. <a href="#robo104">Modules.Stack/peek operations</a></li>
+<li>8. <a href="#robo105">Modules.Stack/pop operations</a></li>
+<li>9. <a href="#robo106">Modules.Stack/print</a></li>
+<li>10. <a href="#robo107">Modules.Stack/push operations</a></li>
+<li>11. <a href="#robo108">Modules.Stack/stack manipulation operations</a></li>
+<li>12. <a href="#robo109">Modules.Stack/stack query operations</a></li>
+</ul>
+<hr />
+<a name="Modules2fStack">
+</a><a name="robo8"></a><h2>Modules/Stack [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<pre>      <strong>Stack</strong> - <strong>Stack</strong>-handling predicates.
+</pre>
+<p class="item_name">FILE</p>
+<pre>      Modules/<a href="#robo_top_of_doc">Stack.pro</a>
+</pre>
+<p class="item_name">CONTENTS</p>
+<pre>      The <strong>Stack</strong> package implements stack manipulation predicates, such as 
+      push(), pop() and so on. It also implements some of the Forth language
+      stack-manipulation words.
+
+      The implementation choice for a stack is storing it as a rule, such as :
+              
+              stack(Name, List)
+
+      where [Name] is the stack name, and [List] its contents. Every update to
+      a stack using one of the stack predicates supersedes its previous contents
+      (rule definition). This implementation choice avoids using too many
+      temporary variables ; for example, instead of writing :
+
+              push(X, value, NewX).
+
+      One can write :
+
+              push(X, value).
+
+      The preceding stack() definition is retracted and replace by a new stack
+      definition, whose [List] argument now contains the original stack contents
+      plus the added value.           
+
+      A stack is created using the create/1 predicate and deleted using <a href="./Array_pro.html#robo23">delete</a>/1.
+      A value can be pushed using the push/2 predicate, and popped using pop/2.
+      The top of stack can be examined without removing the value by using peek/2.
+      The sizeof/2 predicate gives the <a href="./Array_pro.html#robo34">size</a> of the stack, whereas is_empty/1
+      succeeds if the stack is empty.
+</pre>
+<p class="item_name">USES</p>
+<pre>      <a href="./List_pro.html#robo3">list</a>.pro
+</pre>
+<p class="item_name">AUTHOR</p>
+<pre>      Christian Vigh, February 2007.
+
+</pre>
+
+<hr />
+<a name="Modules2eStack2fbitwise20stack20operations">
+</a><a name="robo99"></a><h2>Modules.Stack/bitwise stack operations [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      and/1, or/1, neg/1, xor/1, lshift/1, rshift/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      and(StackName) etc...
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      and/1 performs a bitwise-and operation between the two values on top of
+      stack, and replaces them with the result.
+      or/1 performs a bitwise-or operation between the two values on top of
+      stack, and replaces them with the result.
+      xor/1 performs a bitwise-xor operation between the two values on top of
+      stack, and replaces them with the result.
+      neg/1 performs a bitwise-not operation on the value on top of stack, and 
+      replaces it with the result.
+      lshift/1 bitwise-shifts <a href="./List_pro.html#robo56">left</a> the value on top of stack times the value on
+      top of stack - 1.
+      rshift/1 bitwise-shifts <a href="./List_pro.html#robo68">right</a> the value on top of stack times the value on
+      top of stack - 1.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName] (i) -
+              Name of the stack on which to perform the operation.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">and<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">/</span><span class="sign">\</span><span class="sign">)</span><span class="sign">.</span>
+        
+or<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">\</span><span class="sign">/</span><span class="sign">)</span><span class="sign">.</span>
+
+neg<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">\</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">xor</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">xor</span><span class="sign">)</span><span class="sign">.</span>
+
+lshift<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">&lt;</span><span class="sign">&lt;</span><span class="sign">)</span><span class="sign">.</span>
+
+rshift<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">&gt;</span><span class="sign">&gt;</span><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fboolean20operations20on20stack2028numbers29">
+</a><a name="robo100"></a><h2>Modules.Stack/boolean operations on stack (numbers) [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <a href="./boolean_pro.html#robo38">true</a>/1, <a href="./boolean_pro.html#robo38">false</a>/1
+      within/1
+      lt0/1, le0/1, gt0/1, ge0/1, eq0/1, ne0/1
+      lt/1 , le/1 , gt/1 , ge/1 , eq/1 , ne/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <a href="./boolean_pro.html#robo38">true</a>(StackName) etc.
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      All the predicates operate on numeric values.
+
+      <a href="./boolean_pro.html#robo38">true</a>/1 and <a href="./boolean_pro.html#robo38">false</a>/1 respectively push the value <a href="./boolean_pro.html#robo38">true</a> (1) and <a href="./boolean_pro.html#robo38">false</a> (0) onto
+      the top of stack.
+
+      within/1 tests if the value on top of stack is between the values on top
+      of stack-1 and top of stack-2. It replaces the 3 values with the comparison
+      result, either 0 or 1.
+
+      The lt0/1, le0/1, gt0/1, ge0/1, eq0/1, ne0/1 predicates check the value on
+      top of stack against zero and replaces it with the result of the comparison
+      (either 0 or 1). The result is :
+      * lt0 : the value on top of stack is less than 0
+      * le0 : the value on top of stack is less than or <a href="./List_pro.html#robo48">equal</a> to zero
+      * gt0 : the value on top of stack is greater than zero
+      * ge0 : the value on top of stack is greater than or <a href="./List_pro.html#robo48">equal</a> to zero
+      * eq0 : the value on top of stack is <a href="./List_pro.html#robo48">equal</a> to zero
+      * ne0 : the value on top of stack is different from zero
+
+      The lt/1 , le/1 , gt/1 , ge/1 , eq/1 , ne/1 predicates performs a comparison
+      between the two values on top of stack and replaces them with the result
+      (either 0 or 1). The result will be <a href="./boolean_pro.html#robo38">true</a> (1) if :
+      * lt : TOS-1 is less than TOS-2
+      * le : TOS-1 is less than or <a href="./List_pro.html#robo48">equal</a> to TOS-2
+      * gt : TOS-1 is greater than TOS-2
+      * ge : TOS-1 is greater or <a href="./List_pro.html#robo48">equal</a> to TOS-2
+      * ne : TOS-1 is different from TOS-2
+      * eq : TOS-1 equals TOS-2
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName] (i) -
+              Name of the stack on which the operation is to be performed.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><a href="./boolean_pro.html#robo38">true</a><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        X <span class="sign">\</span><span class="sign">=</span><span class="sign">=</span> 0<span class="sign">.</span>
+        
+<a href="./boolean_pro.html#robo38">false</a><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        X <span class="sign">=</span><span class="sign">=</span> 0<span class="sign">.</span>
+        
+        
+within<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Low<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> High<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">&gt;</span><span class="sign">=</span> Low<span class="sign">,</span> X <span class="sign">=</span><span class="sign">&lt;</span> High<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+        
+        
+lt0<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">&lt;</span> 0<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+         
+le0<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">=</span><span class="sign">&lt;</span> 0<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+gt0<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">&gt;</span> 0<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+ge0<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">&gt;</span><span class="sign">=</span> 0<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+eq0<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">=</span><span class="sign">:</span><span class="sign">=</span> 0<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+ne0<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">=</span><span class="sign">\</span><span class="sign">=</span> 0<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+lt<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">&lt;</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+le<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">=</span><span class="sign">&lt;</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+         
+gt<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">&gt;</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+ge<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">&gt;</span><span class="sign">=</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+eq<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">=</span><span class="sign">:</span><span class="sign">=</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+ne<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">=</span><span class="sign">\</span><span class="sign">=</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fboolean20operations20on20stack2028strings29">
+</a><a name="robo101"></a><h2>Modules.Stack/boolean operations on stack (strings) [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      lwithin/1
+      llt/1 , lle/1 , lgt/1 , lge/1 , leq/1 , lne/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      lwithin(StackName) etc.
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      All the predicates operate on string/atom values (comparisons are performed
+      lexically).
+
+      lwithin/1 tests if the value on top of stack is between the values on top
+      of stack-1 and top of stack-2. It replaces the 3 values with the comparison
+      result, either 0 or 1.
+
+      The llt/1 , lle/1 , lgt/1 , lge/1 , leq/1 , lne/1 predicates performs a
+      comparison between the two values on top of stack and replaces them with
+      the result (either 0 or 1). The result will be <a href="./boolean_pro.html#robo38">true</a> (1) if :
+      * llt : TOS-1 is less than TOS-2
+      * lle : TOS-1 is less than or <a href="./List_pro.html#robo48">equal</a> to TOS-2
+      * lgt : TOS-1 is greater than TOS-2
+      * lge : TOS-1 is greater or <a href="./List_pro.html#robo48">equal</a> to TOS-2
+      * lne : TOS-1 is different from TOS-2
+      * leq : TOS-1 equals TOS-2
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName] (i) -
+              Name of the stack on which the operation is to be performed.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">llt<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">@</span><span class="sign">&lt;</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+lle<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+         
+lgt<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">@</span><span class="sign">&gt;</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+lge<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+leq<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">=</span><span class="sign">=</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+lne<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">\</span><span class="sign">=</span><span class="sign">=</span> Y<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+
+lwithin<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Low<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> High<span class="sign">)</span><span class="sign">,</span>
+        <span class="sign">(</span>
+                <span class="sign">(</span> X <span class="sign">@</span><span class="sign">&gt;</span><span class="sign">=</span> Low<span class="sign">,</span> X <span class="sign">@</span><span class="sign">=</span><span class="sign">&lt;</span> High<span class="sign">,</span> push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 1<span class="sign">)</span> <span class="sign">)</span> <span class="sign">;</span>
+                push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> 0<span class="sign">)</span>
+         <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fmathematical20operations20on20stack">
+</a><a name="robo102"></a><h2>Modules.Stack/mathematical operations on stack [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      abs/1, acos/1, add/1, asin/1, atan/1,
+      ceiling/1, cos/1,
+      dec/1, div/1, divmod/1,
+      e/1, exp/1,
+      floor/1,
+      inc/1, int/1,
+      log/1, log10/1,
+      max/1, min/1, minus/1, mod/1, mul/1,
+      pi/1, power/1,
+      random/1, round/1,
+      sin/1, sqrt/1, sub/1, 
+      tan/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      abs(StackName) etc.
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      abs/1 replaces the top of stack with its absolute value.
+      acos/1 replaces the top of stack with its arc-cosine.
+      add/1 pops the two values at the top of stack and replace them with their <a href="./Maths_pro.html#robo90">sum</a>.
+      asin/1 replaces the top of stack with its arc-sine.
+      atan/1 replaces the top of stack with its arc-tan.
+      ceiling/1 replaces the top of stack with its ceiled value.
+      cos/1 replaces the top of stack with its cosine.
+      dec/1 decrements the value on the top of stack.
+      div/1 performs a division between the two values at the top of stack and replace
+      them with the result.
+      divmod/1 performs a division between the two values at the top of stack and
+      replaces them with the quotient and the remainder.
+      e/1 push the value of e onto the top of stack.
+      exp/1 replaces the top of stack with its exp() value.
+      floor/1 replaces the top of stack with its floor-value.
+      inc/1 increments the value on the top of stack.
+      int/1 replaces the value on the top of stack with its integer representation.
+      log/1, log10 replaces the top of stack with its log/log10 value.
+      min/1, max/1 replace the two values at the top of stack by their minimum/maximum.
+      minus/1 negates the value at the top of stack.
+      mod/1 divides the two values at the top of stack and replaces them with their
+      quotient.
+      mul/1 multiplies the two values at the top of stack and replaces them with
+      the result.
+      pi/1 pushes the pi value on top of stack.
+      power/1 performs the power of top of stack by top of stack-1, and replaces
+      them by the result.
+      random/1 pushes a random value on top of stack.
+      round/1 replaces the top of stack with its rounded value.
+      sin/1 replaces the top of stack with its sine.
+      sqrt/1 replaces the top of stack with its square root.
+      sub/1 substract the value on top of stack with the value on top of stack - 1,
+      then replaces them with the result.
+      tan/1 replaces the top of stack with its tangent.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="keyword">abs</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">abs</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">acos</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">acos</span><span class="sign">)</span><span class="sign">.</span>
+
+add<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">+</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">asin</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">asin</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">atan</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">atan</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">ceiling</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">ceiling</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">cos</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">cos</span><span class="sign">)</span><span class="sign">.</span>
+        
+dec<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">-</span><span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>
+        
+div<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">/</span><span class="sign">)</span><span class="sign">.</span>
+        
+divmod<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> X<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> Y<span class="sign">)</span><span class="sign">,</span>
+        Div <span class="keyword">is</span> X <span class="sign">/</span> Y<span class="sign">,</span>
+        Mod <span class="keyword">is</span> X <span class="keyword">mod</span> Y<span class="sign">,</span>
+        push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>Mod<span class="sign">,</span> Div<span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">e</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">e</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">exp</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">exp</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">floor</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">floor</span><span class="sign">)</span><span class="sign">.</span>
+
+inc<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">+</span><span class="sign">,</span> 1<span class="sign">)</span><span class="sign">.</span>  
+
+int<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">integer</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">log</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">log</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">log10</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">log10</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">max</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">max</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">min</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">min</span><span class="sign">)</span><span class="sign">.</span>
+
+minus<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">-</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">mod</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">mod</span><span class="sign">)</span><span class="sign">.</span>
+        
+mul<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">*</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">pi</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        push<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">pi</span><span class="sign">)</span><span class="sign">.</span>
+        
+power<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">*</span><span class="sign">*</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">random</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">random</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">round</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">round</span><span class="sign">)</span><span class="sign">.</span>
+
+<span class="keyword">sin</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">sin</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">sqrt</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">sqrt</span><span class="sign">)</span><span class="sign">.</span>
+
+sub<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">-</span><span class="sign">)</span><span class="sign">.</span>
+        
+<span class="keyword">tan</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        call_op1<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="keyword">tan</span><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fother20stack20operations">
+</a><a name="robo103"></a><h2>Modules.Stack/other stack operations [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      <a href="./Utilities_pro.html#robo110">dup</a>/1
+      dup2/1
+      dup3/1
+      ndup/2
+      over/1
+      <a href="./List_pro.html#robo69">rotate</a>/1
+      swap/1
+      swap/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      <a href="./Utilities_pro.html#robo110">dup</a>(StackName)
+      dup2(StackName)
+      dup3(StackName)
+      ndup(StackName, Count)
+      over(StackName)
+      <a href="./List_pro.html#robo69">rotate</a>(StackName)
+      swap(StackName)
+      swap(Stack1, Stack2)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      <a href="./Utilities_pro.html#robo110">dup</a>/1 duplicates the topmost element of the stack [StackName] and puts it
+      on top of stack.
+      dup2/1 performs the same operation for the two topmost elements.
+      dup3/1 performs the same operation for the three topmost elements.
+      ndup/2 duplicates [Count] times the topmost element of [StackName].
+      over/1 duplicates the second topmost element of the stack [StackName].
+      <a href="./List_pro.html#robo69">rotate</a>/1 rotates the three topmost elements of [StackName].
+      swap/1 swaps the two topmost elements from [StackName], whereas swap/2
+      exchanges between [Stack1] and [Stack2] topmost elements.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName], [Stack1] (i) -
+              <a href="#robo8">Stack</a> where the operation is to be performed.
+
+      [Stack2] (i) -
+              (for swap/2) <a href="#robo8">Stack</a> whose topmost element is to be swapped with [Stack1].
+
+      [Count] (i) -
+              (for ndup/2) Number of times to copy [StackName] topmost element
+              onto the stack.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">% Swaps the two topmost values of a stack</span>
+swap<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>A<span class="sign">,</span> B <span class="sign">|</span> T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>B<span class="sign">,</span> A <span class="sign">|</span> T<span class="sign">]</span><span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">% Swaps top elements of Stack1 and Stack2</span>
+swap<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span>Stack1<span class="sign">,</span> V1<span class="sign">)</span><span class="sign">,</span>
+        pop<span class="sign">(</span>Stack2<span class="sign">,</span> V2<span class="sign">)</span><span class="sign">,</span>
+        push<span class="sign">(</span>Stack1<span class="sign">,</span> V2<span class="sign">)</span><span class="sign">,</span>
+        push<span class="sign">(</span>Stack2<span class="sign">,</span> V1<span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">% Dulicates the top element of <a href="#robo8">Stack</a></span>
+<a href="./Utilities_pro.html#robo110">dup</a><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H<span class="sign">,</span> H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">% Duplicates the two topmost elements of stack</span>
+dup2<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H1<span class="sign">,</span> H2<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H1<span class="sign">,</span> H2<span class="sign">,</span> H1<span class="sign">,</span> H2 <span class="sign">|</span> T<span class="sign">]</span><span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">% Duplicates the three topmost elements of stack</span>
+dup3<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H1<span class="sign">,</span> H2<span class="sign">,</span> H3<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H1<span class="sign">,</span> H2<span class="sign">,</span> H3<span class="sign">,</span> H1<span class="sign">,</span> H2<span class="sign">,</span> H3 <span class="sign">|</span> T<span class="sign">]</span><span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+        
+<span class="comment">% Duplicates N times the topmost element of <a href="#robo8">Stack</a></span>
+ndup<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> N<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        duplicateatom<span class="sign">(</span>H<span class="sign">,</span> N<span class="sign">,</span> Dups<span class="sign">)</span><span class="sign">,</span>
+        <a href="./List_pro.html#robo41">append</a><span class="sign">(</span>Dups<span class="sign">,</span> T<span class="sign">,</span> NewList<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> NewList<span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">% Copies the second element in <a href="#robo8">Stack</a> to the top of stack</span>
+over<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H1<span class="sign">,</span> H2<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H2<span class="sign">,</span> H1<span class="sign">,</span> H2<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+<span class="comment">% Rotates the three topmost elements of the <a href="#robo8">Stack</a></span>
+<a href="./List_pro.html#robo69">rotate</a><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H1<span class="sign">,</span> H2<span class="sign">,</span> H3<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span>H2<span class="sign">,</span> H3<span class="sign">,</span> H1<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fpeek20operations">
+</a><a name="robo104"></a><h2>Modules.Stack/peek operations [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      peek/2
+      peekto/2
+      peekto/3
+      peekunder/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      peek(StackName, Value)
+      peekto(Stack1, Stack2)
+      peekto(Stack1, Stack2, Value)
+      peekunder(StackName, Value)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      peek/2 retrieves a value from [StackName] without removing it, and unifies
+      [Value] with the result.
+      peekto/2 peeks a value from [Stack1] and pushes it to [Stack2].
+      peekto/3 performs the same operation, and unifies [Value] with the popped
+      value.
+      peekunder/2 unifies [Value] with the second value behind the top of stack 
+      [StackName].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName], [Stack1] (i) -
+              <a href="#robo8">Stack</a> where the value is to be poked from.
+
+      [Stack2] (i) -
+              <a href="#robo8">Stack</a> where to push the poked value.
+
+      [Value] (o) -
+              Unifies to the poked value.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">peek<span class="sign">(</span>StackName<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> <span class="sign">[</span>Value <span class="sign">|</span> _<span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+
+peekto<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        peekto<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>
+peekto<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        peek<span class="sign">(</span>Stack1<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">,</span>
+        push<span class="sign">(</span>Stack2<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">.</span>
+
+peekunder<span class="sign">(</span>StackName<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> <span class="sign">[</span> _<span class="sign">,</span> Value <span class="sign">|</span> _ <span class="sign">]</span> <span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fpop20operations">
+</a><a name="robo105"></a><h2>Modules.Stack/pop operations [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      pop/1
+      pop/2
+      pop2/1
+      popall/2
+      popto/2
+      popto/3
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      pop(StackName)
+      pop(StackName, Value)
+      pop2(StackName)
+      popall(StackName, List)
+      popto(Stack1, Stack2)
+      popto(Stack1, Stack2, Value)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      The pop/1 predicate pops a value from stack [StackName].
+      pop/2 performs the same operations, but unifies [Value] with the popped value.
+      pop2/1 pops two values from the stack [StackName].
+      popall/2 pops all values from the stack [StackName], and puts the contents
+      into [List].
+      popto/2 pops a value from [Stack1] then pushes it to [Stack2].
+      popto/3 performs the same operation, but unifies [Value] with the popped value.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName], [Stack1] (i) -
+              <a href="#robo8">Stack</a> for which to <a href="./Meta_pro.html#robo92">apply</a> the pop operation.
+
+      [Stack2] (i) -
+              <a href="#robo8">Stack</a> where the popped value is to be pushed.
+
+      [Value] (o) -
+              Unifies to the popped value.
+
+      [List] (o) -
+              Unifies to the <a href="./List_pro.html#robo3">list</a> of values contained in the stack [StackName]. 
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">pop<span class="sign">(</span>StackName<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span>StackName<span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>
+pop<span class="sign">(</span>StackName<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> <span class="sign">[</span>Value<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> T<span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+pop2<span class="sign">(</span>StackName<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> <span class="sign">[</span>H1<span class="sign">,</span> H2<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> T<span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+popall<span class="sign">(</span>StackName<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> List<span class="sign">)</span><span class="sign">,</span>
+        <a href="./Array_pro.html#robo23">delete</a><span class="sign">(</span>StackName<span class="sign">)</span><span class="sign">,</span>
+        create<span class="sign">(</span>StackName<span class="sign">)</span><span class="sign">.</span>
+
+popto<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        popto<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">,</span> _<span class="sign">)</span><span class="sign">.</span>
+popto<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        pop<span class="sign">(</span>Stack1<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">,</span>
+        push<span class="sign">(</span>Stack2<span class="sign">,</span> Value<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fprint">
+</a><a name="robo106"></a><h2>Modules.Stack/print [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      stack_print/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      stack_print(StackName)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Prints the specified stack and its contents.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName] (i) -
+              <a href="#robo8">Stack</a> to <strong>print</strong>/
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">stack_print<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> List<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">write</span><span class="sign">(</span><span class="squote">&#39;<a href="#robo8">Stack</a> &#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span> <span class="squote">&#39; : &#39;</span><span class="sign">)</span><span class="sign">,</span> <span class="keyword">write</span><span class="sign">(</span>List<span class="sign">)</span><span class="sign">,</span> <span class="keyword">nl</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fpush20operations">
+</a><a name="robo107"></a><h2>Modules.Stack/push operations [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      push/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      push(StackName, Value)
+      push(StackName, List)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      Pushes the specified [Value] on top of [StackName]. If a [List] is specified,
+      then each individual value of [List] is pushed on the stack [NewStack].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName] (i) -
+              Name of the stack where the element is to be pushed.
+
+      [Value] (i) -
+              Value to push.
+
+      [List] (i) -
+              List of values to push.
+</pre>
+<p class="item_name">NOTES</p>
+<pre>      If the contents of the stack before the push is described with the <a href="./Maths_pro.html#robo86">fact</a> :
+              stack(StackName, [contents])
+      then the new <a href="./Maths_pro.html#robo86">fact</a> will be : 
+              stack(StackName, [Value|content]).
+      The same is applicable for a <a href="./List_pro.html#robo3">list</a>, except that <a href="./List_pro.html#robo3">list</a> elements are reversed,
+      as if its elements were pushed individually, from first to <a href="./List_pro.html#robo55">last</a>.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">push<span class="sign">(</span>StackName<span class="sign">,</span> List<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">is_list</span><span class="sign">(</span>List<span class="sign">)</span><span class="sign">,</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> StackList<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <a href="./List_pro.html#robo67">reverse</a><span class="sign">(</span>List<span class="sign">,</span> ReverseList<span class="sign">)</span><span class="sign">,</span>
+        <a href="./List_pro.html#robo41">append</a><span class="sign">(</span> ReverseList<span class="sign">,</span> StackList<span class="sign">,</span> NewList <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> NewList<span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+        
+push<span class="sign">(</span>StackName<span class="sign">,</span> Value<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> List<span class="sign">)</span><span class="sign">,</span>
+        do_push<span class="sign">(</span>List<span class="sign">,</span> Value<span class="sign">,</span> List2<span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> List2<span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+do_push<span class="sign">(</span><span class="sign">[</span><span class="sign">]</span><span class="sign">,</span> Value<span class="sign">,</span> <span class="sign">[</span>Value<span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>    
+do_push<span class="sign">(</span><span class="sign">[</span>H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">,</span> Value<span class="sign">,</span> <span class="sign">[</span>Value<span class="sign">,</span> H<span class="sign">|</span>T<span class="sign">]</span><span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fstack20manipulation20operations">
+</a><a name="robo108"></a><h2>Modules.Stack/stack manipulation operations [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      create/1
+      <a href="./Array_pro.html#robo23">delete</a>/1
+      empty/1
+      copy/1
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      create(StackName)
+      <a href="./Array_pro.html#robo23">delete</a>(StackName)
+      empty(StackName)
+      copy(Stack1, Stack2)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      create/1 creates the stack [StackName]. The new stack is asserted through the
+      following <a href="./Maths_pro.html#robo86">fact</a> :
+
+              stack(StackName, []).
+
+      The empty <a href="./List_pro.html#robo3">list</a> means that the stack is initially empty.
+      <a href="./Array_pro.html#robo23">delete</a>/1 deletes the specified stack.
+      empty/1 empties the specified stack without removing it.
+      copy/1 copies [Stack1] and its contents to a new stack called [Stack2].
+      If [Stack2] already exists, it will be removed prior to the operation.
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName] (i) -
+              <a href="#robo8">Stack</a> to create.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">copy<span class="sign">(</span>Stack1<span class="sign">,</span> Stack2<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span>Stack2<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        stack<span class="sign">(</span> Stack1<span class="sign">,</span> List <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span> Stack2<span class="sign">,</span> List <span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+create<span class="sign">(</span>StackName<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">,</span>
+        <span class="keyword">assert</span><span class="sign">(</span> stack<span class="sign">(</span> StackName<span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span> <span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+<a href="./Array_pro.html#robo23">delete</a><span class="sign">(</span>StackName<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <span class="keyword">retractall</span><span class="sign">(</span> stack<span class="sign">(</span>StackName<span class="sign">,</span> _<span class="sign">)</span> <span class="sign">)</span><span class="sign">.</span>
+
+empty<span class="sign">(</span>StackName<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        <a href="./Array_pro.html#robo23">delete</a><span class="sign">(</span>StackName<span class="sign">)</span><span class="sign">,</span>
+        create<span class="sign">(</span>StackName<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+<hr />
+<a name="Modules2eStack2fstack20query20operations">
+</a><a name="robo109"></a><h2>Modules.Stack/stack query operations [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">PREDICATE</p>
+<pre>      is_empty/1
+      sizeof/2
+</pre>
+<p class="item_name">SYNTAX</p>
+<pre>      is_empty(StackName)
+      sizeof(StackName, Length)
+</pre>
+<p class="item_name">PURPOSE</p>
+<pre>      is_empty/1 succeeds if the stack [StackName] contains no element.
+      sizeof/2 unifies [Length] with the number of elements present in [StackName].
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>      [StackName] (i) -
+              Name of the stack to check.
+
+      [Length] (o) -
+              Number of elements in the stack.
+
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">is_empty<span class="sign">(</span>StackName<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span><a href="#robo8">Stack</a><span class="sign">,</span> <span class="sign">[</span><span class="sign">]</span> <span class="sign">)</span><span class="sign">.</span>
+
+
+sizeof<span class="sign">(</span>StackName<span class="sign">,</span> Size<span class="sign">)</span> <span class="sign">:</span><span class="sign">-</span>
+        stack<span class="sign">(</span>StackName<span class="sign">,</span> List<span class="sign">)</span><span class="sign">,</span>
+        <a href="./List_pro.html#robo57">length</a><span class="sign">(</span>List<span class="sign">,</span> Size<span class="sign">)</span><span class="sign">.</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./Stack.pro with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.28 on Wed Feb 14 2007 00:45:10
+</p>
+</div> <!-- footer -->
+</body>
+</html>

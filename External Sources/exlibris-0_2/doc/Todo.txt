@@ -1,0 +1,13 @@
+Todo
+----
+
+Support Swi, Yap. Longer term also Ciao.
+Add option verb(Boolean) controlling normal operation message output.
+Pick 'library_directory( Lib ) :- ...' when deleting from source files.
+Help option ?
+Be more vigorous when picking  multifile library_directory/1.
+Remove ensure_loaded( 'compat/if_pl' ) if no if_pl/2,3,4 remains.
+Option for picking homelibs/1 from source files.
+Transform predicate containing if_pl/2,3,4 
+Option for private subdirs/files.
+Option for not reading INDEX.pl files (also for silent non existance).

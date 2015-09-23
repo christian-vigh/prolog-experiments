@@ -1,0 +1,87 @@
+
+/* SYS$USER2:[PROLOG.PRO]LISTS.DAT;1 */
+
+/* -------------------------- */
+/*  some list processing....  */
+/* -------------------------- */
+
+/*  append  */
+/*  append(List1, List2, List3) -> "List3 <-- List1 + List2"  */
+append([],L,L).
+append([H | T],L,[H | V]) :- append(T,L,V).
+
+/*  last  */
+/*  last(X, List) -> "X is the last element in List"  */
+last(X,[X]).
+last(X,[_|Y]) :- last(X,Y).
+
+/*  nextto  */
+/*  nextto(X,Y,List) -> "X and Y are consecutive elements in List"  */
+nextto(X,Y,[X,Y|_]).
+nextto(X,Y,[_|Z]) :- nextto(X,Y,Z).
+
+/*  reverse  */
+/*  reverse(List1, List2) -> "List2 is the reversing order of List1" */
+reverse([],[]).
+reverse([H|T],List) :- reverse(T,Z), append(Z,[H],List).
+
+/*  efface  */
+/*  efface(X,List1,List2) -> "Delete the first occurrence           */
+/*                            of X from List1 to get List2"         */
+efface(_,[],[]).
+efface(X,[X|L],L) :- !.
+efface(X,[Y|L],[Y|M]) :- efface(X,L,M).
+
+/*  delete  */
+/*  delete(X, List1, List2) -> "delete all the elements X from List1 to get List2*/
+delete(_,[],[]).
+delete(X,[X|L],M) :- !, delete(X,L,M).
+delete(X,[Y|L1],[Y|L2]) :- delete(X,L1,L2).
+
+/*  subst  */
+
+/* subst(X,List1,A,List2? -? "replace?all X in List 1 by A to get List2*/
+subst(D1,[],D2,[]).
+subst(X,[X|L],A,[A|M]) :- !, subst(X,L,A,M).
+subst(X,[Y|L],A,[Y|M]) :- subst(X,L,A,M).
+
+/*  sublist  */
+/*  sublist(S,List) -> "S is a sublist of List which appears consecutively,  */
+/*                      and in the same order"                               */
+sublist([X|L],[X|M]) :- prefix(L,M).
+sublist(L,[_|M]) :- sublist(L,M).
+
+prefix([],_).
+prefix([X|L],[X|M]) :- prefix(L,M).
+
+/* --------- */
+/*  testing  */
+/* --------- */
+?- last(X,[talk,of,the,town]), !.
+?- last(town,[talk,of,the,town]), !.
+?- last(of,[talk,of,the,town]), !.
+
+?- nextto(X,Y,[a,b,c,d,e,f,g,h]), !.
+?- nextto(d,Y,[a,b,c,d,e,f,g,h]), !.
+?- nextto(X,g,[a,b,c,d,e,f,g,h]), !.
+?- nextto(e,f,[a,b,c,d,e,f,g,h]), !.
+?- nextto(b,g,[a,b,c,d,e,f,g,h]), !.
+
+?- append([a,b,c],[d,e,f],List), !.
+?- append(X,Y,[a,b,c,d]), !.
+?- append(X,[d,e,f],[a,b,c,d,e,f]), !.
+?- append([a,b,c],Y,[a,b,c,d,e,f]), !.
+
+?- reverse([a,b,c,d,e],L), !.
+?- reverse(L,[a,b,c,d,e]), !.
+
+?- efface(s,[a,y,s,g,e,s,o,s],L), !.
+?- efface(X,[h,e,e,l],L), !.
+?- efface(X, [h,e,e,l], [h,e,l]), !.
+
+?- delete(s,[s,o,s,s,y,s],L), !.
+?- delete(X,[s,o,s,s,y,s],L), !.
+?- subst(a,[a,b,b,a,u],i,L), !.
+
+?- sublist([of,the,club],[meeting,of,the,club,shall,be,called]), !.
+?- sublist([be,the,club],[meeting,of,the,club,shall,be,called]), !.

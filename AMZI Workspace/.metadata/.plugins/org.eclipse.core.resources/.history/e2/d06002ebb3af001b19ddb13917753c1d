@@ -1,0 +1,33 @@
+
+
+% Basic data type
+
+binary(0).		% Basic types
+binary(1).
+binary([H|T]) :-	% General predicate for binary vector
+	binary(H),
+	binary(T).
+binary([H]) :- 		% For last element of a binary vector (just to avoid 
+	binary(H), !.	% (binary([]) to succeed if the caller gave an empty list)
+
+
+binary_not(0, 1).
+binary_not(1, 0).
+
+binary_not([H|T], Result) :-
+	binary_not( H, X ),
+	binary_not(T, NewList), 
+	append.
+	
+	
+binary_not(List, Result) :-
+	binary(List).
+	
+	
+
+transfer([H|T], Result) :-
+	transfer(T, Temp), !,
+	write('H = '), write(H),write(', T = '), write(T), write(', Temp = '), write(Temp), nl,
+	Result = [H | Temp].
+transfer([H], H).
+	

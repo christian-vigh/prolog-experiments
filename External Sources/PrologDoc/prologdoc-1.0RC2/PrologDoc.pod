@@ -1,0 +1,213 @@
+
+=head1 What is PrologDoc?
+
+PrologDoc is a system that automatically generates HTML documention
+from Prolog programs.
+
+HTML documentation can be automatically created from any Prolog
+program. In addition, by documenting your program according to the
+PrologDoc syntax, you can enable the PrologDoc documentation to be
+even more useful for you.
+
+PrologDoc can be run on a list of files to generate not only
+documentation about each file, but also an index file specifying all
+the files documented.
+
+=head1 Running PrologDoc
+
+To run PrologDoc over a set of prolog source files use the command
+L<pldoc(1)>.
+
+Example:
+
+  $ pldoc --to docs/ foo.pl bar.pl
+
+
+=head1 Automatically Generated Information
+
+When documenting a Prolog program C<filename>, the following
+information is automatically inserted in PrologDoc documentation, without
+user intervention:
+
+=over 4
+
+=item Files
+
+that C<filename> consults.
+
+Example: if C<filename> contains
+
+  :- [file1,file2].
+
+then file1 and file2 will be included in this list.
+
+=item Libraries
+
+that C<filename> uses.
+
+Example: if C<filename> contains
+
+  :- use_module(library(system)).
+
+then system will be included in this list.
+
+
+=item Side-effects
+
+encountered when loading C<filename>.
+
+Example: if C<filename> contains
+
+  :- foo(bar).
+
+then this predicate will be included in this list.
+
+Note: generation of side effects documentation is toggled off by
+default. Use
+
+  $ pldoc --side-effects ...
+
+to activate it.
+
+=item Predicates
+
+defined in C<filename>.
+
+Note: This list will include only exported predicates if C<filename>
+is defined as a module.
+
+=item Module name
+
+if C<filename> is defined as a module.
+
+=back
+
+=head1 Predicate Specific Comments
+
+Using the PrologDoc syntax enables you to extensively document
+predicates that you define. A PrologDoc predicate comment is defined within
+
+   /** blah, blah, blah... */
+
+It should be placed immediately before the predicate it is
+documenting.  The PrologDoc syntax is similar to JavaDoc. The
+following tags can be used within a predicate comment:
+
+=over 4
+
+=item @descr
+
+For giving a general description of the predicate
+
+
+=item @form
+
+is used to define the general form of the predicate
+
+=item @constraints
+
+Used to define constraints on the parameters.
+
+After a @contraints tag there can be a series of:
+
+=over 4
+
+=item @ground
+
+to define a parameter that must be ground
+
+=item @unground
+
+to define a parameter that can not be ground
+
+=item @unrestricted
+
+to define a parameter that is not restricted
+
+=back
+
+There can be several C<@constraints> tags to define different
+options of constraining parameters.
+
+Example: the following could be a predicate comment for the member
+predicate:
+
+  /** @form member(Value,List)
+      @constraints
+         @ground Value
+         @unrestricted List
+      @constraints
+         @unrestricted Value
+         @ground List
+      @descr True if Value is a member of List
+  */
+
+
+=back
+
+=head1 General File Comments
+
+Using PrologDoc you can give a general description to the
+file. This enables you to globally document the purpose of the prolog program
+defined within. A general file comment is defined within
+
+  /*** blah, blah, blah... */
+
+and may be located anywhere in the file. The following tags can be used within
+a predicate comment:
+
+@descr
+
+for giving a general description of the file
+
+@author
+
+to specify the name of an author
+
+@date
+
+to specify the date creation of the file
+
+
+Note: since the values of the tags are copied "as is" into the HTML
+documentation, HTML tags may be used within these values.
+
+Example:
+
+  /*** @descr This file is used for many thing. Among them are:
+          <ul>
+            <li> Purpose 1 ?
+            <li> Purpose 2 ?
+          </ul>
+       @author John Smith
+       @date 1/1/00
+  */
+
+=head1 See Also
+
+L<pldoc(1)> manual.
+PrologDoc website at SourceForge L<http://prologdoc.sourceforge.net>.
+
+=head1 Copyright and License
+
+Copyright (C) 1999 by Elisheva Bonchek (le7bonch AT cs.huji.ac.il)
+and Sara Cohen (sarac AT ie.technion.ac.il, http://iew3.technion.ac.il/~sarac).
+Copyright (C) 2004 by Bram Adams (bram.adams AT ugent.be).
+Copyright (C) 2004 by Salvador Fandino (sfandino@yahoo.com).
+
+PrologDoc is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2 of the License, or (at your
+option) any later version.
+
+PrologDoc is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with PrologDoc; if not, write to the Free Software Foundation,
+Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+
+

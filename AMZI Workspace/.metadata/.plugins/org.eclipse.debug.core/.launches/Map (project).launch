@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launchConfiguration type="com.amzi.prolog.ui.launch.prologListener">
+<stringAttribute key="org.eclipse.debug.core.source_locator_memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;sourceLookupDirector&gt;&#10;&lt;sourceContainers duplicates=&quot;false&quot;&gt;&#10;&lt;container typeId=&quot;org.eclipse.debug.core.containerType.project&quot; memento=&quot;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#10;&amp;lt;project name=&amp;quot;Modules&amp;quot; referencedProjects=&amp;quot;false&amp;quot;/&amp;gt;&amp;#10;&quot;/&gt;&#10;&lt;container typeId=&quot;org.eclipse.debug.core.containerType.default&quot; memento=&quot;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#10;&amp;lt;default/&amp;gt;&amp;#10;&quot;/&gt;&#10;&lt;/sourceContainers&gt;&#10;&lt;/sourceLookupDirector&gt;&#10;"/>
+<stringAttribute key="lsxList" value=""/>
+<stringAttribute key="consultList" value="'Interval.pro', '../Modules/Map.pro'"/>
+<stringAttribute key="cfgPathname" value=""/>
+<stringAttribute key="projectPathname" value="D:\Development\Prolog\Working"/>
+<stringAttribute key="xplPathname" value="C:\Program Files\amzi\amzi_7-6-3\abin\alis.xpl"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="loadList" value=""/>
+<stringAttribute key="projectName" value="Working"/>
+<stringAttribute key="org.eclipse.debug.core.source_locator_id" value="com.amzi.prolog.sourceLocator"/>
+</launchConfiguration>

@@ -1,0 +1,8 @@
+!**  Magnolia
+!**  BEGIN WriteNumber BENCHMARK
+!**  Average cputime for 200 writenums is 2249.998047 msecs.
+!**  Average cputime for 400 writenums is 4394.441406 msecs.
+!**  Average cputime for 600 writenums is 6605.550781 msecs.
+!**  Average cputime for 800 writenums is 8838.875000 msecs.
+!**  Average cputime for 1000 writenums is 11038.898438 msecs.
+!**  END WriteNumber BENCHMARK

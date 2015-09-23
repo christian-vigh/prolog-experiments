@@ -1,0 +1,377 @@
+#
+# Robodoc Prolog.rc
+#	Robodoc file for Prolog sources.
+#
+
+
+#
+# Keywords processed in the source code
+# Warning : due to a bug, do not put a comment after an item otherwise it will
+# not be recognized !
+#
+items:
+	NAME
+	MODULE
+	FILE
+	HEADER
+	COPYRIGHT
+	AUTHOR
+	PREDICATE
+	INTERNAL PREDICATE
+	PRIVATE PREDICATE
+	PUBLIC PREDICATE
+	DESCRIPTION
+	CONTENTS
+	PURPOSE
+	COMMENTS
+	USAGE
+	SYNTAX
+	AUTHOR
+	CREATION DATE
+	MODIFICATION HISTORY
+	HISTORY
+	ARGUMENTS
+	PARAMETERS
+	SUCCEEDS IF
+	SUCCEEDS WHEN
+	FAILS IF
+	FAILS WHEN
+	EXAMPLE
+	EXAMPLES		
+	NOTES
+	BUGS
+	TODO
+	SEE ALSO
+	USES
+	ERROR CODES
+
+#
+# Aliases to the SOURCE keyword
+#
+source items:
+	SOURCE
+	CODE
+	
+
+#
+# Command line options
+#
+options:
+	-css				# Use the contents of the default robodoc.css file
+#	--dbxml				# Generates output in DocBook format
+	--doc ./Documentation		# Output directory
+#	--doctype_name docbook-simple/sdocbook.dtd
+#	--doctype_location "-//OASIS//DTD DocBook XML V4.3//EN"
+	--sections 
+	--html				# Generate documentation in HTML format
+	--index				# Creates a master index file
+	--multidoc			# Generates one document per source file
+	--nodesc			# Do not scan subdirectories
+	--src .				# Source directory
+	--tabsize 8			# Tab size
+	--toc				# Generates a table of contents
+	--debug				# Verbose output
+	--documenttitle "Prolog Utility Modules"	
+	--syntaxcolors
+	
+
+#
+# Additional header types
+#
+#headertypes:
+#	r	"Prolog Include File"	prolog_modules_header_entries
+
+
+#
+# Files to ignore
+#
+ignore files:
+
+#
+# Files to accept 
+#
+accept files:
+	*.pro
+	*.ph
+	*.prh
+	*.pl
+	
+	
+#
+# Header markers
+#
+#header markers:
+#	/***
+#	%***
+	
+#
+# End markers
+#
+#end markers:
+#	***
+#	%***
+	
+#
+# Remark markers
+#
+remark markers:
+	*
+	%
+
+
+remark begin markers:
+	/*
+	
+remark end markers:
+	*/
+	
+	
+
+#
+# Options to customize for prolog
+#
+source line comments:
+	%
+	
+keywords:
+	#define
+	#elif
+	#else
+	#error
+	#if
+	#ifdef
+	#ifndef
+	#undef
+	#undif
+	abolish
+	abs
+	acos
+	arg
+	asin
+	assert
+	asserta
+	assertz
+	at_end_of_stream
+	atan
+	atom
+	atom_chars
+	atom_codes
+	atom_concat
+	atom_length
+	atom_uplow
+	atomic
+	atomlist_concat
+	bagof
+	binary
+	body
+	call
+	catch
+	ceiling
+	char
+	char_code
+	chdir
+	clause
+	close
+	closelog
+	cntr_dec
+	cntr_get
+	cntr_inc
+	cntr_set
+	command_line
+	compareq
+	compound
+	consult
+	copy_term
+	cos
+	cpuclock
+	cputime
+	curdir
+	current_input
+	current_module
+	current_op
+	current_output
+	current_predicate
+	date
+	degtorad
+	delfile
+	discontiguous
+	divs
+	divu
+	double_float
+	dynamic
+	dynamic
+	e
+	end_body
+	end_module
+	ensure_loaded
+	exp
+	export
+	fail
+	false
+	findall
+	findfiles
+	fixed_real
+	float
+	float
+	floor
+	flush_output
+	for
+	functor
+	gc
+	gensym
+	get
+	get_end_var
+	getdrive
+	halt
+	highwater
+	import
+	import
+	include
+	indexed
+	inf
+	integer
+	integer
+	is
+	isPrime
+	is_atom
+	is_cyclic
+	is_fraction
+	is_integer
+	is_list
+	is_member
+	is_number
+	is_odd
+	is_string
+	is_string_term
+	keysort
+	list
+	listing
+	ln
+	load
+	loadlsx
+	log
+	log10
+	long_real
+	makeprimes
+	max
+	metapredicate
+	min
+	mkdir
+	mod
+	mods
+	modu
+	module
+	multifile
+	name
+	nl
+	nllog
+	nonblank_string
+	nonvar
+	not
+	number
+	number_char
+	numbervars
+	numeric_type
+	once
+	op
+	open
+	openlog
+	pi
+	pp
+	predicate_property
+	prime
+	primeFactors
+	pro_control
+	pro_heap
+	pro_local
+	pro_tail
+	prodq
+	put
+	radtodeg
+	random
+	read
+	read_binary
+	read_string
+	real
+	real
+	reconsult
+	rename
+	repeat
+	respkey
+	retract
+	retractall
+	rmdir
+	round
+	see
+	seed_random
+	seeing
+	seen
+	set_input
+	set_output
+	set_prolog_flags
+	set_stream_position
+	setdrive
+	setof
+	sign
+	sin
+	single_float
+	skip
+	sort
+	sorted
+	sqrt
+	stack_sizes
+	stat
+	strcat
+	stream_property
+	string
+	string_atom
+	string_float
+	string_icomp
+	string_integer
+	string_length
+	string_list
+	string_number
+	string_query
+	string_split
+	string_term
+	string_termq
+	string_tokens
+	string_trim
+	stringlist_concat
+	structure
+	sub_atom
+	sub_string
+	sumq
+	system
+	tab
+	tan
+	tell
+	telling
+	term_type
+	text
+	throw
+	tilt_slashes
+	time
+	timer
+	told
+	true
+	unify_with_occurs_check
+	unload
+	user_error
+	user_function
+	user_input
+	user_output
+	var
+	varlist
+	varlist_query
+	varsof
+	version
+	w_getfile
+	w_msgbox
+	w_tfmsgbox
+	write
+	write_binary
+	writelog
+	writeq
+	xor
+	

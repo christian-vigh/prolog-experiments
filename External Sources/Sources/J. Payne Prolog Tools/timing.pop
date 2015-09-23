@@ -1,0 +1,102 @@
+!   File: Timing.Pop	Author: R.A.O'Keefe	Updated: 10 August 82
+
+!   This program reads a 'timing.log' file created by the Prolog call
+!   counting code, and prints out a table sorted by F/N and by count.
+!   The output is 'timing.lst'.  The program stops of itself.
+
+[pop:allsor.lib].compile;
+
+vars constriple desttriple istriple functor arity count;
+
+recordclass triple(functor, arity, count);
+
+function compare w1 w2 => d;
+    vars l1 l2 t L;
+    w1.datalength -> l1;
+    w2.datalength -> l2;
+    mmin(l1, l2, 2) -> L;
+    0 -> t;	!t+L is invariant!
+    while L > 0 do
+	t+1 -> t; L-1 -> L;
+	charword(w1, t) - charword(w2, t) -> d;
+	unless d = 0 then exit;
+    enddo;
+    l1 - l2 -> d;
+end;
+
+function order1 t1 t2;
+    vars d;
+    compare(t1.functor, t2.functor) -> d;
+    if d = 0 then t1.arity - t2.arity -> d close;
+    !t1 precedes t2 if! d =< 0
+end;
+
+function order2 t1 t2;
+    vars d;
+    t2.count - t1.count -> d;
+    if d = 0 then
+	compare(t1.functor, t2.functor) -> d;
+	if d = 0 then t1.arity - t2.arity -> d close;
+    close;
+    !t1 precedes t2 if! d =< 0
+end;
+
+vars atom_table;
+    newproperty(200, undef, false) -> atom_table;
+
+function clock_in f a;
+    vars functor_table;
+    f.atom_table -> functor_table;
+    if functor_table = undef then
+	newproperty(4, 0, false) -> functor_table;
+	functor_table -> f.atom_table;
+    close;
+    a.functor_table + 1 -> a.functor_table;
+end;
+
+function read_input;
+    vars next_word f;
+
+    [IN timing.log].popmess.incharitem -> next_word;
+    until (.next_word -> f; f.istermin) do clock_in(f, .next_word) enddo;
+end;
+
+vars by_name by_time;
+
+function build_lists;
+    nil -> by_name;
+    appdic(atom_table, lambda f functor_table;
+	appdic(functor_table, lambda a count;
+	    constriple(f, a, count) :: by_name -> by_name
+	end)
+    end);
+    by_name.copy -> by_time;
+    allsort(by_name, order1) -> by_name;
+    allsort(by_time, order2) -> by_time;
+end;
+
+function print_triple t;
+    vars L;
+    intpr(t.count, 7); # .cucharout;
+    t.functor.pr; #/.cucharout;
+    t.arity.pr;
+    if t.arity > 9 then 3 else 2 close + t.functor.datalength -> L;
+    sp(32-L);
+end;
+
+function write_output;
+    vars cucharout;
+    [OUT timing.lst].popmess -> cucharout;
+    until by_name.null do    
+	print_triple(by_name.dest -> by_name);
+	9.cucharout;
+	print_triple(by_time.dest -> by_time);
+	1.nl;
+    enddo;
+    [CLOSE % cucharout %].popmess;
+end;
+
+	.read_input;
+	.build_lists;
+	.write_output;
+

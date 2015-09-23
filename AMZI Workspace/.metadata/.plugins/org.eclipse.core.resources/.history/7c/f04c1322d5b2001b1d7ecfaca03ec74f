@@ -1,0 +1,19 @@
+
+
+:- op( 500, xfx, covers ).
+
+:- op( 700, xfx, .. ).
+
+:- op(1100,  fx, [#<, #>] ).
+:- op(1000,  xf, [>#, <#] ).
+
+
+X covers #< A .. B ># :-
+	write(A), nl, write(B).
+	
+X covers [H | T] :-
+	X1 covers H,
+	X2 covers T,
+	X = [X1 | X2].
+	
+X covers [].

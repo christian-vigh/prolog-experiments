@@ -1,0 +1,152 @@
+\documentstyle[12pt]{article}
+\pagestyle{empty}
+
+%\newenvironment{myfigure}{}{}  % cause multipage error
+\newcommand{\mycaption}[2]{ }% cause multipage error
+\newenvironment{myfigure}{\begin{figure}[t]\begin{center}\vspace*{-10pt}}{\end{center}\end{figure}}
+
+%\newcommand{\mycaption}[2]{\vskip 10pt\refstepcounter{figure}\begin{minipage}{\textwidth}{\bf Figure \thefigure\label{#1}}\\ {\rm #2}\end{minipage}}
+
+
+% LaTeX Macros for Natural Deduction Categorial Grammar
+% =====================================================
+% Bob Carpenter
+% May 5, 1994
+
+% This file contains the LaTeX macros necessary to generate
+% natural deduction style CG proofs.  All of them may be easily
+% modified to change the look of the output derivations.  They're
+% presented in this file top down from the highest level to the 
+% lowest
+
+% Derivations
+% ----------------------------------------------------------------------
+
+% axr{Result}{Rule}
+% ----------------------------------------------------------------------
+% sets axiomatic rule with no antecedent, result Result, and rule Rule
+% ----------------------------------------------------------------------
+\newcommand{\axr}[2]{\begin{array}[t]{c}
+                         \hrulefill\makebox[0pt][l]{$#2$}
+                         \\
+                         #1
+                       \end{array} }
+
+% \infr{Antecedent}{Result}{Rule}
+% ----------------------------------------------------------------------
+% sets inference scheme with antecedent Antecedent, result Result
+% and rule Rule
+% ----------------------------------------------------------------------
+\newcommand{\infr}[3]{
+  \begin{array}[t]{@{}c@{}}
+    #1
+    \\[-4.5pt]
+   \hrulefill\makebox[0pt][l]{$#3$} 
+    \\ 
+    #2
+\end{array}}
+
+
+% Categories
+% ----------------------------------------------------------------------
+
+% \synsem{Syn}{Sem}
+% ----------------------------------------------------------------------
+% sets category with syntax Syn and semantics Sem
+% ----------------------------------------------------------------------
+\newcommand{\synsem}[2]{#2\/\colon #1}
+
+
+% Semantic Terms -- Lambda Calculus
+% ----------------------------------------------------------------------
+
+% \lam{Var}{Scope}
+% ----------------------------------------------------------------------
+% sets lambda abstraction of Var over Scope
+% ----------------------------------------------------------------------
+\newcommand{\lam}[2]{\lambda #1 . #2}
+
+% \con{C}
+% ----------------------------------------------------------------------
+% sets semantic constant C
+% ----------------------------------------------------------------------
+\newcommand{\con}[1]{{\bf #1}}
+
+
+% Logic
+% ----------------------------------------------------------------------
+
+% \conj, \disj, \neg
+% ----------------------------------------------------------------------
+% sets logical operators of conjunction and disjunction and negation
+% (negation built in)
+% ----------------------------------------------------------------------
+\newcommand{\conj}{\wedge}
+\newcommand{\disj}{\vee}
+
+% \setlist{X}
+% ----------------------------------------------------------------------
+% sets X in set braces
+% ----------------------------------------------------------------------
+\newcommand{\setlist}[1]{\{ #1 \}}
+
+
+% Syntactic Terms - Categorial Grammar
+% ----------------------------------------------------------------------
+
+% \fd{A}{B}, \bk{A}{B}, \bang{A}{B}, \scop{A}{B}
+% ----------------------------------------------------------------------
+% sets A/B, A\B, A-B and scop(A,B) respectively
+% ----------------------------------------------------------------------
+\newcommand{\fd}[2]{#1 / #2}
+\newcommand{\bk}[2]{#1 \backslash #2}
+\newcommand{\bang}[2]{#1 {\uparrow} #2}
+\newcommand{\scop}[2]{#1{\Uparrow}#2}
+
+
+% Expressions
+% ----------------------------------------------------------------------
+
+% \men{W}
+% ----------------------------------------------------------------------
+% sets mention of word W
+% ----------------------------------------------------------------------
+\newcommand{\men}[1]{\mbox{{\sl #1}}}
+
+
+% Deduction Scheme Names
+% ----------------------------------------------------------------------
+% sets the various deduction scheme names
+% ----------------------------------------------------------------------
+\newcommand{\fel}{E{/}}
+\newcommand{\bel}{E{\backslash}}
+\newcommand{\intro}[1]{I#1}
+\newcommand{\introindex}[2]{I#1^{#2}}
+\newcommand{\fin}[1]{\introindex{/}{#1}}
+\newcommand{\bin}[1]{\introindex{\backslash}{#1}}
+\newcommand{\gin}[1]{\introindex{{\uparrow}}{#1}}
+\newcommand{\scopr}[1]{E{\Uparrow}^{#1}}
+\newcommand{\scin}{\intro{{\Uparrow}}}
+\newcommand{\coel}{E{c}}
+\newcommand{\qi}{\intro{{\Uparrow}}}
+\newcommand{\qpush}[1]{\scopr{#1}}
+\newcommand{\qpop}[1]{\scopr{#1}}
+\newcommand{\qqpush}[1]{E{\mbox{q}}^{#1}}
+\newcommand{\qqpop}[1]{E{\mbox{q}}^{#1}}
+\newcommand{\lexr}{L}
+\newcommand{\empr}{\mbox{$\nullstring$}}
+\newcommand{\id}{I}
+\newcommand{\cut}{C}
+\newcommand{\der}{D}
+\newcommand{\coor}{Co}
+\newcommand{\nbc}{NBC}
+\newcommand{\extr}{Ex}
+\newcommand{\topc}{Tp}
+
+\begin{document}
+\thispagestyle{empty}
+
+\input{cgparserout}
+
+\end{document}
+

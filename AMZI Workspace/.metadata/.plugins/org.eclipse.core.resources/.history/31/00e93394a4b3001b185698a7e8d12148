@@ -1,0 +1,140 @@
+:- import(map).
+
+:- op( 500, xfx, covers ).
+:- op( 700, xfx, ..).
+:- op( 700, xfx, within).
+:- op( 700, xfx, outside).
+
+
+
+X covers [L..H|T] :-					% Multiple disjoint intervals
+	interval(L..H, XH),				% using the interval() functor
+	XT covers T,
+	X = [XH | XT].
+	
+X covers [H|T] :-					% Multiple disjoint intervals
+	interval(H, XH),				% using the interval() functor
+	XT covers T,
+	X = [XH | XT].
+	
+X covers H :-						% Simple interval
+	not( is_list( H ) ),
+	interval(H, XH),
+	X = [XH].
+
+X covers L..H :-					% Simple interval
+	interval(L..H, XH),
+	X = [XH].
+	
+[] covers [].
+
+
+
+% Interval : analyzes an interval definition
+interval( Low..High, Interval ) :-			% Low..High notation
+	interval_create( <, Low, High, >, Interval ).
+	
+interval( interval(Low..High), Interval ) :-		% or interval() / range() notation
+	interval_create( <, Low, High, >, Interval ).
+interval( range(Low..High), Interval ) :-	
+	interval_create( <, Low, High, >, Interval ).
+
+interval( interval(Left, Low..High, Right), Interval ) :-	
+	interval_create( Left, Low, High, Right, Interval ).
+interval( range(Left, Low..High, Right), Interval ) :-	
+	interval_create( Left, Low, High, Right, Interval ).
+
+
+interval( <>(Low..High), Interval ) :-			% Other ways of defining bound
+	interval_create(<, Low, High, >, Interval).
+interval( >>(Low..High), Interval ) :-
+	interval_create(>, Low, High, >, Interval).
+interval( <<(Low..High), Interval ) :-
+	interval_create(<, Low, High, <, Interval).
+interval( ><(Low..High), Interval ) :-
+	interval_create(>, Low, High, <, Interval).
+
+
+% Build an interval
+interval_create(Left, Low, High, Right, X) :-
+	interval_left(  Left,  Low, Value1, LGT, LLT),
+	interval_right(Right, High, Value2, RGT, RLT),
+	map_from_list( [left:Left, right:Right, low:Low, high:High, 
+			lgt_operator:LGT, llt_operator:llt,
+			rgt_operator:RGT, rlt_operator:RLT ], X ).
+	
+
+% Aliases for infinity
+infinity('inf').
+infinity('infinite').
+infinity('infinity').
+
+
+% Check exclusion/inclusion of low value
+% (allow inclusive range for infinity)
+interval_left(_, Keyword, -inf, >, <) :-
+	infinity(Keyword).
+interval_left(>, inf, -inf, >, <).
+interval_left(>, Value, Value, >, =<).
+interval_left(<, Value, Value, >=, <).	
+
+
+interval_right(_, Keyword, +inf, >, <) :-
+	infinity(Keyword).
+interval_right(>, inf, +inf, >, <).
+interval_right(>, Value, Value, >, =<).
+interval_right(<, Value, Value, >=, <).	
+
+
+
+% Performs a comparision between a value and an interval boundary
+interval_apply(Op, V1, V2) :-
+	X =.. [Op, V1, V2],
+	call(X).
+
+
+
+% Within operator : checks if the specified value is within the interval
+Value within [H|T] :-				% Complex intervals
+	Value within H, !.			% Found : it's ok
+Value within [H|T] :-
+	Value within T.
+Value within [].
+
+Value within Map :-
+	is_map(Map),
+	map_value(Map, low, Low),		% Get low and high
+	map_value(Map, high, High),
+	map_value(Map, lgt_operator, LGT),	% Get comparision operators
+	map_value(Map, rlt_operator, RLT),
+	interval_apply(LGT, Value, Low),	% Perform comparisons
+	interval_apply(RLT, Value, High).
+
+
+
+/***
+
+interval_apply(Op, V1, V2) :-
+	X =.. [Op, V1, V2],
+	call(X).
+	
+	
+% Test if a value is within or outside a range
+Value within X :-
+	interval_get(X, value1, V1),
+	interval_get(X, value2, V2),
+	interval_get(X,    lgt, LGT),
+	interval_get(X,    rlt, RLT),
+	interval_apply(LGT, Value, V1),
+	interval_apply(RLT, Value, V2).
+
+Value within [H|T] :-				% Complex intervals
+	Value within H, !.			% Found : it's ok
+Value within [H|T] :-
+	Value within T.
+Value within [].
+	
+Value outside X :-
+	not( Value within X ).
+	
+***/

@@ -1,0 +1,7 @@
+%declarations%
+
+%fff
+
+%end%
+
+bar :- foobar(X).

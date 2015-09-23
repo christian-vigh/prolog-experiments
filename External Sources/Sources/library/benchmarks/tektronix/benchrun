@@ -1,0 +1,10 @@
+
+#  C-Prolog Benchmark Package
+#  Copyright 1985 by Tektronix, Inc., and Portland State University
+#  Converted by Kent Beck
+
+echo $1
+echo '!**  System name'>$1.ot
+prolog < $1.drv >>$1.ot
+findtext $1.ot tmp
+cat tmp > $1.ot

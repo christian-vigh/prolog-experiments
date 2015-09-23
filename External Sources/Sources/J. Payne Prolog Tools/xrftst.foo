@@ -1,0 +1,6 @@
+% Test file XRFTST.FOO for XREF; load XRFTST.FOO and XRFTST.BAR
+% then say yes you want the declarations updated.
+
+%here%
+
+foo :- bar.

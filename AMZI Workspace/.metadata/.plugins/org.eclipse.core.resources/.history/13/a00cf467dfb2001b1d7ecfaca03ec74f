@@ -1,0 +1,35 @@
+
+
+:- op( 500, xfx, covers ).
+:- op( 800, xfx, and).
+
+
+X covers interval(Left, Low, High, Right) :-
+	interval( X, Left, Low, High, Right ).
+	
+X covers [H|T] :-
+	XH covers H,
+	XT covers T,
+	X = [XH | XT].
+[] covers [].
+
+
+interval(X, Left, Low, High, Right) :-
+	interval_left(  Left,  Low, Op1, Value1),
+	interval_right(Right, High, Op2, Value2),
+	X = [Left, Right, Value1, Value2, Op1, Op2].
+	
+	
+interval_left(>, Keyword, '', -inf) :-
+	is_member(Keyword, 
+		['infinite', '-infinite', 'infinity', '-infinity', 'inf', '-inf']).
+interval_left(>, inf, '', -inf).
+interval_left(>, Value,  >, Value).
+interval_left(<, Value, >=, Value).	
+
+interval_right(<, Keyword, '', inf) :-
+	is_member(Keyword, 
+		['infinite', '+infinite', 'infinity', '+infinity', 'inf', '+inf']).
+interval_left(>, inf, '', -inf).
+interval_right(>, Value, =<, Value).
+interval_right(<, Value,  <, Value).	

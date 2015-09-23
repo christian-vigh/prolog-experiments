@@ -1,0 +1,17 @@
+
+
+:- op( 500, xfx, covers ).
+
+:- op( 700, xfx, .. ).
+
+:- op(1100,  fx, [#<, #>] ).
+:- op(1000,  xf, [>#, <#] ).
+
+
+X covers Left:Low-High:Right  :-
+	write(Left),nl,write(Low),nl,write(High),nl,write(Right).
+	
+	
+	
+
+	

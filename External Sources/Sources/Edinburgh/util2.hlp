@@ -1,0 +1,114 @@
+%   File   : UTIL2.HLP
+%   Author : L. Hardman, Diana Bental
+%   Updated: 28 January 1985
+%   Purpose: Maintain an up-to-date index of files in UTIL.
+%   Needs  : No other files.
+
+%	u - part of 'util' baseload
+%	t - part of 'toolkit' baseload
+%	m - part of 'mutil' baseload
+%	'util' is part of the 'toolkit' baseload - so t implies ut
+%	and ut implies that the module has been loaded twice
+%	Load info gathered from util:util, util:mutil and mec:toolki.mic
+
+
+ADVICE.PL     Interlisp-like advice package	Needs concat/3, flag/3
+ANDOR.PL      Meta-circular interpreter maintaining extended AND/OR tree
+APPLIC.PL um  contains apply-like routines	Needs append/3
+ARC3.PL       Implement Mackworth's AC-3 algorithm.
+ARITH.PL   u  new standard arithmetic primitives
+ARITH.OPS um  declarations for PRESS's extra arithmetic operators
+ARRAYS.PL     is an updateable arrays facility
+ASK.PL     u  asks questions with one-character answers
+ASSOC.PL      contains binary tree implementation of "association lists"
+BACKUP.PL     backs up a file with the extension specified
+BAGUTL.PL  u  contains bag-manipulating utilities
+BETWEE.PL  u  generate integers
+BUNDLE.PL     Bundle and Unbundle files.
+CC.PL         conditional compilation
+CLAUSE.PL     Convert a formula in FOPC to clausal form.
+COUNT.PL   t  counts predicates and clauses in program and its subfiles
+CTYPES.PL     character types (for Prolog standardisation)
+DEC10.Pl      Dec10 compatibilty file for CProlog
+DCSG.PL       Preprocessor for Definite Clause Slash Grammars
+DECONS.PL     Construct and take apart Prolog control structures.
+DEPTH.PL      Find or check the depth of a term.
+DISTFI.PL     general templates for operators
+EDIT.PL   um  edits a file then runs mec:prolog
+EXPAND.PL     expands simple macros
+FEACH.PL      Redefine the foreach/5 predicate I deleted.
+FILES.PL  um  contains file-manipulating routines
+FINE.PL       Get to an editor and back again (Old)
+FLAGRO.PL um  manipulates global variables (flags)
+FLALL         list of files in UTIL:, suitable for SUBFIL
+FLAT.PL       Flatten various binary trees to lists and convert back.
+FLS           list of files in UTIL:, suitable for PRINT
+GENSYM.PL um  contains the compiled routines cgensym, concat, gensym
+GETFIL.PL  u  read line/file name
+GRAPHS.PL     processes graphs (including transitive closure)
+HEAPS.PL      contains (mergable) heap-manipulating routines
+HELPER.PL  t  prints extracts from help files
+IDBACK.PL     intelligent backtracking database parser
+IMISCE.PL um  contains \=, casserta, cassertz, clean, diff, gcc
+INVOCA.PL um  contains forall, once, not
+IXREF.PL   t  Interactive cross-referencer (needs PP.PL)
+LAZY.PL       Lazy lists
+LIB.PL        looks through directories for a file and reconsults it
+LIB2.PL       a version of the VAX "lib" predicate (friend of lib.pl)
+LISTUT.PL um  contains list-manipulating utilities
+LOGARR.PL     Extendable arrays with logarithmic access time.
+LONG.PL       arithmetic manipulation of rational numbers
+MAP.PL        Implement finite maps.
+MEDIC.PL      helps to diagnose mode errors
+METUTL.PL um  contains meta-logical operations
+MODULE.PL     elementary module system for Dec10 Prolog
+MULTIL.PL     contains multiple-list routines
+MUTIL         is the root for the Minimal UTILities collection
+MUTIL.MIC     is used by MAKSYS to build MUTIL.EXE 
+NOT.PL        negates "suspiciously"
+ORDER.PL      Define the "ordered" predicates on lists
+OCCUR.PL   u  check no/place of occurrence, replace at specific position
+ORDSET.PL  t  contains ordered-set-manipulating routines
+PORSTR.PL     Portray lists of characters as strings.
+PP.PL      t  Prolog pretty-printer, interface to current_predicate &c
+PROJEC.PL  u  selects Kth argument of each element of a list
+PROLOG.TYP    declare types of built-in predicates and minimal utilities
+PUTSTR.PL     prints a section of a file (for new unwritten help system)
+QUEUES.PL     defines queue operations
+RANDOM.PL     random number generator
+RDSENT.PL     reads a single sentence as a list of words.
+RDTOK.GEN     tokeniser in fairly standard Prolog
+RDTOK.PL      is an interface to the Prolog tokeniser
+READ.PL       is a Prolog parser written in Prolog (needs RdTok.Pl)
+READIN.PL  u  reads an English paragraph as a list of words.
+RECON.PL      versions of consult and reconsult using try_hard_to_see
+SAMSOR.PL     a sorting routine which exploits existing order
+SETOF.PL      defines set_of, bag_of, findall
+SETUTL.PL um  contains set-manipulating utilities
+SORTS.PL      Specify generalised sorting routines.
+STRIO.PL      Prolog i/o to character strings
+STRUCT.PL um  defines substitution and other metalogical operations
+SUCC.PL       defines succ and plus   /*not in UTIL 28/1/85 */
+SYSTEM.PL     Table of built-in predicates.
+TERMIN.PL     check for missing base cases
+TEST.PL       tests compiled routines by interpreting them
+TIDY.PL    u  simplifies algebraic expressions, but not much (for PRESS)
+TIMING.PL     use with TIMING.POP to get dynamic call counts
+TOPLEV.PL     Prolog 'top level'
+TRACE.PL  um  contains trace routines
+TREES.PL      contains routines for updating binary trees
+TRYSEE.PL ut  searches several directories/extensions for a file
+TYPE.PL   ut  types file(s) to the screen
+TYPECH.PL     checks Prolog types
+UNFOLD.PL     unit resolution for optimising "data abstraction" style code
+UPDATE.PL     updates "data-base" relations
+UTIL          Root file for the Utilities package.
+UTIL.DEF      contains definitions of utilities for XREF
+UTIL.MIC      is used by MAKSYS to build the UTILities package
+UTIL.OPS  um  declares operators used by UTIL not already in PROLOG
+UTIL.TXT      "Utility is_defined_in File" sorted on both keys (needs updating)
+UTIL2.TXT     This file - lists purpose of each file in UTIL
+VCHECK.PL  t  reads each clause of a file and reports unique variables
+WRITE.PL      Portable definition of write/1 and friends.
+WRITEF.PL um  contains formatted output routines
+XGPROC.PL     Translate XGs to Prolog (some kind of grammar-but which?)

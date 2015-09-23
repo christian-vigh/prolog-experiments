@@ -1,0 +1,2031 @@
+% STYLE
+
+\documentstyle[fleqn,leqno,twoside,12pt]{article}
+
+\pagestyle{headings}
+\newcommand{\authorstr}{\hfill {\it CG Theorem Prover}}
+\newcommand{\titlestr}{{\it CG Theorem Prover}\hfill}
+\markboth{\authorstr}{\titlestr}
+
+\setlength{\oddsidemargin}{0.0in} % +1.0" automatically
+\setlength{\evensidemargin}{0.0in} % +1.0" automatically
+\setlength{\textwidth}{6.5in} % {4.5} {6.0in}
+\setlength{\topmargin}{-.4in} %{+0.5in} % {-0.25in} % +1" automatically
+\setlength{\textheight}{8.75in} %{7.25in} {8.5in}
+\setlength{\headsep}{0.4in}
+
+\setlength{\unitlength}{5.0mm}
+\thinlines
+
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\topfraction}{1.0}
+\setcounter{topnumber}{5}
+\renewcommand{\floatpagefraction}{1.0}
+
+% SECTIONING
+\newcommand{\mysection}[1]{%
+     \markboth{\authorstr}{\titlestr}
+     \section{#1}
+     \markboth{\authorstr}{\titlestr}}
+\newcommand{\mysectionstar}[1]{%
+     \markboth{\authorstr}{\titlestr}
+     \section*{#1}
+     \markboth{\authorstr}{\titlestr}}
+\newcommand{\mysubsection}[1]{%
+     \markboth{\authorstr}{\titlestr}
+     \subsection{#1}
+     \markboth{\authorstr}{\titlestr}}
+\newcommand{\mysubsubsection}[1]{%
+     \markboth{\authorstr}{\titlestr}
+     \subsubsection{#1}
+     \markboth{\authorstr}{\titlestr}}
+
+
+% THEOREM ENVIRONS
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\renewcommand{\thetheorem}{\arabic{theorem}}
+
+
+
+
+% SPACING
+\newlength{\halfline}
+\setlength{\halfline}{.5\baselineskip}
+
+% RENEWED COMMANDS
+\renewcommand{\theequation}{\arabic{equation}}
+
+% TEXT COMMANDS
+\newcommand{\bold}[1]{{\bf #1}}
+\newcommand{\deftech}[1]{{\rm #1}}
+\newcommand{\men}[1]{\mbox{{\sl #1\/}}}
+\newcommand{\menpun}[1]{\mbox{{\sl #1}}}
+\newcommand{\tech}[1]{{\it #1\/}} 
+\newcommand{\techpun}[1]{{\it #1}}
+\newcommand{\tw}[1]{{\tt #1}}
+\newcommand{\cu}[1]{{\cal #1}}  % only in math environ
+
+
+% CROSS REFERENCES
+\newcommand{\refchap}[1]{Chapter~\ref{#1}}
+\newcommand{\refex}[1]{(\ref{#1})}
+\newcommand{\refsubex}[2]{(\ref{#1})#2}
+\newcommand{\refeq}[1]{Equation~\ref{#1}}
+\newcommand{\reffig}[1]{Figure~\ref{#1}}
+\newcommand{\refpage}[1]{page~\pageref{#1}}
+\newcommand{\refpages}[2]{pages~\pageref{#1}--\pageref{#2}}
+\newcommand{\refsec}[1]{Section~\ref{#1}}
+\newcommand{\refapp}[1]{Appendix~\ref{#1}}
+\newcommand{\refthm}[1]{Theorem~\ref{#1}}
+\newcommand{\refcor}[1]{Corollary~\ref{#1}}
+\newcommand{\reflem}[1]{Lemma~\ref{#1}}
+\newcommand{\refdef}[1]{Definition~\ref{#1}}
+
+
+% CONTRAST ENVIRON
+\newcommand{\contrast}[1]{$ \left\{ 
+                              \begin{array}{c}
+                                 #1
+                              \end{array}
+                            \right\} 
+                          $}
+\newcommand{\ci}[1]{\mbox{#1} \\}
+
+
+% TREES
+\newcommand{\sub}[1]{${}_{#1}$}
+
+
+% SETS AND OPERATIONS
+\newcommand{\card}[1]{{\displaystyle \left\|  #1 \right\| }}
+\newcommand{\nats}{\omega}
+\newcommand{\powerset}[1]{\cu{P}(#1)}
+\newcommand{\setlist}[1]{\{ #1 \}}
+\newcommand{\setstack}[1]{ \left\{ 
+                           \simplestack{#1} 
+                           \right\} }
+\newcommand{\setcomp}[2]{\setlist{#1 \, \mid \, #2 }}
+\newcommand{\setdiff}{\setminus}
+\newcommand{\setcomplement}[1]{\bar{#1}}
+
+% FUNCTIONS AND RELATIONS
+\newcommand{\domain}[1]{{\it Dom}({#1})}
+\newcommand{\fspace}[2]{#2^{#1}} 
+\newcommand{\fcn}[3]{#1 : #2 \rightarrow #3}
+\newcommand{\pfcn}[3]{#1 : #2 \rightharpoonup #3 \ }
+\newcommand{\idfcn}[1]{{\it id}_{#1}}
+\newcommand{\inv}[1]{{#1}^{-1}}
+\newcommand{\restrictedto}{\downarrow}
+\newcommand{\tuple}[1]{\langle #1 \rangle}
+\newcommand{\emptylist}{\tuple{ \ }}
+\newcommand{\emptystring}{\epsilon}
+\newcommand{\comp}{\circ}
+\newcommand{\eqclass}[2]{[ #1 ]_{#2}}
+\newcommand{\modulo}[2]{{#1 /}_{#2}}
+\newcommand{\dom}[1]{\mbox{{\sf #1}}}
+\newcommand{\domsub}[1]{\mbox{\small\sf #1}}
+\newcommand{\mf}[1]{\mbox{\it #1\/}}
+\newcommand{\mfpun}[1]{\mbox{\it #1}}
+
+
+% LOGIC
+\newcommand{\fut}{\mbox{\bf F}}
+\newcommand{\past}{\mbox{\bf P}}
+\newcommand{\alwayswill}{\mbox{\bf W}}
+\newcommand{\alwayshas}{\mbox{\bf H}}
+\newcommand{\before}{\prec}
+\newcommand{\after}{\succ}
+\newcommand{\beforeeq}{\preceq}
+\newcommand{\aftereq}{\succeq}
+\newcommand{\logiceq}{\equiv}
+\newcommand{\true}{{\sf yes}}
+\newcommand{\false}{{\sf no}}
+\newcommand{\unknown}{{\sf unknown}}
+\newcommand{\denotation}[1]{\mbox{$[ \! [$}  #1  \mbox{$] \! ]$}}
+\newcommand{\conj}{\wedge}
+\newcommand{\disj}{\vee}
+\newcommand{\bigconj}{\bigwedge}
+\newcommand{\bigdisj}{\bigvee}
+% \newcommand{\neg}  predefined
+\newcommand{\imp}{\rightarrow}
+\newcommand{\strictimp}{\mbox{\setlength{\unitlength}{0.65em}
+                                \thinlines
+                                \begin{picture}(1.25,1)
+                                  \put(0,0.5){\line(1,0){1}}
+                                  \put(1.0,0.85){\oval(0.5,0.5)[r]}
+                                  \put(1.0,0.25){\oval(0.5,0.5)[r]}
+                                 \end{picture}}}
+\newcommand{\biimp}{\leftrightarrow}
+\newcommand{\eqdef}{=_{\mbox{{\footnotesize def}}}}
+\newcommand{\conseq}{\vdash}
+\newcommand{\axr}[2]{\begin{array}[t]{c}
+                         \hrulefill\makebox[0pt][l]{$#2$}
+                         \\
+                         #1
+                       \end{array} }
+\newcommand{\infr}[3]{
+\begin{array}[t]{@{}c@{}}
+  #1
+  \\[-4.5pt]
+  \hrulefill\makebox[0pt][l]{$#3$} 
+  \\ 
+  #2
+\end{array}}
+\newcommand{\subst}[3]{#1 [ #2 \mapsto #3 ]}
+\newcommand{\con}[1]{{\bf #1}}
+
+% LAMBDA CALC
+\newcommand{\ft}[2]{#1{\rightarrow}#2}
+\newcommand{\prt}[2]{#1{\times}#2}
+\newcommand{\lam}[2]{\lambda #1 . #2}
+\newcommand{\typ}[1]{\mbox{\sf #1}}
+\newcommand{\typsub}[1]{\mbox{\small\sf #1}}
+\newcommand{\CI}[1]{{\bf I}_{#1}}
+\newcommand{\CK}[1]{{\bf K}_{#1}}
+\newcommand{\CS}[1]{{\bf S}_{#1}}
+\newcommand{\alphaeq}{=_\alpha}
+
+% FORMAL LANGUAGES
+\newcommand{\kleene}[1]{#1^{*}}
+\newcommand{\nullstring}{\varepsilon}
+\newcommand{\concat}{\cdot}
+
+
+% CATEGORIAL GRAMMARS
+\newcommand{\mensm}[1]{\mbox{{\small\sl #1}}}
+\newcommand{\consm}[1]{\mbox{\small\bf #1}}
+
+
+\newcommand{\fd}[2]{#1 / #2}
+\newcommand{\bk}[2]{#1 \backslash #2}
+\newcommand{\uni}[2]{#1 {\mid} #2}
+\newcommand{\bang}[2]{#1 {\uparrow} #2}
+\newcommand{\scop}[2]{#1{\Uparrow}#2}
+\newcommand{\synsem}[2]{#1\/\colon #2}
+\newcommand{\expsem}[2]{\tuple{#1,#2}}
+\newcommand{\rewrites}{\Rightarrow}
+\newcommand{\rewritesstar}{\stackrel{\hspace*{-3pt}*}
+                                    {\rightarrow}}
+\newcommand{\fdst}[2]{\simplestack{ \! \! #1 \\  \; \; / \;  #2}}
+\newcommand{\bkst}[2]{\simplestack{ \! \! #1 \\  \; \; \backslash \; #2}}
+\newcommand{\synsemst}[2]{\simplestack{#1 \\[2pt] #2}}
+
+\newcommand{\normalizesto}{\rhd}
+
+% Sequent Calculus
+\newcommand{\coleft}{Co l}
+\newcommand{\bleft}{\backslash l}
+\newcommand{\fleft}{/ l}
+\newcommand{\bright}{\backslash r}
+\newcommand{\fright}{/ r}
+\newcommand{\gright}{{\uparrow} r}
+\newcommand{\scopright}{{\Uparrow} r}
+\newcommand{\scopleft}{{\Uparrow} l}
+\newcommand{\gleft}{{\uparrow} l}
+\newcommand{\qleft}{q l}
+\newcommand{\qright}{q r}
+
+
+% Natural Deduction
+\newcommand{\contra}{\bot}
+\newcommand{\argument}[1]{{\bf #1}}
+\newcommand{\dotsover}[1]{\sstc{\vdots \\ #1}}
+\newcommand{\disch}[2]{[ #1 ]^{#2}}
+
+\newcommand{\intro}[1]{#1 i}
+\newcommand{\elim}[1]{#1 e}
+\newcommand{\introindex}[2]{#1 i^{#2}}
+\newcommand{\elimindex}[2]{#1 e^{#2}}
+
+\newcommand{\fel}{\elim{/}}
+\newcommand{\bel}{\elim{\backslash}}
+\newcommand{\fin}[1]{\introindex{/}{#1}}
+\newcommand{\bin}[1]{\introindex{\backslash}{#1}}
+\newcommand{\gin}[1]{\introindex{{\uparrow}}{#1}}
+\newcommand{\scopr}[1]{\elimindex{{\Uparrow}}{#1}}
+\newcommand{\scin}{\intro{{\Uparrow}}}
+\newcommand{\coel}{\elim{c}}
+\newcommand{\qi}{\intro{{\Uparrow}}}
+\newcommand{\qintro}{\intro{{\Uparrow}}}
+
+
+\newcommand{\coor}{Co}
+\newcommand{\qpush}[1]{\scopr{#1}}
+\newcommand{\qpop}[1]{\scopr{#1}}
+\newcommand{\qqpush}[1]{\elimindex{\mbox{\small\it q}}{#1}}
+\newcommand{\qqpop}[1]{\elimindex{\mbox{\small\it q}}{#1}}
+\newcommand{\lexr}{l}
+\newcommand{\empr}{\mbox{$\nullstring$}}
+\newcommand{\id}{i}
+\newcommand{\cut}{c}
+\newcommand{\der}{d}
+
+
+
+
+% SYNTAX
+% ----------------------------------------------------------------------
+\newcommand{\gap}{\underline{\mbox{\hspace*{1em}}}}
+
+
+% SIMPLE FORMATTING
+% ----------------------------------------------------------------------
+\newcommand{\simplestack}[1]{\begin{array}[t]{@{}l@{}} 
+                               #1 
+                             \end{array} }
+\newcommand{\sst}[1]{\begin{array}[t]{@{}l@{}} 
+                       #1 
+                     \end{array} }
+\newcommand{\sstc}[1]{\begin{array}[t]{@{}c@{}}
+                       #1 
+                      \end{array} }
+
+% LEXICONS
+% ----------------------------------------------------------------------
+\newcommand{\lex}[3]{\men{#1} \rewrites \synsem{#2}{#3}}
+
+\newenvironment{quoteright}%
+  {\begin{list}{}{
+     \setlength{\itemindent}{0pt}
+     \setlength{\labelwidth}{0pt}
+     \setlength{\leftmargin}{2em}}
+     \item
+  }%
+  {\end{list}
+  }
+
+
+% DISJ DEFS
+% ----------------------------------------------------------------------
+\newenvironment{disjdef}%
+  { \vspace{0.1pt}
+    \left\{ \begin{array}{ll}
+  }%
+  {         \end{array}
+    \right.
+    \vspace{0.1pt}
+  }
+
+
+% PROOFS
+% ----------------------------------------------------------------------
+\newenvironment{proof}%
+  {\begin{trivlist}
+    \item[] \mbox{{\it Proof: }}}%
+  {\end{trivlist}}
+\newcommand{\qed}{\hfill \mbox{\framebox[0.075in]{\rule{0in}{.03in}}}}
+
+
+
+
+% CASES
+% ----------------------------------------------------------------------
+\newcounter{casectr}
+\newenvironment{bycases}%
+ {  \begin{list}%
+          {\rm\alph{casectr}.}%
+          {\usecounter{casectr}%
+           \setlength{\labelwidth}{1em}%
+           \setlength{\leftmargin}{3em}%
+           \setlength{\rightmargin}{0pt}}%
+ }%
+ {  \end{list}%  
+ }
+
+
+% EXAMPLES
+% ----------------------------------------------------------------------
+\newlength{\expwidth}
+\newlength{\exmarkwidth}
+\newenvironment{example}%
+  {\begin{equation}%
+   \setlength{\exwidth}{\textwidth}%
+   \settowidth{\exmarkwidth}{(\theequation)}
+   \addtolength{\exwidth}{-\exmarkwidth}
+   \addtolength{\exwidth}{-1.25em}
+   \hfill
+   \begin{minipage}[t]{\exwidth}%
+  }%
+  {\end{minipage}%
+   \end{equation}}
+
+\newenvironment{exampleref}[1]%
+  {\begin{equation}\label{#1}%
+   \setlength{\exwidth}{\textwidth}%
+   \settowidth{\exmarkwidth}{(\theequation)}
+   \addtolength{\exwidth}{-\exmarkwidth}
+   \addtolength{\exwidth}{-1.25em}
+   \hfill
+   \begin{minipage}[t]{\exwidth}%
+  }%
+  {\end{minipage}\vspace*{6pt}%
+   \end{equation}}
+
+
+\newcounter{subexamplectr}
+\newenvironment{examples}%
+ {  \begin{list}%
+          {\rm\alph{subexamplectr}.}%
+          {\usecounter{subexamplectr}%
+           \setlength{\labelwidth}{1em}%
+           \setlength{\leftmargin}{1em}%
+           \setlength{\itemsep}{-2pt}
+           \setlength{\rightmargin}{0pt}}%
+ }%
+ {  \end{list}%  
+ }
+
+\newenvironment{mathexamples}%
+ {  \begin{list}%
+          {\rm\alph{subexamplectr}.}%
+          {\usecounter{subexamplectr}%
+           \setlength{\labelwidth}{1em}%
+           \setlength{\leftmargin}{1em}%
+           \setlength{\itemsep}{+2pt}
+           \setlength{\rightmargin}{0pt}}%
+ }%
+ {  \end{list}%  
+ }
+
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bf  A Natural Deduction Theorem Prover 
+           \\[8pt]
+           for Type-Theoretic Categorial Grammars}
+  \\[20pt]
+  {\Large  Bob Carpenter } 
+  \\[8pt]
+  Computational Linguistics Program \\
+  Philosophy Department \\
+  Carnegie Mellon University \\
+  Pittsburgh, PA \ 15213 \\[3pt]
+  {\it Net:}\ carp@lcl.cmu.edu
+\end{center}
+
+\thispagestyle{empty}
+
+\hfill
+
+\tableofcontents
+
+\clearpage
+
+\setcounter{page}{1}
+
+\mysection{Introduction}
+
+In this document, we explain the functionality, use and implementation
+of a Prolog program which performs natural deduction theorem proving
+over logical varieties of categorial grammar.  We assume that the
+reader is familiar with the basics of categorial grammar and of
+Prolog, though Prolog knowledge is less important for those that do
+not wish to experiment with writing grammatical rules, and just wish
+to experiment with lexical issues; this document does not attempt to
+introduce either Prolog or categorial grammar.%
+%
+\footnote{An excellent source for learning about Prolog is the two
+volume sequence, [Sterling and Shapiro 1994].  A
+comprehensive introduction to the categorial grammars assumed here can
+be found in [Carpenter in press] and [Morrill in press].}
+%
+Included in this system is a suite of Prolog code to deal with the
+basic substitution, application and normalization of simply typed
+$\lambda$-terms.
+
+The primary function of this system is to take input strings, such as
+{\it the table every leg of which someone broke collapsed} and produce
+type theoretical (syntactic and semantic) natural deduction
+derivations of them in a logical categorial grammar.  The system can
+produce output in both ASCII and \LaTeX\ formats.
+
+Without understanding the internals of the system, it is
+straightforward for the user to alter the lexicon, including the
+underlying collection of primitive types.  On the other hand,
+modifying the grammar requires significantly more work, but to
+facilitate such experimentation the system is designed in an
+open-ended way.  The grammar itself is modular, though, which allows the user to
+experiment with various subsets of the rule schemes.
+
+The aspects of categorial grammar with which the system can deal
+involve the simple application schemes [Adjukiewicz 1935; Bar-Hillel
+1953]), their logical completion to abstraction schemes in an
+associative setting [Lambek 1958], their extension to unbounded
+dependencies [Moortgat 1988] and scoping [Moortgat 1991], and
+coordination [Gazdar 1980].  The system automatically handles empty
+categories [Carpenter in press], but the user must supply the
+insertion points and categories of all hypothetical assumptions.
+
+The logical approach used is that of natural deduction, as it ties in
+most closely with the use of natural language parsing techniques
+[Barry et al.~1991; Hepple and Morrill 1989; Hepple 1990, 1992;
+K\"onig 1989].  The system employs chart-parsing techniques coupled
+with proof normalization, in order to achieve a modicum of
+efficiency.%
+%
+\footnote{Unfortunately, it is not possible to deal with arbitrary
+hypothetical reasoning in a straightforward way, and this system does
+not attempt it.  While it is possible to bound the predictions on the
+basis of the lexical input's categories, this is not possible with the
+way that hypothetical reasoning interacts with coordination and
+quantification.  In these latter cases, prediction is much more
+difficult, and to the best of our knowledge, even the issue of
+decidability is an open one.}
+
+The lexicon and grammar rules included with the parser are those
+employed by Carpenter [in press].  They cover the basics of English
+syntax, with emphasis on interesting semantic phenomena such as
+relative clauses, quantification, modification, coordination,
+pied-piping, etc.
+
+
+\mysection{Running the System}
+
+In this section, we detail the basics of how to get started with the
+parser.  We begin with some preliminaries having to do with Prolog,
+and then proceed to our particular system.
+
+\mysubsection{Prolog Preliminaries}
+
+This section contains all of the information about
+Prolog necessary to run the parser. 
+
+A Prolog {\it constant} is composed of either a sequence of characters
+beginning with a lower case letter, a number, or any sequence of
+characters surrounded by single quotes.  So, {\tt abc, johnDoe,
+b{\_}17, 123, 'JohnDoe'}, and {\tt '{\_}65a.'} are constants, and {\tt
+A19, JohnDoe, B{\_}19, {\_}au8}, and {\tt [dd,e]} are not.
+
+In grammar files, blank lines and line breaks are ignored.
+Any symbols on a line appearing after a {\tt \%} symbol are treated
+as {\it comments} and ignored.
+
+The Prolog {\it prompt} looks like
+\begin{verbatim}
+  | ?- 
+\end{verbatim}
+What you type after the prompt is called a {\it query}.  Queries
+always end with a period.  In fact, all of the grammar rules and
+lexical entries must end with periods.
+
+After the execution of many queries, the words {\tt yes} or {\tt no} will
+appear before the next prompt.  Unless otherwise noted, these responses
+are irrelevant for our parser.
+
+You can leave Prolog by entering the query {\tt halt} at any prompt
+(followed by a period, of course).
+
+
+\mysubsection{Loading the System}
+
+The parser should be loaded by first invoking Prolog (this requires
+site specific knowledge, though usually is obtained through the
+command {\tt prolog}), and then compiling the system and a grammar.
+Suppose that {\tt prolog} invokes Prolog, and that {\tt compile}/1 is
+the predicate to compile the parser (in systems without compilation,
+{\tt consult}/1 can usually be used).  Then supposing that the parser
+is stored in a local (to the invokation of Prolog) file {\tt
+system.pl}, the following will start up the system (usually, non-local
+files can be fully specified, as long as they're turned into an atom
+by the use of apostrophes, as in {\tt '/users/carp/Prolog/foo.pl'}.
+The following is what happens when using SICStus Prolog, Version 2.1
+\#5:
+%
+\begin{verbatim}
+  % prolog
+  SICStus 2.1 #5: Mon May 02 15:49:24 EDT 1994
+  | ?- compile('system.pl').
+  {compiling ...
+
+  yes
+  | ?- 
+\end{verbatim}
+%
+As usual, the Prolog prompt appears after every interaction;  there's
+no separate interface for the parser beyond simple Prolog queries.
+
+At this point, a grammar needs to be chosen and loaded.  
+\begin{verbatim}
+  | ?- consult('grammar.pl').
+  {consulting ...
+
+  yes
+  | ?- 
+\end{verbatim}
+%
+Again, this assumes that the grammar is also in the directory from
+which Prolog was invoked.  (Of course, on non-Unix systems, the local
+file protocol should be used.)  Finally, the same procedure can be
+used to load a lexicon.
+%
+\begin{verbatim}
+  | ?- consult('lexicon.pl').
+  {consulting ...
+
+  yes
+  | ?- 
+\end{verbatim}
+%
+Assuming no error messages result, the system is ready to go.
+
+
+\mysubsection{Parsing Strings}
+
+In this section, we discuss the interaction with the system required
+for parsing.  We begin with ASCII output, and continue to discuss
+\LaTeX\ output.  We later describe the grammar rules used in the
+derivations displayed in this section.
+
+\mysubsection{ASCII Interaction}
+
+Strings to be parsed are input as Prolog lists as a query with predicate
+{\tt rec}/1. 
+%
+\begin{verbatim}
+  | ?- rec([fred,passed]).
+
+  s:pass(f) via \e
+    np:f via lex
+      fred
+    s\np:pass via lex
+      passed
+
+  Would you like to see another parse? [y/n] y.
+
+  no
+\end{verbatim}
+%
+The resulting analysis, if any, is displayed on the top line.  
+Here the expression {\tt Fred passed} is uniquely analyzed as being of
+syntactic category {\tt s} (a sentence) and having semantics {\tt
+pass(f)} (the application of a one-place predicate to a constant).
+Following the result category and semantics, is an ASCII
+representation of a natural deduction derivation tree.  In this case,
+the corresponding analysis tree is:
+%
+\begin{quote}
+\small
+$
+% [fred,passed]
+\infr{\infr{\men{fred}}
+           {\synsem{np}
+                   {\con{f}}}
+           {\lexr}
+      \qquad
+      \infr{\men{passed}}
+           {\synsem{\bk{s}
+                       {np}}
+                   {\con{pass}}}
+           {\lexr}}
+     {\synsem{s}
+             {\con{pass}
+              (\con{f})}}
+     {\bel}
+$
+\end{quote}
+%
+From this example, the ASCII notation can be seen as encoding a single
+category per line, read left to right, starting from the root, with
+the tree structure indicated by level of indentation.  For instance,
+the two subderivations of the top-level sentence are given in order,
+and indented two spaces.  For each derivation, the rule scheme that is used
+is indicated after the category.  For instance, the sentence is
+derived by the scheme {\tt $\backslash$e} (backward slash
+elimination).  
+
+After each derivation is displayed, the user is given a query as to
+whether another parse should be displayed.  The user should answer
+either {\tt y} or {\tt n} followed by a period.  Above, the user
+responded {\tt y}, indicating that further derivations should be
+shown, but the system responded {\tt no}, indicating that there were
+no further derivations.  Multiple derivations stem from either
+lexical ambiguity or derivational ambiguity, though only normalized
+derivations are produced (see below for a full definition of the
+grammar and normalizations used.)
+
+
+\mysubsubsection{Empty Categories}
+
+Empty categories are handled automatically at parsing time, but
+before running an example with an empty category, it is first
+necessary to compile the empty categories with respect to the grammar.
+This can be done by:
+%
+\begin{verbatim}
+  | ?- compile_empty.
+
+  3 complete empty edges
+  9 active rules with empty starts
+
+  yes
+\end{verbatim}
+%
+The number of empty categories derived is displayed on the first line,
+and the second line displays the number of rules for which an empty
+category could match an initial segment.  If there are infinitely many
+derivations involving empty categories, the empty category compilation
+stage will hang.
+
+After compiling empty categories, we are able to carry out the
+following derivations of {\tt kids}, one of which involves an empty
+existential determiner for the bare plural (the categories themselves
+are unimportant for this discussion).
+%
+\begin{verbatim}
+  | ?- rec([kids]).
+
+  scop(s,np(pl,-)):some(plu(kid)) via /e
+    scop(s,np(pl,-))/n(pl):some via empty
+    n(pl):plu(kid) via lex
+      kids
+  
+  Would you like to see another parse? [y/n]  y.
+
+  n(pl):plu(kid) via lex
+    kids
+
+  Would you like to see another parse? [y/n]  y.
+
+  no
+\end{verbatim}
+%
+The first derivation, involving the empty
+category, will be displayed as:
+%
+\begin{quote}
+\small
+$
+% [kids]
+\infr{\axr{\synsem{\fd{\scop{s}
+                            {np_{p-}}}
+                      {n_p}}
+                  {\con{some}}}
+           {\empr}
+      \qquad
+      \infr{\men{kids}}
+           {\synsem{n_p}
+                   {\con{plu}
+                    (\con{kid})}}
+           {\lexr}}
+     {\synsem{\scop{s}
+                   {np_{p-}}}
+             {\con{some}
+              (\con{plu}
+               (\con{kid}))}}
+     {\fel}
+$
+\end{quote}
+%
+
+
+\mysubsubsection{Hypothetical Derivations}
+
+For hypothetical derivations, the user must supply the hypothesized
+syntactic category in the input, though the system will handle the
+variable semantics associated with hypotheticals.  For instance,
+consider the following:
+%
+\begin{verbatim}
+  | ?- rec([fred,liked,[np]]).
+  
+  s-np:x1.like(x1)(f) via -i(0)
+    s:like(x1)(f) via \e
+      np:f via lex
+        fred
+      s\np:like(x1) via /e
+        s\np/np:like via lex
+          liked
+        [np:x1]^0
+  
+  Would you like to see another parse? [y/n]  y.
+  
+  s/np:x1.like(x1)(f) via /i(0)
+    s:like(x1)(f) via \e
+      np:f via lex
+        fred
+      s\np:like(x1) via /e
+        s\np/np:like via lex
+          liked
+        [np:x1]^0
+  
+  Would you like to see another parse? [y/n]  y.
+  
+  no
+\end{verbatim}
+%
+The second analysis here corresponds to the following natural
+deduction proof.
+%
+\begin{quote}
+\small
+$
+% [fred,liked,[np]]
+\infr{\infr{\infr{\men{fred}}
+                 {\synsem{np}
+                         {\con{f}}}
+                 {\lexr}
+            \qquad
+            \infr{\infr{\men{liked}}
+                       {\synsem{\fd{\bk{s}
+                                       {np}}
+                                   {np}}
+                               {\con{like}}}
+                       {\lexr}
+                  \qquad
+                  [\synsem{np}
+                          {x_1}]^0}
+                 {\synsem{\bk{s}
+                             {np}}
+                         {\con{like}
+                          (x_1)}}
+                 {\fel}}
+           {\synsem{s}
+                   {\con{like}
+                    (x_1)
+                    (\con{f})}}
+           {\bel}}
+     {\synsem{\fd{s}
+                 {np}}
+             {\lam{x_1}
+                  {\con{like}
+                   (x_1)
+                   (\con{f})}}}
+     {\fin{0}}
+$
+\end{quote}
+%
+Note that in the input, {\tt [fred,likes,[np]]}, the hypothesis of the
+{\tt np} is indicated in brackets.  This controls the search on the
+part of the parser.  Also note that the two linked stages of
+hypothetical reasoning, the assumption and its eventual discharge, are
+indicated as usual by co-indexing.  Also note that the variable
+semantics introduced by hypothetical reasoning is indicated by
+numbered variables {\tt x1, x2, ...}
+
+
+\mysubsubsection{Quantifying-In}
+
+Derivations with quantifiers also introduce hypothetical reasoning
+stages, but the hypotheses are supplied automatically, and indicated
+in derivations by co-indexing.  For instance, consider the following:
+%
+\begin{verbatim}
+  | ?- rec([fred,likes,everyone]).
+  
+  s:every^1(x1.like(x1)(f)) via qpop(0)
+    s:like(x1)(f) via \e
+      np:f via lex
+        fred
+      s\np:like(x1) via /e
+        s\np/np:like via lex
+          likes
+        np:x1 via qpush(0)
+          scop(s,np):every^1 via lex
+            everyone
+\end{verbatim}
+%
+and its corresponding analysis tree:
+%
+\begin{quote}
+\small
+$
+% [fred,likes,everyone]
+\infr{\infr{\infr{\men{fred}}
+                 {\synsem{np}
+                         {\con{f}}}
+                 {\lexr}
+            \qquad
+            \infr{\infr{\men{likes}}
+                       {\synsem{\fd{\bk{s}
+                                       {np}}
+                                   {np}}
+                               {\con{like}}}
+                       {\lexr}
+                  \qquad
+                  \infr{\infr{\men{everyone}}
+                             {\synsem{\scop{s}
+                                           {np}}
+                                     {\con{every^1}}}
+                             {\lexr}}
+                       {\synsem{np}
+                               {x_1}}
+                       {\qpush{0}}}
+                 {\synsem{\bk{s}
+                             {np}}
+                         {\con{like}
+                          (x_1)}}
+                 {\fel}}
+           {\synsem{s}
+                   {\con{like}
+                    (x_1)
+                    (\con{f})}}
+           {\bel}}
+     {\synsem{s}
+             {\con{every^1}
+              (\lam{x_1}
+                   {\con{like}
+                    (x_1)
+                    (\con{f})})}}
+     {\qpop{0}}
+$
+\end{quote}
+
+
+\mysubsubsection{Type Raising}
+
+Type raising is allowed to freely apply to raise individuals to
+quantifiers, but is restricted to generate normal form proofs.  We
+chose not to allow generic type raising, as is allowed in the grammar
+rules shown below, because of its explosive nature and the lack of
+motivating examples.  As an example, consider the ambiguity in the
+following standard example displaying a de dicto/de re ambiguity.
+%
+\begin{verbatim}
+  | ?- rec([fred,sought,someone]).
+  
+  s:some(x1.seek(x2.x2(x1))(f)) via qpop(0)
+    s:seek(x2.x2(x1))(f) via \e
+      np:f via lex
+        fred
+      s\np:seek(x2.x2(x1)) via /e
+        s\np/scop(s,np):seek via lex
+          sought
+        scop(s,np):x2.x2(x1) via qi
+          np:x1 via qpush(0)
+            scop(s,np):some via lex
+              someone
+  
+  Would you like to see another parse? [y/n]  y.
+  
+  s:seek(some)(f) via \e
+    np:f via lex
+      fred
+    s\np:seek(some) via /e
+      s\np/scop(s,np):seek via lex
+        sought
+      scop(s,np):some via lex
+        someone
+  
+  Would you like to see another parse? [y/n]  y.
+  
+  no
+\end{verbatim}
+%
+The analysis involving type raising is as follows.
+%
+\begin{center}
+\small
+$
+% [fred,sought,someone]
+\infr{\infr{\infr{\men{fred}}
+                 {\synsem{np}
+                         {\con{f}}}
+                 {\lexr}
+            \qquad
+            \infr{\infr{\men{sought}}
+                       {\synsem{\fd{\bk{s}
+                                       {np}}
+                                   {(\scop{s}
+                                          {np})}}
+                               {\con{seek}}}
+                       {\lexr}
+                  \qquad
+                  \infr{\infr{\infr{\men{someone}}
+                                   {\synsem{\scop{s}
+                                                 {np}}
+                                           {\con{some}}}
+                                   {\lexr}}
+                             {\synsem{np}
+                                     {x_1}}
+                             {\qpush{0}}}
+                       {\synsem{\scop{s}
+                                     {np}}
+                               {\lam{x_2}
+                                    {x_2
+                                     (x_1)}}}
+                       {\qi}}
+                 {\synsem{\bk{s}
+                             {np}}
+                         {\con{seek}
+                          (\lam{x_2}
+                               {x_2
+                                (x_1)})}}
+                 {\fel}}
+           {\synsem{s}
+                   {\con{seek}
+                    (\lam{x_2}
+                         {x_2
+                          (x_1)})
+                    (\con{f})}}
+           {\bel}}
+     {\synsem{s}
+             {\con{some}
+              (\lam{x_1}
+                   {\con{seek}
+                    (\lam{x_2}
+                         {x_2
+                          (x_1)})
+                    (\con{f})})}}
+     {\qpop{0}}$
+\end{center}
+%
+Note that the quantifier introduction and elimination schemes could
+potentially produce infinitely many distinct analyses of the same
+result by continually type raising with the quantifier introduction
+scheme {\tt qi} and eliminating by pushing quantifiers.  But there are
+not infinitely many unique results of such analyses.  Our parser
+eliminates all of the non-normal proofs (see below), thus guaranteeing
+only finitely many analyses (modulo cycling empty categories).
+
+
+\mysubsection{Boolean Coordination}
+
+In the grammar we have provided, boolean coordination is handled by a
+general scheme, following [Gazdar 1980].  Only like categories that
+produce boolean results can be conjoined, so some effort is often
+required in generating the right hypotheses to allow coordination to
+go through.  For instance, we have the following analysis of this
+sentence (there are actually two total, but one will be sufficient
+here):
+%
+\begin{verbatim}
+  | ?- rec([fred,hits,[np],and,bill,kicks,[np]]).
+  
+  s-np:x0.and(hit(x0)(f))(kick(x0)(b)) via coel
+    s-np:x2.hit(x2)(f) via -i(1)
+      s:hit(x2)(f) via \e
+        np:f via lex
+          fred
+        s\np:hit(x2) via /e
+          s\np/np:hit via lex
+            hits
+          [np:x2]^1
+    co:and via lex
+      and
+    s-np:x4.kick(x4)(b) via -i(3)
+      s:kick(x4)(b) via \e
+        np:b via lex
+          bill
+        s\np:kick(x4) via /e
+          s\np/np:kick via lex
+            kicks
+          [np:x4]^3 
+\end{verbatim}
+%
+Here the hypothetical noun phrases in both conjuncts must be
+postulated in order for the subderivations of {\tt fred hits} and {\tt
+bill kicks} to be analyzed themselves as being of category {\tt s-np}.
+
+Coordination is also tricky because it interacts with empty
+categories in a potentially explosive way.  In the included grammar,
+for instance, there are empty lexical entries for the empty plural
+existential quantifier, which can be taken to coordinate with itself,
+because it is a boolean category.  Thus an occurrence of a coordinator,
+such as {\tt and}, will allow empty categories on either side of it to
+produce the following analysis, among others:
+%
+\begin{verbatim}
+  scop(s,np(pl,-))/n(pl):x0.x1.and(some(x0)(x1))(some(x0)(x1)) via coel
+    scop(s,np(pl,-))/n(pl):some via empty
+    co:and via lex
+      and
+    scop(s,np(pl,-))/n(pl):some via empty
+\end{verbatim}
+%
+This is in addition to the five other analyses of {\tt and}, bringing
+the total to six, including the simple one.  The only reason that
+there are not infinitely many is that the grammar rule for
+coordination has been hacked to not allow the coordination of
+structures that were themselves built by coordination.  This hack then
+blocks the parsing {\tt ran and jumped and swam}, for instance.
+Loosening this restriction with the empty categories in place would
+admit infinitely many derivations and cause the parser to hang.
+
+
+
+
+\mysubsection{Producing \LaTeX\ Output}
+
+The parsing system is also capable of producing \LaTeX\ formatted
+output and writing it to a file.  The necessary macros are included
+with the system distribution.
+The commands to do this are slightly different.  For
+instance, to generate the previous analyses, the following command was used: 
+%
+\begin{verbatim}
+  | ?- rec_lat_file([fred,sought,someone],'foo.analysis').
+  
+  s:some(x1.seek(x2.x2(x1))(f)) via qpop(0)
+    s:seek(x2.x2(x1))(f) via \e
+      np:f via lex
+        fred
+      s\np:seek(x2.x2(x1)) via /e
+        s\np/scop(s,np):seek via lex
+          sought
+        scop(s,np):x2.x2(x1) via qi
+          np:x1 via qpush(0)
+            scop(s,np):some via lex
+              someone
+  Would you like to write this parse? [q:quit/p:print/i:ignore] i.
+  
+  s:seek(some)(f) via \e
+    np:f via lex
+      fred
+    s\np:seek(some) via /e
+      s\np/scop(s,np):seek via lex
+        sought
+      scop(s,np):some via lex
+        someone
+  Would you like to write this parse? [q:quit/p:print/i:ignore] p.
+  
+  yes
+\end{verbatim}  
+%
+Note that the predicate {\tt rec\_lat\_file/2} is used, with the second
+argument being an atomic file name ({\tt 'foo.analysis'}, in this
+case).  After each analysis, the user is given the choice of quitting,
+printing the analysis to the file and continuing, or ignoring the
+current analysis and moving on to the next one.  This predicate will
+always return {\tt yes}, even if there are no more analyses.
+
+The output of this process is a sequence of \LaTeX\ commands which can
+be processed with the \LaTeX\ macros included with the code.  The
+program actually outputs everything that is necessary to produce a
+figure, with a caption and a label, for convenience.  But these can be
+easily stripped.  The output just produced, when run through \LaTeX,
+results in \reffig{fss-fig}.
+%
+\begin{figure}[t]
+\begin{center}
+\small
+$
+% [fred,sought,someone]
+\infr{\infr{\men{fred}}
+           {\synsem{np}
+                   {\con{f}}}
+           {\lexr}
+      \qquad
+      \infr{\infr{\men{sought}}
+                 {\synsem{\fd{\bk{s}
+                                 {np}}
+                             {(\scop{s}
+                                    {np})}}
+                         {\con{seek}}}
+                 {\lexr}
+            \qquad
+            \infr{\men{someone}}
+                 {\synsem{\scop{s}
+                               {np}}
+                         {\con{some}}}
+                 {\lexr}}
+           {\synsem{\bk{s}
+                       {np}}
+                   {\con{seek}
+                    (\con{some})}}
+           {\fel}}
+     {\synsem{s}
+             {\con{seek}
+              (\con{some})
+              (\con{f})}}
+     {\bel}
+$
+\caption{Analysis of \men{fred sought someone}}
+\label{fss-fig}
+\end{center}
+\end{figure}
+%
+There are no facilities for cleverly displaying multiple analyses,
+though the user can insert the relevant spacing instructions in the
+output.  The label generated is the sequence of first letters of the
+input string, followed by {\tt -fig}, so that the label of
+\reffig{fss-fig} is {\tt fss-fig}.  The string parsed is displayed as
+a caption following {\it Analysis of}.
+
+There is a serious consideration of output size from this parser.
+Long derivations in the output we produce will overrun the semantic
+nest size of most \TeX\ installations (\TeX\ being the system on top
+of which \LaTeX\ runs).  The only way around this is to either box the
+subderivations up by hand or to recompile \TeX\ to allocate larger
+dynamic memory.
+
+In presenting proofs, it is often useful to be able to highlight the
+important aspects of a derivation and to abbreviate the redundant
+portions.  In our system, there is a method to do this automatically,
+by including the words whose derivation is to be abbreviated using
+{\tt der}/1, as in:
+%
+\begin{verbatim}
+  | ?- rec_lat_file([bill,der([likes,fred])],foo).
+  
+  s:like(f)(b) via \e
+    np:b via lex
+      bill
+    s\np:like(f) via der
+      likes fred 
+  Would you like to write this parse? [q:quit/p:print/i:ignore] p.
+  
+  yes
+\end{verbatim}
+%
+The result is the following derivation:
+%
+\begin{quote}
+\small
+$
+% [bill,der([likes,fred])]
+\infr{\infr{\men{bill}}
+           {\synsem{np}
+                   {\con{b}}}
+           {\lexr}
+      \qquad
+      \infr{\men{likes fred }}
+           {\synsem{\bk{s}
+                       {np}}
+                   {\con{like}
+                    (\con{f})}}
+           {\der}}
+     {\synsem{s}
+             {\con{like}
+              (\con{f})
+              (\con{b})}}
+     {\bel}
+$
+\end{quote}  
+%
+As can be seen in these examples, the part of the analysis using a
+derivation whose structure is suppressed indicates the words and that
+their analysis is derived, but not shown.
+
+
+\mysection{The Grammar}
+
+In this section, we provide an outline of the grammar that we have
+included, including detailed presentations of the rule schemes.  It
+follows [Carpenter 1992] exactly, and the reader is urged to consult
+that source for more detailed descriptions.
+
+
+\mysubsection{Grammatical Categories and Types}
+
+We assume the following basic categories and corresponding simple
+types built out of the primitive boolean and individual types
+$\typ{Bool}$ and $\typ{Ind}$.
+%
+\begin{center}
+$
+\begin{array}{ll}
+s  &  \typ{Bool} \\[2pt]
+np &  \typ{Ind} \\[2pt]
+n  &  \ft{\typ{Ind}}{\typ{Bool}} 
+\end{array}
+$
+\end{center}
+%
+These categories are all for singular instances.  The basic categories used
+for plurals are as follows.
+%
+\begin{center}
+$
+\begin{array}{ll}
+np(pl,+)  & \typ{Ind} \\[2pt]
+np(pl,-)  & \ft{\typ{Ind}}{\typ{Bool}} \\[2pt]
+n(pl)     & \ft{(\ft{\typ{Ind}}{\typ{Bool}})}{\typ{Bool}}
+\end{array}
+$
+\end{center}
+%
+The singular cases are unmarked, and the plural cases are for dealing
+with plural nominals;  $n(pl)$ is for plural nouns, $np(pl,+)$ for
+plural noun phrases that have been resolved into either distributive
+or collective instances, and $np(pl,-)$ for plural noun phrases which
+have not been either distributed or collected.
+
+Complex categories are built up as usual, employing the following
+category constructors:%
+%
+\footnote{We have used Steedman's [1988] notation for categories and
+derivations.  It would be a fairly trivial exercise to adjust the
+Prolog code and the \LaTeX\ macros to generate analyses and accept
+lexical entries in the Lambek [1958]/Moortgat [1988,1991] notations.
+Besides the change in the grammar rules, which are straightforward,
+the user would need to change the pretty printer's conventions for
+inserting parentheses for disambiguation.}
+%
+\begin{center}
+$
+\begin{array}{ll}
+\fd{A}{B}  &  \ft{Typ(B)}{Typ(A)} \\[2pt]
+\bk{A}{B}  &  \ft{Typ(B)}{Typ(A)} \\[2pt]
+A-B        &  \ft{Typ(B)}{Typ(A)} \\[2pt]
+scop(A,B)  &  \ft{(\ft{Typ{B}}{Typ(A)})}{Typ(A)} \\[2pt]
+q(A,B,C)   &  \ft{(\ft{Typ{C}}{Typ(B)})}{Typ(A)} \\[2pt]
+co         &  \ft{\typ{Bool}}{\ft{\typ{Bool}}{\typ{Bool}}} 
+\end{array}
+$
+\end{center}
+%
+The use of these categories is explained in the next section.
+
+
+
+\mysubsection{Grammar Rule Schemes}
+
+Here we indicate the natural deduction schemes used in this system.
+The presentation follows that of [Carpenter in press].  
+The first three schemes capture the Ajdukiewicz/Bar-Hillel Calculus,
+with lexical entries.
+%
+\begin{center}
+{\bf Lexical Entries} \\[6pt]
+{\small
+$\infr{e}
+      {\synsem{A}{\alpha}}
+      {\lexr}$
+}
+%
+\\[18pt]
+%
+{\bf Slash Elimination} \\[6pt]
+{\small
+$\infr{\dotsover{\synsem{\fd{A}{B}}{\alpha}}
+       \qquad
+       \dotsover{\synsem{B}{\beta}}}
+      {\synsem{A}{\alpha(\beta)}}
+      {\fel}$
+\qquad \qquad
+$\infr{\dotsover{\synsem{B}{\beta}}
+       \qquad
+       \dotsover{\synsem{\bk{A}{B}}{\alpha}}}
+      {\synsem{A}{\alpha(\beta)}}
+      {\bel}$
+}
+\end{center}
+%
+Note that these schemes take the form of rules of use for the slashes.
+Also note that the assumptions in the rule schemes are ordered;  thus
+we can't derive an $A$ from the sequence $B, \fd{A}{B}$, for example.
+
+The parallel of the slashes to implication, and of implicational proofs to
+$\lambda$-terms provides the semantics for the system [van Benthem
+1983].  We have included syntactic/semantic categories separated by a
+colon in our derivations, as is standard.%
+%
+\footnote{Though the reverse of the more sensible notation employed by
+Morrill [in press], in which the order is reversed to $\synsem{t}{C}$
+so the term $t$ can be seen to be of type $C$.  This feature could
+also be easily changed by modifying the code.}
+
+These schemes are then enriched with the dual rules of proof,
+resulting in Lambek's associative categorial calculus.
+%
+\begin{center}
+{\bf Slash Introduction} \\[6pt]
+{\small
+$\infr{\infr{\; \sstc{\vdots \\ \vdots} 
+             \qquad
+             \sstc{\disch{\synsem{A}{x}}{n} 
+                   \\
+                   \vdots}}
+            {\synsem{B}{\alpha}}
+            {}}
+      {\synsem{\fd{B}{A}}{\lam{x}{\alpha}}}
+      {\fin{n}}$
+\qquad \qquad
+$\infr{\infr{\sstc{\disch{\synsem{A}{x}}{n} 
+                   \\
+                   \vdots}
+             \qquad
+              \sstc{\vdots \\ \vdots} \;}
+            {\synsem{B}{\alpha}}
+            {}}
+      {\synsem{\bk{B}{A}}{\lam{x}{\alpha}}}
+      {\bin{n}}$
+}
+\end{center}
+%
+These rules involve hypothetical reasoning and should be read as such.
+For instance, the forward slash elimination rule says that if we can
+hypothesize a category $\synsem{A}{x}$, that is a category with
+syntactic component $A$ and semantics the variable $x$, and if we can
+use this category as the rightmost frontier of a derivation of $B$
+with semantics $\alpha$, then we can discharge the assumption to
+produce $\synsem{\fd{B}{A}}{\lam{x}{\alpha}}$.  Note that the scope of
+the assumption is only up to its corresponding discharge point, and
+that the assumption must remain rightmost in its derivation.
+
+The rules for scoping were introduced by Moortgat [1991].  The scope
+elimination, or rule of use, for the scope connector also involves
+hypothetical reasoning.  
+The rule says that if we have derived an $\scop{A}{B}$, we
+are allowed to hypothesize a $B$ with a variable semantics, and use it
+in a derivation of an $A$, at which point the assumption can be
+discharged and its semantics applied to the resulting semantics
+abstracted over the variable introduced by $B$.  This is illustrated
+in the first rule.
+%
+\begin{center}
+{\bf Scope Elimination} \\[6pt]
+{\small
+$\infr{\infr{\quad \sstc{\vdots \\ \vdots \\ \vdots \\ \vdots}
+             \quad \infr{\infr{\dotsover{\synsem{\scop{A}{B}}{\alpha}}}
+                              {\synsem{B}{x}}
+                              {\scopr{i}}
+                        }
+                        {\vdots}
+                        {}
+             \qquad \sstc{\vdots \\ \vdots \\ \vdots \\ \vdots}
+             \quad
+            }
+            {\synsem{A}{\beta}}
+            {}
+      }
+      {\synsem{A}{\alpha(\lam{x}{\beta})}}
+      {\scopr{i}}$
+}
+\end{center}
+\begin{center}
+{\bf Scope Introduction} \\[6pt]
+{\small
+$\infr{\synsem{B}{\beta}}
+      {\synsem{\scop{A}{B}}{\lam{x}{x(\beta)}}}
+      {\scin}$
+}
+\end{center}
+%
+The second scoping scheme is simply the familiar operation of type
+raising.  Here it is promoted to a logical rule in the grammar to
+provide an introduction rule, or rule of proof, for the
+quantificational connective.%
+%
+\footnote{This rule scheme is sound, but not complete with respect to
+the understanding of the $\scop{}{}$ connector.  See Carpenter [in
+press] and Morrill [in press] for discussion.}
+%
+It is important to keep in mind the logical operation of scope
+elimination.  It is really combining a proof of $\synsem{A}{\beta}$
+from a hypothetical assumption $\synsem{B}{x}$ and then combining it
+with a derivation of $\synsem{\scop{A}{B}}{\alpha}$ to yield
+$\synsem{A}{\alpha(\lam{x}{\beta})}$.  It is this logical
+understanding of hypotheses that distinguishes this rule from
+Montague's quantifying-in rule and Cooper's storage method (see
+[Carpenter in press] for further discussion).
+
+Moortgat [1991] generalized the simple binary quantificational
+constructor to one of three argument categories.  The rules for the
+three-place constructor $q$ are as follows.
+%
+\begin{center}
+{\bf $q$ Elimination} \\[6pt]
+{\small
+$\infr{\infr{\quad \sstc{\vdots \\ \vdots \\ \vdots \\ \vdots}
+             \quad \infr{\infr{\dotsover{\synsem{q(A,B,C)}{\alpha}}}
+                              {\synsem{C}{x}}
+                              {\qqpush{i}}
+                        }
+                        {\vdots}
+                        {}
+             \qquad \sstc{\vdots \\ \vdots \\ \vdots \\ \vdots}
+             \quad
+            }
+            {\synsem{B}{\beta}}
+            {}
+      }
+      {\synsem{A}{\alpha(\lam{x}{\beta})}}
+      {\qqpop{i}}$
+}
+\\[18pt]
+{\bf $q$ Introduction} \\[6pt]
+{\small
+$\infr{\synsem{A}{\alpha}}
+      {\synsem{q(A,B,B)}{\lam{P}{P(\alpha)}}}
+      {\qintro}
+$
+}
+\end{center}
+%
+Finally, we employ Moortgat's [1988] constructor $\bang{A}{B}$ for a
+category that is an $A$ with a $B$ gap in it.  In the current
+situation, with ordered antecedents, we are only able to provide a
+rule of proof for this constructor.%
+%
+\footnote{See Morrill [in press] for a discussion of rules of use for
+$\bang{}{}$ under a more general labeled deductive system and
+interpretation of strings.}
+%
+\begin{center}
+{\bf Gap Introduction} \\[6pt]
+{\small
+$\infr{\infr{\; \sstc{\vdots \\ \vdots} 
+             \qquad
+             \sstc{\disch{\synsem{A}{x}}{n} 
+                   \\
+                   \vdots}
+             \qquad
+             \sstc{\vdots \\ \vdots}}
+            {\synsem{B}{\alpha}}
+            {}}
+      {\synsem{\bang{B}{A}}{\lam{x}{\alpha}}}
+      {\gin{n}}$
+}
+\end{center}
+%
+This rule scheme is also hypothetical in nature, though unlike the
+slash rules, does not make any assumptions about the peripherality of
+the slashes.
+
+The final rule in the grammar involves coordination, and is defined as
+follows.  
+%
+\begin{center}
+{\bf Coordination Elimination} \\[6pt]
+{\small
+$\infr{\dotsover{\synsem{A}{\phi}} 
+       \qquad \dotsover{\synsem{co}{\alpha}}
+       \qquad \dotsover{\synsem{A}{\psi}}}
+      {\synsem{A}{\mf{Coor}(\alpha)(\phi)(\psi)}}
+      {\coel}$
+}
+\end{center}
+%
+Here the operation $\mf{Coor}$ is taken to be a polymorphic boolean
+operator that distributes its first argument, for the coordinator,
+through any abstractions in its second two arguments.  It is both defined
+and implemented by the following recursive scheme:
+%
+\begin{quote}
+\begin{mathexamples}
+\item  
+$\mf{Coor}(\alpha)(\phi)(\psi) = \alpha(\phi)(\psi)$ 
+ \ if $\phi$ and $\psi$        are of type \typ{Bool}
+\item
+$\mf{Coor}(\alpha)(\phi)(\psi) =
+ \lam{x}{\mf{Coor}(\alpha)(\phi(x))(\psi(x))}$
+ \ if $\phi$ and $\psi$ are of type $\ft{\sigma}{\tau}$, 
+$\tau$ a propositional type, and $x$ a fresh variable of type
+$\sigma$
+\end{mathexamples}
+\end{quote}
+%
+
+
+
+\mysubsection{Empty Categories}
+
+The parser allows the specification of certain categories as being
+null in their string components.  In other words, such categories can
+be stipulated anywhere in an input without any surface realizations.
+These empty categories are typically listed along with the lexicon.
+Their rule of use is exactly the same as that for lexical entries,
+only no string is involved.  There are no constraints on their
+insertion, or application to each other.  But, if infinitely many
+normal derivations arise, the parser will hang.
+
+
+\mysubsection{Proof Normalization}
+
+As the rule schemes stand, they admit of many redundant derivations.
+But normal proofs are not redundant in this way.  Our system detects
+non-normal proofs and rules them out, following [Hepple and Morrill
+1989; K\"onig 1989].  The notion of normal proof is best described by
+showing the normalization operators, which convert non-normal proofs
+into normal ones.  
+
+There are two normalization operators for slashes, which prevent
+arbitrary introduction and discharge of slashes.  
+%
+\begin{center}
+{\bf $\beta$-Normalization}
+\\[6pt]
+{\small
+$\infr{\infr{\infr{\; \sstc{\vdots \\ \vdots} 
+                   \qquad
+                   \sstc{\disch{\synsem{A}{x}}{n} 
+                         \\
+                         \vdots}}
+                  {\synsem{B}{\alpha}}
+                  {}}
+            {\synsem{\fd{B}{A}}{\lam{x}{\alpha}}}
+            {\fin{n}}
+       \qquad
+       \synsem{A}{\beta}}
+      {\synsem{B}{(\lam{x}{\alpha})(\beta)}}
+      {\fel}
+\qquad \qquad
+\normalizesto
+\qquad \qquad
+\infr{\; \sstc{\vdots \\ \vdots}
+      \qquad
+      \sstc{\synsem{A}{\beta} \\ \vdots}}
+     {\synsem{B}{\alpha[x \mapsto \beta]}}
+     {}$
+}
+\end{center}
+%
+\begin{center}
+\begin{minipage}{\textwidth}
+\begin{center}
+{\bf $\eta$-Normalization}
+\\[6pt]
+$\infr{\infr{{\synsem{\fd{A}{B}}{\alpha}} \qquad 
+             {\disch{\synsem{B}{x}}{n}}}
+            {\synsem{B}{\alpha(x)}}
+            {\fel}}
+      {\synsem{\fd{A}{B}}{\lam{x}{\alpha(x)}}}
+      {\fin{n}}
+\qquad \qquad
+\normalizesto
+\qquad \qquad
+\synsem{\fd{A}{B}}{\alpha}
+$
+\end{center}
+\end{minipage}
+\end{center}
+%
+The derivations on the left produce the same results as the ones on
+the right of the $\normalizesto$ relation.  Clearly, the rightmost
+derivation is simpler in both cases, yet yields the same result.%
+%
+\footnote{Note that the normalization scheme on the derivations induces a
+normalization of the corresponding $\lambda$-terms.  This provides the
+morphism component of the Curry-Howard morphism, which relates
+$\lambda$-terms and proofs in implicational logics.  There is also a
+deep connection to cut-free proofs in the sequent formulation of these
+calculi.  See [Morrill in press] for details.}
+
+There are also normalization schemes for the quantifiers, which
+prevent arbitrary type-raising and discharge.  
+%
+\begin{center}
+\begin{minipage}{\textwidth}
+\begin{center}
+{\bf Quantifier Normalization} \\[6pt]
+\small
+$\infr{\infr{\; \sstc{\vdots \\ \vdots \\ \vdots \\ \vdots \\ \vdots}
+             \quad
+             \infr{\infr{\infr{\dotsover{\synsem{A}{\alpha}}}
+                              {\synsem{\scop{B}{A}}{\lam{P}{P(\alpha)}}}
+                              {\qi}
+                        }
+                        {\synsem{A}{x}}
+                        {\qpush{n}}
+                  }
+                  {\vdots}
+                  {}
+             \qquad
+             \sstc{\vdots \\ \vdots \\ \vdots \\ \vdots \\ \vdots}
+             \;
+            }
+            {\synsem{B}{\beta}}
+            {}
+      }
+      {\synsem{B}{(\lam{P}{P(\alpha)})(\lam{x}{\beta})}}
+      {\qpop{n}}
+\qquad \qquad \normalizesto \qquad \qquad
+\infr{\; \sstc{\vdots \\ \vdots \\ \vdots}
+       \quad
+       \infr{\dotsover{\synsem{A}{\alpha}}}
+            {\vdots}
+            {}
+       \quad
+       \sstc{\vdots \\ \vdots \\ \vdots}
+       \; }
+      {\synsem{B}{\subst{\beta}{x}{\alpha}}}
+      {}
+$
+\end{center}
+\end{minipage}
+\end{center}
+%
+Of course, there is an identical normalization scheme for the $q$
+constructor.
+
+In the parser, as new analyses are proposed, they are discarded if
+they are normalizable in the sense of matching the left hand side of
+one of the normalization schemes. 
+
+
+\mysection{Writing Lexicons}
+
+Writing lexicons for use in this system is straightforward.  A sample
+lexical entry, as it appears in the sample grammar, is:
+%
+\begin{verbatim}
+  ken ==> np : con(k).
+\end{verbatim}
+%
+This entry indicates that the expression {\tt ken} has the syntactic
+category {\tt np} and a semantic term {\tt con(k)} indicating that
+{\tt k} is a constant.  In general, constants must be atoms and be wrapped with
+{\tt con}/1.  Variables, such as {\tt var(X)} below, on the other hand, 
+must be wrapped with {\tt var} and be Prolog variables.  
+Consider the following entry, involving more
+complex categories and semantic terms:
+%
+\begin{verbatim}
+  in ==> n\n/np : 
+         var(X)^var(P)^var(Y)^con(and)@(var(P)@var(Y))
+                                      @(con(in)@var(X)@var(Y)).
+\end{verbatim}
+%
+This entry indicates a number of important notational conventions.
+First, the word is separated from its category by the rewriting symbol
+{\tt ==>}.  The syntactic category is separated from the semantic term
+by a colon, and the whole is terminated by a period.  Spacing does not
+matter in lexical entry.
+
+We assume that slashes in categories associate to the left, so that
+{\tt n$\backslash$n/np} yields the same result as the more explicit {\tt
+(n$\backslash$n)/np}.  The notations for the slashes are the usual ones, but
+$\scop{A}{B}$ is indicated by {\tt scop(A,B)}, and $\bang{A}{B}$ by
+{\tt A-B}.  The notation for the $q$ category is as written.
+
+For semantic terms, the symbol {\tt @} is used for application, so
+that {\tt F@G} represents the application of {\tt F} to {\tt G}.
+Application associates to the left, so that {\tt F@G@H} is the same as
+the more verbose {\tt (F@G)@H}.  The symbol \ $\hat{}$ \ is used for
+$\lambda$-abstraction, so that {\tt var(X)\,$\hat{}$\,P} is the result of
+abstracting the variable {\tt X} out of the term {\tt P}.  Application
+is assumed to bind more tightly than abstraction, so that {\tt
+var(P)\,$\hat{}$\,C@D} is the same as {\tt var(P)\,$\hat{}$\,(C@D)}.
+
+Empty categories are indicated in the following way:
+%
+\begin{verbatim}
+  empty scop(s,np(pl,-))/n(pl) : con(some).
+\end{verbatim}
+%
+The keyword {\tt empty} simply precedes the category specification.
+
+In writing grammars, the user must be careful that there be only
+finitely many distinct derivations from an empty category.  With an
+empty ${\synsem{\fd{a}{a}}{\alpha}}$, from an $\synsem{a}{f}$ we would
+derive an unbounded sequence of categories:
+\begin{quote}
+$\synsem{a}{f}, \; \synsem{a}{\alpha(f)}, \; \synsem{a}{\alpha(\alpha(f))}, \ldots$
+\end{quote}
+
+In general, any set of categories may be assumed, though they must be
+represented by constants.  It is important to keep in mind that
+variables in the syntactic category component are likely to send the
+parser into infinite loops if they ever occur as complete analyses. 
+Similarly, arbitrary semantic terms may be associated with lexical
+items.  It is up to the user to make sure the types are correct; no
+explicit type checking is done by the system.
+
+The user may wish to consult [Carpenter 1992a] for a discussion of
+lexical rules in a categorial grammar of English.  Unfortunately, the
+system provides no support for such rules.  The user may also wish to
+consult [Carpenter in press] for an extensive discussion of the
+lexicon and rules this system was designed around.
+
+
+
+\mysection{Writing Grammars}
+
+The user can easily modify the grammar schemes by commenting out
+undesirable rules.  Furthermore, additional rules can be added.
+Before doing so, it is best to study the source code for the rules
+that have been included.  For instance, eliminating all but the
+lexical and slash elimination schemes opens up the possibility of
+introducing some specific combinatory rules as done by Steedman
+[1988].  For instance, we could add a rule scheme for composition:
+%
+\begin{verbatim}
+  cat(A/B, var(X)^F@(G@var(X)), Ass, Qs, 
+      tree(comp, A/B:var(X)^F@(G@var(X)), [T1,T2]))
+  ===>
+  [ cat(A/C, F, Ass1, Qs1, T1),
+    cat(C/B, G, Ass2, Qs2, T2) ]
+  if
+    append(Ass1,Ass2,Ass),
+    append(Qs1,Qs2,Qs).
+\end{verbatim}
+%
+The rewriting rules are between terms built out of {\tt cat}/5, where
+the first argument is the syntactic category, the second is the
+semantic term, the third is the set of undischarged assumptions, the
+fourth is the set of undischarged quantifiers, and the fifth is the
+analysis tree.  As can be seen from this example, several details of
+the system such as its internal representation of trees and
+assumptions must be known.  Furthermore, by introducing a new rule
+scheme, the I/O subroutine for printing the rule name must be
+extended.  An example for this particular case is:
+%
+\begin{verbatim}
+  pp_rule(comp):-write(comp).            % write the rule name ASCII
+  pp_lat_rule(comp):-write('\comp').     % write the rule name LaTeX
+\end{verbatim}
+%
+The second rule assumes the \LaTeX\ macro {\it comp} has been defined.
+
+Modifying rules that reason hypothetically is much more complicated,
+and the user is urged to consult the source code.  
+
+
+
+\mysection{The $\lambda$-Calculus Tools}
+
+The parser, as shipped, reduces all $\lambda$-terms to
+$\beta$-$\eta$-normal form (that is, all possible $\beta$-reductions
+and $\eta$-reductions are carried out).  The user can modify this
+behavior in two ways.  To get rid of all normalization, the clauses
+for {\tt normalize\_tree}/2 can be replaced with a single unit clause
+{\tt normalize\_tree(T,T)}.  To eliminate either $\beta$-reduction or
+$\eta$-reduction, the relevant clause for {\tt reduce/2} can be
+commented out.  In general, fresh bound variables will be used
+throughout, which can sometimes lead to less transparent derivations.
+
+There are a number of tools in the code for the proper manipulation of
+simply typed $\lambda$-terms in Prolog.%
+%
+\footnote{Actually, the tools also work for the monotyped
+$\lambda$-calculus and other type systems, as well.  But, for
+instance, normalization is no longer guaranteed to terminate.}
+%
+We list the predicates available and their function below.  
+%
+\begin{enumerate}
+\item  {\tt free\_for(+N:<term>, +X:<var>, +M:<term>)} \\
+The term {\tt M} is free for {\tt X} in {\tt N}.  
+%
+\item  {\tt free\_var(+M:<term>, -X:<var>)} \\
+The variable {\tt X} is free in the term {\tt M}.
+%
+\item {\tt reduce(+M:<term>, -N:<term>)} \\
+The term {\tt M} reduces to the term {\tt N} by applying
+$\beta$-reduction or $\eta$-reduction.
+%
+\item {\tt reduce\_subterm(+M:<term>, -N:<term>)} \\
+The term {\tt M} reduces in one step to {\tt N} by applying a
+reduction to a subterm of {\tt M}.
+%
+\item  {\tt normalize(+M:<term>, -N:<term>)}
+The term {\tt M} normalizes to {\tt N}, with all bound variables
+renamed.  The procedure follows a leftmost normalization strategy.
+%
+\item  {\tt substitute(+M:<term>, +X:<var>, +N:<term>, -L:<term>)} \\
+The term {\tt L} is the result of substituting {\tt N} for the free
+occurrences of {\tt X} in {\tt M}.
+%
+\item  {\tt fresh\_vars(+M:<term>, -N:<term>)} \\
+The term {\tt N} is the result of replacing all of the bound variables
+in {\tt M} with fresh instances.
+%
+\end{enumerate}
+
+
+\mysection{The Parser}
+
+The parsing strategy employed is a right-to-left, bottom-up, dynamic
+chart parser, based on the parser used in {\sc ale} [Carpenter 1992].
+Its search strategy mixes breadth-first and depth-first aspects.  The
+search through the string is breadth-first right-to-left, so that all
+edges spanning the suffix of a string are computed before proceeding
+leftward to the next word.  The chart is maintained by asserting into
+the database; this is fairly efficient in recent versions of SICStus
+Prolog, for instance, because first-argument indexing is applied even
+dynamic predicates.  Edges, in particular, are indexed by their
+left string position.
+
+This parsing strategy is designed specifically for Prolog so that the
+dynamic edges are truly dynamic, existing only on the Prolog stack and
+heap.  Only inactive (completed) edges are ever asserted.  Rules are
+processed from left-to-right, even though the string is processed
+right-to-left.  Thus, whenever an active edge is considered, we are
+guaranteed that all possible completions have already been added to
+the chart.%
+%
+\footnote{There is a degree of complication here stemming from empty
+categories.  The empty category compilation stage finds all active and
+inactive (completed) edges generable using only empty categories.  At
+run time, every time a new edge is created, it is checked to see if it
+can start the completion of an active edge generated by the empty
+categories.  Furthermore, any time an active edge is seeking another
+category to its right, an empty category may be used.}
+%
+The search at any given left position is depth-first, though.  The
+result is a complete parser for any grammar generating only finitely
+many edges.  If any substring generates infinitely many edges, the
+parser will hang at that position.  Empty entries are entered into the
+chart generically during compilation by using variables for their
+left and right position.
+
+To adapt a chart parsing strategy to logical categorial grammars, in
+which hypothetical reasoning is employed, we use an assumption
+threading technique.  That is, the set of undischarged assumptions is
+passed up the tree by unioning them at every stage (using a simple
+{\tt append/3} operation --- there's never redundancy in hypothetical
+assumptions in CG).  This means that our parsing technique is actually
+similar to the Cooper storage approach to quantification, and the gap
+passing approach to unbounded dependencies.  Before displaying
+completed derivations, a check is done to ensure there are no
+remaining undischarged assumptions.  Furthermore, checks are made to
+make sure that assumptions are discharged in the proper nested
+fashion.  This prevents, for instance, some of the problems associated
+with Cooper storage techniques in general (see [Carpenter in press]
+for discussion).
+
+Some of the rules have Prolog side conditions.  These are indicated
+after the connective {\tt if} (with the same precedence as Prolog's
+{\tt :-}).  These goals are executed after all of the categories have
+been instantiated.  This is slightly less general than the goal
+execution in definite clause grammars (see [Sterling and Shapiro 1987]
+and in {\sc ale} (see [Carpenter 1992]).
+
+There is no checking for redundant analyses, as is usual in chart
+parsing, because the derivation tree is kept as part of the category,
+and thus there is never any redundancy in categories as a whole.  The
+reason trees are passed around is because they are necessary in
+evaluating whether derivations are normal or not.  Whenever an edge
+might be completed by means of a non-normal derivation, it is filtered
+out by side conditions on the rules before entering the chart.
+
+
+
+
+\mysectionstar{References}
+
+%
+\small
+\begin{list}{\ }{\setlength{\listparindent}{-1.5in} 
+                   \setlength{\itemindent}{-0.25in} 
+                   \setlength{\itemsep}{0.0in}
+                   \setlength{\leftmargin}{0.25in} 
+                   \setlength{\labelwidth}{0.2in} 
+                   \setlength{\labelsep}{0.1in} }
+
+\item
+Ajdukiewicz, K., 1935.
+ Die syntaktische konnexit{\"{a}}t.
+ {\it Studia Philosophica} {\bf 1}, 1--27.
+ Translated in S. McCall, ed., {\it Polish Logic: 1920--1939}, 207--231,
+ Oxford University Press: Oxford.  
+
+\item
+Bar-Hillel, Y., 1953.
+ A quasi-arithmetical notation for syntactic description.
+ {\it Language} {\bf 25}.
+
+\item
+Barry, G., M.~Hepple, N.~Leslie, and G.~Morrill, 1991.
+Proof Figures and Structural Operators for Categorial Grammar.  In
+{\it Proceedings of the Fifth Conference of the European Chapter of
+the Association for Computational Linguistics}.
+
+\item
+van~Benthem, J., 1983.  The Semantics of Variety in Categorial
+Grammar.  Report 83-29, Simon Fraser University, Vancouver.  Also in
+W.~Buszkowski, J.~van~Benthem, and W.~Marciszewski, eds., 
+1986, {\it Categorial Grmamar}, Volume 25, Linguistic and Literary
+Studies in Eastern Europe, 37--55, John Benjamins: Amsterdam.
+
+\item
+Carpenter, B., in press.
+{\it Lectures on Type-Theoretical Natural Language Semantics}.
+MIT Press, Cambridge, Massachusetts.
+
+\item
+Carpenter, B., 1992a.
+Lexical and Unary Rules in Categorial Grammar.
+In R.~Levine, ed., {\it Formal Grammar: Theory and Implementation}.
+Vancouver Studies in Cognitive Science Volume 2.  Oxford University
+Press: Oxford.
+
+   \item
+     Carpenter, B.,
+     1992b.
+     ALE 1.0 User's Guide --- The Attribute-Logic Engine
+     (distributed with Prolog software, Categorial
+      Quantification Grammar, and Syllabification Grammar).
+     Carnegie Mellon Laboratory for Computational Linguistics 
+     Technical Report.
+
+\item
+Gazdar, G., 1980.
+ A cross-categorial semantics for coordination.
+ {\it Linguistics and Philosophy} {\bf 3}, 407--410.
+
+\item
+Hepple, M., 1990.
+Normal Form Theorem Proving for the Lambek Calculus.
+In {\it Proceedings of the 13th International Conference on
+Computational Linguistics}, Helsinki.
+
+\item
+Hepple, M., 1992.
+Chart Parsing Lambek Grammars: Modal Extensions and Incrementality.
+In {\it Proceedings of the 14th International Conference on
+Computational Linguistics}, Nantes.
+
+\item
+Hepple, M.\ and G.~Morrill, 1989.
+Parsing and Derivational Equivalence.
+In {\it Proceedings of the European Chapter of the Association for
+Computational Linguistics}, Manchester.
+
+\item
+K\"onig, E., 1989.
+Parsing as Natural Deduction.
+In {\it Proceedings of 27th Meeting of the Association for
+Computational Linguistics}, 272--279.
+
+\item
+K\"onig, E., 1991.
+Parsing Categorial Grammar.  DYANA Deliverable 2.2.2.C.  Also in
+Lecomte, A. (ed.), {\it Word Order in Categorial
+Grammar}, ADOSA, Clermont-Ferrand.
+
+\item
+K\"onig, E., 1992.
+Chart Parsing and the Treatment of Word Order by Hypothetical
+Reasoning.  In Lecomte, A. (ed.), {\it Word Order in Categorial
+Grammar}, ADOSA, Clermont-Ferrand.
+
+
+\item
+Lambek, J., 1958.
+ The mathematics of sentence structure.
+ {\it American Mathematical Monthly} { 65}, 154--169.
+
+\item
+Moortgat, M., 1988.
+{\it Categorial Investigations}.
+Foris, Dordrecht.
+
+\item
+Moortgat, M., 1991.
+  Generalized quantification and discontinuous type constructors.  To
+appear in Sijtsma and van Horck, eds., {\it Proceedings of the Tilburg
+Symposium on Discontinuous Constituency}.  De Gruyter: Berlin.
+
+
+\item
+Morrill, G., in press.
+{\it Type Logical Grammar:  A Categorial Perspective}.
+Kluwer, Dordrecht.
+
+\item
+Steedman, M., 1988.
+ Combinators and grammars.
+ In Oehrle, R., E.~Bach, and D.~Wheeler, eds., {\it Categorial
+  Grammars and Natural Language Structures}, Reidel: Dordrecht.
+
+\item
+Sterling, L., and Shapiro, E.~Y., 1994.
+ {\em The Art of Prolog: Advanced Programming Techniques}.
+ Second Edition.
+ MIT Press, Cambridge, Massachusetts.
+
+\end{list}
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,9 @@
+#Tue Jan 30 02:00:51 CET 2007
+org.eclipse.debug.ui.DebugView+com.amzi.prolog.debugview.leashFail=true
+org.eclipse.debug.ui.DebugView+com.amzi.prolog.debugview.leashRedo=true
+org.eclipse.debug.ui.DebugView+com.amzi.prolog.debugview.leashExit=true
+eclipse.preferences.version=1
+org.eclipse.debug.ui.DebugView+com.amzi.prolog.debugview.leashCall=true
+org.eclipse.debug.ui.DebugView+com.amzi.prolog.debugview.leashInfo=true
+org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<launchPerspectives>\r\n<launchPerspective configurationType\="com.amzi.prolog.ui.launch.prologRuntime" mode\="debug" perspective\="org.eclipse.debug.ui.DebugPerspective"/>\r\n<launchPerspective configurationType\="com.amzi.prolog.ui.launch.prologFileListener" mode\="debug" perspective\="org.eclipse.debug.ui.DebugPerspective"/>\r\n<launchPerspective configurationType\="com.amzi.prolog.ui.launch.prologRemote" mode\="debug" perspective\="org.eclipse.debug.ui.DebugPerspective"/>\r\n</launchPerspectives>\r\n
+org.eclipse.debug.ui.user_view_bindings=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<viewBindings>\r\n<view id\="org.eclipse.ui.console.ConsoleView">\r\n<perspective id\="com.amzi.prolog.ui.prologPerspective" userAction\="opened"/>\r\n</view>\r\n</viewBindings>\r\n

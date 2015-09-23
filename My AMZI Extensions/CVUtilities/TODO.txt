@@ -1,0 +1,28 @@
+	
+- Registry functions
+
+- Common dialogs
+
+- File functions :
+	- *copyfile
+	- copydir
+	- *removefile
+	- *removedir
+	- *movefile
+	- movedir
+	- *createdir
+	- *dirname(Path)
+	- *drivename(Path)
+	- *filename(Path)
+	- *extension(Path)
+	- *name(Path)
+	- *filesize
+	- *chdir
+	- *fileexist
+	- files(dir, wildcard)
+
+- Windows
+	- inputbox
+
+- Strings
+	- stripcomments
